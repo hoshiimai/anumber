@@ -9,6 +9,10 @@ class Cell extends StatelessWidget {
     required this.onTap,
     required this.isSelected,
     required this.isSameLine,
+    required this.isBlock1,
+    required this.isBlock2,
+    required this.isBlock3,
+    required this.isBlock4,
   });
   final int number;
   final int x;
@@ -16,6 +20,10 @@ class Cell extends StatelessWidget {
   final Function() onTap;
   final bool isSelected;
   final bool isSameLine;
+  final bool isBlock1;
+  final bool isBlock2;
+  final bool isBlock3;
+  final bool isBlock4;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +35,18 @@ class Cell extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: isSelected
-                ? Colors.yellow[300]
+                ? Colors.blue[100]
+                : isBlock1
+                ? const Color(0xffffe4b5)
+                : isBlock2
+                ? const Color(0xffffe4b5)
+                : isBlock3
+                ? const Color(0xffffe4b5)
+                : isBlock4
+                ? const Color(0xffffe4b5)
                 : isSameLine
-                    ? Colors.blue[100]
-                    : Colors.white,
+                ? const Color(0xffffe4b5)
+                : const Color(0xfffff8dc),
             border: Border(
               left: BorderSide(
                 color: Colors.black,

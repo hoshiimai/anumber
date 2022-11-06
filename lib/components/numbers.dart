@@ -29,7 +29,7 @@ class Numbers extends StatelessWidget {
         number.toString(),
         style: const TextStyle(
           color: Colors.blueGrey,
-          fontSize: 25,
+          fontSize: 35,
         ),
       ),
     );
