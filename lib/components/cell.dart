@@ -8,6 +8,7 @@ class Cell extends StatelessWidget {
     required this.y,
     required this.onTap,
     required this.inputNum,
+    required this.candidate,
     required this.isSelected,
     required this.isSameLine,
     required this.isBlock1,
@@ -20,6 +21,7 @@ class Cell extends StatelessWidget {
   final int y;
   final Function() onTap;
   final bool inputNum;
+  final int candidate;
   final bool isSelected;
   final bool isSameLine;
   final bool isBlock1;

@@ -8,12 +8,14 @@ class SudokuGrid extends StatelessWidget {
     super.key,
     required this.data,
     required this.init,
+    required this.candidate,
     required this.onTap,
     required this.selectedX,
     required this.selectedY,
   });
   final List<List<int>> data;
   final List<List<int>> init;
+  final List<List<int>> candidate;
   final Function(int x, int y) onTap;
   final int selectedX;
   final int selectedY;
@@ -41,6 +43,7 @@ class SudokuGrid extends StatelessWidget {
                 Cell(
                   inputNum: init[r.key][c.key] == 0,
                   number: c.value,
+                  candidate: c.value,
                   isSelected: selectedX == c.key && selectedY == r.key,
                   isSameLine: selectedX == c.key || selectedY == r.key,
                   isBlock1: Block[blockX1] == c.key && Block[blockY1] == r.key,

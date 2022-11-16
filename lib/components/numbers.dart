@@ -1,5 +1,28 @@
 import 'package:flutter/material.dart';
 
+class ControlButton extends StatelessWidget {
+  ControlButton({
+    super.key,
+    required this.onTap,
+  });
+  final Function(int number) onTap;
+  final List<int> numberTexts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        GestureDetector(
+          onTap: () => onTap(0),
+          child: const Icon(Icons.undo),
+        )
+      ],
+    );
+  }
+}
+
+
 class Numbers extends StatelessWidget {
   Numbers({
     super.key,
@@ -50,3 +73,5 @@ class Numbers extends StatelessWidget {
     );
   }
 }
+
+
