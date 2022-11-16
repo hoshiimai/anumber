@@ -7,6 +7,7 @@ class Cell extends StatelessWidget {
     required this.x,
     required this.y,
     required this.onTap,
+    required this.inputNum,
     required this.isSelected,
     required this.isSameLine,
     required this.isBlock1,
@@ -18,6 +19,7 @@ class Cell extends StatelessWidget {
   final int x;
   final int y;
   final Function() onTap;
+  final bool inputNum;
   final bool isSelected;
   final bool isSameLine;
   final bool isBlock1;
@@ -27,11 +29,13 @@ class Cell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: 30,
-        height: 30,
+        width: (_screenSize.width)/10,
+        height: (_screenSize.width)/10,
         child: Container(
           decoration: BoxDecoration(
             color: isSelected
@@ -69,6 +73,10 @@ class Cell extends StatelessWidget {
           child: Center(
             child: Text(
               number == 0 ? '' : number.toString(),
+              style: TextStyle(
+                color: inputNum ? Colors.blue[900] : Colors.black,
+                fontSize: (_screenSize.width)*3/50
+              ),
             ),
           ),
         ),

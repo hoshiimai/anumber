@@ -46,6 +46,7 @@ class _SudokuState extends State<Sudoku> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         SudokuGrid(
+          init: init,
           data: data,
           selectedX: _selected['x'],
           selectedY: _selected['y'],

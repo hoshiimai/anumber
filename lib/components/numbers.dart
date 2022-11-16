@@ -22,7 +22,22 @@ class Numbers extends StatelessWidget {
     );
   }
 
+//数字入力ボタン
   Widget _number(int number) {
+    return GestureDetector(
+      onTap: () => onTap(number),
+      child: Text(
+        number.toString(),
+        style: const TextStyle(
+          color: Colors.blueGrey,
+          fontSize: 35,
+        ),
+      ),
+    );
+  }
+
+  //数字入力ボタン(候補用)
+  Widget _candidate(int number) {
     return GestureDetector(
       onTap: () => onTap(number),
       child: Text(
