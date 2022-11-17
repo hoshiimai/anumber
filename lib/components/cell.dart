@@ -15,6 +15,7 @@ class Cell extends StatelessWidget {
     required this.isBlock2,
     required this.isBlock3,
     required this.isBlock4,
+    required this.isSpecified,
   });
   final int number;
   final int x;
@@ -28,6 +29,7 @@ class Cell extends StatelessWidget {
   final bool isBlock2;
   final bool isBlock3;
   final bool isBlock4;
+  final bool isSpecified;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,10 @@ class Cell extends StatelessWidget {
         height: (_screenSize.width)/10,
         child: Container(
           decoration: BoxDecoration(
-            color: isSelected
+            color
+                :isSpecified
+                ? Colors.blue[900]
+                : isSelected
                 ? Colors.blue[100]
                 : isBlock1
                 ? const Color(0xffffe4b5)

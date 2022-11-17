@@ -50,6 +50,7 @@ class SudokuGrid extends StatelessWidget {
                   isBlock2: Block[blockX2] == c.key && Block[blockY2] == r.key,
                   isBlock3: Block[blockX3] == c.key && Block[blockY3] == r.key,
                   isBlock4: Block[blockX4] == c.key && Block[blockY4] == r.key,
+                  isSpecified: 4 == c.key && 4 == r.key,
                   x: c.key,
                   y: r.key,
                   onTap: () => onTap(c.key, r.key),

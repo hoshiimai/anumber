@@ -7,21 +7,39 @@ class ControlButton extends StatelessWidget {
   });
   final Function(int number) onTap;
   final List<int> numberTexts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  static bool editPressing = false;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
           onTap: () => onTap(0),
           child: const Icon(Icons.undo),
-        )
+        ),
+        const Icon(
+          Icons.auto_fix_high_outlined,
+          size: 30.0,
+        ),
+        IconButton(
+          icon: const Icon(Icons.mode_edit),
+          onPressed: () {
+            editPressing = true;
+          },
+        ),
+        const Icon(
+          Icons.mode_edit,
+          size: 30.0,
+        ),
+        const Icon(
+          Icons.tips_and_updates_outlined,
+          size: 30.0,
+        ),
       ],
     );
   }
 }
-
 
 class Numbers extends StatelessWidget {
   Numbers({
@@ -30,17 +48,14 @@ class Numbers extends StatelessWidget {
   });
   final Function(int number) onTap;
   final List<int> numberTexts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  static bool editPressing = false;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         for (final int i in numberTexts) _number(i),
-        GestureDetector(
-          onTap: () => onTap(0),
-          child: const Icon(Icons.restore),
-        )
       ],
     );
   }
@@ -53,6 +68,7 @@ class Numbers extends StatelessWidget {
         number.toString(),
         style: const TextStyle(
           color: Colors.blueGrey,
+          // color: editPressing ? Colors.blueGrey : Colors.blue[900],
           fontSize: 35,
         ),
       ),
@@ -73,5 +89,3 @@ class Numbers extends StatelessWidget {
     );
   }
 }
-
-

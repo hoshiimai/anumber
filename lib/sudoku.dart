@@ -70,6 +70,7 @@ class _SudokuState extends State<Sudoku> {
     'x': 0,
     'y': 0,
   };
+  
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +94,9 @@ class _SudokuState extends State<Sudoku> {
         ),
         ControlButton(
           onTap: (int number) {
-            if (data[_selected['y']][_selected['x']] == 0) {
+            if (init[_selected['y']][_selected['x']] == 0) {
               setState(() {
-                candidate[_selected['y']][_selected['x']] = number;
+                data[_selected['y']][_selected['x']] = number;
               });
             }
           },
