@@ -23,14 +23,10 @@ class ControlButton extends StatelessWidget {
           size: 30.0,
         ),
         IconButton(
-          icon: const Icon(Icons.mode_edit),
+          icon: const Icon(Icons.mode_edit, size: 30.0,),
           onPressed: () {
             editPressing = true;
           },
-        ),
-        const Icon(
-          Icons.mode_edit,
-          size: 30.0,
         ),
         const Icon(
           Icons.tips_and_updates_outlined,
