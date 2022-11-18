@@ -9,7 +9,6 @@ class Sudoku extends StatefulWidget {
   // ignore: library_private_types_in_public_api
   _SudokuState createState() => _SudokuState();
 }
-
 class _SudokuState extends State<Sudoku> {
   List<List<int>> init = [
     [9, 0, 0, 5, 0, 4, 0, 7, 0],
@@ -71,6 +70,7 @@ class _SudokuState extends State<Sudoku> {
     'y': 0,
   };
   
+  bool isEdit = false;
 
   @override
   Widget build(BuildContext context) {
@@ -94,14 +94,16 @@ class _SudokuState extends State<Sudoku> {
         ),
         ControlButton(
           onTap: (int number) {
-            if (init[_selected['y']][_selected['x']] == 0) {
-              setState(() {
-                data[_selected['y']][_selected['x']] = number;
-              });
-            }
+            
           },
+          onPress: () {
+            setState(() {
+              isEdit = !isEdit;
+            });
+          } ,
         ),
         Numbers(
+          isPress: isEdit,
           onTap: (int number) {
             if (init[_selected['y']][_selected['x']] == 0) {
               setState(() {

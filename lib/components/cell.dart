@@ -33,13 +33,13 @@ class Cell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
+    var screenSize = MediaQuery.of(context).size;
 
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: (_screenSize.width)/10,
-        height: (_screenSize.width)/10,
+        width: (screenSize.width)/10,
+        height: (screenSize.width)/10,
         child: Container(
           decoration: BoxDecoration(
             color
@@ -82,7 +82,7 @@ class Cell extends StatelessWidget {
               number == 0 ? '' : number.toString(),
               style: TextStyle(
                 color: inputNum ? Colors.blue[900] : Colors.black,
-                fontSize: (_screenSize.width)*3/50
+                fontSize: (screenSize.width)*3/50
               ),
             ),
           ),
