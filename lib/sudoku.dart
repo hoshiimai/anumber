@@ -94,7 +94,11 @@ class _SudokuState extends State<Sudoku> {
         ),
         ControlButton(
           onTap: (int number) {
-            
+            if (init[_selected['y']][_selected['x']] == 0) {
+              setState(() {
+                data[_selected['y']][_selected['x']] = number;
+              });
+            }
           },
           onPress: () {
             setState(() {
