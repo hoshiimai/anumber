@@ -8,14 +8,16 @@ class SudokuGrid extends StatelessWidget {
     super.key,
     required this.data,
     required this.init,
-    required this.candidate,
+    // required this.candidate,
+    required this.tmp,
     required this.onTap,
     required this.selectedX,
     required this.selectedY,
   });
   final List<List<int>> data;
   final List<List<int>> init;
-  final List<List<int>> candidate;
+  // final List<List<int>> candidate;
+  final List<List<int>> tmp;
   final Function(int x, int y) onTap;
   final int selectedX;
   final int selectedY;
@@ -36,21 +38,28 @@ class SudokuGrid extends StatelessWidget {
     return Column(
       children: [
         for (final MapEntry<int, List<int>> r in data.asMap().entries)
+        // for (final MapEntry<int, List<int>> r in tmp.asMap().entries)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for (final MapEntry<int, int> c in r.value.asMap().entries)
+                // for (final MapEntry<int, int> c in r.value.asMap().entries)
                 Cell(
                   inputNum: init[r.key][c.key] == 0,
                   number: c.value,
-                  candidate: c.value,
+                  // candidate: d.value,
                   isSelected: selectedX == c.key && selectedY == r.key,
                   isSameLine: selectedX == c.key || selectedY == r.key,
                   isBlock1: Block[blockX1] == c.key && Block[blockY1] == r.key,
                   isBlock2: Block[blockX2] == c.key && Block[blockY2] == r.key,
                   isBlock3: Block[blockX3] == c.key && Block[blockY3] == r.key,
                   isBlock4: Block[blockX4] == c.key && Block[blockY4] == r.key,
-                  isSpecified: 4 == c.key && 4 == r.key,
+                  // isSpecified: (8 == c.key && 8 == r.key) || (8 == c.key && 8 == r.key),
+                  // isSpecified_top: (8 == c.key && 8 == r.key) || (8 == c.key && 9 == r.key),
+                  isSpecified: (5 == c.key && 4 == r.key) || (6 == c.key && 4 == r.key),
+                  isSpecified_top: (5 == c.key && 4 == r.key) || (5 == c.key && 5 == r.key),
+                  isSpecified_right: 9 == c.key && 9 == r.key,
+                  isSpecified_bottom: 9 == c.key && 9 == r.key,
                   x: c.key,
                   y: r.key,
                   onTap: () => onTap(c.key, r.key),
@@ -60,6 +69,8 @@ class SudokuGrid extends StatelessWidget {
       ],
     );
   }
+
+  
 
   Map<int, dynamic> findBlock() {
     if ((selectedX == 0 || selectedX == 3 || selectedX == 6) &&
