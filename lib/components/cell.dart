@@ -1,3 +1,15 @@
+/*
+****************************************
+機能：・数字、マスの描画
+　　　・色の設定
+IN：盤面の数字、grid.dartの判定結果
+OUI：・問題の数字(描画)
+     ・盤面の枠線
+     ・マスの塗りつぶし
+----------------------------------------
+履歴：
+****************************************
+*/
 import 'package:flutter/material.dart';
 
 class Cell extends StatelessWidget {
@@ -8,34 +20,34 @@ class Cell extends StatelessWidget {
     required this.y,
     required this.onTap,
     required this.inputNum,
-    // required this.candidate,
     required this.isSelected,
     required this.isSameLine,
+    required this.isEdit,
     required this.isBlock1,
     required this.isBlock2,
     required this.isBlock3,
     required this.isBlock4,
-    required this.isSpecified,
-    required this.isSpecified_right,
-    required this.isSpecified_top,
-    required this.isSpecified_bottom,
+    required this.isLeft,
+    required this.isRight,
+    required this.isTop,
+    required this.isBottom,
   });
   final int number;
   final int x;
   final int y;
   final Function() onTap;
   final bool inputNum;
-  // final int candidate;
   final bool isSelected;
   final bool isSameLine;
+  final bool isEdit;
   final bool isBlock1;
   final bool isBlock2;
   final bool isBlock3;
   final bool isBlock4;
-  final bool isSpecified;
-  final bool isSpecified_right;
-  final bool isSpecified_top;
-  final bool isSpecified_bottom;
+  final bool isLeft;
+  final bool isRight;
+  final bool isTop;
+  final bool isBottom;
 
   @override
   Widget build(BuildContext context) {
@@ -44,52 +56,57 @@ class Cell extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
+        // 盤面のサイズ(人マスのサイズを指定)
         width: (screenSize.width)/10,
         height: (screenSize.width)/10,
+
         child: Container(
           decoration: BoxDecoration(
+            // 盤面の色設定
             color
-                // :isSpecified
-                // ? Colors.blue[900]
-                : isSelected
+                : isSelected // 選択マスかどうか
                 ? Colors.blue[100]
-                : isBlock1
+                : isBlock1 // 選択マスの領域(ブロック)かどうか
                 ? const Color(0xffffe4b5)
-                : isBlock2
+                : isBlock2 // 選択マスの領域(ブロック)かどうか
                 ? const Color(0xffffe4b5)
-                : isBlock3
+                : isBlock3 // 選択マスの領域(ブロック)かどうか
                 ? const Color(0xffffe4b5)
-                : isBlock4
+                : isBlock4 // 選択マスの領域(ブロック)かどうか
                 ? const Color(0xffffe4b5)
-                : isSameLine
+                : isSameLine // 選択マスの領域(行列)かどうか
                 ? const Color(0xffffe4b5)
-                : const Color(0xfffff8dc),
+                : const Color(0xfffff8dc), // 標準の色
+
+            // 盤面の枠線描画                
             border: Border(
               left: BorderSide(
-                color: isSpecified ? Colors.red : Colors.black,
-                width: (x % 3 == 0 || isSpecified) ? 2 : 0,
+                color: isLeft ? Colors.red : Colors.black,
+                width: (x % 3 == 0 || isLeft) ? 2 : 0,
               ),
               right: BorderSide(
-                color: isSpecified_right ? Colors.red : Colors.black,
-                width: (x == 8 || isSpecified_right) ? 2 : 0,
+                color: isRight ? Colors.red : Colors.black,
+                width: (x == 8 || isRight) ? 2 : 0,
               ),
               top: BorderSide(
-                color: isSpecified_top ? Colors.red : Colors.black,
-                width: (y % 3 == 0 || isSpecified_top) ? 2 : 0,
+                color: isTop ? Colors.red : Colors.black,
+                width: (y % 3 == 0 || isTop) ? 2 : 0,
               ),
               bottom: BorderSide(
-                color: isSpecified_bottom ? Colors.red : Colors.black,
-                width: (y == 8 || isSpecified_bottom) ? 2 : 0,
+                color: isBottom ? Colors.red : Colors.black,
+                width: (y == 8 || isBottom) ? 2 : 0,
               ),
             ),
           ),
+
+          // 表示する数字を描画
           child: Center(
             child: Text(
-              number == 0 ? '' : number.toString(),
+              // 空のマスには0が設定されるため、0の時は消す、それ以外は描画
+              number == 0 || (isEdit && inputNum)? '' : number.toString(),
               style: TextStyle(
+                // 問題の数字か、入力された数字かで色分け
                 color: inputNum ? Colors.blue[900] : Colors.black,
-                // fontWeight: FontWeight.bold,
-                // fontSize: number == 9 ? (screenSize.width)*1/45 : (screenSize.width)*3/50
                 fontSize: (screenSize.width)*3/45
               ),
             ),

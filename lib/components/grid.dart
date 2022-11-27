@@ -1,26 +1,37 @@
+/*
+****************************************
+機能：問題のリストを左上から順番に処理する
+IN：問題、選択マス
+OUI：・問題の数字
+     ・入力された数字かどうかの判定結果
+　　 ・領域の判定結果
+     ・指定マスの判定結果
+     ・問題のリストx,yの座標
+　　 ・候補判定フラグ
+----------------------------------------
+履歴：
+****************************************
+*/
 import 'package:flutter/material.dart';
 import 'package:anumber/components/cell.dart';
 
-import '../sudoku.dart';
 
 class SudokuGrid extends StatelessWidget {
   const SudokuGrid({
     super.key,
     required this.data,
     required this.init,
-    // required this.candidate,
-    required this.tmp,
     required this.onTap,
     required this.selectedX,
     required this.selectedY,
+    required this.isEdit,
   });
   final List<List<int>> data;
   final List<List<int>> init;
-  // final List<List<int>> candidate;
-  final List<List<int>> tmp;
   final Function(int x, int y) onTap;
   final int selectedX;
   final int selectedY;
+  final bool isEdit;
   static int blockX1 = 0;
   static int blockY1 = 0;
   static int blockX2 = 0;
@@ -38,31 +49,32 @@ class SudokuGrid extends StatelessWidget {
     return Column(
       children: [
         for (final MapEntry<int, List<int>> r in data.asMap().entries)
-        // for (final MapEntry<int, List<int>> r in tmp.asMap().entries)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for (final MapEntry<int, int> c in r.value.asMap().entries)
-                // for (final MapEntry<int, int> c in r.value.asMap().entries)
                 Cell(
-                  inputNum: init[r.key][c.key] == 0,
-                  number: c.value,
-                  // candidate: d.value,
-                  isSelected: selectedX == c.key && selectedY == r.key,
-                  isSameLine: selectedX == c.key || selectedY == r.key,
+                  number: c.value,  // 数字
+                  inputNum: init[r.key][c.key] == 0,  // 入力された数字かどうか判定
+                  isSelected: selectedX == c.key && selectedY == r.key,  // 選択マス判定
+                  isSameLine: selectedX == c.key || selectedY == r.key,  // 選択マスの行列判定
+                  
+                  // 選択マスの領域(ブロック)のマス判定
                   isBlock1: Block[blockX1] == c.key && Block[blockY1] == r.key,
                   isBlock2: Block[blockX2] == c.key && Block[blockY2] == r.key,
                   isBlock3: Block[blockX3] == c.key && Block[blockY3] == r.key,
                   isBlock4: Block[blockX4] == c.key && Block[blockY4] == r.key,
-                  // isSpecified: (8 == c.key && 8 == r.key) || (8 == c.key && 8 == r.key),
-                  // isSpecified_top: (8 == c.key && 8 == r.key) || (8 == c.key && 9 == r.key),
-                  isSpecified: (5 == c.key && 4 == r.key) || (6 == c.key && 4 == r.key),
-                  isSpecified_top: (5 == c.key && 4 == r.key) || (5 == c.key && 5 == r.key),
-                  isSpecified_right: 9 == c.key && 9 == r.key,
-                  isSpecified_bottom: 9 == c.key && 9 == r.key,
+
+                  // 指定マスの枠判定
+                  isLeft: (5 == c.key && 4 == r.key) || (6 == c.key && 4 == r.key),
+                  isRight: 9 == c.key && 9 == r.key,
+                  isTop: (5 == c.key && 4 == r.key) || (5 == c.key && 5 == r.key),
+                  isBottom: 9 == c.key && 9 == r.key,
+                  
                   x: c.key,
                   y: r.key,
                   onTap: () => onTap(c.key, r.key),
+                  isEdit: isEdit,
                 ),
             ],
           ),
@@ -71,7 +83,7 @@ class SudokuGrid extends StatelessWidget {
   }
 
   
-
+  // 選択マスの領域(ブロック)の内、該当する行と列以外のマスの座標を抽出する
   Map<int, dynamic> findBlock() {
     if ((selectedX == 0 || selectedX == 3 || selectedX == 6) &&
         (selectedY == 0 || selectedY == 3 || selectedY == 6)) { // A

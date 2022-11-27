@@ -1,5 +1,13 @@
+/*
+****************************************
+機能：アプリ起動時の画面
+OUI：home.dart
+----------------------------------------
+履歴：
+****************************************
+*/
 import 'package:flutter/material.dart';
-import 'package:anumber/sudoku.dart';
+import 'home.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,7 +34,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('A Number'),
       ),
-      body: Sudoku(),
+      body: const Home(),
     );
   }
 }
