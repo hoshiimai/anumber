@@ -72,6 +72,15 @@ class _SudokuState extends State<Sudoku> {
                   if (Data.init[Data.selectedY][Data.selectedX] == 0) {
                     setState(() {
                       Data.data[Data.selectedY][Data.selectedX] = number;
+                      Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 0;
+                      Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
+                      Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 0;
                     });
                   }
                 },
@@ -87,41 +96,65 @@ class _SudokuState extends State<Sudoku> {
                 isPress: isEdit,
                 onTap: (int number) {
                   if (Data.init[Data.selectedY][Data.selectedX] == 0) {
-                    if (number == 1){
-                      setState(() {
-                      Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = number;
-                    });
-                    } else if (number == 2) {
-                      setState(() {
-                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = number;
+                    if (isEdit == true && Data.data[Data.selectedY][Data.selectedX] == 0) {
+                      if (number == 1){
+                        setState(() {
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX] == number ? 0 : number;
                       });
-                    }  else if (number == 3) {
+                      } else if (number == 2) {
+                        setState(() {
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] == number ? 0 : number;
+                        });
+                      }  else if (number == 3) {
+                        setState(() {
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] == number ? 0 : number;
+                        });
+                      }  else if (number == 4) {
+                        setState(() {
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] == number ? 0 : number;
+                        });
+                      }  else if (number == 5) {
+                        setState(() {
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] == number ? 0 : number;
+                        });
+                      }  else if (number == 6) {
+                        setState(() {
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] == number ? 0 : number;
+                        });
+                      }  else if (number == 7) {
+                        setState(() {
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] == number ? 0 : number;
+                        });
+                      }  else if (number == 8) {
+                        setState(() {
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] == number ? 0 : number;
+                        });
+                      }  else if (number == 9) {
+                        setState(() {
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] == number ? 0 : number;
+                        });
+                      }
+                    } else if (isEdit == false) {
                       setState(() {
-                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = number;
-                      });
-                    }  else if (number == 4) {
-                      setState(() {
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = number;
-                      });
-                    }  else if (number == 5) {
-                      setState(() {
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = number;
-                      });
-                    }  else if (number == 6) {
-                      setState(() {
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = number;
-                      });
-                    }  else if (number == 7) {
-                      setState(() {
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = number;
-                      });
-                    }  else if (number == 8) {
-                      setState(() {
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = number;
-                      });
-                    }  else if (number == 9) {
-                      setState(() {
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = number;
+                        Data.data[Data.selectedY][Data.selectedX] = number;
+                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 0;
+                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
+                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
+                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 0;
+                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
+                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 0;
                       });
                     }
                   }

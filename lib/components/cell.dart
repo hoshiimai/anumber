@@ -103,7 +103,7 @@ class Cell extends StatelessWidget {
           child: Center(
             child: Text(
               // 空のマスには0が設定されるため、0の時は消す、それ以外は描画
-              number == 0 || (isEdit && inputNum)? '' : number.toString(),
+              number == 0 ? '' : number.toString(),
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
                 color: inputNum ? Colors.blue[900] : Colors.black,
