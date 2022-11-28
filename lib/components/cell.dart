@@ -56,9 +56,9 @@ class Cell extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        // 盤面のサイズ(人マスのサイズを指定)
-        width: (screenSize.width)/10,
-        height: (screenSize.width)/10,
+        // 盤面のサイズ(一マスのサイズを指定)
+        width: (screenSize.width)/9.5,
+        height: (screenSize.width)/9.5,
 
         child: Container(
           decoration: BoxDecoration(
@@ -107,7 +107,7 @@ class Cell extends StatelessWidget {
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
                 color: inputNum ? Colors.blue[900] : Colors.black,
-                fontSize: (screenSize.width)*3/45
+                fontSize: (screenSize.width)*7/95
               ),
             ),
           ),

@@ -28,6 +28,7 @@ class _SudokuState extends State<Sudoku> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: Scaffold(
@@ -37,8 +38,11 @@ class _SudokuState extends State<Sudoku> {
         body: Center(
           child: Column(
             // 盤面、アイコン、数字ボタンを縦方向に並べ、スペースを均等に配置
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              SizedBox(
+                height: (screenSize.width)*2/9.5,
+              ),
               // 問題の盤面の上に候補の盤面を重ねて表示
               Stack(
                 alignment: Alignment.center,
@@ -66,6 +70,11 @@ class _SudokuState extends State<Sudoku> {
                 ],
               ),
 
+              // 余白
+              SizedBox(
+                height: (screenSize.width)/10,
+              ),
+
               // アイコンボタン
               ControlButton(
                 onTap: (int number) {
@@ -91,6 +100,11 @@ class _SudokuState extends State<Sudoku> {
                 },
               ),
 
+              // 余白
+              SizedBox(
+                height: (screenSize.width)/10,
+              ),
+              
               // 数字ボタン
               Numbers(
                 isPress: isEdit,

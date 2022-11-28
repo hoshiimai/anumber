@@ -25,15 +25,16 @@ class Candidate extends StatelessWidget {
 
     return GestureDetector(
       child: SizedBox(
-        width:(screenSize.width) / 30,
-        height:(screenSize.width) / 30,
+        width:(screenSize.width)/28.5,
+        height:(screenSize.width)/28.5,
 
         child: Center(
           child: Text(
             number == 0 ? '' : number.toString(),
             style: TextStyle(
-                color: Colors.black,
-                fontSize: (screenSize.width) * 1 / 45),
+                color: Colors.grey[600],
+                // fontWeight: FontWeight.bold,
+                fontSize: (screenSize.width)*1.4/45),
           ),
         ),
       ),
