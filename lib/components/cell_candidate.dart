@@ -13,11 +13,8 @@ class Candidate extends StatelessWidget {
   const Candidate({
     super.key,
     required this.number,
-    required this.isEdit,
-
   });
   final int number;
-  final bool isEdit;
 
   @override
   Widget build(BuildContext context) {

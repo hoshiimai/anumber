@@ -24,14 +24,12 @@ class SudokuGrid extends StatelessWidget {
     required this.onTap,
     required this.selectedX,
     required this.selectedY,
-    required this.isEdit,
   });
   final List<List<int>> data;
   final List<List<int>> init;
   final Function(int x, int y) onTap;
   final int selectedX;
   final int selectedY;
-  final bool isEdit;
   static int blockX1 = 0;
   static int blockY1 = 0;
   static int blockX2 = 0;
@@ -40,7 +38,6 @@ class SudokuGrid extends StatelessWidget {
   static int blockY3 = 0;
   static int blockX4 = 0;
   static int blockY4 = 0;
-
 
 
   @override
@@ -74,7 +71,6 @@ class SudokuGrid extends StatelessWidget {
                   x: c.key,
                   y: r.key,
                   onTap: () => onTap(c.key, r.key),
-                  isEdit: isEdit,
                 ),
             ],
           ),

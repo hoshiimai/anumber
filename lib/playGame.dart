@@ -49,7 +49,6 @@ class _SudokuState extends State<Sudoku> {
                 children: [
                   // 問題の盤面
                   SudokuGrid(
-                    isEdit: isEdit,
                     init: Data.init,
                     data: Data.data,
                     selectedX: Data.selectedX,
@@ -64,7 +63,6 @@ class _SudokuState extends State<Sudoku> {
 
                   // 候補の盤面
                   CandidateGrid(
-                    isEdit: isEdit,
                     candidate: Data.tmp,
                   ),
                 ],
@@ -72,7 +70,7 @@ class _SudokuState extends State<Sudoku> {
 
               // 余白
               SizedBox(
-                height: (screenSize.width)/10,
+                height: (screenSize.width)/5,
               ),
 
               // アイコンボタン

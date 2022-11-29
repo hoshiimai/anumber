@@ -15,10 +15,8 @@ class CandidateGrid extends StatelessWidget {
   const CandidateGrid({
     super.key,
     required this.candidate,
-    required this.isEdit,
   });
   final List<List<int>> candidate;
-  final bool isEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,6 @@ class CandidateGrid extends StatelessWidget {
               for (final MapEntry<int, int> c in r.value.asMap().entries)
                   Candidate(
                     number: c.value,
-                    isEdit: isEdit,
                   ),
             ],
           ),

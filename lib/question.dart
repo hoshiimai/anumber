@@ -8,8 +8,8 @@
 
 abstract class Data {
   
-  static var selectedX = 4;
-  static var selectedY = 4;
+  static int selectedX = 4;
+  static int selectedY = 4;
 
   static List<List<int>> init = [
     [9, 4, 0, 0, 0, 0, 0, 0, 7],

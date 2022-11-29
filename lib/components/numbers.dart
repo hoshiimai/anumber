@@ -83,7 +83,7 @@ class Numbers extends StatelessWidget {
         number.toString(),
         style: TextStyle(
           color: isPress ? Colors.blueGrey : Colors.blue[900],
-          fontSize: 35,
+          fontSize: 40,
         ),
       ),
     );

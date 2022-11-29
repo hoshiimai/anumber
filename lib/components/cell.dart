@@ -22,7 +22,6 @@ class Cell extends StatelessWidget {
     required this.inputNum,
     required this.isSelected,
     required this.isSameLine,
-    required this.isEdit,
     required this.isBlock1,
     required this.isBlock2,
     required this.isBlock3,
@@ -39,7 +38,6 @@ class Cell extends StatelessWidget {
   final bool inputNum;
   final bool isSelected;
   final bool isSameLine;
-  final bool isEdit;
   final bool isBlock1;
   final bool isBlock2;
   final bool isBlock3;
