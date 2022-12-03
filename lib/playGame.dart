@@ -12,6 +12,7 @@ import 'package:anumber/question.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/grid.dart';
 import 'package:anumber/components/numbers.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Sudoku extends StatefulWidget {
   const Sudoku({Key? key}) : super(key: key);
@@ -22,6 +23,13 @@ class Sudoku extends StatefulWidget {
 }
 
 class _SudokuState extends State<Sudoku> {
+  // バナー広告をインスタンス化
+  // final BannerAd myBanner = BannerAd(
+  //   adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+  //   size: AdSize.banner,
+  //   request: AdRequest(),
+  //   listener: BannerAdListener(),
+  // )..load();
 
   // 候補入力判断用フラグ
   bool isEdit = false;
@@ -41,7 +49,7 @@ class _SudokuState extends State<Sudoku> {
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
-                height: (screenSize.width)*2/9.5,
+                height: (screenSize.width) * 2 / 9.5,
               ),
               // 問題の盤面の上に候補の盤面を重ねて表示
               Stack(
@@ -70,7 +78,7 @@ class _SudokuState extends State<Sudoku> {
 
               // 余白
               SizedBox(
-                height: (screenSize.width)/5,
+                height: (screenSize.width) / 15,
               ),
 
               // アイコンボタン
@@ -83,11 +91,15 @@ class _SudokuState extends State<Sudoku> {
                       Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
                       Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
                       Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
-                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 0;
-                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] =
+                          0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] =
+                          0;
                       Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
-                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 0;
-                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] =
+                          0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] =
+                          0;
                     });
                   }
                 },
@@ -100,77 +112,206 @@ class _SudokuState extends State<Sudoku> {
 
               // 余白
               SizedBox(
-                height: (screenSize.width)/10,
+                height: (screenSize.width) / 10,
               ),
-              
+
               // 数字ボタン
               Numbers(
                 isPress: isEdit,
                 onTap: (int number) {
                   if (Data.init[Data.selectedY][Data.selectedX] == 0) {
-                    if (isEdit == true && Data.data[Data.selectedY][Data.selectedX] == 0) {
-                      if (number == 1){
+                    if (isEdit == true &&
+                        Data.data[Data.selectedY][Data.selectedX] == 0) {
+                      if (number == 1) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX] == number ? 0 : number;
-                      });
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX] =
+                              Data.tmp[3 * Data.selectedY]
+                                          [3 * Data.selectedX] ==
+                                      number
+                                  ? 0
+                                  : number;
+                        });
                       } else if (number == 2) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] =
+                              Data.tmp[3 * Data.selectedY]
+                                          [3 * Data.selectedX + 1] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
-                      }  else if (number == 3) {
+                      } else if (number == 3) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] =
+                              Data.tmp[3 * Data.selectedY]
+                                          [3 * Data.selectedX + 2] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
-                      }  else if (number == 4) {
+                      } else if (number == 4) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] =
+                              Data.tmp[3 * Data.selectedY + 1]
+                                          [3 * Data.selectedX] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
-                      }  else if (number == 5) {
+                      } else if (number == 5) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 1]
+                                  [3 * Data.selectedX + 1] =
+                              Data.tmp[3 * Data.selectedY + 1]
+                                          [3 * Data.selectedX + 1] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
-                      }  else if (number == 6) {
+                      } else if (number == 6) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 1]
+                                  [3 * Data.selectedX + 2] =
+                              Data.tmp[3 * Data.selectedY + 1]
+                                          [3 * Data.selectedX + 2] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
-                      }  else if (number == 7) {
+                      } else if (number == 7) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] =
+                              Data.tmp[3 * Data.selectedY + 2]
+                                          [3 * Data.selectedX] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
-                      }  else if (number == 8) {
+                      } else if (number == 8) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 2]
+                                  [3 * Data.selectedX + 1] =
+                              Data.tmp[3 * Data.selectedY + 2]
+                                          [3 * Data.selectedX + 1] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
-                      }  else if (number == 9) {
+                      } else if (number == 9) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 2]
+                                  [3 * Data.selectedX + 2] =
+                              Data.tmp[3 * Data.selectedY + 2]
+                                          [3 * Data.selectedX + 2] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       }
                     } else if (isEdit == false) {
                       setState(() {
                         Data.data[Data.selectedY][Data.selectedX] = number;
                         Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 0;
-                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
-                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 0;
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 0;
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 0;
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 0;
+                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] =
+                            0;
+                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] =
+                            0;
+                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] =
+                            0;
+                        Data.tmp[3 * Data.selectedY + 1]
+                            [3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY + 1]
+                            [3 * Data.selectedX + 2] = 0;
+                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] =
+                            0;
+                        Data.tmp[3 * Data.selectedY + 2]
+                            [3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY + 2]
+                            [3 * Data.selectedX + 2] = 0;
                       });
                     }
                   }
                 },
+              ),
+
+              // 余白
+              SizedBox(
+                height: (screenSize.width) / 15,
+              ),
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue,
+                  onPrimary: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+                onPressed: () {
+                  int answer = 9;
+                  AwesomeDialog(
+                    context: context,
+                    headerAnimationLoop: false,
+                    animType: AnimType.SCALE,
+                    //title: 'INFO',
+                    dialogType: DialogType.SUCCES,
+                    //borderSide: BorderSide(color: Colors.green, width: 2),
+                    body: const Center(
+                      child: Text(
+                        '正解！',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                        //style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                    title: 'This is Ignored',
+                    desc: 'This is also Ignored',
+                    btnOkText: "次の問題",
+                    // btnOkOnPress: () => push(context, Ele2()),
+                    btnOkColor: Colors.blueAccent,
+                    btnCancelText: "解説",
+                    // btnCancelOnPress: () => push(context, Ele1_1()),
+                    btnCancelColor: Colors.blueAccent,
+                  ).show();
+                  // } else {
+                  //   AwesomeDialog(
+                  //     context: context,
+                  //     headerAnimationLoop: false,
+                  //     animType: AnimType.SCALE,
+                  //     //title: 'INFO',
+                  //     dialogType: DialogType.ERROR,
+                  //     body: Center(
+                  //       child: Text(
+                  //         '残念',
+                  //         style: TextStyle(
+                  //           fontSize: 20,
+                  //         ),
+                  //         //style: TextStyle(fontStyle: FontStyle.italic),
+                  //       ),
+                  //     ),
+                  //     btnOkText: "解説",
+                  //     btnOkOnPress: () => push(context, Ele1_1()),
+                  //     btnOkColor: Colors.blueAccent,
+                  //     btnCancelText: "閉じる",
+                  //     btnCancelOnPress: () {},
+                  //     btnCancelColor: Colors.blueAccent,
+                  //   ).show();
+                  // },
+                },
+                child: const Text(
+                  '決定',
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                height: 50.0, //バナー広告のサイズ 320×50 なので
+                width: double.infinity,
+                // child: AdWidget(ad: myBanner),
               ),
             ],
           ),

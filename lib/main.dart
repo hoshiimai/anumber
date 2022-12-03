@@ -10,7 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'home.dart';
 
+
 void main() {
+  //AdMobの初期化処理
+  // WidgetsFlutterBinding.ensureInitialized();
+  // MobileAds.instance.initialize();
   WidgetsFlutterBinding.ensureInitialized();
   //向き指定
   SystemChrome.setPreferredOrientations([
