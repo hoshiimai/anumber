@@ -7,12 +7,13 @@ OUT：ゲーム画面
 履歴：
 ****************************************
 */
-import 'package:anumber/components/confirmButton.dart';
-import 'package:anumber/components/grid_candidate.dart';
+import 'package:anumber/components/button/confirmButton.dart';
+import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/question.dart';
 import 'package:flutter/material.dart';
-import 'package:anumber/components/grid.dart';
-import 'package:anumber/components/numbers.dart';
+import 'package:anumber/components/board/grid.dart';
+import 'package:anumber/components/button/numbers.dart';
+import 'dart:async';
 
 
 class Sudoku extends StatefulWidget {
@@ -24,6 +25,9 @@ class Sudoku extends StatefulWidget {
 }
 
 class _SudokuState extends State<Sudoku> {
+ 
+
+
   // バナー広告をインスタンス化
   // final BannerAd myBanner = BannerAd(
   //   adUnitId: 'ca-app-pub-3940256099942544/6300978111',
@@ -49,9 +53,44 @@ class _SudokuState extends State<Sudoku> {
             // 盤面、アイコン、数字ボタンを縦方向に並べ、スペースを均等に配置
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              //余白
               SizedBox(
-                height: (screenSize.width) * 2 / 9.5,
+                height: (screenSize.width)/10,
               ),
+
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: (screenSize.width)/25),
+                    child: Text(
+                      '初級',
+                      style: TextStyle(
+                        fontSize: (screenSize.width)/25,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: (screenSize.width)/25),
+                    child: const Icon(Icons.timer),
+                  ),
+                ],
+                // mainAxisAlignment: MainAxisAlignment.end,
+                // children: <Widget>[
+                //   Icon(Icons.timer),
+                //   Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,)),
+                //   Container(
+                //     padding: EdgeInsets.only(
+                //       right: rpx(context, 70.0),
+                //     ),
+                //   ),
+                // ],
+              ),
+
+              //余白
+              SizedBox(
+                height: (screenSize.width)/50,
+              ),
+
               // 問題の盤面の上に候補の盤面を重ねて表示
               Stack(
                 alignment: Alignment.center,
@@ -79,7 +118,7 @@ class _SudokuState extends State<Sudoku> {
 
               // 余白
               SizedBox(
-                height: (screenSize.width) / 15,
+                height: (screenSize.width)/15,
               ),
 
               // アイコンボタン
@@ -109,7 +148,7 @@ class _SudokuState extends State<Sudoku> {
 
               // 余白
               SizedBox(
-                height: (screenSize.width) / 10,
+                height: (screenSize.width)/10,
               ),
 
               // 数字ボタン
@@ -185,7 +224,7 @@ class _SudokuState extends State<Sudoku> {
 
               // 余白
               SizedBox(
-                height: (screenSize.width) / 15,
+                height: (screenSize.width)/15,
               ),
 
               //決定、解答ボタン

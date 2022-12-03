@@ -7,7 +7,7 @@ OUT：playGame.dartに遷移
 履歴：
 ****************************************
 */
-import 'package:anumber/playGame.dart';
+import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class Home extends StatefulWidget {

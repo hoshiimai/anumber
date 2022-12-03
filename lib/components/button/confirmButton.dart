@@ -11,7 +11,7 @@ OUT：・ヒントの表示
 */
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:anumber/playGame.dart';
+import 'package:anumber/components/screen/gameScreen.dart';
 
 
 class ConfirmButton extends StatelessWidget {
@@ -29,8 +29,8 @@ class ConfirmButton extends StatelessWidget {
       children: [
         //決定(答え判定)ボタン
         SizedBox(
-          height: (screenSize.width) / 10,
-          width: (screenSize.width) / 4,
+          height: (screenSize.width)/10,
+          width: (screenSize.width)/4,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               primary: Colors.blue,
@@ -115,7 +115,7 @@ class ConfirmButton extends StatelessWidget {
             child: Text(
               '決定',
               style: TextStyle(
-                fontSize: (screenSize.width) /18,
+                fontSize: (screenSize.width)/18,
                 color: Colors.white,
               ),
             ),
@@ -125,8 +125,8 @@ class ConfirmButton extends StatelessWidget {
 
         //解答ボタン
         SizedBox(
-          height: (screenSize.width) / 10,
-          width: (screenSize.width) / 4,
+          height: (screenSize.width)/10,
+          width: (screenSize.width)/4,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               primary: Colors.blue,
@@ -159,7 +159,7 @@ class ConfirmButton extends StatelessWidget {
             child: Text(
               '解答',
               style: TextStyle(
-                fontSize: (screenSize.width) /18,
+                fontSize: (screenSize.width)/18,
                 color: Colors.white,
               ),
             ),

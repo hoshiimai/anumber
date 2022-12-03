@@ -13,7 +13,7 @@ OUT：・問題の数字
 ****************************************
 */
 import 'package:flutter/material.dart';
-import 'package:anumber/components/cell.dart';
+import 'package:anumber/components/board/cell.dart';
 
 
 class SudokuGrid extends StatelessWidget {
