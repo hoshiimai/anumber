@@ -15,7 +15,6 @@ import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
 import 'dart:async';
 
-
 class Sudoku extends StatefulWidget {
   const Sudoku({Key? key}) : super(key: key);
 
@@ -24,9 +23,59 @@ class Sudoku extends StatefulWidget {
   _SudokuState createState() => _SudokuState();
 }
 
-class _SudokuState extends State<Sudoku> {
- 
+class _SudokuState extends State<Sudoku> with WidgetsBindingObserver {
+  late Timer _timer;
+  late DateTime _time;
 
+  @override
+  void initState() {
+    super.initState();
+    _time = DateTime.utc(0, 0, 0);
+    getdata();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  getdata() async {
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer timer) {
+        setState(() {
+          _time = _time.add(const Duration(seconds: 1));
+        });
+      },
+    );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("state = $state");
+    if (state == AppLifecycleState.paused) {
+      // バックグラウンドに遷移した時
+      setState(_handleOnPaused);
+    } else if (state == AppLifecycleState.resumed) {
+      // フォアグラウンドに復帰した時
+      setState(_handleOnResumed);
+    }
+  }
+
+  /// アプリがバックグラウンドに遷移した際のハンドラ
+  void _handleOnPaused() {
+    if (_timer.isActive) {
+      _timer.cancel(); // タイマーを停止する
+    }
+  }
+
+  /// アプリがフォアグラウンドに復帰した際のハンドラ
+  void _handleOnResumed() {
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer timer) {
+        setState(() {
+          _time = _time.add(const Duration(seconds: 1));
+        });
+      },
+    );
+  }
 
   // バナー広告をインスタンス化
   // final BannerAd myBanner = BannerAd(
@@ -55,22 +104,22 @@ class _SudokuState extends State<Sudoku> {
             children: [
               //余白
               SizedBox(
-                height: (screenSize.width)/10,
+                height: (screenSize.width) / 10,
               ),
 
               Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: (screenSize.width)/25),
+                    padding: EdgeInsets.only(left: (screenSize.width) / 25),
                     child: Text(
                       '初級',
                       style: TextStyle(
-                        fontSize: (screenSize.width)/25,
+                        fontSize: (screenSize.width) / 25,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: (screenSize.width)/25),
+                    padding: EdgeInsets.only(left: (screenSize.width) / 25),
                     child: const Icon(Icons.timer),
                   ),
                 ],
@@ -88,7 +137,7 @@ class _SudokuState extends State<Sudoku> {
 
               //余白
               SizedBox(
-                height: (screenSize.width)/50,
+                height: (screenSize.width) / 50,
               ),
 
               // 問題の盤面の上に候補の盤面を重ねて表示
@@ -118,7 +167,7 @@ class _SudokuState extends State<Sudoku> {
 
               // 余白
               SizedBox(
-                height: (screenSize.width)/15,
+                height: (screenSize.width) / 15,
               ),
 
               // アイコンボタン
@@ -148,7 +197,7 @@ class _SudokuState extends State<Sudoku> {
 
               // 余白
               SizedBox(
-                height: (screenSize.width)/10,
+                height: (screenSize.width) / 10,
               ),
 
               // 数字ボタン
@@ -224,13 +273,11 @@ class _SudokuState extends State<Sudoku> {
 
               // 余白
               SizedBox(
-                height: (screenSize.width)/15,
+                height: (screenSize.width) / 15,
               ),
 
               //決定、解答ボタン
-              ConfirmButton(
-                answer: Data.data[Data.selectedY][Data.selectedX]
-              ),
+              ConfirmButton(answer: Data.data[Data.selectedY][Data.selectedX]),
 
               SizedBox(
                 height: 50.0, //バナー広告のサイズ 320×50 なので
