@@ -19,12 +19,12 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     _time = DateTime.utc(0, 0, 0);
-    getdata();
+    getTime();
     WidgetsBinding.instance.addObserver(this);
   }
 
 
-  getdata() async {
+  getTime() async {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (Timer timer) {
