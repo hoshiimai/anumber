@@ -22,6 +22,7 @@ class _ClockState extends State<Clock> with WidgetsBindingObserver {
     // );
     _time = DateTime.utc(0, 0, 0);
     getdata();
+    WidgetsBinding.instance.addObserver(this);
   }
 
 

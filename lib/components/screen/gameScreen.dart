@@ -27,15 +27,13 @@ class Sudoku extends StatefulWidget {
 }
 
 class _SudokuState extends State<Sudoku> with WidgetsBindingObserver {
-  // late Timer _timer;
-  // late DateTime _time;
 
   @override
   void initState() {
     super.initState();
     // _time = DateTime.utc(0, 0, 0);
     // getdata();
-    WidgetsBinding.instance.addObserver(this);
+    // WidgetsBinding.instance.addObserver(this);
   }
 
   // getdata() async {
