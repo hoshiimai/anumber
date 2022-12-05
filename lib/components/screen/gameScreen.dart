@@ -14,9 +14,7 @@ import 'package:anumber/question.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
-import 'dart:async';
 
-import 'package:intl/intl.dart';
 
 class Sudoku extends StatefulWidget {
   const Sudoku({Key? key}) : super(key: key);
@@ -26,66 +24,12 @@ class Sudoku extends StatefulWidget {
   _SudokuState createState() => _SudokuState();
 }
 
-class _SudokuState extends State<Sudoku> with WidgetsBindingObserver {
+class _SudokuState extends State<Sudoku> {
 
   @override
   void initState() {
     super.initState();
-    // _time = DateTime.utc(0, 0, 0);
-    // getdata();
-    // WidgetsBinding.instance.addObserver(this);
   }
-
-  // getdata() async {
-  //   _timer = Timer.periodic(
-  //     const Duration(seconds: 1),
-  //     (Timer timer) {
-  //       setState(() {
-  //         _time = _time.add(const Duration(seconds: 1));
-  //       });
-  //     },
-  //   );
-  // }
-
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   print("state = $state");
-  //   if (state == AppLifecycleState.paused) {
-  //     // バックグラウンドに遷移した時
-  //     setState(_handleOnPaused);
-  //   } else if (state == AppLifecycleState.resumed) {
-  //     // フォアグラウンドに復帰した時
-  //     setState(_handleOnResumed);
-  //   }
-  // }
-
-  /// アプリがバックグラウンドに遷移した際のハンドラ
-  // void _handleOnPaused() {
-  //   if (_timer.isActive) {
-  //     _timer.cancel(); // タイマーを停止する
-  //   }
-  // }
-
-  /// アプリがフォアグラウンドに復帰した際のハンドラ
-  // void _handleOnResumed() {
-  //   _timer = Timer.periodic(
-  //     const Duration(seconds: 1),
-  //     (Timer timer) {
-  //       setState(() {
-  //         _time = _time.add(const Duration(seconds: 1));
-  //       });
-  //     },
-  //   );
-  // }
-
-  // バナー広告をインスタンス化
-  // final BannerAd myBanner = BannerAd(
-  //   adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-  //   size: AdSize.banner,
-  //   request: AdRequest(),
-  //   listener: BannerAdListener(),
-  // )..load();
-
 
 
   // 候補入力判断用フラグ
@@ -126,19 +70,8 @@ class _SudokuState extends State<Sudoku> with WidgetsBindingObserver {
                     child: const Icon(Icons.timer),
                   ),
                   // Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,)),
-                  Clock(),
+                  Stopwatch(),
                 ],
-                
-                // mainAxisAlignment: MainAxisAlignment.end,
-                // children: <Widget>[
-                //   Icon(Icons.timer),
-                //   Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,)),
-                //   Container(
-                //     padding: EdgeInsets.only(
-                //       right: rpx(context, 70.0),
-                //     ),
-                //   ),
-                // ],
               ),
 
               //余白
