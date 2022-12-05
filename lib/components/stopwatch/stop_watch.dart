@@ -1,7 +1,17 @@
-import 'dart:async';
+/*
+**********************************************
+機能：ストップウォッチ
+　　　・バックグラウンド時は、タイムストップ
+OUI：タイム
+----------------------------------------------
+履歴：
+**********************************************
+*/
 
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+
 
 class Stopwatch extends StatefulWidget {
   const Stopwatch({super.key});
