@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
 
-
 class Sudoku extends StatefulWidget {
   const Sudoku({Key? key}) : super(key: key);
 
@@ -25,12 +24,25 @@ class Sudoku extends StatefulWidget {
 }
 
 class _SudokuState extends State<Sudoku> {
-
   @override
   void initState() {
     super.initState();
+    getdata();
   }
 
+  getdata() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    for (var i = 0; i < 9; i++) {
+      for (var j = 0; j < 9; j++) {
+        if (Data.init[i][j] != 0) {
+          await Future.delayed(Duration(milliseconds: 10));
+          setState(() {
+            Data.zero[i][j] = Data.init[i][j];
+          });
+        }
+      }
+    }
+  }
 
   // 候補入力判断用フラグ
   bool isEdit = false;
@@ -66,11 +78,13 @@ class _SudokuState extends State<Sudoku> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: (screenSize.width) / 25),
+                    padding: EdgeInsets.only(left: (screenSize.width) / 1.5),
                     child: const Icon(Icons.timer),
                   ),
-                  // Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,)),
-                  Stopwatch(),
+                  Padding(
+                    padding: EdgeInsets.only(left: (screenSize.width) / 100),
+                    child: const Stopwatch(),
+                  ),
                 ],
               ),
 
@@ -119,11 +133,11 @@ class _SudokuState extends State<Sudoku> {
                       Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
                       Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
                       Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
-                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] =0;
-                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] =0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 0;
                       Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
-                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] =0;
-                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] =0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 0;
                     });
                   }
                 },
@@ -154,7 +168,8 @@ class _SudokuState extends State<Sudoku> {
                       } else if (number == 2) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] =
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] == number ? 0
+                                  : number;
                         });
                       } else if (number == 3) {
                         setState(() {
