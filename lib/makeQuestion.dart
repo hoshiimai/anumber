@@ -1,10 +1,22 @@
-import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
-class CountProvider with ChangeNotifier {
-  int counter = 0;
-  void incrementCounter() {
-    counter++;
+class Counter extends ChangeNotifier {
+  var countA = 0;
+  var countB = 0;
+  var countC = 0;
+
+  void incrementCounterA() {
+    countA++;
+    notifyListeners();
+  }
+
+  void incrementCounterB() {
+    countB++;
+    notifyListeners();
+  }
+
+  void incrementCounterC() {
+    countC++;
     notifyListeners();
   }
 }

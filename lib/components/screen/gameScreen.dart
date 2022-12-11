@@ -14,6 +14,9 @@ import 'package:anumber/question.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
+import 'package:provider/provider.dart';
+
+import '../../makeQuestion.dart';
 
 class Sudoku extends StatefulWidget {
   const Sudoku({Key? key}) : super(key: key);
@@ -168,8 +171,7 @@ class _SudokuState extends State<Sudoku> {
                       } else if (number == 2) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] =
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] == number ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] == number ? 0 : number;
                         });
                       } else if (number == 3) {
                         setState(() {
