@@ -7,6 +7,8 @@ OUT：ゲーム画面
 履歴：
 ****************************************
 */
+import 'dart:async';
+
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
@@ -19,7 +21,9 @@ import 'package:provider/provider.dart';
 import '../../makeQuestion.dart';
 
 class Sudoku extends StatefulWidget {
-  const Sudoku({Key? key}) : super(key: key);
+  final int level;
+
+  const Sudoku({Key? key, required this.level}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -27,10 +31,14 @@ class Sudoku extends StatefulWidget {
 }
 
 class _SudokuState extends State<Sudoku> {
+  late int state;
+
   @override
   void initState() {
     super.initState();
     getdata();
+    state = widget.level;
+    print(state);
   }
 
   getdata() async {
@@ -74,7 +82,10 @@ class _SudokuState extends State<Sudoku> {
                   Padding(
                     padding: EdgeInsets.only(left: (screenSize.width) / 25),
                     child: Text(
-                      '初級',
+                      state == 1 ? '初級' :
+                      state == 2 ? '中級' :
+                      state == 3 ? '上級' :
+                      'エラー',
                       style: TextStyle(
                         fontSize: (screenSize.width) / 25,
                       ),
@@ -136,11 +147,15 @@ class _SudokuState extends State<Sudoku> {
                       Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
                       Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
                       Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
-                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 0;
-                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] =
+                          0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] =
+                          0;
                       Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
-                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 0;
-                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] =
+                          0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] =
+                          0;
                     });
                   }
                 },
@@ -166,61 +181,109 @@ class _SudokuState extends State<Sudoku> {
                       if (number == 1) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY][3 * Data.selectedX] =
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX] == number ? 0 : number;
+                              Data.tmp[3 * Data.selectedY]
+                                          [3 * Data.selectedX] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       } else if (number == 2) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] =
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] == number ? 0 : number;
+                              Data.tmp[3 * Data.selectedY]
+                                          [3 * Data.selectedX + 1] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       } else if (number == 3) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] =
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] == number ? 0 : number;
+                              Data.tmp[3 * Data.selectedY]
+                                          [3 * Data.selectedX + 2] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       } else if (number == 4) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] =
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] == number ? 0 : number;
+                              Data.tmp[3 * Data.selectedY + 1]
+                                          [3 * Data.selectedX] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       } else if (number == 5) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] =
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 1]
+                                  [3 * Data.selectedX + 1] =
+                              Data.tmp[3 * Data.selectedY + 1]
+                                          [3 * Data.selectedX + 1] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       } else if (number == 6) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] =
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 1]
+                                  [3 * Data.selectedX + 2] =
+                              Data.tmp[3 * Data.selectedY + 1]
+                                          [3 * Data.selectedX + 2] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       } else if (number == 7) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] =
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] == number ? 0 : number;
+                              Data.tmp[3 * Data.selectedY + 2]
+                                          [3 * Data.selectedX] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       } else if (number == 8) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] =
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 2]
+                                  [3 * Data.selectedX + 1] =
+                              Data.tmp[3 * Data.selectedY + 2]
+                                          [3 * Data.selectedX + 1] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       } else if (number == 9) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] =
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] == number ? 0 : number;
+                          Data.tmp[3 * Data.selectedY + 2]
+                                  [3 * Data.selectedX + 2] =
+                              Data.tmp[3 * Data.selectedY + 2]
+                                          [3 * Data.selectedX + 2] ==
+                                      number
+                                  ? 0
+                                  : number;
                         });
                       }
                     } else if (isEdit == false) {
                       setState(() {
                         Data.data[Data.selectedY][Data.selectedX] = number;
                         Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 0;
-                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
-                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 0;
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 0;
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 0;
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 0;
+                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] =
+                            0;
+                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] =
+                            0;
+                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] =
+                            0;
+                        Data.tmp[3 * Data.selectedY + 1]
+                            [3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY + 1]
+                            [3 * Data.selectedX + 2] = 0;
+                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] =
+                            0;
+                        Data.tmp[3 * Data.selectedY + 2]
+                            [3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY + 2]
+                            [3 * Data.selectedX + 2] = 0;
                       });
                     }
                   }

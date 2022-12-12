@@ -64,7 +64,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Sudoku(), 
+                        builder: (context) => const Sudoku(level: 4,), 
                       ),
                     );
                   },
@@ -74,7 +74,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Sudoku(), 
+                        builder: (context) => const Sudoku(level: 4,), 
                       ),
                     );
                   },
@@ -101,7 +101,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Sudoku(), 
+                        builder: (context) => const Sudoku(level: 4,), 
                       ),
                     );
                   },

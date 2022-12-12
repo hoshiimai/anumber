@@ -62,7 +62,7 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(), 
+                                  builder: (context) => const Sudoku(level: 1), 
                                 ),
                               );
                             },
@@ -74,7 +74,7 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(), 
+                                  builder: (context) => const Sudoku(level: 2,), 
                                 ),
                               );
                             },
@@ -86,7 +86,7 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(), 
+                                  builder: (context) => const Sudoku(level: 3,), 
                                 ),
                               );
                             },
