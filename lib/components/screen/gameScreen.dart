@@ -129,6 +129,18 @@ class _SudokuState extends State<Sudoku> {
                   CandidateGrid(
                     candidate: Data.tmp,
                   ),
+
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.red,
+                        width: 3,
+                      ),
+                    ),
+                    height: 40,
+                    width: 40,
+                  ),
                 ],
               ),
 
