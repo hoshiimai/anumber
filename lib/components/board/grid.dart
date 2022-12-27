@@ -15,6 +15,8 @@ OUT：・問題の数字
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/cell.dart';
 
+import '../answer/illustrated.dart';
+
 
 class SudokuGrid extends StatelessWidget {
   const SudokuGrid({

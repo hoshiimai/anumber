@@ -11,6 +11,16 @@ abstract class Data {
   static int selectedX = 4;
   static int selectedY = 4;
 
+  static int circlex1 = 0;
+  static int circley1 = 0;
+
+  static int circlex2 = 3;
+  static int circley2 = 7;
+
+  static int circlex3 = 6;
+  static int circley3 = 5;
+
+
   static List<List<int>> zero = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -22,6 +32,19 @@ abstract class Data {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
+
+  static List<List<int>> ans = [
+    [999, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 999, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 999, 2, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 3, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 4, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ];
+
 
   static List<List<int>> init = [
     [9, 4, 0, 0, 0, 0, 0, 0, 7],

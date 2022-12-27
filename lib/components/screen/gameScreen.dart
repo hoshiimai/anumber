@@ -9,6 +9,7 @@ OUT：ゲーム画面
 */
 import 'dart:async';
 
+import 'package:anumber/components/answer/grid_illust.dart';
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
@@ -19,6 +20,7 @@ import 'package:anumber/components/button/numbers.dart';
 import 'package:provider/provider.dart';
 
 import '../../makeQuestion.dart';
+import '../../sudoku.dart';
 
 class Sudoku extends StatefulWidget {
   final int level;
@@ -130,17 +132,48 @@ class _SudokuState extends State<Sudoku> {
                     candidate: Data.tmp,
                   ),
 
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.red,
-                        width: 3,
-                      ),
-                    ),
-                    height: 40,
-                    width: 40,
+
+                  IllustratGrid(
+                    ans: Data.ans,
+                    onTap: (int x, int y) {
+                      setState(() {
+                        Data.circlex1 = x;
+                        Data.circley1 = y;
+                      });
+                    },
                   ),
+
+
+                  // CustomPaint(
+                  //   size: Size(200, 200),
+                  //   painter: CircleAndLinePainter(),
+                  // ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     shape: BoxShape.circle,
+                  //     border: Border.all(
+                  //       color: Colors.red,
+                  //       width: 3,
+                  //     ),
+                  //   ),
+                  //   height: 40,
+                  //   width: 40,
+                  // ),
+                  // Align(
+                  //   alignment: Alignment(-0.93, 0),
+                  //   // alignment: Alignment(-0.93, 0.5),
+                  //   child: Container(
+                  //   decoration: BoxDecoration(
+                  //     shape: BoxShape.circle,
+                  //     border: Border.all(
+                  //       color: Colors.red,
+                  //       width: 3,
+                  //     ),
+                  //   ),
+                  //   height: 40,
+                  //   width: 40,
+                  //   )
+                  // ),
                 ],
               ),
 
