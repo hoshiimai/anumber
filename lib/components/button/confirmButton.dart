@@ -44,9 +44,9 @@ class ConfirmButton extends StatelessWidget {
                 AwesomeDialog(
                   context: context,
                   headerAnimationLoop: false,
-                  animType: AnimType.SCALE,
+                  animType: AnimType.scale,
                   //title: 'INFO',
-                  dialogType: DialogType.SUCCES,
+                  dialogType: DialogType.success,
                   //borderSide: BorderSide(color: Colors.green, width: 2),
                   body: const Center(
                     child: Text(
@@ -84,9 +84,9 @@ class ConfirmButton extends StatelessWidget {
                 AwesomeDialog(
                   context: context,
                   headerAnimationLoop: false,
-                  animType: AnimType.SCALE,
+                  animType: AnimType.scale,
                   //title: 'INFO',
-                  dialogType: DialogType.ERROR,
+                  dialogType: DialogType.error,
                   body: const Center(
                     child: Text(
                       '残念',

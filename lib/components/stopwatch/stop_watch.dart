@@ -33,7 +33,6 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
   }
 
-
   getTime() async {
     _timer = Timer.periodic(
       const Duration(seconds: 1),

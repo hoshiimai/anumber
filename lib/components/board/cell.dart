@@ -21,6 +21,7 @@ class Cell extends StatelessWidget {
     required this.onTap,
     required this.inputNum,
     required this.isSelected,
+    required this.isInit,
     required this.isSameLine,
     required this.isBlock1,
     required this.isBlock2,
@@ -37,6 +38,7 @@ class Cell extends StatelessWidget {
   final Function() onTap;
   final bool inputNum;
   final bool isSelected;
+  final bool isInit;
   final bool isSameLine;
   final bool isBlock1;
   final bool isBlock2;
@@ -64,6 +66,8 @@ class Cell extends StatelessWidget {
             color
                 : isSelected // 選択マスかどうか
                 ? Colors.blue[100]
+                : isInit // 選択マスかどうか
+                ? const Color(0xffffe4b5)
                 : isBlock1 // 選択マスの領域(ブロック)かどうか
                 ? const Color(0xffffe4b5)
                 : isBlock2 // 選択マスの領域(ブロック)かどうか

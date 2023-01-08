@@ -34,19 +34,31 @@ class Sudoku extends StatefulWidget {
 
 class _SudokuState extends State<Sudoku> {
   late int state;
+  int selectedX = -1;
+  int selectedY = -1;
+  int initX = -1;
+  int initY = -1;
 
   @override
   void initState() {
     super.initState();
     getdata();
+    Stopwatch();
     state = widget.level;
     print(state);
   }
 
-  getdata() async {
+  Future<void> getdata() async {
     await Future.delayed(Duration(milliseconds: 500));
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
+        await Future.delayed(Duration(milliseconds: 10));
+        setState(() {
+          initX = j;
+          initY = i;
+          // Data.selectedX = j;
+          // Data.selectedY = i;
+        });
         if (Data.init[i][j] != 0) {
           await Future.delayed(Duration(milliseconds: 10));
           setState(() {
@@ -55,6 +67,15 @@ class _SudokuState extends State<Sudoku> {
         }
       }
     }
+    await Future.delayed(Duration(milliseconds: 500));
+    setState(() {
+      initX = -1;
+      initY = -1;
+      selectedX = 5;
+      selectedY = 4;
+      // Data.selectedX = 5;
+      // Data.selectedY = 4;
+    });
   }
 
   // 候補入力判断用フラグ
@@ -97,9 +118,12 @@ class _SudokuState extends State<Sudoku> {
                     padding: EdgeInsets.only(left: (screenSize.width) / 1.5),
                     child: const Icon(Icons.timer),
                   ),
+                  //ストップウォッチ
                   Padding(
                     padding: EdgeInsets.only(left: (screenSize.width) / 100),
                     child: const Stopwatch(),
+                    //Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,));
+                    // child: Text(DateFormat.ms().format(Stopwatch()), style: TextStyle(fontSize: 15,)),
                   ),
                 ],
               ),
@@ -116,13 +140,15 @@ class _SudokuState extends State<Sudoku> {
                   // 問題の盤面
                   SudokuGrid(
                     init: Data.init,
-                    data: Data.data,
-                    selectedX: Data.selectedX,
-                    selectedY: Data.selectedY,
+                    data: Data.zero,
+                    selectedX: selectedX,
+                    selectedY: selectedY,
+                    initX: initX,
+                    initY: initY,
                     onTap: (int x, int y) {
                       setState(() {
-                        Data.selectedX = x;
-                        Data.selectedY = y;
+                        selectedX = x;
+                        selectedY = y;
                       });
                     },
                   ),
@@ -133,15 +159,15 @@ class _SudokuState extends State<Sudoku> {
                   ),
 
 
-                  IllustratGrid(
-                    ans: Data.ans,
-                    onTap: (int x, int y) {
-                      setState(() {
-                        Data.circlex1 = x;
-                        Data.circley1 = y;
-                      });
-                    },
-                  ),
+                  // IllustratGrid(
+                  //   ans: Data.ans,
+                  //   onTap: (int x, int y) {
+                  //     setState(() {
+                  //       Data.circlex1 = x;
+                  //       Data.circley1 = y;
+                  //     });
+                  //   },
+                  // ),
 
 
                   // CustomPaint(
@@ -187,20 +213,16 @@ class _SudokuState extends State<Sudoku> {
                 onTap: (int number) {
                   if (Data.init[Data.selectedY][Data.selectedX] == 0) {
                     setState(() {
-                      Data.data[Data.selectedY][Data.selectedX] = number;
+                      Data.zero[Data.selectedY][Data.selectedX] = number;
                       Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 0;
                       Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
                       Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
                       Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
-                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] =
-                          0;
-                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] =
-                          0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] =0;
+                      Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] =0;
                       Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
-                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] =
-                          0;
-                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] =
-                          0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] =0;
+                      Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] =0;
                     });
                   }
                 },
@@ -222,113 +244,65 @@ class _SudokuState extends State<Sudoku> {
                 onTap: (int number) {
                   if (Data.init[Data.selectedY][Data.selectedX] == 0) {
                     if (isEdit == true &&
-                        Data.data[Data.selectedY][Data.selectedX] == 0) {
+                        Data.zero[Data.selectedY][Data.selectedX] == 0) {
                       if (number == 1) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY][3 * Data.selectedX] =
-                              Data.tmp[3 * Data.selectedY]
-                                          [3 * Data.selectedX] ==
-                                      number
-                                  ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX] == number ? 0 : number;
                         });
                       } else if (number == 2) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] =
-                              Data.tmp[3 * Data.selectedY]
-                                          [3 * Data.selectedX + 1] ==
-                                      number
-                                  ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] == number ? 0 : number;
                         });
                       } else if (number == 3) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] =
-                              Data.tmp[3 * Data.selectedY]
-                                          [3 * Data.selectedX + 2] ==
-                                      number
-                                  ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 
+                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] == number ? 0 : number;
                         });
                       } else if (number == 4) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] =
-                              Data.tmp[3 * Data.selectedY + 1]
-                                          [3 * Data.selectedX] ==
-                                      number
-                                  ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] == number ? 0 : number;
                         });
                       } else if (number == 5) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 1]
-                                  [3 * Data.selectedX + 1] =
-                              Data.tmp[3 * Data.selectedY + 1]
-                                          [3 * Data.selectedX + 1] ==
-                                      number
-                                  ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] =
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] == number ? 0 : number;
                         });
                       } else if (number == 6) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 1]
-                                  [3 * Data.selectedX + 2] =
-                              Data.tmp[3 * Data.selectedY + 1]
-                                          [3 * Data.selectedX + 2] ==
-                                      number
-                                  ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] =
+                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] == number ? 0 : number;
                         });
                       } else if (number == 7) {
                         setState(() {
                           Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] =
-                              Data.tmp[3 * Data.selectedY + 2]
-                                          [3 * Data.selectedX] ==
-                                      number
-                                  ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] == number ? 0 : number;
                         });
                       } else if (number == 8) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 2]
-                                  [3 * Data.selectedX + 1] =
-                              Data.tmp[3 * Data.selectedY + 2]
-                                          [3 * Data.selectedX + 1] ==
-                                      number
-                                  ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] =
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] == number ? 0 : number;
                         });
                       } else if (number == 9) {
                         setState(() {
-                          Data.tmp[3 * Data.selectedY + 2]
-                                  [3 * Data.selectedX + 2] =
-                              Data.tmp[3 * Data.selectedY + 2]
-                                          [3 * Data.selectedX + 2] ==
-                                      number
-                                  ? 0
-                                  : number;
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] =
+                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] == number ? 0 : number;
                         });
                       }
                     } else if (isEdit == false) {
                       setState(() {
-                        Data.data[Data.selectedY][Data.selectedX] = number;
+                        Data.zero[Data.selectedY][Data.selectedX] = number;
                         Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 0;
-                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] =
-                            0;
-                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] =
-                            0;
-                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] =
-                            0;
-                        Data.tmp[3 * Data.selectedY + 1]
-                            [3 * Data.selectedX + 1] = 0;
-                        Data.tmp[3 * Data.selectedY + 1]
-                            [3 * Data.selectedX + 2] = 0;
-                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] =
-                            0;
-                        Data.tmp[3 * Data.selectedY + 2]
-                            [3 * Data.selectedX + 1] = 0;
-                        Data.tmp[3 * Data.selectedY + 2]
-                            [3 * Data.selectedX + 2] = 0;
+                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
+                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
+                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 0;
+                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
+                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 0;
+                        Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 0;
                       });
                     }
                   }
@@ -341,7 +315,7 @@ class _SudokuState extends State<Sudoku> {
               ),
 
               //決定、解答ボタン
-              ConfirmButton(answer: Data.data[Data.selectedY][Data.selectedX]),
+              ConfirmButton(answer: Data.zero[Data.selectedY][Data.selectedX]),
 
               SizedBox(
                 height: 50.0, //バナー広告のサイズ 320×50 なので

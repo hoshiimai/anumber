@@ -13,15 +13,86 @@ OUI：・問題の数字(描画)
 
 import 'package:flutter/material.dart';
 
-class Illustration extends CustomPainter {
-  Illustration({
-    // super.key,
+
+class Illustration extends StatefulWidget {
+  const Illustration({
+    super.key,
+    required this.x,
+    required this.y,
+    required this.flag,
+    required this.onTap,
+  });
+  final int x;
+  final int y;
+  final bool flag;
+  final Function() onTap;
+
+  @override
+  _IllustrationState createState() => _IllustrationState();
+}
+
+class _IllustrationState extends State<Illustration> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _xAnimation;
+  late Animation<double> _yAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+    );
+    _xAnimation = Tween<double>(
+      begin: widget.x.toDouble(),
+      end: widget.x.toDouble() + 100,
+    ).animate(_animationController);
+    _yAnimation = Tween<double>(
+      begin: widget.y.toDouble(),
+      end: widget.y.toDouble() + 100,
+    ).animate(_animationController);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+
+    return GestureDetector(
+      onTap: () {
+        _animationController.reset();
+        _animationController.forward();
+        widget.onTap();
+      },
+      child: Container(
+        width: (screenSize.width) / 9.5,
+        height: (screenSize.width) / 9.5,
+
+        child: CustomPaint(
+          painter: _IllustrationPainter(
+            x: _xAnimation.value,
+            y: _yAnimation.value,
+            flag: widget.flag,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+}
+
+class _IllustrationPainter extends CustomPainter {
+  _IllustrationPainter({
     required this.x,
     required this.y,
     required this.flag,
   });
-  final int x;
-  final int y;
+  final double x;
+  final double y;
   final bool flag;
 
   @override
@@ -33,7 +104,7 @@ class Illustration extends CustomPainter {
         ..style = PaintingStyle.stroke
         ..strokeWidth = 3;
       canvas.drawCircle(
-        Offset(size.width / 2, size.height / 2),
+        Offset(x, y),
         size.width / 2 * 0.9,
         paint,
       );
@@ -41,7 +112,7 @@ class Illustration extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(Illustration old) => old.flag != flag;
+  bool shouldRepaint(_IllustrationPainter old) => old.flag != flag;
 
   @override
   bool hitTest(Offset position) {
@@ -50,53 +121,46 @@ class Illustration extends CustomPainter {
   }
 }
 
-// class Illustration extends StatelessWidget {
+// class Illustration extends StatefulWidget {
 //   const Illustration({
 //     super.key,
-//     // required this.number,
 //     required this.x,
 //     required this.y,
-//     required this.onTap,
-//     required this.circle,
+//     required this.flag,
 //   });
-//   // final int number;
-//   final double x;
-//   final double y;
-//   final Function() onTap;
-//   final bool circle;
+
+//   final int x;
+//   final int y;
+//   final bool flag;
+
+//   @override
+//   _IllustrationState createState() => _IllustrationState();
+// }
+
+// class _IllustrationState extends State<Illustration> {
+//   late Offset _offset;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     WidgetsBinding.instance.addPostFrameCallback((_) {
+//       if (widget.flag) {
+//         final renderBox = context.findRenderObject() as RenderBox;
+//         setState(() {
+//           _offset = renderBox.localToGlobal(Offset.zero);
+//         });
+//       }
+//     });
+//   }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     var screenSize = MediaQuery.of(context).size;
-
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: SizedBox(
-//         // 盤面のサイズ(一マスのサイズを指定)
-//         width: (screenSize.width) / 9.5,
-//         height: (screenSize.width) / 9.5,
-
-//         child: Container(
-//           width: x + 0.5,
-//           decoration: BoxDecoration(
-//             shape: circle ? BoxShape.circle : BoxShape.rectangle,
-//             border: circle
-//                 ? Border.all(
-//                     color: circle ? Colors.red : Colors.transparent,
-//                     width: circle ? 3 : 0,
-//                     // width: ((x  == 0 && 4>= y && y>= 1) || circle) ? 3 : 0,
-//                   )
-//                 : Border(
-//                     left: BorderSide(
-//                       color: Colors.red,
-//                     // color: circle ? Colors.red : Colors.transparent,
-//                       // width: (x == 1.5 && 4 >= y && y >= 1) ? 3 : 0,
-//                       width: x == 1.5 ? 3 : 0,
-//                     ),
-//                   ),
-//           ),
-//         ),
-//       ),
+//     return Container(
+//       width: 50,
+//       height: 50,
+//       child: widget.flag
+//           ? Text("x: ${_offset.dx}, y: ${_offset.dy}")
+//           : Container(),
 //     );
 //   }
 // }
