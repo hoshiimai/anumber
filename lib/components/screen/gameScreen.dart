@@ -38,6 +38,10 @@ class _SudokuState extends State<Sudoku> {
   int selectedY = -1;
   int initX = -1;
   int initY = -1;
+  int specifiedX = -1;
+  int specifiedY = -1;
+  bool cell = false;
+
 
   @override
   void initState() {
@@ -53,12 +57,28 @@ class _SudokuState extends State<Sudoku> {
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
         await Future.delayed(Duration(milliseconds: 10));
-        setState(() {
-          initX = j;
-          initY = i;
-          // Data.selectedX = j;
-          // Data.selectedY = i;
-        });
+          if (Data.animation[i][j] == 1){
+            setState(() {
+              initX = j;
+              initY = i;
+              Data.animation[i][j] = 2;
+            });
+          } else if (Data.animation[i][j] == -1) {
+            setState(() {
+              initX = j;
+              initY = i;
+              Data.animation[i][j] = 2;
+              specifiedX = 6;
+              specifiedY = 8;
+            });
+          } else {
+            setState(() {
+              initX = j;
+              initY = i;
+            });
+          }
+
+
         if (Data.init[i][j] != 0) {
           await Future.delayed(Duration(milliseconds: 10));
           setState(() {
@@ -67,12 +87,18 @@ class _SudokuState extends State<Sudoku> {
         }
       }
     }
+    await Future.delayed(Duration(milliseconds: 10));
+    setState(() {
+      initX = -1;
+      initY = -1;
+    });
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {
       initX = -1;
       initY = -1;
       selectedX = 5;
       selectedY = 4;
+      Data.animation = Data.ans;
       // Data.selectedX = 5;
       // Data.selectedY = 4;
     });
@@ -141,10 +167,14 @@ class _SudokuState extends State<Sudoku> {
                   SudokuGrid(
                     init: Data.init,
                     data: Data.zero,
+                    anim: Data.animation,
                     selectedX: selectedX,
                     selectedY: selectedY,
+                    specifiedX: specifiedX,
+                    specifiedY: specifiedY,
                     initX: initX,
                     initY: initY,
+                    animCell: cell,
                     onTap: (int x, int y) {
                       setState(() {
                         selectedX = x;
@@ -152,6 +182,23 @@ class _SudokuState extends State<Sudoku> {
                       });
                     },
                   ),
+
+                  // AnimationGrid(
+                  //   init: Data.init,
+                  //   data: Data.zero,
+                  //   anim: animation,
+                  //   selectedX: selectedX,
+                  //   selectedY: selectedY,
+                  //   initX: initX,
+                  //   initY: initY,
+                  //   animCell: cell,
+                  //   onTap: (int x, int y) {
+                  //     setState(() {
+                  //       selectedX = x;
+                  //       selectedY = y;
+                  //     });
+                  //   },
+                  // ),
 
                   // 候補の盤面
                   CandidateGrid(

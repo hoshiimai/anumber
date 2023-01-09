@@ -23,19 +23,27 @@ class SudokuGrid extends StatelessWidget {
     super.key,
     required this.data,
     required this.init,
+    required this.anim,
     required this.onTap,
     required this.selectedX,
     required this.selectedY,
+    required this.specifiedX,
+    required this.specifiedY,
     required this.initX,
     required this.initY,
+    required this.animCell,
   });
   final List<List<int>> data;
   final List<List<int>> init;
+  final List<List<int>> anim;
   final Function(int x, int y) onTap;
   final int selectedX;
   final int selectedY;
+  final int specifiedX;
+  final int specifiedY;
   final int initX;
   final int initY;
+  final bool animCell;
   static int blockX1 = 0;
   static int blockY1 = 0;
   static int blockX2 = 0;
@@ -62,7 +70,7 @@ class SudokuGrid extends StatelessWidget {
                   isInit: initX == c.key && initY == r.key,  // 選択マス判定
                   isSelected: selectedX == c.key && selectedY == r.key,  // 選択マス判定
                   isSameLine: selectedX == c.key || selectedY == r.key,  // 選択マスの行列判定
-                  
+                  isCell: anim[r.key][c.key] == 2,
                   // 選択マスの領域(ブロック)のマス判定
                   isBlock1: Block[blockX1] == c.key && Block[blockY1] == r.key,
                   isBlock2: Block[blockX2] == c.key && Block[blockY2] == r.key,
@@ -70,10 +78,10 @@ class SudokuGrid extends StatelessWidget {
                   isBlock4: Block[blockX4] == c.key && Block[blockY4] == r.key,
 
                   // 指定マスの枠判定
-                  isLeft: (5 == c.key && 4 == r.key) || (6 == c.key && 4 == r.key),
-                  isRight: 9 == c.key && 9 == r.key,
-                  isTop: (5 == c.key && 4 == r.key) || (5 == c.key && 5 == r.key),
-                  isBottom: 9 == c.key && 9 == r.key,
+                  isLeft: (specifiedX == c.key && specifiedY == r.key) || ((specifiedX + 1) == c.key && specifiedY == r.key),
+                  isRight: specifiedX == 8 && c.key == 8 && specifiedY == r.key,
+                  isTop: (specifiedX == c.key && specifiedY == r.key) || (specifiedX == c.key && (specifiedY + 1) == r.key),
+                  isBottom: specifiedX == c.key && specifiedY == 8 && specifiedY == r.key, 
                   
                   x: c.key,
                   y: r.key,
@@ -186,6 +194,15 @@ class SudokuGrid extends StatelessWidget {
       blockY3 = selectedY - 2;
       blockX4 = selectedX - 1;
       blockY4 = selectedY - 1;
+    } else {
+      blockX1 = -1;
+      blockY1 = -1;
+      blockX2 = -1;
+      blockY2 = -1;
+      blockX3 = -1;
+      blockY3 = -1;
+      blockX4 = -1;
+      blockY4 = -1;
     }
     
     return {

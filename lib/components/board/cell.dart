@@ -3,7 +3,7 @@
 機能：・数字、マスの描画
 　　　・色の設定
 IN：盤面の数字、grid.dartの判定結果
-OUI：・問題の数字(描画)
+OUT：・問題の数字(描画)
      ・盤面の枠線
      ・マスの塗りつぶし
 ----------------------------------------
@@ -22,6 +22,7 @@ class Cell extends StatelessWidget {
     required this.inputNum,
     required this.isSelected,
     required this.isInit,
+    required this.isCell,
     required this.isSameLine,
     required this.isBlock1,
     required this.isBlock2,
@@ -39,6 +40,7 @@ class Cell extends StatelessWidget {
   final bool inputNum;
   final bool isSelected;
   final bool isInit;
+  final bool isCell;
   final bool isSameLine;
   final bool isBlock1;
   final bool isBlock2;
@@ -64,21 +66,23 @@ class Cell extends StatelessWidget {
           decoration: BoxDecoration(
             // 盤面の色設定
             color
-                : isSelected // 選択マスかどうか
-                ? Colors.blue[100]
-                : isInit // 選択マスかどうか
-                ? const Color(0xffffe4b5)
-                : isBlock1 // 選択マスの領域(ブロック)かどうか
-                ? const Color(0xffffe4b5)
-                : isBlock2 // 選択マスの領域(ブロック)かどうか
-                ? const Color(0xffffe4b5)
-                : isBlock3 // 選択マスの領域(ブロック)かどうか
-                ? const Color(0xffffe4b5)
-                : isBlock4 // 選択マスの領域(ブロック)かどうか
-                ? const Color(0xffffe4b5)
-                : isSameLine // 選択マスの領域(行列)かどうか
-                ? const Color(0xffffe4b5)
-                : const Color(0xfffff8dc), // 標準の色
+              : isSelected // 選択マスかどうか
+              ? Colors.blue[100]
+              : isInit // 最初のアニメーション
+              ? Colors.blue[100]
+              : isCell // 選択マスの領域(ブロック)かどうか
+              ? const Color(0xffffe4b5)
+              : isBlock1 // 選択マスの領域(ブロック)かどうか
+              ? const Color(0xffffe4b5)
+              : isBlock2 // 選択マスの領域(ブロック)かどうか
+              ? const Color(0xffffe4b5)
+              : isBlock3 // 選択マスの領域(ブロック)かどうか
+              ? const Color(0xffffe4b5)
+              : isBlock4 // 選択マスの領域(ブロック)かどうか
+              ? const Color(0xffffe4b5)
+              : isSameLine // 選択マスの領域(行列)かどうか
+              ? const Color(0xffffe4b5)
+              : const Color(0xfffff8dc), // 標準の色
 
             // 盤面の枠線描画                
             border: Border(
