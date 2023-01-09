@@ -41,13 +41,15 @@ class _SudokuState extends State<Sudoku> {
   int specifiedX = -1;
   int specifiedY = -1;
   bool cell = false;
+  bool _timeRunning = false;
 
 
   @override
   void initState() {
     super.initState();
-    getdata();
-    Stopwatch();
+    getdata().then((_) {
+      _timeRunning = !_timeRunning;
+    });
     state = widget.level;
     print(state);
   }
@@ -68,8 +70,8 @@ class _SudokuState extends State<Sudoku> {
               initX = j;
               initY = i;
               Data.animation[i][j] = 2;
-              specifiedX = 6;
-              specifiedY = 8;
+              specifiedX = 5;
+              specifiedY = 4;
             });
           } else {
             setState(() {
@@ -77,7 +79,6 @@ class _SudokuState extends State<Sudoku> {
               initY = i;
             });
           }
-
 
         if (Data.init[i][j] != 0) {
           await Future.delayed(Duration(milliseconds: 10));
@@ -99,8 +100,6 @@ class _SudokuState extends State<Sudoku> {
       selectedX = 5;
       selectedY = 4;
       Data.animation = Data.ans;
-      // Data.selectedX = 5;
-      // Data.selectedY = 4;
     });
   }
 
@@ -147,9 +146,9 @@ class _SudokuState extends State<Sudoku> {
                   //ストップウォッチ
                   Padding(
                     padding: EdgeInsets.only(left: (screenSize.width) / 100),
-                    child: const Stopwatch(),
-                    //Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,));
-                    // child: Text(DateFormat.ms().format(Stopwatch()), style: TextStyle(fontSize: 15,)),
+                    child: Stopwatch(
+                      isRunning: _timeRunning,
+                    ),
                   ),
                 ],
               ),
@@ -182,23 +181,6 @@ class _SudokuState extends State<Sudoku> {
                       });
                     },
                   ),
-
-                  // AnimationGrid(
-                  //   init: Data.init,
-                  //   data: Data.zero,
-                  //   anim: animation,
-                  //   selectedX: selectedX,
-                  //   selectedY: selectedY,
-                  //   initX: initX,
-                  //   initY: initY,
-                  //   animCell: cell,
-                  //   onTap: (int x, int y) {
-                  //     setState(() {
-                  //       selectedX = x;
-                  //       selectedY = y;
-                  //     });
-                  //   },
-                  // ),
 
                   // 候補の盤面
                   CandidateGrid(

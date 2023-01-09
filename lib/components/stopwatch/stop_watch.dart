@@ -14,7 +14,11 @@ import 'package:intl/intl.dart';
 
 
 class Stopwatch extends StatefulWidget {
-  const Stopwatch({super.key});
+  Stopwatch({
+    // super.key
+    required this.isRunning,  
+  });
+   bool isRunning; 
 
   @override
   // ignore: library_private_types_in_public_api
@@ -37,9 +41,11 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (Timer timer) {
-        setState(() {
-          _time = _time.add(const Duration(seconds: 1));
-        });
+        if (widget.isRunning) {
+          setState(() {
+            _time = _time.add(const Duration(seconds: 1));
+          });
+        }
       },
     );
   }
