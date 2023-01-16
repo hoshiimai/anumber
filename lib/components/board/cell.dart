@@ -32,6 +32,7 @@ class Cell extends StatelessWidget {
     required this.isRight,
     required this.isTop,
     required this.isBottom,
+    required this.isTime,
   });
   final int number;
   final int x;
@@ -50,6 +51,7 @@ class Cell extends StatelessWidget {
   final bool isRight;
   final bool isTop;
   final bool isBottom;
+  final bool isTime;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +111,7 @@ class Cell extends StatelessWidget {
           child: Center(
             child: Text(
               // 空のマスには0が設定されるため、0の時は消す、それ以外は描画
-              number == 0 ? '' : number.toString(),
+              number == 0  || !isTime ? '' : number.toString(),
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
                 color: inputNum ? Colors.blue[900] : Colors.black,

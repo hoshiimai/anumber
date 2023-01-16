@@ -11,6 +11,8 @@ OUI：タイム
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+
 
 
 class Stopwatch extends StatefulWidget {
@@ -26,29 +28,80 @@ class Stopwatch extends StatefulWidget {
 }
 
 class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
-  late Timer _timer;
-  late DateTime _time;
+
+  late DateTime _time = DateTime.utc(0, 0, 0);
+  
+  late Timer _timer = Timer.periodic(
+    const Duration(seconds: 1),
+    (Timer timer) {
+      if (widget.isRunning) {
+        setState(() {
+          _time = _time.add(const Duration(seconds: 1));
+        });
+      } else {
+        timer.cancel();
+      }
+    },
+  );
 
   @override
   void initState() {
     super.initState();
-    _time = DateTime.utc(0, 0, 0);
-    getTime();
     WidgetsBinding.instance.addObserver(this);
   }
 
-  getTime() async {
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer timer) {
-        if (widget.isRunning) {
-          setState(() {
-            _time = _time.add(const Duration(seconds: 1));
-          });
-        }
-      },
-    );
+  @override
+  void didUpdateWidget(Stopwatch oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isRunning != oldWidget.isRunning) {
+      _timer.cancel();
+      _timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (Timer timer) {
+          if (widget.isRunning) {
+            setState(() {
+              _time = _time.add(const Duration(seconds: 1));
+            });
+          } else {
+            timer.cancel();
+          }
+        },
+      );
+    }
   }
+  // late Timer _timer;
+  // late DateTime _time;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _time = DateTime.utc(0, 0, 0);
+  //   getTime();
+  //   WidgetsBinding.instance.addObserver(this);
+  // }
+
+  // @override
+  // void didUpdateWidget(Stopwatch oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   if (widget.isRunning != oldWidget.isRunning) {
+  //     getTime();
+  //   }
+  // }
+
+  // getTime() async {
+  //   _timer = Timer.periodic(
+  //     const Duration(seconds: 1),
+  //     (Timer timer) {
+  //       if (widget.isRunning) {
+  //         setState(() {
+  //           _time = _time.add(const Duration(seconds: 1));
+  //         });
+  //       } else {
+  //         timer.cancel();
+  //       }
+  //     },
+  //   );
+  // }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -86,3 +139,4 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
     return Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,));
   }
 }
+

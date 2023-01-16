@@ -1,316 +1,87 @@
-// import 'package:flutter/material.dart';
-
-
-// class Illustration extends StatefulWidget {
-//   const Illustration({
-//     super.key,
-//     required this.x,
-//     required this.y,
-//     required this.flag,
-//     required this.onTap,
-//   });
-//   final int x;
-//   final int y;
-//   final bool flag;
-//   final Function() onTap;
-
-//   @override
-//   _IllustrationState createState() => _IllustrationState();
-// }
-
-// class _IllustrationState extends State<Illustration> with TickerProviderStateMixin {
-//   late AnimationController _animationController;
-//   late Animation<double> _xAnimation;
-//   late Animation<double> _yAnimation;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _animationController = AnimationController(
-//       duration: Duration(seconds: 1),
-//       vsync: this,
-//     );
-//     _xAnimation = Tween<double>(
-//       begin: widget.x.toDouble(),
-//       end: widget.x.toDouble() + 100,
-//     ).animate(_animationController);
-//     _yAnimation = Tween<double>(
-//       begin: widget.y.toDouble(),
-//       end: widget.y.toDouble() + 100,
-//     ).animate(_animationController);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var screenSize = MediaQuery.of(context).size;
-
-//     return GestureDetector(
-//       onTap: () {
-//         _animationController.reset();
-//         _animationController.forward();
-//         widget.onTap();
-//       },
-//       child: Container(
-//         width: (screenSize.width) / 9.5,
-//         height: (screenSize.width) / 9.5,
-
-//         child: CustomPaint(
-//           painter: _IllustrationPainter(
-//             x: _xAnimation.value,
-//             y: _yAnimation.value,
-//             flag: widget.flag,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   @override
-//   void dispose() {
-//     _animationController.dispose();
-//     super.dispose();
-//   }
-// }
-
-// class _IllustrationPainter extends CustomPainter {
-//   _IllustrationPainter({
-//     required this.x,
-//     required this.y,
-//     required this.flag,
-//   });
-//   final double x;
-//   final double y;
-//   final bool flag;
-
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     if (flag) {
-//       // 円を描画する
-//       final paint = Paint()
-//         ..color = Colors.red
-//         ..style = PaintingStyle.stroke
-//         ..strokeWidth = 3;
-//       canvas.drawCircle(
-//         Offset(x, y),
-//         size.width / 2 * 0.9,
-//         paint,
-//       );
-//     }
-//   }
-
-//   @override
-//   bool shouldRepaint(_IllustrationPainter old) => old.flag != flag;
-
-//   @override
-//   bool hitTest(Offset position) {
-//     final radius = 50 / 2;
-//     return (position.dx - radius).abs() + (position.dy - radius).abs() < radius;
-//   }
-// }
-
-
-// /*
-// ****************************************
-// 機能：anumberを解く時のメインページ
-// IN：問題、解答、ヒント
-// OUT：ゲーム画面
-// ----------------------------------------
-// 履歴：
-// ****************************************
-// */
-// import 'dart:async';
-
-// import 'package:anumber/components/answer/grid_illust.dart';
-// import 'package:anumber/components/button/confirmButton.dart';
-// import 'package:anumber/components/board/grid_candidate.dart';
-// import 'package:anumber/components/stopwatch/stop_watch.dart';
-// import 'package:anumber/question.dart';
-// import 'package:flutter/material.dart';
-// import 'package:anumber/components/board/grid.dart';
-// import 'package:anumber/components/button/numbers.dart';
-// import 'package:provider/provider.dart';
-
-// import '../../makeQuestion.dart';
-// import '../../sudoku.dart';
-
-// class Sudoku extends StatefulWidget {
-//   final int level;
-
-//   const Sudoku({Key? key, required this.level}) : super(key: key);
-
-//   @override
-//   _SudokuState createState() => _SudokuState();
-// }
-
-// class _SudokuState extends State<Sudoku> {
-//   late int state;
-//   bool initialRender = false;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     try {
-//       getdata();
-//       state = widget.level;
-//       print(state);
-//       initialRender = true;
-//     } catch (e) {
-//       if (e is RangeError) {
-//         print('RangeError: $e');
-//       } else {
-//         throw e;
-//       }
-//     } finally {
-//       print('Finally block executed');
-//     }
-//   }
-
-//   getdata() async {
-//     await Future.delayed(Duration(milliseconds: 500));
-//     for (var i = 0; i < 9; i++) {
-//       for (var j = 0; j < 9; j++) {
-//         if (Data.init[i][j] != 0) {
-//           await Future.delayed(Duration(milliseconds: 10));
-//           setState(() {
-//             Data.zero[i][j] = Data.init[i][j];
-//           });
-//         }
-//       }
-//     }
-//     await Future.delayed(Duration(milliseconds: 500));
-//   }
-
-//   // 候補入力判断用フラグ
-//   bool isEdit = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var screenSize = MediaQuery.of(context).size;
-//     return WillPopScope(
-//       onWillPop: () => Future.value(false),
-//       child: Scaffold(
-//         appBar: AppBar(
-//           title: const Text('A Number'),
-//         ),
-//         body: Center(
-//           child: Column(
-//             children: [
-
-//               Row(
-//                 children: [
-//                   Padding(
-//                     padding: EdgeInsets.only(left: (screenSize.width) / 25),
-//                     child: Text(
-//                       state == 1 ? '初級' :
-//                       state == 2 ? '中級' :
-//                       state == 3 ? '上級' :
-//                       'エラー',
-//                       style: TextStyle(
-//                         fontSize: (screenSize.width) / 25,
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-
-//               Stack(
-//                 alignment: Alignment.center,
-//                 children: [
-//                   // 問題の盤面
-//                   SudokuGrid(
-//                     init: Data.init,
-//                     data: Data.zero,
-//                     selectedX: Data.selectedX,
-//                     selectedY: Data.selectedY,
-//                     onTap: (int x, int y) {
-//                       setState(() {
-//                         Data.selectedX = x;
-//                         Data.selectedY = y;
-//                       });
-//                     },
-//                   ),
-//                 ],
-//               ),
-//               ConfirmButton(answer: Data.zero[Data.selectedY][Data.selectedX]),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 /*
-**********************************************
-機能：ストップウォッチ
-　　　・バックグラウンド時は、タイムストップ
-OUI：タイム
-----------------------------------------------
+****************************************
+機能：・数字、マスの描画
+　　　・色の設定
+IN：盤面の数字、grid.dartの判定結果
+OUT：・問題の数字(描画)
+     ・盤面の枠線
+     ・マスの塗りつぶし
+----------------------------------------
 履歴：
-**********************************************
+****************************************
 */
+import 'package:flutter/material.dart';
 
-import 'dart:async';
-import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
-
-
-class Stopwatch extends StatefulWidget {
-  Stopwatch({
-    // super.key
-    required this.isRunning,  
+class Cell extends StatelessWidget {
+  const Cell({
+    super.key,
+    required this.number,
+    required this.x,
+    required this.y,
+    required this.onTap,
+    required this.inputNum,
+    required this.isSelected,
+    required this.isInit,
+    required this.isCell,
+    required this.isSameLine,
+    required this.isBlock1,
+    required this.isBlock2,
+    required this.isBlock3,
+    required this.isBlock4,
+    required this.isLeft,
+    required this.isRight,
+    required this.isTop,
+    required this.isBottom,
+    required this.isTime,
   });
-   bool isRunning; 
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _StopwatchState createState() => _StopwatchState();
-}
-
-class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
-  late Timer _timer;
-  late DateTime _time;
-
-  @override
-  void initState() {
-    super.initState();
-    _time = DateTime.utc(0, 0, 0);
-    if (widget.isRunning) {
-      getTime();
-    }
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  getTime() async {
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer timer) {
-        setState(() {
-          _time = _time.add(const Duration(seconds: 1));
-        });
-      },
-    );
-  }
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _time = DateTime.utc(0, 0, 0);
-  //   getTime();
-  //   WidgetsBinding.instance.addObserver(this);
-  // }
-
-  // getTime() async {
-  //   _timer = Timer.periodic(
-  //     const Duration(seconds: 1),
-  //     (Timer timer) {
-  //       setState(() {
-  //         _time = _time.add(const Duration(seconds: 1));
-  //       });
-  //     },
-  //   );
-  // }
+  final int number;
+  final int x;
+  final int y;
+  final Function() onTap;
+  final bool inputNum;
+  final bool isSelected;
+  final bool isInit;
+  final bool isCell;
+  final bool isSameLine;
+  final bool isBlock1;
+  final bool isBlock2;
+  final bool isBlock3;
+  final bool isBlock4;
+  final bool isLeft;
+  final bool isRight;
+  final bool isTop;
+  final bool isBottom;
+  final bool isTime;
 
   @override
   Widget build(BuildContext context) {
-    return Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,));
+    var screenSize = MediaQuery.of(context).size;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        // 盤面のサイズ(一マスのサイズを指定)
+        width: (screenSize.width)/9.5,
+        height: (screenSize.width)/9.5,
+
+        child: Container(
+          // 表示する数字を描画
+          child: Center(
+            child: Text(
+              // 空のマスには0が設定されるため、0の時は消す、それ以外は描画
+              number == 0  || !isTime ? '' : number.toString(),
+              style: TextStyle(
+                // 問題の数字か、入力された数字かで色分け
+                color: inputNum ? Colors.blue[900] : Colors.black,
+                fontSize: (screenSize.width)*7/95
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
+
+
+

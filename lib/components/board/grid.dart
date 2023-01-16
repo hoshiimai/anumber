@@ -32,6 +32,7 @@ class SudokuGrid extends StatelessWidget {
     required this.initX,
     required this.initY,
     required this.animCell,
+    required this.timer,
   });
   final List<List<int>> data;
   final List<List<int>> init;
@@ -44,6 +45,7 @@ class SudokuGrid extends StatelessWidget {
   final int initX;
   final int initY;
   final bool animCell;
+  final bool timer;
   static int blockX1 = 0;
   static int blockY1 = 0;
   static int blockX2 = 0;
@@ -71,6 +73,7 @@ class SudokuGrid extends StatelessWidget {
                   isSelected: selectedX == c.key && selectedY == r.key,  // 選択マス判定
                   isSameLine: selectedX == c.key || selectedY == r.key,  // 選択マスの行列判定
                   isCell: anim[r.key][c.key] == 2,
+                  isTime: timer,
                   // 選択マスの領域(ブロック)のマス判定
                   isBlock1: Block[blockX1] == c.key && Block[blockY1] == r.key,
                   isBlock2: Block[blockX2] == c.key && Block[blockY2] == r.key,
