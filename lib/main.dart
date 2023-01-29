@@ -41,9 +41,9 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('A Number'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('A Number'),
+      // ),
       body: const Home(),
     );
   }

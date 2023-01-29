@@ -10,6 +10,8 @@ OUT：playGame.dartに遷移
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'components/database/database_connection.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -19,9 +21,27 @@ class Home extends StatefulWidget {
 }
 
 class _SudokuState extends State<Home> {
+ 
+  final  _stopwatchDatabase = StopwatchDatabase();
+  bool resume = false;
+
+  @override
+  void initState() {
+    super.initState();
+    someMethod();
+  }
+
+  void someMethod() async {
+    resume = await _stopwatchDatabase.isResume();
+    setState(() {
+      this.resume = resume;  
+    });
+    print("☆☆☆　$resume  ☆☆☆");
+  }
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xfffff8dc),
       body: SafeArea(
@@ -38,6 +58,24 @@ class _SudokuState extends State<Home> {
               //   width: 335,
               //   image: AssetImage('images/main01.png'),
               // ),
+              
+              Container(
+                child: resume ? 
+                  ElevatedButton(
+                    child: Text("続ける"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ), onPressed: () {  },
+                  ) : null,
+              ),
+                                  //余白
+              SizedBox(
+                height: (screenSize.width) / 50,
+              ),
+
               SizedBox(
                 width: 250,
                 height: 65,

@@ -32,13 +32,23 @@ class ConfirmButton extends StatelessWidget {
           height: (screenSize.width)/10,
           width: (screenSize.width)/4,
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue,
-              onPrimary: Colors.purple,
+              style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+              onPrimary: Colors.transparent,
+              elevation: 3,
+              shadowColor: Colors.grey[50],
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
+                // side: BorderSide(color: Color.fromARGB(255, 2, 67, 189), width: 2),
+                borderRadius: BorderRadius.circular(20),
               ),
             ),
+            // style: ElevatedButton.styleFrom(
+            //   primary: Colors.blue[900],
+            //   onPrimary: Colors.purple,
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(6),
+            //   ),
+            // ),
             onPressed: () {
               if (answer == 9) {
                 AwesomeDialog(
@@ -116,7 +126,7 @@ class ConfirmButton extends StatelessWidget {
               '決定',
               style: TextStyle(
                 fontSize: (screenSize.width)/18,
-                color: Colors.white,
+                color: Colors.blue[900],
               ),
             ),
           ),
@@ -128,19 +138,37 @@ class ConfirmButton extends StatelessWidget {
           height: (screenSize.width)/10,
           width: (screenSize.width)/4,
           child: ElevatedButton(
+            // style: ElevatedButton.styleFrom(
+            //   primary: Colors.blue[900],
+            //   onPrimary: Colors.purple,
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(6),
+            //   ),
+            // ),
             style: ElevatedButton.styleFrom(
-              primary: Colors.blue,
-              onPrimary: Colors.purple,
+              primary: Colors.white,
+              onPrimary: Colors.transparent,
+              elevation: 3,
+              shadowColor: Colors.grey[50],
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
+                // side: BorderSide(color: Color.fromARGB(255, 2, 67, 189), width: 2),
+                borderRadius: BorderRadius.circular(20),
               ),
             ),
+            // style: ElevatedButton.styleFrom(
+            //   primary: Colors.transparent,
+            //   onPrimary: Colors.transparent,
+            //   shape: RoundedRectangleBorder(
+            //     side: BorderSide(color: Colors.blue[900], width: 2),
+            //     borderRadius: BorderRadius.circular(6),
+            //   ),
+            // ),
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: const Text('解答'),
+                    title: const Text('答え'),
                     content: const Text('解答を表示します。よろしいですか？'),
                     actions: <Widget>[
                       TextButton(
@@ -157,10 +185,10 @@ class ConfirmButton extends StatelessWidget {
               );
             },
             child: Text(
-              '解答',
+              '答え',
               style: TextStyle(
                 fontSize: (screenSize.width)/18,
-                color: Colors.white,
+                color: Colors.blue[900],
               ),
             ),
           ),

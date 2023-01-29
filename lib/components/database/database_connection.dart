@@ -5,11 +5,7 @@ class StopwatchDatabase {
   final String _tableName = "stopwatch";
   late Database _db;
   int id = 999;
-  bool _isResume = false;
-  bool get isResume => _isResume;
-  set isResume(bool value) {
-    _isResume = value;
-  }
+
 
   Future<void> initDatabase() async {
     _db = await openDatabase(
@@ -23,27 +19,33 @@ class StopwatchDatabase {
     );
   }
 
-  Future<void> insertStopwatchData(DateTime time) async {
-    try{
+
+  Future<bool> isResume() async {
       await initDatabase();
 
       List<Map<String, dynamic>> existingRecord = await _db.query(_tableName, where: "id = $id");
       if (existingRecord.isEmpty) {
-        await _db.insert(
-          _tableName,
-          {"id": id, "time": null},
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
-        print("insert 成功");
+        return false;
       } else {
-        _isResume = !_isResume;
-        print("確認するよ：$_isResume");
+        return true;
       }
-      print("ここ？？？");
+  }
+
+
+  Future<void> insertStopwatchData(DateTime time) async {
+    try {
+      await initDatabase();
+
+      await _db.rawInsert(
+        "INSERT OR REPLACE INTO $_tableName (id, time) VALUES ($id, ?)",
+        [time.toIso8601String()],
+      );
+      print("insert 成功");
     } catch (e) {
       print(e);
     }
   }
+
 
   Future<void> updateStopwatchData(DateTime time) async {
     try {
@@ -59,7 +61,8 @@ class StopwatchDatabase {
   }
 
   Future<List<DateTime>> getStopwatchData() async {
-    final List<Map<String, dynamic>> maps = await _db.query(_tableName);
+    // final List<Map<String, dynamic>> maps = await _db.query(_tableName);
+    final List<Map<String, dynamic>> maps = await _db.query(_tableName, where: "id = 999");
 
     try {
       return List.generate(maps.length, (i) {

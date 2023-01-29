@@ -13,14 +13,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
+import '../database/database_connection.dart';
+
 
 
 class Stopwatch extends StatefulWidget {
   Stopwatch({
     // super.key
-    required this.isRunning,  
+    required this.isRunning, 
   });
-   bool isRunning; 
+
+  bool isRunning; 
 
   @override
   // ignore: library_private_types_in_public_api
@@ -29,8 +32,10 @@ class Stopwatch extends StatefulWidget {
 
 class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
 
-  late DateTime _time = DateTime.utc(0, 0, 0);
+  final  _stopwatchDatabase = StopwatchDatabase();
   
+  late DateTime _time = DateTime.utc(0, 0, 0);
+
   late Timer _timer = Timer.periodic(
     const Duration(seconds: 1),
     (Timer timer) {
@@ -48,6 +53,16 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _stopwatchDatabase.initDatabase();
+  }
+
+  @override
+  void dispose() {
+    widget.isRunning = false;
+    _timer.cancel();
+    insertTime();
+    _stopwatchDatabase.printStopwatchData();
+    super.dispose();
   }
 
   @override
@@ -64,74 +79,61 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
             });
           } else {
             timer.cancel();
+            insertTime();
           }
         },
       );
     }
   }
-  // late Timer _timer;
-  // late DateTime _time;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _time = DateTime.utc(0, 0, 0);
-  //   getTime();
-  //   WidgetsBinding.instance.addObserver(this);
-  // }
-
-  // @override
-  // void didUpdateWidget(Stopwatch oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   if (widget.isRunning != oldWidget.isRunning) {
-  //     getTime();
-  //   }
-  // }
-
-  // getTime() async {
-  //   _timer = Timer.periodic(
-  //     const Duration(seconds: 1),
-  //     (Timer timer) {
-  //       if (widget.isRunning) {
-  //         setState(() {
-  //           _time = _time.add(const Duration(seconds: 1));
-  //         });
-  //       } else {
-  //         timer.cancel();
-  //       }
-  //     },
-  //   );
-  // }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("state = $state");
+    // print("state = $state");
     if (state == AppLifecycleState.paused) {
       // バックグラウンドに遷移した時
-      setState(_handleOnPaused);
-    } else if (state == AppLifecycleState.resumed) {
+      if (_timer.isActive) {
+        _timer.cancel(); // タイマーを停止する
+        insertTime();
+      }
+    } else if (state == AppLifecycleState.resumed && mounted) {
       // フォアグラウンドに復帰した時
-      setState(_handleOnResumed);
+      _timer = Timer.periodic(
+      const Duration(seconds: 1),
+        (Timer timer) {
+          setState(() {
+              _time = _time.add(const Duration(seconds: 1));
+          });
+        },
+      );
+      _stopwatchDatabase.printStopwatchData();
+      _stopwatchDatabase.deleteAllStopwatchData();
     }
   }
 
   /// アプリがバックグラウンドに遷移した際のハンドラ
-  void _handleOnPaused() {
-    if (_timer.isActive) {
-      _timer.cancel(); // タイマーを停止する
-    }
-  }
+  // void _handleOnPaused() {
+  //   if (_timer.isActive) {
+  //     _timer.cancel(); // タイマーを停止する
+  //     insertTime();
+  //   }
+  // }
 
   /// アプリがフォアグラウンドに復帰した際のハンドラ
-  void _handleOnResumed() {
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer timer) {
-        setState(() {
-          _time = _time.add(const Duration(seconds: 1));
-        });
-      },
-    );
+  // void _handleOnResumed() {
+  //   _timer = Timer.periodic(
+  //     const Duration(seconds: 1),
+  //     (Timer timer) {
+  //       setState(() {
+  //         _time = _time.add(const Duration(seconds: 1));
+  //       });
+  //     },
+  //   );
+  //   _stopwatchDatabase.printStopwatchData();
+  //   _stopwatchDatabase.deleteAllStopwatchData();
+  // }
+
+  void insertTime() {
+    _stopwatchDatabase.insertStopwatchData(_time);
   }
 
   @override

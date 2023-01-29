@@ -84,6 +84,7 @@ class Numbers extends StatelessWidget {
         style: TextStyle(
           color: isPress ? Colors.blueGrey : Colors.blue[900],
           fontSize: 40,
+          fontWeight: FontWeight.w300
         ),
       ),
     );

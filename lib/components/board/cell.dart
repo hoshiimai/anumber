@@ -73,18 +73,18 @@ class Cell extends StatelessWidget {
               : isInit // 最初のアニメーション
               ? Colors.blue[100]
               : isCell // 選択マスの領域(ブロック)かどうか
-              ? const Color(0xffffe4b5)
+              ? const Color.fromARGB(255, 241, 241, 241)
               : isBlock1 // 選択マスの領域(ブロック)かどうか
-              ? const Color(0xffffe4b5)
+              ? const Color.fromARGB(255, 241, 241, 241)
               : isBlock2 // 選択マスの領域(ブロック)かどうか
-              ? const Color(0xffffe4b5)
+              ? const Color.fromARGB(255, 241, 241, 241)
               : isBlock3 // 選択マスの領域(ブロック)かどうか
-              ? const Color(0xffffe4b5)
+              ? const Color.fromARGB(255, 241, 241, 241)
               : isBlock4 // 選択マスの領域(ブロック)かどうか
-              ? const Color(0xffffe4b5)
+              ? const Color.fromARGB(255, 241, 241, 241)
               : isSameLine // 選択マスの領域(行列)かどうか
-              ? const Color(0xffffe4b5)
-              : const Color(0xfffff8dc), // 標準の色
+              ? const Color.fromARGB(255, 241, 241, 241)
+              : Colors.white, // 標準の色
 
             // 盤面の枠線描画                
             border: Border(
