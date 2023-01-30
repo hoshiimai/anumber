@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -20,20 +21,21 @@ class StopwatchDatabase {
   }
 
 
-  Future<bool> isResume() async {
-      await initDatabase();
+  Future<bool> isExist() async {
+    await initDatabase();
 
-      List<Map<String, dynamic>> existingRecord = await _db.query(_tableName, where: "id = $id");
-      if (existingRecord.isEmpty) {
-        return false;
-      } else {
-        return true;
-      }
+    List<Map<String, dynamic>> existingRecord = await _db.query(_tableName, where: "id = $id");
+    if (existingRecord.isEmpty) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
 
   Future<void> insertStopwatchData(DateTime time) async {
     try {
+      print('check');
       await initDatabase();
 
       await _db.rawInsert(
@@ -60,13 +62,14 @@ class StopwatchDatabase {
     }
   }
 
-  Future<List<DateTime>> getStopwatchData() async {
+  Future<List<String>> getStopwatchData() async {
     // final List<Map<String, dynamic>> maps = await _db.query(_tableName);
     final List<Map<String, dynamic>> maps = await _db.query(_tableName, where: "id = 999");
 
     try {
       return List.generate(maps.length, (i) {
-        return DateTime.parse(maps[i]["time"]);
+        print(DateFormat.ms().format(DateTime.parse(maps[i]["time"])));
+        return  DateFormat.ms().format(DateTime.parse(maps[i]["time"]));
       });
     } catch (e) {
       print(e);

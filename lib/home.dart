@@ -14,6 +14,7 @@ import 'components/database/database_connection.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+  static bool isResume = false;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -22,21 +23,24 @@ class Home extends StatefulWidget {
 
 class _SudokuState extends State<Home> {
  
-  final  _stopwatchDatabase = StopwatchDatabase();
-  bool resume = false;
+  final _stopwatchDatabase = StopwatchDatabase();
+  
 
   @override
   void initState() {
     super.initState();
-    someMethod();
+    print(Home.isResume);
+    selectTime();
   }
 
-  void someMethod() async {
-    resume = await _stopwatchDatabase.isResume();
-    setState(() {
-      this.resume = resume;  
-    });
-    print("☆☆☆　$resume  ☆☆☆");
+  Future<void> selectTime() async {
+    if(await _stopwatchDatabase.isExist()) {
+      _stopwatchDatabase.initDatabase();
+      _stopwatchDatabase.getStopwatchData();
+      print('exist ok');
+    } else {
+      print('exist ng');
+    }
   }
 
   @override
@@ -60,7 +64,7 @@ class _SudokuState extends State<Home> {
               // ),
               
               Container(
-                child: resume ? 
+                child: Home.isResume ? 
                   ElevatedButton(
                     child: Text("続ける"),
                     style: ElevatedButton.styleFrom(
@@ -91,7 +95,6 @@ class _SudokuState extends State<Home> {
                       context: context,
                       builder: (BuildContext context) => CupertinoActionSheet(
                         title: const Text('難易度選択'),
-                        // message: const Text('Message'),
                         actions: <CupertinoActionSheetAction>[
                           CupertinoActionSheetAction(
                             child: const Text('初級',

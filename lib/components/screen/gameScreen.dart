@@ -49,7 +49,7 @@ class _SudokuState extends State<Sudoku> {
   bool _timeRunning = false;
   bool _timer = true;
   final fabKey = GlobalKey();
-  final  _stopwatchDatabase = StopwatchDatabase();
+  final _stopwatchDatabase = StopwatchDatabase();
 
 
   @override
@@ -134,14 +134,21 @@ class _SudokuState extends State<Sudoku> {
               backgroundColor: Color.fromARGB(255, 247, 246, 246),
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black,),
-                onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
+                onPressed: () async {
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
                   // Navigator.pop(context);
+                    Stopwatch stopwatch = Stopwatch(isRunning: true);
+
+                  await stopwatch.insertTimeToDatabase();
+
+                  print("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆");
+                  _stopwatchDatabase.getStopwatchData;
+                  print("☆☆☆☆☆☆☆☆☆☆☆");
                   setState(() {
-                    Data.animation = Data.animation_init;
+                    Data.animation = List<List<int>>.from(Data.animation_init.map((e) => List<int>.from(e)));;
+                    Home.isResume = true;
                   });
-                  Stopwatch(isRunning: !_timeRunning);
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
                 },
               ),
               title: Text(

@@ -23,12 +23,24 @@ class Stopwatch extends StatefulWidget {
     required this.isRunning, 
   });
 
-  bool isRunning; 
+  bool isRunning;
+  
+  // final _stopwatchState = _StopwatchState();
+
+  // void insertTime() {
+  //   _stopwatchState.insertTime();
+  // }
+  get _stopwatchState => null; 
+
+  Future insertTimeToDatabase() async {
+    await _stopwatchState?.insertTime();
+  }
 
   @override
   // ignore: library_private_types_in_public_api
   _StopwatchState createState() => _StopwatchState();
 }
+
 
 class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
 
@@ -60,8 +72,8 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
   void dispose() {
     widget.isRunning = false;
     _timer.cancel();
-    insertTime();
-    _stopwatchDatabase.printStopwatchData();
+    // insertTime();
+    // _stopwatchDatabase.printStopwatchData();
     super.dispose();
   }
 
@@ -132,10 +144,14 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
   //   _stopwatchDatabase.deleteAllStopwatchData();
   // }
 
-  void insertTime() {
-    _stopwatchDatabase.insertStopwatchData(_time);
+  Future insertTime() async{
+    await _stopwatchDatabase.insertStopwatchData(_time);
+    print('実行されてるよ');
   }
 
+DateTime aaa() {
+  return _time;
+}
   @override
   Widget build(BuildContext context) {
     return Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,));
