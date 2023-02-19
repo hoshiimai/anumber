@@ -7,14 +7,15 @@ OUT：playGame.dartに遷移
 履歴：
 ****************************************
 */
+import 'package:anumber/components/board/cell_answer.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'components/database/database_connection.dart';
+import 'components/screen/answerScreen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
-  static bool isResume = false;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -23,25 +24,37 @@ class Home extends StatefulWidget {
 
 class _SudokuState extends State<Home> {
  
-  final _stopwatchDatabase = StopwatchDatabase();
-  
+  final _database = Database();
+  bool isResume = false;
+  String time = "00:00";
+  String state = "取得エラー";
 
   @override
   void initState() {
     super.initState();
-    print(Home.isResume);
+    // _database.deleteDB();
     selectTime();
+    print(isResume);
   }
 
+
   Future<void> selectTime() async {
-    if(await _stopwatchDatabase.isExist()) {
-      _stopwatchDatabase.initDatabase();
-      _stopwatchDatabase.getStopwatchData();
+    final result = await _database.selectDB();
+    if(result.isNotEmpty) {
+      // _database.initDatabase();
       print('exist ok');
+      setState(() {
+        isResume = true;
+        time = result[0];
+        state = result[1];
+      });
+      print("レコード存在チェック: $isResume");
+      print("time: $time");
     } else {
       print('exist ng');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,33 +64,51 @@ class _SudokuState extends State<Home> {
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                width: 10,
-                height: 10,
-                color: const Color(0xfffff8dc),
-              ),
+              // Container(
+              //   width: 10,
+              //   height: 10,
+              //   color: const Color(0xfffff8dc),
+              // ),
               // Image(
               //   width: 335,
               //   image: AssetImage('images/main01.png'),
               // ),
               
-              Container(
-                child: Home.isResume ? 
+              Container(                                                                                                                                                              
+                width: 250,
+                height: 65,
+                child: isResume ?
                   ElevatedButton(
-                    child: Text("続ける"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                    ), onPressed: () {  },
+                    ), onPressed: () { 
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Sudoku(level: state),
+                          ),
+                        );
+                      // _database.deleteAllStopwatchData();
+                     },
+                    child: Text(
+                      '続ける $time',
+                      style: const TextStyle(
+                        fontFamily: 'Yu Gothic',
+                        fontSize: 25,
+                        color: Color(0xff707070),
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ) : null,
               ),
                                   //余白
               SizedBox(
-                height: (screenSize.width) / 50,
+                height: (screenSize.width) / 20,
               ),
 
               SizedBox(
@@ -87,7 +118,7 @@ class _SudokuState extends State<Home> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
                   onPressed: () {
@@ -103,9 +134,11 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: 1), 
+                                  builder: (context) => AnswerScreen(),
+                                  // builder: (context) => const Sudoku(level: "初級"),
                                 ),
                               );
+                              // _database.deleteAllStopwatchData();
                             },
                           ),
                           CupertinoActionSheetAction(
@@ -115,9 +148,10 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: 2,), 
+                                  builder: (context) => const Sudoku(level: "中級",), 
                                 ),
                               );
+                              // _database.deleteAllStopwatchData();
                             },
                           ),
                           CupertinoActionSheetAction(
@@ -127,9 +161,10 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: 3,), 
+                                  builder: (context) => const Sudoku(level: "上級",), 
                                 ),
                               );
+                              // _database.deleteAllStopwatchData();
                             },
                           ),
                         ],
@@ -146,7 +181,10 @@ class _SudokuState extends State<Home> {
                     ),
                   ),
                 ),
-              )
+              ),
+              SizedBox(
+                height: (screenSize.width) / 2,
+              ),
             ],
           ),
         ),

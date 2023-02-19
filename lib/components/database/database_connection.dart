@@ -1,113 +1,60 @@
+import 'package:anumber/components/board/cell_candidate.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class StopwatchDatabase {
-  final String _tableName = "stopwatch";
-  late Database _db;
-  int id = 999;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
+class Database {
 
-  Future<void> initDatabase() async {
-    _db = await openDatabase(
-      join(await getDatabasesPath(), "stopwatch_database.db"),
-      onCreate: (db, version) {
-        return db.execute(
-          "CREATE TABLE $_tableName(id INTEGER, time TEXT)",
-        );
-      },
-      version: 1,
-    );
+  Future<void> insertDB(timer, List<List<int>> value, List<List<int>> zero, List<List<int>> candidate) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt('id', 999);
+    prefs.setString('time', timer.toString());
+    prefs.setString('value', jsonEncode(value));
+    prefs.setString('zero', jsonEncode(zero));
+    prefs.setString('candidate', jsonEncode(candidate));
+
+    print('insert 成功');
   }
 
 
-  Future<bool> isExist() async {
-    await initDatabase();
-
-    List<Map<String, dynamic>> existingRecord = await _db.query(_tableName, where: "id = $id");
-    if (existingRecord.isEmpty) {
-      return false;
-    } else {
-      return true;
+  Future<List> selectDB() async {
+    final prefs = await SharedPreferences.getInstance();
+    final id = prefs.getInt('id');
+    final time = prefs.getString('time');
+    final value = prefs.getString('value');
+    final zero = prefs.getString('zero');
+    final candidate = prefs.getString('candidate');
+    if (id != null) {
+      print('------------------------------------------------------------------------------------------------');
+      print('Time: $time');
+      print('------------------------------------------------------------------------------------------------');
+      // print('Value: $value');
+      // print('------------------------------------------------------------------------------------------------');
+      // print('init: $zero');
+      // print('------------------------------------------------------------------------------------------------');
+      // print('candidate: $candidate');
+      // print('------------------------------------------------------------------------------------------------');
+      print('☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆');
+      print("id: $id");
+      print('☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆');
+      return [time, value, zero, candidate];
     }
+    
+    return [];
   }
 
 
-  Future<void> insertStopwatchData(DateTime time) async {
-    try {
-      print('check');
-      await initDatabase();
-
-      await _db.rawInsert(
-        "INSERT OR REPLACE INTO $_tableName (id, time) VALUES ($id, ?)",
-        [time.toIso8601String()],
-      );
-      print("insert 成功");
-    } catch (e) {
-      print(e);
-    }
-  }
-
-
-  Future<void> updateStopwatchData(DateTime time) async {
-    try {
-      await _db.update(
-        _tableName,
-        {"time": time.toIso8601String()},
-        where: "id = $id",
-      );
-      print("update 成功");
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<List<String>> getStopwatchData() async {
-    // final List<Map<String, dynamic>> maps = await _db.query(_tableName);
-    final List<Map<String, dynamic>> maps = await _db.query(_tableName, where: "id = 999");
-
-    try {
-      return List.generate(maps.length, (i) {
-        print(DateFormat.ms().format(DateTime.parse(maps[i]["time"])));
-        return  DateFormat.ms().format(DateTime.parse(maps[i]["time"]));
-      });
-    } catch (e) {
-      print(e);
-      return [];
-    }
-  }
-
-  Future<void> printStopwatchData() async {
-    try{
-      final List<Map<String, dynamic>> maps = await _db.query(_tableName);
-
-      for (int i = 0; i < maps.length; i++) {
-        print(maps[i]["id"]);
-        print(DateTime.parse(maps[i]["time"]));
-      }
-      print("select 成功");
-    } catch (e) {
-      print("An error occurred while querying the database: $e");
-    }
-  }
-
-  Future<void> deleteAllStopwatchData() async {
-    try {
-      final tables = await _db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'");
-      if (tables.isNotEmpty && tables.any((table) => table['name'] == _tableName)) {
-        await _db.delete(_tableName);
-      }
-      print("delete 成功");
-    } catch (e) {
-      print("An error occurred while deleting data from the database: $e");
-    }
-  }
-
-  Future<void> dispose() async {
-    try {
-      await _db.delete(_tableName);
-    } catch (e) {
-      print("An error occurred while deleting data from the database: $e");
-    }
+  Future<void> deleteDB() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('id');
+    prefs.remove('time');
+    prefs.remove('value');
+    prefs.remove('zero');
+    prefs.remove('candidate');
+    
+    print('delete 成功');
   }
 }

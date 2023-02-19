@@ -18,6 +18,7 @@ import 'package:anumber/question.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
@@ -26,7 +27,7 @@ import '../../sudoku.dart';
 import '../database/database_connection.dart';
 
 class Sudoku extends StatefulWidget {
-  final int level;
+  final String level;
 
   const Sudoku({Key? key, required this.level}) : super(key: key);
 
@@ -37,7 +38,7 @@ class Sudoku extends StatefulWidget {
 
 class _SudokuState extends State<Sudoku> {
   
-  late int state;
+  late String state;
   bool _isTappable = false;
   int selectedX = -1;
   int selectedY = -1;
@@ -49,7 +50,7 @@ class _SudokuState extends State<Sudoku> {
   bool _timeRunning = false;
   bool _timer = true;
   final fabKey = GlobalKey();
-  final _stopwatchDatabase = StopwatchDatabase();
+  final _database = Database();
 
 
   @override
@@ -137,16 +138,11 @@ class _SudokuState extends State<Sudoku> {
                 onPressed: () async {
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
                   // Navigator.pop(context);
-                    Stopwatch stopwatch = Stopwatch(isRunning: true);
 
-                  await stopwatch.insertTimeToDatabase();
-
-                  print("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆");
-                  _stopwatchDatabase.getStopwatchData;
-                  print("☆☆☆☆☆☆☆☆☆☆☆");
+                  // _database.insertStopwatchData(Stopwatch.time);
+                  _database.insertDB(DateFormat.ms().format(Stopwatch.time), Data.init, Data.zero, Data.tmp);
                   setState(() {
                     Data.animation = List<List<int>>.from(Data.animation_init.map((e) => List<int>.from(e)));;
-                    Home.isResume = true;
                   });
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
                 },
@@ -252,61 +248,15 @@ class _SudokuState extends State<Sudoku> {
 
 
 
-
-                      
-
-                      // Container(
-                      //   width: (screenSize.width) / 4.5,
-                      //   height: (screenSize.width) / 4.5,
-                      //   child: !_timer ? 
-                      //   FloatingActionButton(
-                      //       backgroundColor: Colors.blue,
-                      //       child: Icon(Icons.play_arrow, size: (screenSize.width) / 4.5,),
-                      //       onPressed: () {
-                      //         setState(() {
-                      //           _timeRunning = true;
-                      //           _timer = true;
-                      //         });
-                      //       },
-                      //   ) : null,
-                      // ),
-
-
-                      // Container(
-                      //   width: (screenSize.width) / 4.5,
-                      //   height: (screenSize.width) / 4.5,
-                      //   child: !_timer ? 
-                      //     FloatingActionButton(
-                      //       key: fabKey, // 追加
-                      //       backgroundColor: Colors.blue,
-                      //       child: Icon(Icons.play_arrow, size: (screenSize.width) / 4.5,),
-                      //       onPressed: () {
-                      //         setState(() {
-                      //           _timeRunning = true;
-                      //           _timer = true;
-                      //         });
-                      //         final RenderBox box = fabKey.currentContext?.findRenderObject() as RenderBox;
-                      //         final globalOffset = box.localToGlobal(Offset.zero);
-                      //         print(globalOffset);
-                      //       },
-                      //     ) : null,
-                      // ),
-
-
-
-
-
-
-
-                      // IllustratGrid(
-                      //   ans: Data.ans,
-                      //   onTap: (int x, int y) {
-                      //     setState(() {
-                      //       Data.circlex1 = x;
-                      //       Data.circley1 = y;
-                      //     });
-                      //   },
-                      // ),
+                      IllustratGrid(
+                        ans: Data.ans,
+                        onTap: (int x, int y) {
+                          setState(() {
+                            Data.circlex1 = x;
+                            Data.circley1 = y;
+                          });
+                        },
+                      ),
                     ],
                   ),
 
@@ -318,18 +268,18 @@ class _SudokuState extends State<Sudoku> {
                   // アイコンボタン
                   ControlButton(
                     onTap: (int number) {
-                      if (Data.init[Data.selectedY][Data.selectedX] == 0) {
+                      if (Data.init[selectedY][selectedX] == 0) {
                         setState(() {
-                          Data.zero[Data.selectedY][Data.selectedX] = number;
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 0;
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
-                          Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] =0;
-                          Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] =0;
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] =0;
-                          Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] =0;
+                          Data.zero[selectedY][selectedX] = number;
+                          Data.tmp[3 * selectedY][3 * selectedX] = 0;
+                          Data.tmp[3 * selectedY][3 * selectedX + 1] = 0;
+                          Data.tmp[3 * selectedY][3 * selectedX + 2] = 0;
+                          Data.tmp[3 * selectedY + 1][3 * selectedX] = 0;
+                          Data.tmp[3 * selectedY + 1][3 * selectedX + 1] =0;
+                          Data.tmp[3 * selectedY + 1][3 * selectedX + 2] =0;
+                          Data.tmp[3 * selectedY + 2][3 * selectedX] = 0;
+                          Data.tmp[3 * selectedY + 2][3 * selectedX + 1] =0;
+                          Data.tmp[3 * selectedY + 2][3 * selectedX + 2] =0;
                         });
                       }
                     },
@@ -349,53 +299,53 @@ class _SudokuState extends State<Sudoku> {
                   Numbers(
                     isPress: isEdit,
                     onTap: (int number) {
-                      if (Data.init[Data.selectedY][Data.selectedX] == 0) {
+                      if (Data.init[selectedY][selectedX] == 0) {
                         if (isEdit == true &&
-                            Data.zero[Data.selectedY][Data.selectedX] == 0) {
+                            Data.zero[selectedY][selectedX] == 0) {
                           if (number == 1) {
                             setState(() {
-                              Data.tmp[3 * Data.selectedY][3 * Data.selectedX] =
-                              Data.tmp[3 * Data.selectedY][3 * Data.selectedX] == number ? 0 : number;
+                              Data.tmp[3 * selectedY][3 * selectedX] =
+                              Data.tmp[3 * selectedY][3 * selectedX] == number ? 0 : number;
                             });
                           } else if (number == 2) {
                             setState(() {
-                              Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] =
-                              Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] == number ? 0 : number;
+                              Data.tmp[3 * selectedY][3 * selectedX + 1] =
+                              Data.tmp[3 * selectedY][3 * selectedX + 1] == number ? 0 : number;
                             });
                           } else if (number == 3) {
                             setState(() {
-                              Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 
-                              Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] == number ? 0 : number;
+                              Data.tmp[3 * selectedY][3 * selectedX + 2] = 
+                              Data.tmp[3 * selectedY][3 * selectedX + 2] == number ? 0 : number;
                             });
                           } else if (number == 4) {
                             setState(() {
-                              Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] =
-                              Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] == number ? 0 : number;
+                              Data.tmp[3 * selectedY + 1][3 * selectedX] =
+                              Data.tmp[3 * selectedY + 1][3 * selectedX] == number ? 0 : number;
                             });
                           } else if (number == 5) {
                             setState(() {
-                              Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] =
-                              Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] == number ? 0 : number;
+                              Data.tmp[3 * selectedY + 1][3 * selectedX + 1] =
+                              Data.tmp[3 * selectedY + 1][3 * selectedX + 1] == number ? 0 : number;
                             });
                           } else if (number == 6) {
                             setState(() {
-                              Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] =
-                              Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] == number ? 0 : number;
+                              Data.tmp[3 * selectedY + 1][3 * selectedX + 2] =
+                              Data.tmp[3 * selectedY + 1][3 * selectedX + 2] == number ? 0 : number;
                             });
                           } else if (number == 7) {
                             setState(() {
-                              Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] =
-                              Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] == number ? 0 : number;
+                              Data.tmp[3 * selectedY + 2][3 * selectedX] =
+                              Data.tmp[3 * selectedY + 2][3 * selectedX] == number ? 0 : number;
                             });
                           } else if (number == 8) {
                             setState(() {
-                              Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] =
-                              Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] == number ? 0 : number;
+                              Data.tmp[3 * selectedY + 2][3 * selectedX + 1] =
+                              Data.tmp[3 * selectedY + 2][3 * selectedX + 1] == number ? 0 : number;
                             });
                           } else if (number == 9) {
                             setState(() {
-                              Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] =
-                              Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] == number ? 0 : number;
+                              Data.tmp[3 * selectedY + 2][3 * selectedX + 2] =
+                              Data.tmp[3 * selectedY + 2][3 * selectedX + 2] == number ? 0 : number;
                             });
                           }
                         } else if (isEdit == false) {
@@ -410,16 +360,6 @@ class _SudokuState extends State<Sudoku> {
                             Data.tmp[3 * selectedY + 2][3 * selectedX] = 0;
                             Data.tmp[3 * selectedY + 2][3 * selectedX + 1] = 0;
                             Data.tmp[3 * selectedY + 2][3 * selectedX + 2] = 0;
-                            // Data.zero[Data.selectedY][Data.selectedX] = number;
-                            // Data.tmp[3 * Data.selectedY][3 * Data.selectedX] = 0;
-                            // Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 1] = 0;
-                            // Data.tmp[3 * Data.selectedY][3 * Data.selectedX + 2] = 0;
-                            // Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX] = 0;
-                            // Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 1] = 0;
-                            // Data.tmp[3 * Data.selectedY + 1][3 * Data.selectedX + 2] = 0;
-                            // Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX] = 0;
-                            // Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 1] = 0;
-                            // Data.tmp[3 * Data.selectedY + 2][3 * Data.selectedX + 2] = 0;
                           });
                         }
                       }

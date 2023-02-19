@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
+import '../../question.dart';
 import '../database/database_connection.dart';
 
 
@@ -24,17 +25,9 @@ class Stopwatch extends StatefulWidget {
   });
 
   bool isRunning;
+  static DateTime time = DateTime.utc(0, 0, 0);
   
-  // final _stopwatchState = _StopwatchState();
-
-  // void insertTime() {
-  //   _stopwatchState.insertTime();
-  // }
   get _stopwatchState => null; 
-
-  Future insertTimeToDatabase() async {
-    await _stopwatchState?.insertTime();
-  }
 
   @override
   // ignore: library_private_types_in_public_api
@@ -44,16 +37,15 @@ class Stopwatch extends StatefulWidget {
 
 class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
 
-  final  _stopwatchDatabase = StopwatchDatabase();
+  final _database = Database();
   
-  late DateTime _time = DateTime.utc(0, 0, 0);
 
   late Timer _timer = Timer.periodic(
     const Duration(seconds: 1),
     (Timer timer) {
       if (widget.isRunning) {
         setState(() {
-          _time = _time.add(const Duration(seconds: 1));
+          Stopwatch.time = Stopwatch.time.add(const Duration(seconds: 1));
         });
       } else {
         timer.cancel();
@@ -65,7 +57,7 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _stopwatchDatabase.initDatabase();
+    // _database.initDatabase();
   }
 
   @override
@@ -73,7 +65,7 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
     widget.isRunning = false;
     _timer.cancel();
     // insertTime();
-    // _stopwatchDatabase.printStopwatchData();
+    // _database.printStopwatchData();
     super.dispose();
   }
 
@@ -87,11 +79,11 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
         (Timer timer) {
           if (widget.isRunning) {
             setState(() {
-              _time = _time.add(const Duration(seconds: 1));
+              Stopwatch.time = Stopwatch.time.add(const Duration(seconds: 1));
             });
           } else {
             timer.cancel();
-            insertTime();
+            // insertTime();
           }
         },
       );
@@ -105,7 +97,10 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
       // バックグラウンドに遷移した時
       if (_timer.isActive) {
         _timer.cancel(); // タイマーを停止する
-        insertTime();
+        // insertTime();
+        // insertDatabase();
+        // _database.insertDB(DateFormat.ms().format(Stopwatch.time), Data.init, Data.zero, Data.tmp);
+        _database.deleteDB();
       }
     } else if (state == AppLifecycleState.resumed && mounted) {
       // フォアグラウンドに復帰した時
@@ -113,12 +108,13 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
       const Duration(seconds: 1),
         (Timer timer) {
           setState(() {
-              _time = _time.add(const Duration(seconds: 1));
+              Stopwatch.time = Stopwatch.time.add(const Duration(seconds: 1));
           });
         },
       );
-      _stopwatchDatabase.printStopwatchData();
-      _stopwatchDatabase.deleteAllStopwatchData();
+      // _database.printStopwatchData();
+      // _database.deleteAllStopwatchData();
+      // _database.selectDB();
     }
   }
 
@@ -140,21 +136,23 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
   //       });
   //     },
   //   );
-  //   _stopwatchDatabase.printStopwatchData();
-  //   _stopwatchDatabase.deleteAllStopwatchData();
+  //   _database.printStopwatchData();
+  //   _database.deleteAllStopwatchData();
   // }
 
-  Future insertTime() async{
-    await _stopwatchDatabase.insertStopwatchData(_time);
-    print('実行されてるよ');
-  }
+  // Future insertTime() async{
+  //   await _database.insertStopwatchData(Stopwatch.time);
+  //   print('実行されてるよ');
+  // }
 
-DateTime aaa() {
-  return _time;
-}
+  // Future insertDatabase() async{
+  //   await _database.insertDB(Stopwatch.time, Data.zero);
+  //   print('実行されてるよ');
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return Text(DateFormat.ms().format(_time), style: TextStyle(fontSize: 15,));
+    return Text(DateFormat.ms().format(Stopwatch.time), style: TextStyle(fontSize: 15,));
   }
 }
 

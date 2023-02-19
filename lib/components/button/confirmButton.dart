@@ -9,6 +9,7 @@ OUT：・ヒントの表示
 履歴：
 ****************************************
 */
+import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
@@ -74,7 +75,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Sudoku(level: 4,), 
+                        builder: (context) => Sudoku(level: "",), 
                       ),
                     );
                   },
@@ -84,7 +85,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Sudoku(level: 4,), 
+                        builder: (context) => Sudoku(level: "",), 
                       ),
                     );
                   },
@@ -111,7 +112,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Sudoku(level: 4,), 
+                        builder: (context) => Sudoku(level: "",), 
                       ),
                     );
                   },
@@ -173,7 +174,11 @@ class ConfirmButton extends StatelessWidget {
                     actions: <Widget>[
                       TextButton(
                         child: const Text("OK", style: TextStyle(color: Colors.blue),),
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => 
+                            AnswerScreen(), 
+                            transitionDuration: Duration(seconds: 0),
+                          ),
+                        ),
                       ),
                       TextButton(
                         child: const Text("キャンセル", style: TextStyle(color: Colors.blue),),

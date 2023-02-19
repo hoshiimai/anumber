@@ -13,8 +13,8 @@ OUT：・問題の数字(描画)
 import 'package:flutter/material.dart';
 
 
-class Cell extends StatelessWidget {
-  const Cell({
+class Answer extends StatelessWidget {
+  const Answer({
     super.key,
     required this.number,
     required this.x,
@@ -22,9 +22,11 @@ class Cell extends StatelessWidget {
     required this.onTap,
     required this.inputNum,
     required this.isSelected,
-    required this.isInit,
+    // required this.isInit,
     required this.isCell,
     required this.isSameLine,
+    required this.isAnswerRow,
+    required this.isAnswerColumn,
     required this.isBlock1,
     required this.isBlock2,
     required this.isBlock3,
@@ -33,7 +35,7 @@ class Cell extends StatelessWidget {
     required this.isRight,
     required this.isTop,
     required this.isBottom,
-    required this.isTime,
+    // required this.isTime,
   });
   final int number;
   final int x;
@@ -41,9 +43,11 @@ class Cell extends StatelessWidget {
   final Function() onTap;
   final bool inputNum;
   final bool isSelected;
-  final bool isInit;
+  // final bool isInit;
   final bool isCell;
   final bool isSameLine;
+  final bool isAnswerRow;
+  final bool isAnswerColumn;
   final bool isBlock1;
   final bool isBlock2;
   final bool isBlock3;
@@ -52,7 +56,7 @@ class Cell extends StatelessWidget {
   final bool isRight;
   final bool isTop;
   final bool isBottom;
-  final bool isTime;
+  // final bool isTime;
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +73,14 @@ class Cell extends StatelessWidget {
           decoration: BoxDecoration(
             // 盤面の色設定
             color
+              : isAnswerRow
+              ? Colors.blue[200]
+              : isAnswerColumn
+              ? Colors.blue[200]
               : isSelected // 選択マスかどうか
               ? Colors.blue[100]
-              : isInit // 最初のアニメーション
-              ? Colors.blue[100]
+              // : isInit // 最初のアニメーション
+              // ? Colors.blue[100]
               : isCell // 選択マスの領域(ブロック)かどうか
               ? const Color.fromARGB(255, 241, 241, 241)
               : isBlock1 // 選択マスの領域(ブロック)かどうか
@@ -110,13 +118,15 @@ class Cell extends StatelessWidget {
 
           // 表示する数字を描画
           child: Center(
-            child: Text(
-              // 空のマスには0が設定されるため、0の時は消す、それ以外は描画
-              number == 0  || !isTime ? '' : number.toString(),
+            child: AnimatedDefaultTextStyle(
+              duration: Duration(milliseconds: 30),
               style: TextStyle(
-                // 問題の数字か、入力された数字かで色分け
-                color: inputNum ? Colors.blue[900] : Colors.black,
-                fontSize: (screenSize.width)*7/95
+                color: isCell ? Colors.red : (inputNum ? Colors.blue[900] : Colors.black),
+                fontSize: isCell ? (screenSize.width) * 10 / 95 : (screenSize.width) * 7 / 95,
+                // fontWeight: isCell ? FontWeight.bold : FontWeight.normal,
+              ),
+              child: Text(
+                number == 0  ? '' : number.toString(),
               ),
             ),
           ),

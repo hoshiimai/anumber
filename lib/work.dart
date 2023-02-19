@@ -1,109 +1,22 @@
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+//   final String _tableName = "infomation";
+//   late Database _db;
+//   int id = 999;
 
-class StopwatchDatabase {
-  final String _tableName = "stopwatch";
-  late Database _db;
-  int id = 999;
-  bool _isResume = false;
-  bool get isResume => _isResume;
-  set isResume(bool value) {
-    _isResume = value;
-  }
 
-  Future<void> initDatabase() async {
-    _db = await openDatabase(
-      join(await getDatabasesPath(), "stopwatch_database.db"),
-      onCreate: (db, version) {
-        return db.execute(
-          "CREATE TABLE $_tableName(id INTEGER, time TEXT)",
-        );
-      },
-      version: 1,
-    );
-  }
+//   Future<void> initDatabase() async {
+//     _db = await openDatabase(
+//       join(await getDatabasesPath(), "stopwatch_database.db"),
+//       onCreate: (db, version) {
+//         return db.execute(
+//           "CREATE TABLE $_tableName(id INTEGER, time TEXT, init INTEGER, data INTEGER, tmp INTEGER)",
+//         );
+//       },
+//       version: 1,
+//     );
+//     print('init');
+//   }
 
-  Future<void> insertStopwatchData(DateTime time) async {
-    try{
-      await initDatabase();
 
-      List<Map<String, dynamic>> existingRecord = await _db.query(_tableName, where: "id = $id");
-      if (existingRecord.isEmpty) {
-        await _db.insert(
-          _tableName,
-          {"id": id, "time": null},
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
-        print("insert 成功");
-      } else {
-        _isResume = !_isResume;
-        print("確認するよ：$_isResume");
-      }
-      print("ここ？？？");
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<void> updateStopwatchData(DateTime time) async {
-    try {
-      await _db.update(
-        _tableName,
-        {"time": time.toIso8601String()},
-        where: "id = $id",
-      );
-      print("update 成功");
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<List<DateTime>> getStopwatchData() async {
-    final List<Map<String, dynamic>> maps = await _db.query(_tableName);
-
-    try {
-      return List.generate(maps.length, (i) {
-        return DateTime.parse(maps[i]["time"]);
-      });
-    } catch (e) {
-      print(e);
-      return [];
-    }
-  }
-
-  Future<void> printStopwatchData() async {
-    try{
-      final List<Map<String, dynamic>> maps = await _db.query(_tableName);
-
-      for (int i = 0; i < maps.length; i++) {
-        print(maps[i]["id"]);
-        print(DateTime.parse(maps[i]["time"]));
-      }
-      print("select 成功");
-    } catch (e) {
-      print("An error occurred while querying the database: $e");
-    }
-  }
-
-  Future<void> deleteAllStopwatchData() async {
-    try {
-      final tables = await _db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'");
-      if (tables.isNotEmpty && tables.any((table) => table['name'] == _tableName)) {
-        await _db.delete(_tableName);
-      }
-      print("delete 成功");
-    } catch (e) {
-      print("An error occurred while deleting data from the database: $e");
-    }
-  }
-
-  Future<void> dispose() async {
-    try {
-      await _db.delete(_tableName);
-    } catch (e) {
-      print("An error occurred while deleting data from the database: $e");
-    }
-  }
-}
-
+// initDatabase()は、_tableNameが存在しない場合(最初の時)にエラーになります。
+// 修正してください。
 
