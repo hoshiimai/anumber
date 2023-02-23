@@ -7,11 +7,15 @@ OUT：playGame.dartに遷移
 履歴：
 ****************************************
 */
+import 'dart:io';
+
 import 'package:anumber/components/board/cell_answer.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
+import 'package:excel/excel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'components/database/database_connection.dart';
+import 'package:path/path.dart';
 import 'components/screen/answerScreen.dart';
 
 class Home extends StatefulWidget {
@@ -29,12 +33,14 @@ class _SudokuState extends State<Home> {
   String time = "00:00";
   String state = "取得エラー";
 
+
   @override
-  void initState() {
+  void initState(){
     super.initState();
     // _database.deleteDB();
     selectTime();
     print(isResume);
+
   }
 
 
@@ -53,6 +59,26 @@ class _SudokuState extends State<Home> {
     } else {
       print('exist ng');
     }
+
+  final file = File('components/database/DB.xlsx');
+    // final bytesFuture = file.readAsBytes();
+
+    // final bytes = await bytesFuture;
+      final stat = await file.stat();
+  final mode = stat.mode;
+
+  if (mode & 0x1 == 0x1) {
+    print('読み込みアクセス権限あり');
+  } else {
+    print('読み込みアクセス権限なし');
+  }
+
+    // final excelFuture = Excel.decodeBytes(bytes);
+
+    // final excel = await excelFuture;
+    // final sheet = excel['elementary'];
+    // final value = sheet.cell(CellIndex.indexByString('B2')).value;
+    // print(value);
   }
 
 

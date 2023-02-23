@@ -77,8 +77,8 @@ class AnswerGrid extends StatelessWidget {
                   // isInit: initX == c.key && initY == r.key,  // 選択マス判定
                   isSelected: selectedX == c.key && selectedY == r.key,  // 選択マス判定
                   isSameLine: selectedX == c.key || selectedY == r.key,  // 選択マスの行列判定
-                  isAnswerRow: isAnswerRow == r.key,  // 
-                  isAnswerColumn: isAnswerColumn == c.key,  // 
+                  isAnswerRow: isAnswerRow == r.key || initX == r.key,  // 
+                  isAnswerColumn: isAnswerColumn == c.key || initY == c.key,  // 
                   isCell: anim[r.key][c.key] == 2,
                   // isTime: timer,
                   // 選択マスの領域(ブロック)のマス判定

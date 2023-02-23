@@ -40,11 +40,13 @@ class AnswerScreen extends StatefulWidget {
 class _SudokuState extends State<AnswerScreen> {
   
   // late String state;
-  bool _isTappable = false;
+  bool _isTappable = true;
   int selectedX = 5;
   int selectedY = 4;
   int initX = -1;
+  int initX1 = -1;
   int initY = -1;
+  int initY1 = -1;
   int specifiedX = 5;
   int specifiedY = 4;
   bool cell = false;
@@ -53,6 +55,8 @@ class _SudokuState extends State<AnswerScreen> {
   final fabKey = GlobalKey();
   final _database = Database();
 
+  List<Map<String, dynamic>> history = [];
+  int currentIndex = -1;
 
   @override
   void initState() {
@@ -67,20 +71,108 @@ class _SudokuState extends State<AnswerScreen> {
     setState(() {
       Data.answer[5][6] = 2;
     });
-    await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(Duration(milliseconds: 400));
     setState(() {
       initX = 5;
     });
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(Duration(milliseconds: 700));
     setState(() {
+      Data.answer[5][6] = 0;
       Data.answer[0][0] = 2;
     });
-    await Future.delayed(Duration(milliseconds: 200));
+    // await Future.delayed(Duration(milliseconds: 400));
+    // setState(() {
+    //   initY = 0;
+    // });
+    await Future.delayed(Duration(milliseconds: 700));
     setState(() {
-      initY = 0;
-      initX = 3;
+      Data.data[3][1] = 9;
     });
+    await Future.delayed(Duration(milliseconds: 700));
+    setState(() {
+      Data.data[3][2] = 9;
+    });
+    await Future.delayed(Duration(milliseconds: 400));
+    setState(() {
+      initX1 = 3;
+    });
+    await Future.delayed(Duration(milliseconds: 700));
+    setState(() {
+      Data.answer[7][3] = 2;
+    });
+    await Future.delayed(Duration(milliseconds: 400));
+    setState(() {
+      initY1 = 3;
+    });
+    await Future.delayed(Duration(milliseconds: 700));
+    setState(() {
+      Data.answer[7][3] = 0;
+      Data.data[1][4] = 9;
+    });
+    await Future.delayed(Duration(milliseconds: 700));
+    setState(() {
+      Data.data[2][4] = 9;
+    });
+    await Future.delayed(Duration(milliseconds: 400));
+    setState(() {
+      initY = 4;
+      Data.answer[0][0] = 0;
+    });
+    await Future.delayed(Duration(milliseconds: 700));
+    setState(() {
+      Data.data[4][5] = 9;
+      Data.answer[4][5] = 2;
+    });
+    addToHistory();
   }
+
+  void addToHistory() {
+  currentIndex++;
+  if (history.length > currentIndex) {
+    history.removeRange(currentIndex, history.length);
+  }
+  history.add({
+    "initY": initY,
+    "answer": List<List<int>>.from(Data.answer),
+    "data": List<List<int>>.from(Data.data),
+  });
+}
+
+
+  void onBackwardPressed() {
+    if (currentIndex > 0) {
+      // 履歴の最初まで戻る
+      currentIndex--;
+      setState(() {
+        // historyリストから状態を読み込む
+        Data.answer = List.from(history[currentIndex][0]);
+        Data.data = List.from(history[currentIndex][1]);
+        initX = history[currentIndex][2];
+        initY = history[currentIndex][3];
+        initX1 = history[currentIndex][4];
+        initY1 = history[currentIndex][5];
+      });
+    }
+  }
+
+  
+  void onForwardPressed() {
+    if (currentIndex < history.length - 1) {
+      // 履歴の最後まで進む
+      currentIndex++;
+      setState(() {
+        // historyリストから状態を読み込む
+        Data.answer = List.from(history[currentIndex][0]);
+        Data.data = List.from(history[currentIndex][1]);
+        initX = history[currentIndex][2];
+        initY = history[currentIndex][3];
+        initX1 = history[currentIndex][4];
+        initY1 = history[currentIndex][5];
+      });
+    }
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -186,8 +278,8 @@ class _SudokuState extends State<AnswerScreen> {
                       specifiedY: specifiedY,
                       isAnswerRow: initX,
                       isAnswerColumn: initY,
-                      initX: initX,
-                      initY: initY,
+                      initX: initX1,
+                      initY: initY1,
                       animCell: cell,
                       timer: _timer,
                       onTap: (int x, int y) {
@@ -211,9 +303,21 @@ class _SudokuState extends State<AnswerScreen> {
                     height: (screenSize.width) / 15,
                   ),
 
-             
-
+                  Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: () => onBackwardPressed(),
+                            child: const Icon(Icons.undo, size: 30.0),
+                          ),
+                          GestureDetector(
+                            onTap: () => onForwardPressed(),
+                            child: const Icon(Icons.redo, size: 30.0),
+                          ),
+                        ],
+                      ),
                   // 余白
+                  
                   SizedBox(
                     height: (screenSize.width) / 10,
                   ),
