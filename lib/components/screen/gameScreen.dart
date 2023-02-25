@@ -21,6 +21,7 @@ import 'package:anumber/components/button/numbers.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../initProcess.dart';
 import '../../main.dart';
 import '../../makeQuestion.dart';
 import '../../sudoku.dart';
@@ -40,23 +41,18 @@ class _SudokuState extends State<Sudoku> {
   
   late String state;
   bool _isTappable = false;
-  int selectedX = -1;
-  int selectedY = -1;
-  int initX = -1;
-  int initY = -1;
-  int specifiedX = -1;
-  int specifiedY = -1;
   bool cell = false;
   bool _timeRunning = false;
   bool _timer = true;
   final fabKey = GlobalKey();
   final _database = Database();
-
+  // 候補入力判断用フラグ
+  bool isEdit = false;
 
   @override
   void initState() {
     super.initState();
-    getdata().then((_) {
+    InitProcess.getdata(setState).then((_) {
       _timeRunning = !_timeRunning;
       Future.delayed(Duration.zero, () {
         setState(() {
@@ -64,61 +60,10 @@ class _SudokuState extends State<Sudoku> {
         });
       });
     });
-    state = widget.level;
-    print(state);
   }
 
-  Future<void> getdata() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    for (var i = 0; i < 9; i++) {
-      for (var j = 0; j < 9; j++) {
-        await Future.delayed(Duration(milliseconds: 10));
-          if (Data.animation[i][j] == 1){
-            setState(() {
-              initX = j;
-              initY = i;
-              Data.animation[i][j] = 2;
-            });
-          } else if (Data.animation[i][j] == -1) {
-            setState(() {
-              initX = j;
-              initY = i;
-              Data.animation[i][j] = 2;
-              specifiedX = 5;
-              specifiedY = 4;
-            });
-          } else {
-            setState(() {
-              initX = j;
-              initY = i;
-            });
-          }
 
-        if (Data.init[i][j] != 0) {
-          await Future.delayed(Duration(milliseconds: 10));
-          setState(() {
-            Data.zero[i][j] = Data.init[i][j];
-          });
-        }
-      }
-    }
-    await Future.delayed(Duration(milliseconds: 10));
-    setState(() {
-      initX = -1;
-      initY = -1;
-    });
-    await Future.delayed(Duration(milliseconds: 500));
-    setState(() {
-      initX = -1;
-      initY = -1;
-      selectedX = 5;
-      selectedY = 4;
-      Data.animation = Data.ans;
-    });
-  }
 
-  // 候補入力判断用フラグ
-  bool isEdit = false;
 
   @override
   Widget build(BuildContext context) {
@@ -136,10 +81,6 @@ class _SudokuState extends State<Sudoku> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black,),
                 onPressed: () async {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
-                  // Navigator.pop(context);
-
-                  // _database.insertStopwatchData(Stopwatch.time);
                   _database.insertDB(DateFormat.ms().format(Stopwatch.time), Data.init, Data.zero, Data.tmp);
                   setState(() {
                     Data.animation = List<List<int>>.from(Data.animation_init.map((e) => List<int>.from(e)));;
@@ -170,10 +111,7 @@ class _SudokuState extends State<Sudoku> {
                       Padding(
                         padding: EdgeInsets.only(left: (screenSize.width) / 25),
                         child: Text(
-                          state == 1 ? '初級' :
-                          state == 2 ? '中級' :
-                          state == 3 ? '上級' :
-                          'エラー',
+                          widget.level,
                           style: TextStyle(
                             fontSize: (screenSize.width) / 25,
                           ),
@@ -218,44 +156,29 @@ class _SudokuState extends State<Sudoku> {
                     alignment: Alignment.center,
                     children: [
                       // 問題の盤面
-    //                   Material(
-    //  elevation: 2.0,
-                    SudokuGrid(
-                      init: Data.init,
-                      data: Data.zero,
-                      anim: Data.animation,
-                      selectedX: selectedX,
-                      selectedY: selectedY,
-                      specifiedX: specifiedX,
-                      specifiedY: specifiedY,
-                      initX: initX,
-                      initY: initY,
-                      animCell: cell,
-                      timer: _timer,
-                      onTap: (int x, int y) {
-                        setState(() {
-                          selectedX = x;
-                          selectedY = y;
-                        });
-                      },
-                    ),
-                      // ),
-
-                      // 候補の盤面
-                    CandidateGrid(
-                      candidate: Data.tmp,
-                    ),
-
-
-
-                      IllustratGrid(
-                        ans: Data.ans,
+                      SudokuGrid(
+                        init: Data.init,
+                        data: Data.zero,
+                        anim: Data.animation,
+                        selectedX: selectedX,
+                        selectedY: selectedY,
+                        specifiedX: specifiedX,
+                        specifiedY: specifiedY,
+                        initX: initX,
+                        initY: initY,
+                        animCell: cell,
+                        timer: _timer,
                         onTap: (int x, int y) {
                           setState(() {
-                            Data.circlex1 = x;
-                            Data.circley1 = y;
+                            selectedX = x;
+                            selectedY = y;
                           });
                         },
+                      ),
+
+                      // 候補の盤面
+                      CandidateGrid(
+                        candidate: Data.tmp,
                       ),
                     ],
                   ),
