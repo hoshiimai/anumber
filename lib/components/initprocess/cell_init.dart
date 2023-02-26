@@ -13,47 +13,54 @@ OUT：・問題の数字(描画)
 import 'package:flutter/material.dart';
 
 
-class Cell extends StatelessWidget {
-  const Cell({
+class Init extends StatelessWidget {
+  const Init({
     super.key,
     required this.number,
     required this.x,
     required this.y,
-    required this.onTap,
-    required this.inputNum,
-    required this.isSelected,
-    required this.isSameLine,
-    required this.isBlock1,
-    required this.isBlock2,
-    required this.isBlock3,
-    required this.isBlock4,
+    // required this.onTap,
+    // required this.inputNum,
+    // required this.isSelected,
+    required this.isInit,
+    required this.isCell,
+    // required this.isSameLine,
+    // required this.isBlock1,
+    // required this.isBlock2,
+    // required this.isBlock3,
+    // required this.isBlock4,
     required this.isLeft,
     required this.isRight,
     required this.isTop,
-    required this.isBottom,
+    required this.isBottom, 
+    // required this.inputNum,
+    // required this.isTime, required this.inputNum,
   });
   final int number;
   final int x;
   final int y;
-  final Function() onTap;
-  final bool inputNum;
-  final bool isSelected;
-  final bool isSameLine;
-  final bool isBlock1;
-  final bool isBlock2;
-  final bool isBlock3;
-  final bool isBlock4;
+  // final Function() onTap;
+  // final bool inputNum;
+  // final bool isSelected;
+  final bool isInit;
+  final bool isCell;
+  // final bool isSameLine;
+  // final bool isBlock1;
+  // final bool isBlock2;
+  // final bool isBlock3;
+  // final bool isBlock4;
   final bool isLeft;
   final bool isRight;
   final bool isTop;
   final bool isBottom;
+  // final bool isTime;
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
     return GestureDetector(
-      onTap: onTap,
+      // onTap: onTap,
       child: SizedBox(
         // 盤面のサイズ(一マスのサイズを指定)
         width: (screenSize.width)/9.5,
@@ -63,18 +70,22 @@ class Cell extends StatelessWidget {
           decoration: BoxDecoration(
             // 盤面の色設定
             color
-              : isSelected // 選択マスかどうか
+              // : isSelected // 選択マスかどうか
+              // ? Colors.blue[100]
+              : isInit // 最初のアニメーション
               ? Colors.blue[100]
-              : isBlock1 // 選択マスの領域(ブロック)かどうか
+              : isCell // 選択マスの領域(ブロック)かどうか
               ? const Color.fromARGB(255, 241, 241, 241)
-              : isBlock2 // 選択マスの領域(ブロック)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
-              : isBlock3 // 選択マスの領域(ブロック)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
-              : isBlock4 // 選択マスの領域(ブロック)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
-              : isSameLine // 選択マスの領域(行列)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
+              // : isBlock1 // 選択マスの領域(ブロック)かどうか
+              // ? const Color.fromARGB(255, 241, 241, 241)
+              // : isBlock2 // 選択マスの領域(ブロック)かどうか
+              // ? const Color.fromARGB(255, 241, 241, 241)
+              // : isBlock3 // 選択マスの領域(ブロック)かどうか
+              // ? const Color.fromARGB(255, 241, 241, 241)
+              // : isBlock4 // 選択マスの領域(ブロック)かどうか
+              // ? const Color.fromARGB(255, 241, 241, 241)
+              // : isSameLine // 選択マスの領域(行列)かどうか
+              // ? const Color.fromARGB(255, 241, 241, 241)
               : Colors.white, // 標準の色
 
             // 盤面の枠線描画                
@@ -105,7 +116,7 @@ class Cell extends StatelessWidget {
               number == 0 ? '' : number.toString(),
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
-                color: inputNum ? Colors.blue[900] : Colors.black,
+                color: Colors.black,
                 fontSize: (screenSize.width)*7/95
               ),
             ),

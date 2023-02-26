@@ -9,11 +9,11 @@ OUT：playGame.dartに遷移
 */
 
 import 'package:anumber/components/screen/gameScreen.dart';
+import 'package:anumber/question.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'components/database/database_connection.dart';
 import 'components/screen/answerScreen.dart';
-
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
 
@@ -69,9 +69,25 @@ class _SudokuState extends State<Home> {
     // シート名を指定してSheetオブジェクトを作成します
     final sheet = excel['elementary'];
     // 特定のセルの値を取得します
-    final cellValue = sheet.cell(CellIndex.indexByString('B2')).value;
-    // 取得したセルの値を表示します
-    print(cellValue);
+    final mondai = sheet.cell(CellIndex.indexByString('B2')).value;
+    final animation = sheet.cell(CellIndex.indexByString('C2')).value;
+
+    Infomation.init = mondai
+            .toString()
+            .trim() // 先頭と末尾の空白文字を削除
+            .split('\n') // 改行で分割
+            .map((row) => row.trim().split(' ').map(int.parse).toList()) // 各行を数値に変換
+            .toList(); // 2次元リストに変換
+
+    Infomation.animation = animation
+            .toString()
+            .trim() // 先頭と末尾の空白文字を削除
+            .split('\n') // 改行で分割
+            .map((row) => row.trim().split(' ').map(int.parse).toList()) // 各行を数値に変換
+            .toList(); // 2次元リストに変換
+    
+    Infomation.const_animation = Infomation.animation;
+
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   }
 

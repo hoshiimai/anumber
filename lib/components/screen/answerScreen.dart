@@ -69,7 +69,7 @@ class _SudokuState extends State<AnswerScreen> {
   start() async{
     await Future.delayed(Duration(milliseconds: 700));
     setState(() {
-      Data.answer[5][6] = 2;
+      Infomation.answer[5][6] = 2;
     });
     await Future.delayed(Duration(milliseconds: 400));
     setState(() {
@@ -77,8 +77,8 @@ class _SudokuState extends State<AnswerScreen> {
     });
     await Future.delayed(Duration(milliseconds: 700));
     setState(() {
-      Data.answer[5][6] = 0;
-      Data.answer[0][0] = 2;
+      Infomation.answer[5][6] = 0;
+      Infomation.answer[0][0] = 2;
     });
     // await Future.delayed(Duration(milliseconds: 400));
     // setState(() {
@@ -86,11 +86,11 @@ class _SudokuState extends State<AnswerScreen> {
     // });
     await Future.delayed(Duration(milliseconds: 700));
     setState(() {
-      Data.data[3][1] = 9;
+      Infomation.data[3][1] = 9;
     });
     await Future.delayed(Duration(milliseconds: 700));
     setState(() {
-      Data.data[3][2] = 9;
+      Infomation.data[3][2] = 9;
     });
     await Future.delayed(Duration(milliseconds: 400));
     setState(() {
@@ -98,7 +98,7 @@ class _SudokuState extends State<AnswerScreen> {
     });
     await Future.delayed(Duration(milliseconds: 700));
     setState(() {
-      Data.answer[7][3] = 2;
+      Infomation.answer[7][3] = 2;
     });
     await Future.delayed(Duration(milliseconds: 400));
     setState(() {
@@ -106,22 +106,22 @@ class _SudokuState extends State<AnswerScreen> {
     });
     await Future.delayed(Duration(milliseconds: 700));
     setState(() {
-      Data.answer[7][3] = 0;
-      Data.data[1][4] = 9;
+      Infomation.answer[7][3] = 0;
+      Infomation.data[1][4] = 9;
     });
     await Future.delayed(Duration(milliseconds: 700));
     setState(() {
-      Data.data[2][4] = 9;
+      Infomation.data[2][4] = 9;
     });
     await Future.delayed(Duration(milliseconds: 400));
     setState(() {
       initY = 4;
-      Data.answer[0][0] = 0;
+      Infomation.answer[0][0] = 0;
     });
     await Future.delayed(Duration(milliseconds: 700));
     setState(() {
-      Data.data[4][5] = 9;
-      Data.answer[4][5] = 2;
+      Infomation.data[4][5] = 9;
+      Infomation.answer[4][5] = 2;
     });
     addToHistory();
   }
@@ -133,8 +133,8 @@ class _SudokuState extends State<AnswerScreen> {
   }
   history.add({
     "initY": initY,
-    "answer": List<List<int>>.from(Data.answer),
-    "data": List<List<int>>.from(Data.data),
+    "answer": List<List<int>>.from(Infomation.answer),
+    "data": List<List<int>>.from(Infomation.data),
   });
 }
 
@@ -145,8 +145,8 @@ class _SudokuState extends State<AnswerScreen> {
       currentIndex--;
       setState(() {
         // historyリストから状態を読み込む
-        Data.answer = List.from(history[currentIndex][0]);
-        Data.data = List.from(history[currentIndex][1]);
+        Infomation.answer = List.from(history[currentIndex][0]);
+        Infomation.data = List.from(history[currentIndex][1]);
         initX = history[currentIndex][2];
         initY = history[currentIndex][3];
         initX1 = history[currentIndex][4];
@@ -162,8 +162,8 @@ class _SudokuState extends State<AnswerScreen> {
       currentIndex++;
       setState(() {
         // historyリストから状態を読み込む
-        Data.answer = List.from(history[currentIndex][0]);
-        Data.data = List.from(history[currentIndex][1]);
+        Infomation.answer = List.from(history[currentIndex][0]);
+        Infomation.data = List.from(history[currentIndex][1]);
         initX = history[currentIndex][2];
         initY = history[currentIndex][3];
         initX1 = history[currentIndex][4];
@@ -190,9 +190,9 @@ class _SudokuState extends State<AnswerScreen> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black,),
                 onPressed: () async {
-                  _database.insertDB(DateFormat.ms().format(Stopwatch.time), Data.init, Data.zero, Data.tmp);
+                  _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
                   setState(() {
-                    Data.animation = List<List<int>>.from(Data.animation_init.map((e) => List<int>.from(e)));;
+                    Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));;
                   });
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
                 },
@@ -269,9 +269,9 @@ class _SudokuState extends State<AnswerScreen> {
                     children: [
                       // 問題の盤面
                     AnswerGrid(
-                      init: Data.init,
-                      data: Data.data,
-                      anim: Data.answer,
+                      init: Infomation.init,
+                      data: Infomation.data,
+                      anim: Infomation.answer,
                       selectedX: selectedX,
                       selectedY: selectedY,
                       specifiedX: specifiedX,
@@ -293,7 +293,7 @@ class _SudokuState extends State<AnswerScreen> {
 
                     //   // 候補の盤面
                     // CandidateGrid(
-                    //   candidate: Data.tmp,
+                    //   candidate: Infomation.tmp,
                     // ),
                     ],
                   ),
@@ -336,7 +336,7 @@ class _SudokuState extends State<AnswerScreen> {
                   ),
 
                   //決定、解答ボタン
-                  ConfirmButton(answer: Data.zero[Data.selectedY][Data.selectedX]),
+                  ConfirmButton(answer: Infomation.zero[Infomation.selectedY][Infomation.selectedX]),
 
                   const SizedBox(
                     height: 50.0, //バナー広告のサイズ 320×50 なので

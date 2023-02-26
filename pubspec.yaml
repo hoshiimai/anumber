@@ -56,7 +56,6 @@ flutter:
   # To add Flutter specific assets to your application, add an assets section,
   # like this:
   assets:
-    - assets/test.txt
     - assets/DB.xlsx
   #   - images/a_dot_ham.jpeg
 

@@ -9,7 +9,6 @@ OUT：ゲーム画面
 */
 import 'dart:async';
 
-import 'package:anumber/components/answer/grid_illust.dart';
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
@@ -19,11 +18,10 @@ import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
-import '../../initProcess.dart';
+import '../initprocess/grid_init.dart';
+import '../initprocess/initProcess.dart';
 import '../../main.dart';
-import '../../makeQuestion.dart';
 import '../../sudoku.dart';
 import '../database/database_connection.dart';
 
@@ -81,9 +79,9 @@ class _SudokuState extends State<Sudoku> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black,),
                 onPressed: () async {
-                  _database.insertDB(DateFormat.ms().format(Stopwatch.time), Data.init, Data.zero, Data.tmp);
+                  _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
                   setState(() {
-                    Data.animation = List<List<int>>.from(Data.animation_init.map((e) => List<int>.from(e)));;
+                    Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));;
                   });
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
                 },
@@ -155,30 +153,37 @@ class _SudokuState extends State<Sudoku> {
                   Stack(
                     alignment: Alignment.center,
                     children: [
-                      // 問題の盤面
-                      SudokuGrid(
-                        init: Data.init,
-                        data: Data.zero,
-                        anim: Data.animation,
-                        selectedX: selectedX,
-                        selectedY: selectedY,
-                        specifiedX: specifiedX,
-                        specifiedY: specifiedY,
-                        initX: initX,
-                        initY: initY,
-                        animCell: cell,
-                        timer: _timer,
-                        onTap: (int x, int y) {
-                          setState(() {
-                            selectedX = x;
-                            selectedY = y;
-                          });
-                        },
-                      ),
+
+                      _isTappable
+                        //メインの盤面
+                        ? SudokuGrid(
+                              init: Infomation.init,  //問題用リスト(入力マスかどうか判定用)
+                              data: Infomation.zero,  //盤面全体の数字リスト
+                              selectedX: selectedX,   //選択マスx座標
+                              selectedY: selectedY,   //選択マスy座標
+                              specifiedX: specifiedX, //問題マスx座標
+                              specifiedY: specifiedY, //問題マスy座標
+                              onTap: (int x, int y) {
+                                setState(() {
+                                  selectedX = x;
+                                  selectedY = y;
+                                });
+                              },
+                          )
+                        //最初のアニメーション
+                        : InitGrid(
+                            data: Infomation.zero,  //盤面全体の数字リスト
+                            anim: Infomation.animation,   //最初のアニメーション用リスト
+                            specifiedX: specifiedX, //問題マスx座標
+                            specifiedY: specifiedY, //問題マスy座標
+                            initX: initX,   //アニメーション移動マスx座標
+                            initY: initY,   //アニメーション移動マスy座標
+                            animCell: cell, //問題の領域塗りつぶし判定
+                          ),
 
                       // 候補の盤面
                       CandidateGrid(
-                        candidate: Data.tmp,
+                        candidate: Infomation.tmp,
                       ),
                     ],
                   ),
@@ -191,18 +196,18 @@ class _SudokuState extends State<Sudoku> {
                   // アイコンボタン
                   ControlButton(
                     onTap: (int number) {
-                      if (Data.init[selectedY][selectedX] == 0) {
+                      if (Infomation.init[selectedY][selectedX] == 0) {
                         setState(() {
-                          Data.zero[selectedY][selectedX] = number;
-                          Data.tmp[3 * selectedY][3 * selectedX] = 0;
-                          Data.tmp[3 * selectedY][3 * selectedX + 1] = 0;
-                          Data.tmp[3 * selectedY][3 * selectedX + 2] = 0;
-                          Data.tmp[3 * selectedY + 1][3 * selectedX] = 0;
-                          Data.tmp[3 * selectedY + 1][3 * selectedX + 1] =0;
-                          Data.tmp[3 * selectedY + 1][3 * selectedX + 2] =0;
-                          Data.tmp[3 * selectedY + 2][3 * selectedX] = 0;
-                          Data.tmp[3 * selectedY + 2][3 * selectedX + 1] =0;
-                          Data.tmp[3 * selectedY + 2][3 * selectedX + 2] =0;
+                          Infomation.zero[selectedY][selectedX] = number;
+                          Infomation.tmp[3 * selectedY][3 * selectedX] = 0;
+                          Infomation.tmp[3 * selectedY][3 * selectedX + 1] = 0;
+                          Infomation.tmp[3 * selectedY][3 * selectedX + 2] = 0;
+                          Infomation.tmp[3 * selectedY + 1][3 * selectedX] = 0;
+                          Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] =0;
+                          Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] =0;
+                          Infomation.tmp[3 * selectedY + 2][3 * selectedX] = 0;
+                          Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] =0;
+                          Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] =0;
                         });
                       }
                     },
@@ -222,67 +227,67 @@ class _SudokuState extends State<Sudoku> {
                   Numbers(
                     isPress: isEdit,
                     onTap: (int number) {
-                      if (Data.init[selectedY][selectedX] == 0) {
+                      if (Infomation.init[selectedY][selectedX] == 0) {
                         if (isEdit == true &&
-                            Data.zero[selectedY][selectedX] == 0) {
+                            Infomation.zero[selectedY][selectedX] == 0) {
                           if (number == 1) {
                             setState(() {
-                              Data.tmp[3 * selectedY][3 * selectedX] =
-                              Data.tmp[3 * selectedY][3 * selectedX] == number ? 0 : number;
+                              Infomation.tmp[3 * selectedY][3 * selectedX] =
+                              Infomation.tmp[3 * selectedY][3 * selectedX] == number ? 0 : number;
                             });
                           } else if (number == 2) {
                             setState(() {
-                              Data.tmp[3 * selectedY][3 * selectedX + 1] =
-                              Data.tmp[3 * selectedY][3 * selectedX + 1] == number ? 0 : number;
+                              Infomation.tmp[3 * selectedY][3 * selectedX + 1] =
+                              Infomation.tmp[3 * selectedY][3 * selectedX + 1] == number ? 0 : number;
                             });
                           } else if (number == 3) {
                             setState(() {
-                              Data.tmp[3 * selectedY][3 * selectedX + 2] = 
-                              Data.tmp[3 * selectedY][3 * selectedX + 2] == number ? 0 : number;
+                              Infomation.tmp[3 * selectedY][3 * selectedX + 2] = 
+                              Infomation.tmp[3 * selectedY][3 * selectedX + 2] == number ? 0 : number;
                             });
                           } else if (number == 4) {
                             setState(() {
-                              Data.tmp[3 * selectedY + 1][3 * selectedX] =
-                              Data.tmp[3 * selectedY + 1][3 * selectedX] == number ? 0 : number;
+                              Infomation.tmp[3 * selectedY + 1][3 * selectedX] =
+                              Infomation.tmp[3 * selectedY + 1][3 * selectedX] == number ? 0 : number;
                             });
                           } else if (number == 5) {
                             setState(() {
-                              Data.tmp[3 * selectedY + 1][3 * selectedX + 1] =
-                              Data.tmp[3 * selectedY + 1][3 * selectedX + 1] == number ? 0 : number;
+                              Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] =
+                              Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] == number ? 0 : number;
                             });
                           } else if (number == 6) {
                             setState(() {
-                              Data.tmp[3 * selectedY + 1][3 * selectedX + 2] =
-                              Data.tmp[3 * selectedY + 1][3 * selectedX + 2] == number ? 0 : number;
+                              Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] =
+                              Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] == number ? 0 : number;
                             });
                           } else if (number == 7) {
                             setState(() {
-                              Data.tmp[3 * selectedY + 2][3 * selectedX] =
-                              Data.tmp[3 * selectedY + 2][3 * selectedX] == number ? 0 : number;
+                              Infomation.tmp[3 * selectedY + 2][3 * selectedX] =
+                              Infomation.tmp[3 * selectedY + 2][3 * selectedX] == number ? 0 : number;
                             });
                           } else if (number == 8) {
                             setState(() {
-                              Data.tmp[3 * selectedY + 2][3 * selectedX + 1] =
-                              Data.tmp[3 * selectedY + 2][3 * selectedX + 1] == number ? 0 : number;
+                              Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] =
+                              Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] == number ? 0 : number;
                             });
                           } else if (number == 9) {
                             setState(() {
-                              Data.tmp[3 * selectedY + 2][3 * selectedX + 2] =
-                              Data.tmp[3 * selectedY + 2][3 * selectedX + 2] == number ? 0 : number;
+                              Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] =
+                              Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] == number ? 0 : number;
                             });
                           }
                         } else if (isEdit == false) {
                           setState(() {
-                            Data.zero[selectedY][selectedX] = number;
-                            Data.tmp[3 * selectedY][3 * selectedX] = 0;
-                            Data.tmp[3 * selectedY][3 * selectedX + 1] = 0;
-                            Data.tmp[3 * selectedY][3 * selectedX + 2] = 0;
-                            Data.tmp[3 * selectedY + 1][3 * selectedX] = 0;
-                            Data.tmp[3 * selectedY + 1][3 * selectedX + 1] = 0;
-                            Data.tmp[3 * selectedY + 1][3 * selectedX + 2] = 0;
-                            Data.tmp[3 * selectedY + 2][3 * selectedX] = 0;
-                            Data.tmp[3 * selectedY + 2][3 * selectedX + 1] = 0;
-                            Data.tmp[3 * selectedY + 2][3 * selectedX + 2] = 0;
+                            Infomation.zero[selectedY][selectedX] = number;
+                            Infomation.tmp[3 * selectedY][3 * selectedX] = 0;
+                            Infomation.tmp[3 * selectedY][3 * selectedX + 1] = 0;
+                            Infomation.tmp[3 * selectedY][3 * selectedX + 2] = 0;
+                            Infomation.tmp[3 * selectedY + 1][3 * selectedX] = 0;
+                            Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] = 0;
+                            Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] = 0;
+                            Infomation.tmp[3 * selectedY + 2][3 * selectedX] = 0;
+                            Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] = 0;
+                            Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] = 0;
                           });
                         }
                       }
@@ -295,7 +300,7 @@ class _SudokuState extends State<Sudoku> {
                   ),
 
                   //決定、解答ボタン
-                  ConfirmButton(answer: Data.zero[Data.selectedY][Data.selectedX]),
+                  ConfirmButton(answer: Infomation.zero[Infomation.selectedY][Infomation.selectedX]),
 
                   SizedBox(
                     height: 50.0, //バナー広告のサイズ 320×50 なので
