@@ -10,6 +10,8 @@ OUT：・ヒントの表示
 ****************************************
 */
 import 'package:anumber/components/screen/answerScreen.dart';
+import 'package:anumber/infomation.dart';
+import 'package:anumber/makeQuestion.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
@@ -51,7 +53,7 @@ class ConfirmButton extends StatelessWidget {
             //   ),
             // ),
             onPressed: () {
-              if (answer == 9) {
+              if (answer == Infomation.kotae) {
                 AwesomeDialog(
                   context: context,
                   headerAnimationLoop: false,
@@ -72,6 +74,7 @@ class ConfirmButton extends StatelessWidget {
                   desc: 'This is also Ignored',
                   btnOkText: "次の問題",
                   btnOkOnPress: () {
+                    MakeQuestion().getExcelValue();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

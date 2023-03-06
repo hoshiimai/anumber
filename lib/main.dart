@@ -6,12 +6,15 @@ OUT：home.dart
 履歴：
 ****************************************
 */
+
+import 'package:anumber/makeQuestion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'home.dart';
 
 
 void main() {
+  // MakeQuestion().getExcelValue();
   //AdMobの初期化処理
   // WidgetsFlutterBinding.ensureInitialized();
   // MobileAds.instance.initialize();
@@ -22,6 +25,7 @@ void main() {
   ]);
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   @override

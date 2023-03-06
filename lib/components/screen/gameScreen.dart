@@ -13,7 +13,7 @@ import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
 import 'package:anumber/home.dart';
-import 'package:anumber/question.dart';
+import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
@@ -81,7 +81,17 @@ class _SudokuState extends State<Sudoku> {
                 onPressed: () async {
                   _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
                   setState(() {
-                    Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));;
+                    // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
+                    Infomation.animation = Infomation.const_zero;
+                    Infomation.const_animation = Infomation.const_zero;
+                    Infomation.zero = Infomation.const_zero;
+                    Infomation.init = Infomation.const_zero;
+                    Infomation.specifiedX = -1;
+                    Infomation.specifiedY = -1;
+                    Infomation.selectedX = 0;
+                    Infomation.selectedY = 0;
+                    Infomation.kotae = 0;
+
                   });
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
                 },
@@ -161,8 +171,8 @@ class _SudokuState extends State<Sudoku> {
                               data: Infomation.zero,  //盤面全体の数字リスト
                               selectedX: selectedX,   //選択マスx座標
                               selectedY: selectedY,   //選択マスy座標
-                              specifiedX: specifiedX, //問題マスx座標
-                              specifiedY: specifiedY, //問題マスy座標
+                              specifiedX: Infomation.specifiedX, //問題マスx座標
+                              specifiedY: Infomation.specifiedY, //問題マスy座標
                               onTap: (int x, int y) {
                                 setState(() {
                                   selectedX = x;
@@ -174,8 +184,8 @@ class _SudokuState extends State<Sudoku> {
                         : InitGrid(
                             data: Infomation.zero,  //盤面全体の数字リスト
                             anim: Infomation.animation,   //最初のアニメーション用リスト
-                            specifiedX: specifiedX, //問題マスx座標
-                            specifiedY: specifiedY, //問題マスy座標
+                            specifiedX: Infomation.specifiedX, //問題マスx座標
+                            specifiedY: Infomation.specifiedY, //問題マスy座標
                             initX: initX,   //アニメーション移動マスx座標
                             initY: initY,   //アニメーション移動マスy座標
                             animCell: cell, //問題の領域塗りつぶし判定

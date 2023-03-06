@@ -1,12 +1,12 @@
-import 'package:anumber/question.dart';
+import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
 
   int selectedX = -1;
   int selectedY = -1;
   int initX = -1;
   int initY = -1;
-  int specifiedX = -1;
-  int specifiedY = -1;
+  // int specifiedX = -1;
+  // int specifiedY = -1;
 
 class InitProcess {
   
@@ -26,8 +26,8 @@ class InitProcess {
             initX = j;
             initY = i;
             Infomation.animation[i][j] = 2;
-            specifiedX = 5;
-            specifiedY = 4;
+            Infomation.specifiedX = Infomation.selectedX;
+            Infomation.specifiedY = Infomation.selectedY;
           });
         } else {
           setState(() {
@@ -53,9 +53,9 @@ class InitProcess {
     setState(() {
       initX = -1;
       initY = -1;
-      selectedX = 5;
-      selectedY = 4;
-      Infomation.animation = Infomation.ans;
+      selectedX = Infomation.selectedX;
+      selectedY = Infomation.selectedY;
+      // Infomation.animation = Infomation.const_zero;
     });
   }
 }

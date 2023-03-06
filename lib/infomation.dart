@@ -9,8 +9,11 @@
 abstract class Infomation {
   
 
+  static int specifiedX = -1;
+  static int specifiedY = -1;
   static int selectedX = 0;
   static int selectedY = 0;
+  static int kotae = 0;
 
 
 
@@ -71,13 +74,13 @@ abstract class Infomation {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
 
-  static const List<List<int>> ans = [
+  static const List<List<int>> const_zero = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 9, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],

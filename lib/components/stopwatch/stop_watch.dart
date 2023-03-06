@@ -13,7 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
-import '../../question.dart';
+import '../../infomation.dart';
 import '../database/database_connection.dart';
 
 

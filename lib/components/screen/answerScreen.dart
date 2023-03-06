@@ -14,7 +14,7 @@ import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
 import 'package:anumber/home.dart';
-import 'package:anumber/question.dart';
+import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';

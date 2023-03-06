@@ -9,13 +9,15 @@ OUT：playGame.dartに遷移
 */
 
 import 'package:anumber/components/screen/gameScreen.dart';
-import 'package:anumber/question.dart';
+import 'package:anumber/infomation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'components/database/database_connection.dart';
 import 'components/screen/answerScreen.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
+
+import 'makeQuestion.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -58,37 +60,6 @@ class _SudokuState extends State<Home> {
     } else {
       print('exist ng');
     }
-
-    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    WidgetsFlutterBinding.ensureInitialized();
-    // Excelファイルのパスを指定します
-    final ByteData data = await rootBundle.load('assets/DB.xlsx');
-    final bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    // ExcelファイルをパースしてWorkbookオブジェクトを作成します
-    final excel = Excel.decodeBytes(bytes);
-    // シート名を指定してSheetオブジェクトを作成します
-    final sheet = excel['elementary'];
-    // 特定のセルの値を取得します
-    final mondai = sheet.cell(CellIndex.indexByString('B2')).value;
-    final animation = sheet.cell(CellIndex.indexByString('C2')).value;
-
-    Infomation.init = mondai
-            .toString()
-            .trim() // 先頭と末尾の空白文字を削除
-            .split('\n') // 改行で分割
-            .map((row) => row.trim().split(' ').map(int.parse).toList()) // 各行を数値に変換
-            .toList(); // 2次元リストに変換
-
-    Infomation.animation = animation
-            .toString()
-            .trim() // 先頭と末尾の空白文字を削除
-            .split('\n') // 改行で分割
-            .map((row) => row.trim().split(' ').map(int.parse).toList()) // 各行を数値に変換
-            .toList(); // 2次元リストに変換
-    
-    Infomation.const_animation = Infomation.animation;
-
-    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   }
 
 
@@ -181,6 +152,7 @@ class _SudokuState extends State<Home> {
                             child: const Text('中級',
                               style: TextStyle(color: Colors.blue)),
                             onPressed: () {
+                              MakeQuestion().getExcelValue();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
