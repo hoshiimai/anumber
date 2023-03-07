@@ -82,10 +82,12 @@ class _SudokuState extends State<Sudoku> {
                   _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
                   setState(() {
                     // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
-                    Infomation.animation = Infomation.const_zero;
-                    Infomation.const_animation = Infomation.const_zero;
-                    Infomation.zero = Infomation.const_zero;
-                    Infomation.init = Infomation.const_zero;
+                    Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+
+                    Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
+
+                    Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
                     Infomation.specifiedX = -1;
                     Infomation.specifiedY = -1;
                     Infomation.selectedX = 0;

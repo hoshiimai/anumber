@@ -74,7 +74,7 @@ abstract class Infomation {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
 
-  static const List<List<int>> const_zero = [
+  static List<List<int>> const_zero = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
