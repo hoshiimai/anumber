@@ -37,6 +37,7 @@ class Sudoku extends StatefulWidget {
 
 class _SudokuState extends State<Sudoku> {
   
+  List<Widget> _widgets = [Sudoku(level: '',)];
   late String state;
   bool _isTappable = false;
   bool cell = false;
@@ -60,6 +61,21 @@ class _SudokuState extends State<Sudoku> {
     });
   }
 
+  void _addToStack(Widget widget) {
+    setState(() {
+      _widgets.add(widget); // 新しいウィジェットをスタックに追加
+    });
+    print('履歴追加');
+  }
+
+  void _goBack() {
+    if (_widgets.length > 1) { // スタックに1つ以上のウィジェットがある場合
+      setState(() {
+        _widgets.removeLast(); // スタックの最後のウィジェットを削除して、一つ前の画面に戻る
+      });
+      print('undo押下');
+    }
+  }
 
 
 
@@ -79,23 +95,24 @@ class _SudokuState extends State<Sudoku> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black,),
                 onPressed: () async {
+                  _goBack;
                   _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
                   setState(() {
                     // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
-                    Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-                    Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-
-                    Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
-
-                    Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
-                    Infomation.specifiedX = -1;
-                    Infomation.specifiedY = -1;
-                    Infomation.selectedX = 0;
-                    Infomation.selectedY = 0;
-                    Infomation.kotae = 0;
+                    // 初期化
+                    // Stopwatch.time = DateTime.utc(0, 0, 0);
+                    // Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    // Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    // Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    // Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    // Infomation.specifiedX = -1;
+                    // Infomation.specifiedY = -1;
+                    // Infomation.selectedX = 0;
+                    // Infomation.selectedY = 0;
+                    // Infomation.kotae = 0;
 
                   });
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
                 },
               ),
               title: Text(
@@ -243,52 +260,62 @@ class _SudokuState extends State<Sudoku> {
                         if (isEdit == true &&
                             Infomation.zero[selectedY][selectedX] == 0) {
                           if (number == 1) {
+                            _addToStack;
                             setState(() {
                               Infomation.tmp[3 * selectedY][3 * selectedX] =
                               Infomation.tmp[3 * selectedY][3 * selectedX] == number ? 0 : number;
                             });
                           } else if (number == 2) {
+                            _addToStack;
                             setState(() {
                               Infomation.tmp[3 * selectedY][3 * selectedX + 1] =
                               Infomation.tmp[3 * selectedY][3 * selectedX + 1] == number ? 0 : number;
                             });
                           } else if (number == 3) {
+                            _addToStack;
                             setState(() {
                               Infomation.tmp[3 * selectedY][3 * selectedX + 2] = 
                               Infomation.tmp[3 * selectedY][3 * selectedX + 2] == number ? 0 : number;
                             });
                           } else if (number == 4) {
+                            _addToStack;
                             setState(() {
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX] =
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX] == number ? 0 : number;
                             });
                           } else if (number == 5) {
+                            _addToStack;
                             setState(() {
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] =
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] == number ? 0 : number;
                             });
                           } else if (number == 6) {
+                            _addToStack;
                             setState(() {
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] =
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] == number ? 0 : number;
                             });
                           } else if (number == 7) {
+                            _addToStack;
                             setState(() {
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX] =
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX] == number ? 0 : number;
                             });
                           } else if (number == 8) {
+                            _addToStack;
                             setState(() {
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] =
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] == number ? 0 : number;
                             });
                           } else if (number == 9) {
+                            _addToStack;
                             setState(() {
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] =
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] == number ? 0 : number;
                             });
                           }
                         } else if (isEdit == false) {
+                          _addToStack;
                           setState(() {
                             Infomation.zero[selectedY][selectedX] = number;
                             Infomation.tmp[3 * selectedY][3 * selectedX] = 0;

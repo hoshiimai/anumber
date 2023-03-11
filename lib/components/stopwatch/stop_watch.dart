@@ -20,9 +20,9 @@ import '../database/database_connection.dart';
 
 class Stopwatch extends StatefulWidget {
   Stopwatch({
-    // super.key
+    Key? key,
     required this.isRunning, 
-  });
+  }) : super(key: key);
 
   bool isRunning;
   static DateTime time = DateTime.utc(0, 0, 0);
@@ -63,7 +63,7 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
   @override
   void dispose() {
     widget.isRunning = false;
-    _timer.cancel();
+    // _timer.cancel();
     // insertTime();
     // _database.printStopwatchData();
     super.dispose();

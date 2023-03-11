@@ -40,10 +40,7 @@ class _SudokuState extends State<Home> {
     super.initState();
     // _database.deleteDB();
     selectTime();
-    print(isResume);
-    print('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    print(Infomation.zero);
-    print('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    // print(isResume);
   }
 
 
@@ -51,7 +48,7 @@ class _SudokuState extends State<Home> {
     final result = await _database.selectDB();
     if(result.isNotEmpty) {
       // _database.initDatabase();
-      print('exist ok');
+      // print('exist ok');
       setState(() {
         isResume = true;
         time = result[0];
@@ -60,7 +57,7 @@ class _SudokuState extends State<Home> {
       print("レコード存在チェック: $isResume");
       print("time: $time");
     } else {
-      print('exist ng');
+      // print('exist ng');
     }
   }
 
