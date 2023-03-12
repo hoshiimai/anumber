@@ -15,11 +15,11 @@ class ControlButton extends StatelessWidget {
     super.key,
     required this.onTap,
     required this.onPress,
-    // required this.onUndo,
+    required this.onBack,
   });
   final Function(int number) onTap;
   final Function() onPress;
-  // final Function() onUndo;
+  final Function() onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ControlButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
-          onTap: () => onPress(),
+          onTap: () => onBack(),
           child: const Icon(Icons.undo, size: 30.0),
         ),
         GestureDetector(
