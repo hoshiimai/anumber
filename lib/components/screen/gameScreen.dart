@@ -91,6 +91,8 @@ class _SudokuState extends State<Sudoku> {
                     Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
                     Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
                     Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    Infomation.historyList = [];
+                    Infomation.tmp_historyList = [];
                     Infomation.specifiedX = -1;
                     Infomation.specifiedY = -1;
                     Infomation.selectedX = 0;
@@ -211,44 +213,32 @@ class _SudokuState extends State<Sudoku> {
                   // アイコンボタン
                   ControlButton(
                     onBack: () {
-                      if (Infomation.historyList.length > 1 && Infomation.selected_historyList.length > 1) {
-                        if (DeepCollectionEquality().equals(Infomation.historyList.last, List.from(Infomation.zero.map((row) => List<int>.from(row))))) {
+                      if (Infomation.historyList.length > 1  && 
+                          Infomation.tmp_historyList.length > 1 && 
+                          Infomation.selected_historyList.length > 1) {
                           // 戻るボタン押下時
                           setState(() {
                             Infomation.historyList.removeLast();
-                            Infomation.historyList.last.length == 9 ? Infomation.zero = Infomation.historyList.last : Infomation.tmp = Infomation.historyList.last;
-                            Infomation.historyList.removeLast();
+                            Infomation.tmp_historyList.removeLast();
+                            Infomation.selected_historyList.removeLast();
 
-                            Infomation.historyList.last.length == 9 ? Infomation.selected_historyList.removeLast() : print('');
-                            Infomation.historyList.last.length == 9 ? selectedX = Infomation.selected_historyList.last[0] : print('');
-                            Infomation.historyList.last.length == 9 ? selectedY = Infomation.selected_historyList.last[1] : print('');
-                            Infomation.historyList.last.length == 9 ? Infomation.selected_historyList.removeLast() : print('');
-                            
-                            // final lastTwo = Infomation.historyList.getRange(Infomation.historyList.length - 2, Infomation.historyList.length).toList();
-                            // Infomation.historyList.removeRange(Infomation.historyList.length - 2, Infomation.historyList.length);
-                            // Infomation.zero = lastTwo[0];
+                            Infomation.zero = Infomation.historyList.last;
+                            Infomation.tmp = Infomation.tmp_historyList.last;
+                            selectedX = Infomation.selected_historyList.last[0];
+                            selectedY = Infomation.selected_historyList.last[1];
                           });
-                        } else { 
-                          // 連続で戻るボタン押下時
+                          print('check1');
+                      } else if(Infomation.historyList.length == 1 && 
+                                Infomation.tmp_historyList.length == 1 && 
+                                Infomation.selected_historyList.length == 1) {
                           setState(() {
-                            Infomation.historyList.last.length == 9 ? Infomation.zero = Infomation.historyList.last : Infomation.tmp = Infomation.historyList.last;
-                            Infomation.historyList.removeLast();
-
-                            Infomation.historyList.last.length == 9 ? selectedX = Infomation.selected_historyList.last[0] : print('');
-                            Infomation.historyList.last.length == 9 ? selectedY = Infomation.selected_historyList.last[1] : print('');
-                            Infomation.historyList.last.length == 9 ? Infomation.selected_historyList.removeLast() : print('');
+                            Infomation.zero = Infomation.historyList.first;
+                            Infomation.tmp = Infomation.tmp_historyList.first;
+                            selectedX = Infomation.selected_historyList.first[0];
+                            selectedY = Infomation.selected_historyList.first[1];
                           });
-                        }
-                      } else if(Infomation.historyList.length == 1 && Infomation.selected_historyList.length == 1) {
-                          setState(() {
-                            Infomation.historyList.last.length == 9 ? Infomation.zero = Infomation.historyList.last : Infomation.tmp = Infomation.historyList.last;
-
-                            Infomation.historyList.last.length == 9 ? selectedX = Infomation.selected_historyList.last[0] : print('');
-                            Infomation.historyList.last.length == 9 ? selectedY = Infomation.selected_historyList.last[1] : print('');
-                          });
+                          print('check');
                       }
-                      print('戻るボタンが押下されました');
-                      print(Infomation.historyList);
                     },
                     onTap: (int number) {
                       if (Infomation.init[selectedY][selectedX] == 0) {
@@ -290,72 +280,108 @@ class _SudokuState extends State<Sudoku> {
                               Infomation.tmp[3 * selectedY][3 * selectedX] =
                               Infomation.tmp[3 * selectedY][3 * selectedX] == number ? 0 : number;
                               Infomation.historyList.add(List.from(
+                                Infomation.zero.map((row) => List<int>.from(row))
+                              ));
+                              Infomation.tmp_historyList.add(List.from(
                                 Infomation.tmp.map((row) => List<int>.from(row))
                               ));
+                              Infomation.selected_historyList.add([selectedX,selectedY]);
                             });
                           } else if (number == 2) {
                             setState(() {
                               Infomation.tmp[3 * selectedY][3 * selectedX + 1] =
                               Infomation.tmp[3 * selectedY][3 * selectedX + 1] == number ? 0 : number;
                               Infomation.historyList.add(List.from(
+                                Infomation.zero.map((row) => List<int>.from(row))
+                              ));
+                              Infomation.tmp_historyList.add(List.from(
                                 Infomation.tmp.map((row) => List<int>.from(row))
                               ));
+                              Infomation.selected_historyList.add([selectedX,selectedY]);
                             });
                           } else if (number == 3) {
                             setState(() {
                               Infomation.tmp[3 * selectedY][3 * selectedX + 2] = 
                               Infomation.tmp[3 * selectedY][3 * selectedX + 2] == number ? 0 : number;
                               Infomation.historyList.add(List.from(
+                                Infomation.zero.map((row) => List<int>.from(row))
+                              ));
+                              Infomation.tmp_historyList.add(List.from(
                                 Infomation.tmp.map((row) => List<int>.from(row))
                               ));
+                              Infomation.selected_historyList.add([selectedX,selectedY]);
                             });
                           } else if (number == 4) {
                             setState(() {
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX] =
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX] == number ? 0 : number;
                               Infomation.historyList.add(List.from(
+                                Infomation.zero.map((row) => List<int>.from(row))
+                              ));
+                              Infomation.tmp_historyList.add(List.from(
                                 Infomation.tmp.map((row) => List<int>.from(row))
                               ));
+                              Infomation.selected_historyList.add([selectedX,selectedY]);
                             });
                           } else if (number == 5) {
                             setState(() {
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] =
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] == number ? 0 : number;
                               Infomation.historyList.add(List.from(
+                                Infomation.zero.map((row) => List<int>.from(row))
+                              ));
+                              Infomation.tmp_historyList.add(List.from(
                                 Infomation.tmp.map((row) => List<int>.from(row))
                               ));
+                              Infomation.selected_historyList.add([selectedX,selectedY]);
                             });
                           } else if (number == 6) {
                             setState(() {
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] =
                               Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] == number ? 0 : number;
                               Infomation.historyList.add(List.from(
+                                Infomation.zero.map((row) => List<int>.from(row))
+                              ));
+                              Infomation.tmp_historyList.add(List.from(
                                 Infomation.tmp.map((row) => List<int>.from(row))
                               ));
+                              Infomation.selected_historyList.add([selectedX,selectedY]);
                             });
                           } else if (number == 7) {
                             setState(() {
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX] =
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX] == number ? 0 : number;
                               Infomation.historyList.add(List.from(
+                                Infomation.zero.map((row) => List<int>.from(row))
+                              ));
+                              Infomation.tmp_historyList.add(List.from(
                                 Infomation.tmp.map((row) => List<int>.from(row))
                               ));
+                              Infomation.selected_historyList.add([selectedX,selectedY]);
                             });
                           } else if (number == 8) {
                             setState(() {
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] =
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] == number ? 0 : number;
                               Infomation.historyList.add(List.from(
+                                Infomation.zero.map((row) => List<int>.from(row))
+                              ));
+                              Infomation.tmp_historyList.add(List.from(
                                 Infomation.tmp.map((row) => List<int>.from(row))
                               ));
+                              Infomation.selected_historyList.add([selectedX,selectedY]);
                             });
                           } else if (number == 9) {
                             setState(() {
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] =
                               Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] == number ? 0 : number;
                               Infomation.historyList.add(List.from(
+                                Infomation.zero.map((row) => List<int>.from(row))
+                              ));
+                              Infomation.tmp_historyList.add(List.from(
                                 Infomation.tmp.map((row) => List<int>.from(row))
                               ));
+                              Infomation.selected_historyList.add([selectedX,selectedY]);
                             });
                           }
                         } else if (isEdit == false) {
@@ -371,7 +397,10 @@ class _SudokuState extends State<Sudoku> {
                             Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] = 0;
                             Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] = 0;
                             Infomation.historyList.add(List.from(
-                            Infomation.zero.map((row) => List<int>.from(row))
+                              Infomation.zero.map((row) => List<int>.from(row))
+                            ));
+                            Infomation.tmp_historyList.add(List.from(
+                              Infomation.tmp.map((row) => List<int>.from(row))
                             ));
                             Infomation.selected_historyList.add([selectedX,selectedY]);
                           });

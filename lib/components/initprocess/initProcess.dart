@@ -58,6 +58,9 @@ class InitProcess {
       Infomation.historyList.add(List.from(
         Infomation.zero.map((row) => List<int>.from(row))
       ));
+      Infomation.tmp_historyList.add(List.from(
+        Infomation.tmp.map((row) => List<int>.from(row))
+      ));
       Infomation.selected_historyList.add([Infomation.selectedX, Infomation.selectedY]);
       // Infomation.animation = Infomation.const_zero;
     });
