@@ -82,7 +82,7 @@ class _SudokuState extends State<Home> {
               //   image: AssetImage('images/main01.png'),
               // ),
               
-              Container(                                                                                                                                                              
+              Container(                                                                                                                                
                 width: 250,
                 height: 65,
                 child: isResume ?
@@ -150,9 +150,9 @@ class _SudokuState extends State<Home> {
                           CupertinoActionSheetAction(
                             child: const Text('中級',
                               style: TextStyle(color: Colors.blue)),
-                            onPressed: () {
-                              MakeQuestion().getExcelValue();
-                              Navigator.push(
+                            onPressed: () async {
+                              MakeQuestion().getExcelValue(setState);
+                              await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const Sudoku(level: "中級",), 

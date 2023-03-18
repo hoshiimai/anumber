@@ -11,6 +11,7 @@ import 'dart:async';
 
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
+import 'package:anumber/components/history/history.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
 import 'package:anumber/home.dart';
 import 'package:anumber/infomation.dart';
@@ -19,13 +20,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../button/controlNumber.dart';
 import '../initprocess/grid_init.dart';
 import '../initprocess/initProcess.dart';
 import '../../main.dart';
 import '../../sudoku.dart';
 import '../database/database_connection.dart';
+
 
 class Sudoku extends StatefulWidget {
   final String level;
@@ -38,7 +43,6 @@ class Sudoku extends StatefulWidget {
 }
 
 class _SudokuState extends State<Sudoku> {
-  
   late String state;
   bool _isTappable = false;
   bool cell = false;
@@ -48,6 +52,7 @@ class _SudokuState extends State<Sudoku> {
   final _database = Database();
   // 候補入力判断用フラグ
   bool isEdit = false;
+  
 
   @override
   void initState() {
@@ -61,8 +66,6 @@ class _SudokuState extends State<Sudoku> {
       });
     });
   }
-
-
 
 
 
@@ -176,14 +179,14 @@ class _SudokuState extends State<Sudoku> {
                         ? SudokuGrid(
                               init: Infomation.init,  //問題用リスト(入力マスかどうか判定用)
                               data: Infomation.zero,  //盤面全体の数字リスト
-                              selectedX: selectedX,   //選択マスx座標
-                              selectedY: selectedY,   //選択マスy座標
+                              selectedX: Infomation.selectedX,   //選択マスx座標
+                              selectedY: Infomation.selectedY,   //選択マスy座標
                               specifiedX: Infomation.specifiedX, //問題マスx座標
                               specifiedY: Infomation.specifiedY, //問題マスy座標
                               onTap: (int x, int y) {
                                 setState(() {
-                                  selectedX = x;
-                                  selectedY = y;
+                                  Infomation.selectedX = x;
+                                  Infomation.selectedY = y;
                                 });
                               },
                           )
@@ -213,49 +216,14 @@ class _SudokuState extends State<Sudoku> {
                   // アイコンボタン
                   ControlButton(
                     onBack: () {
-                      if (Infomation.historyList.length > 1  && 
-                          Infomation.tmp_historyList.length > 1 && 
-                          Infomation.selected_historyList.length > 1) {
-                          // 戻るボタン押下時
-                          setState(() {
-                            Infomation.historyList.removeLast();
-                            Infomation.tmp_historyList.removeLast();
-                            Infomation.selected_historyList.removeLast();
-
-                            Infomation.zero = Infomation.historyList.last;
-                            Infomation.tmp = Infomation.tmp_historyList.last;
-                            selectedX = Infomation.selected_historyList.last[0];
-                            selectedY = Infomation.selected_historyList.last[1];
-                          });
-                          print('check1');
-                      } else if(Infomation.historyList.length == 1 && 
-                                Infomation.tmp_historyList.length == 1 && 
-                                Infomation.selected_historyList.length == 1) {
-                          setState(() {
-                            Infomation.zero = Infomation.historyList.first;
-                            Infomation.tmp = Infomation.tmp_historyList.first;
-                            selectedX = Infomation.selected_historyList.first[0];
-                            selectedY = Infomation.selected_historyList.first[1];
-                          });
-                          print('check');
-                      }
+                      getHistory(setState);
                     },
+                    
+                    // 数字消すボタン
                     onTap: (int number) {
-                      if (Infomation.init[selectedY][selectedX] == 0) {
-                        setState(() {
-                          Infomation.zero[selectedY][selectedX] = number;
-                          Infomation.tmp[3 * selectedY][3 * selectedX] = 0;
-                          Infomation.tmp[3 * selectedY][3 * selectedX + 1] = 0;
-                          Infomation.tmp[3 * selectedY][3 * selectedX + 2] = 0;
-                          Infomation.tmp[3 * selectedY + 1][3 * selectedX] = 0;
-                          Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] =0;
-                          Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] =0;
-                          Infomation.tmp[3 * selectedY + 2][3 * selectedX] = 0;
-                          Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] =0;
-                          Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] =0;
-                        });
-                      }
+                      deleteNumber(setState, number);
                     },
+
                     onPress: () {
                       setState(() {
                         isEdit = !isEdit;
@@ -268,144 +236,11 @@ class _SudokuState extends State<Sudoku> {
                     height: (screenSize.width) / 10,
                   ),
 
-                  // 数字ボタン
+                  // 数字入力ボタン
                   Numbers(
                     isPress: isEdit,
                     onTap: (int number) {
-                      if (Infomation.init[selectedY][selectedX] == 0) {
-                        if (isEdit == true &&
-                            Infomation.zero[selectedY][selectedX] == 0) {
-                          if (number == 1) {
-                            setState(() {
-                              Infomation.tmp[3 * selectedY][3 * selectedX] =
-                              Infomation.tmp[3 * selectedY][3 * selectedX] == number ? 0 : number;
-                              Infomation.historyList.add(List.from(
-                                Infomation.zero.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.tmp_historyList.add(List.from(
-                                Infomation.tmp.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.selected_historyList.add([selectedX,selectedY]);
-                            });
-                          } else if (number == 2) {
-                            setState(() {
-                              Infomation.tmp[3 * selectedY][3 * selectedX + 1] =
-                              Infomation.tmp[3 * selectedY][3 * selectedX + 1] == number ? 0 : number;
-                              Infomation.historyList.add(List.from(
-                                Infomation.zero.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.tmp_historyList.add(List.from(
-                                Infomation.tmp.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.selected_historyList.add([selectedX,selectedY]);
-                            });
-                          } else if (number == 3) {
-                            setState(() {
-                              Infomation.tmp[3 * selectedY][3 * selectedX + 2] = 
-                              Infomation.tmp[3 * selectedY][3 * selectedX + 2] == number ? 0 : number;
-                              Infomation.historyList.add(List.from(
-                                Infomation.zero.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.tmp_historyList.add(List.from(
-                                Infomation.tmp.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.selected_historyList.add([selectedX,selectedY]);
-                            });
-                          } else if (number == 4) {
-                            setState(() {
-                              Infomation.tmp[3 * selectedY + 1][3 * selectedX] =
-                              Infomation.tmp[3 * selectedY + 1][3 * selectedX] == number ? 0 : number;
-                              Infomation.historyList.add(List.from(
-                                Infomation.zero.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.tmp_historyList.add(List.from(
-                                Infomation.tmp.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.selected_historyList.add([selectedX,selectedY]);
-                            });
-                          } else if (number == 5) {
-                            setState(() {
-                              Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] =
-                              Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] == number ? 0 : number;
-                              Infomation.historyList.add(List.from(
-                                Infomation.zero.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.tmp_historyList.add(List.from(
-                                Infomation.tmp.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.selected_historyList.add([selectedX,selectedY]);
-                            });
-                          } else if (number == 6) {
-                            setState(() {
-                              Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] =
-                              Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] == number ? 0 : number;
-                              Infomation.historyList.add(List.from(
-                                Infomation.zero.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.tmp_historyList.add(List.from(
-                                Infomation.tmp.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.selected_historyList.add([selectedX,selectedY]);
-                            });
-                          } else if (number == 7) {
-                            setState(() {
-                              Infomation.tmp[3 * selectedY + 2][3 * selectedX] =
-                              Infomation.tmp[3 * selectedY + 2][3 * selectedX] == number ? 0 : number;
-                              Infomation.historyList.add(List.from(
-                                Infomation.zero.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.tmp_historyList.add(List.from(
-                                Infomation.tmp.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.selected_historyList.add([selectedX,selectedY]);
-                            });
-                          } else if (number == 8) {
-                            setState(() {
-                              Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] =
-                              Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] == number ? 0 : number;
-                              Infomation.historyList.add(List.from(
-                                Infomation.zero.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.tmp_historyList.add(List.from(
-                                Infomation.tmp.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.selected_historyList.add([selectedX,selectedY]);
-                            });
-                          } else if (number == 9) {
-                            setState(() {
-                              Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] =
-                              Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] == number ? 0 : number;
-                              Infomation.historyList.add(List.from(
-                                Infomation.zero.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.tmp_historyList.add(List.from(
-                                Infomation.tmp.map((row) => List<int>.from(row))
-                              ));
-                              Infomation.selected_historyList.add([selectedX,selectedY]);
-                            });
-                          }
-                        } else if (isEdit == false) {
-                          setState(() {
-                            Infomation.zero[selectedY][selectedX] = number;
-                            Infomation.tmp[3 * selectedY][3 * selectedX] = 0;
-                            Infomation.tmp[3 * selectedY][3 * selectedX + 1] = 0;
-                            Infomation.tmp[3 * selectedY][3 * selectedX + 2] = 0;
-                            Infomation.tmp[3 * selectedY + 1][3 * selectedX] = 0;
-                            Infomation.tmp[3 * selectedY + 1][3 * selectedX + 1] = 0;
-                            Infomation.tmp[3 * selectedY + 1][3 * selectedX + 2] = 0;
-                            Infomation.tmp[3 * selectedY + 2][3 * selectedX] = 0;
-                            Infomation.tmp[3 * selectedY + 2][3 * selectedX + 1] = 0;
-                            Infomation.tmp[3 * selectedY + 2][3 * selectedX + 2] = 0;
-                            Infomation.historyList.add(List.from(
-                              Infomation.zero.map((row) => List<int>.from(row))
-                            ));
-                            Infomation.tmp_historyList.add(List.from(
-                              Infomation.tmp.map((row) => List<int>.from(row))
-                            ));
-                            Infomation.selected_historyList.add([selectedX,selectedY]);
-                          });
-                        }
-                      }
+                      controlNumber(setState, isEdit, number);
                     },
                   ),
 

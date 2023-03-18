@@ -1,12 +1,8 @@
 import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
 
-  int selectedX = -1;
-  int selectedY = -1;
   int initX = -1;
   int initY = -1;
-  // int specifiedX = -1;
-  // int specifiedY = -1;
 
 class InitProcess {
   
@@ -53,8 +49,7 @@ class InitProcess {
     setState(() {
       initX = -1;
       initY = -1;
-      selectedX = Infomation.selectedX;
-      selectedY = Infomation.selectedY;
+
       Infomation.historyList.add(List.from(
         Infomation.zero.map((row) => List<int>.from(row))
       ));

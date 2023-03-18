@@ -10,6 +10,8 @@ OUT：入力マスに0を入れる
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../infomation.dart';
+
 class ControlButton extends StatelessWidget {
   ControlButton({
     super.key,
@@ -63,6 +65,10 @@ class Numbers extends StatelessWidget {
   final Function(int number) onTap;
   final bool isPress;
   final List<int> numberTexts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  void num1(int number) {
+    print('ok');
+  }
 
   @override
   Widget build(BuildContext context) {
