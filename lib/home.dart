@@ -136,8 +136,9 @@ class _SudokuState extends State<Home> {
                           CupertinoActionSheetAction(
                             child: const Text('初級',
                               style: TextStyle(color: Colors.blue)),
-                            onPressed: () {
-                              Navigator.push(
+                            onPressed: () async{
+                              MakeQuestion().getExcelValue();
+                              await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => AnswerScreen(),

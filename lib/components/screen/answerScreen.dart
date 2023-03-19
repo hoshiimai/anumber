@@ -42,14 +42,14 @@ class _SudokuState extends State<AnswerScreen> {
   
   // late String state;
   bool _isTappable = true;
-  int selectedX = 5;
-  int selectedY = 4;
+  // int selectedX = 5;
+  // int selectedY = 4;
   int initX = -1;
   int initX1 = -1;
   int initY = -1;
   int initY1 = -1;
-  int specifiedX = 5;
-  int specifiedY = 4;
+  // int specifiedX = 5;
+  // int specifiedY = 4;
   // bool cell = false;
   bool _timeRunning = false;
   bool _timer = true;
@@ -61,6 +61,7 @@ class _SudokuState extends State<AnswerScreen> {
   void initState() {
     super.initState();
     makeAnswerList();
+    print(Infomation.init);
     // state = widget.level;
     // print(state);
     // Answer.getAnswer(setState, initX, initY, initX1, initY1);
@@ -76,70 +77,78 @@ class _SudokuState extends State<AnswerScreen> {
       },
 
       () {
-        Infomation.answer[5][6] = 2;
+        Infomation.answer[6][1] = 2;
         addAnswerList();
       },
 
       () {
-        initX = 5;
+        initX = 6;
         addAnswerList();
       },
 
       () {
-        Infomation.answer[5][6] = 0;
-        Infomation.answer[0][0] = 2;
+        Infomation.answer[6][1] = 0;
+        Infomation.answer[8][6] = 2;
         addAnswerList();
       },
 
       () {
-        Infomation.data[3][1] = 9;
+        initX1 = 8;
         addAnswerList();
       },
 
       () {
-        Infomation.data[3][2] = 9;
+        Infomation.data[7][4] = 1;
+        Infomation.data[7][5] = 1;
         addAnswerList();
       },
 
       () {
-        initX1 = 3;
+        initY = 6;
         addAnswerList();
       },
 
       () {
-        Infomation.answer[7][3] = 2;
+        Infomation.answer[8][6] = 0;
+        Infomation.answer[2][8] = 2;
         addAnswerList();
       },
 
       () {
-        initY1 = 3;
+        initY1 = 8;
         addAnswerList();
       },
 
       () {
-        Infomation.answer[7][3] = 0;
-        Infomation.data[1][4] = 9;
+        Infomation.answer[2][8] = 0;
+        Infomation.data[4][7] = 1;
+        Infomation.data[5][7] = 1;
         addAnswerList();
       },
 
       () {
-        Infomation.data[2][4] = 9;
+        Infomation.data[4][0] = 1;
+        Infomation.data[5][0] = 1;
+        Infomation.data[5][2] = 1;
         addAnswerList();
       },
 
       () {
+        initX = 4;
         initY = 4;
-        Infomation.answer[0][0] = 0;
+        initX1 = 5;
+        initY1 = 5;
         addAnswerList();
       },
 
       () {
-        Infomation.data[4][5] = 9;
-        Infomation.answer[4][5] = 2;
+        Infomation.data[3][3] = 1;
+        Infomation.answer[3][3] = 2;
         addAnswerList();
       },
 
       () {
+        Infomation.init = Infomation.dataList.first;
         Infomation.data = Infomation.dataList.first;
         Infomation.answer = Infomation.answerList.first;
         initX = -1;
@@ -154,15 +163,6 @@ class _SudokuState extends State<AnswerScreen> {
         step();
       });
     }
-    
-    print(Infomation.data);
-    print('***********************');
-    print(Infomation.answer);
-    print('***********************');
-    print(initX);
-    print(initX1);
-    print(initY);
-    print(initY1);
   }
 
   void addAnswerList() {
@@ -236,7 +236,7 @@ class _SudokuState extends State<AnswerScreen> {
                           // state == 1 ? '初級' :
                           // state == 2 ? '中級' :
                           // state == 3 ? '上級' :
-                          '初級',
+                          '中級',
                           style: TextStyle(
                             fontSize: (screenSize.width) / 25,
                           ),
@@ -285,22 +285,22 @@ class _SudokuState extends State<AnswerScreen> {
                         init: Infomation.init,
                         data: Infomation.data,
                         anim: Infomation.answer,
-                        selectedX: selectedX,
-                        selectedY: selectedY,
-                        specifiedX: specifiedX,
-                        specifiedY: specifiedY,
+                        selectedX: Infomation.selectedX,
+                        selectedY: Infomation.selectedY,
+                        specifiedX: Infomation.specifiedX,
+                        specifiedY: Infomation.specifiedY,
                         isAnswerRow: initX,
                         isAnswerColumn: initY,
                         initX: initX1,
                         initY: initY1,
                         // animCell: cell,
                         timer: _timer,
-                        onTap: (int x, int y) {
-                          setState(() {
-                            selectedX = x;
-                            selectedY = y;
-                          });
-                        },
+                        // onTap: (int x, int y) {
+                        //   setState(() {
+                        //     Infomation.selectedX = x;
+                        //     Infomation.selectedY = y;
+                        //   });
+                        // },
                       ),
                       // ),
 

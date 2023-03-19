@@ -19,7 +19,7 @@ class Answer extends StatelessWidget {
     required this.number,
     required this.x,
     required this.y,
-    required this.onTap,
+    // required this.onTap,
     required this.inputNum,
     required this.isSelected,
     // required this.isInit,
@@ -40,7 +40,7 @@ class Answer extends StatelessWidget {
   final int number;
   final int x;
   final int y;
-  final Function() onTap;
+  // final Function() onTap;
   final bool inputNum;
   final bool isSelected;
   // final bool isInit;
@@ -63,7 +63,7 @@ class Answer extends StatelessWidget {
     var screenSize = MediaQuery.of(context).size;
 
     return GestureDetector(
-      onTap: onTap,
+      // onTap: onTap,
       child: SizedBox(
         // 盤面のサイズ(一マスのサイズを指定)
         width: (screenSize.width)/9.5,
@@ -81,8 +81,8 @@ class Answer extends StatelessWidget {
               ? Colors.blue[100]
               // : isInit // 最初のアニメーション
               // ? Colors.blue[100]
-              : isCell // 選択マスの領域(ブロック)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
+              // : isCell // 選択マスの領域(ブロック)かどうか
+              // ? const Color.fromARGB(255, 241, 241, 241)
               : isBlock1 // 選択マスの領域(ブロック)かどうか
               ? const Color.fromARGB(255, 241, 241, 241)
               : isBlock2 // 選択マスの領域(ブロック)かどうか

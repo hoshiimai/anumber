@@ -25,7 +25,7 @@ class AnswerGrid extends StatelessWidget {
     required this.data,
     required this.init,
     required this.anim,
-    required this.onTap,
+    // required this.onTap,
     required this.selectedX,
     required this.selectedY,
     required this.isAnswerRow,
@@ -40,7 +40,7 @@ class AnswerGrid extends StatelessWidget {
   final List<List<int>> data;
   final List<List<int>> init;
   final List<List<int>> anim;
-  final Function(int x, int y) onTap;
+  // final Function(int x, int y) onTap;
   final int selectedX;
   final int selectedY;
   final int specifiedX;
@@ -95,7 +95,7 @@ class AnswerGrid extends StatelessWidget {
                   
                   x: c.key,
                   y: r.key,
-                  onTap: () => onTap(c.key, r.key),
+                  // onTap: () => onTap(c.key, r.key),
                 ),
             ],
           ),
