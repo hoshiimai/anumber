@@ -27,7 +27,4 @@ void getHistory(StateSetter setState) {
        Infomation.selectedY = Infomation.selected_historyList.first[1];
     });
   }
-
-  print(Infomation.historyList);
-  print(Infomation.historyList.length);
 }

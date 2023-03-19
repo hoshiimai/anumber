@@ -66,9 +66,6 @@ class Numbers extends StatelessWidget {
   final bool isPress;
   final List<int> numberTexts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  void num1(int number) {
-    print('ok');
-  }
 
   @override
   Widget build(BuildContext context) {

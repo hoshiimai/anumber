@@ -151,7 +151,7 @@ class _SudokuState extends State<Home> {
                             child: const Text('中級',
                               style: TextStyle(color: Colors.blue)),
                             onPressed: () async {
-                              MakeQuestion().getExcelValue(setState);
+                              MakeQuestion().getExcelValue();
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(

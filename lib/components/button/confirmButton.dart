@@ -74,7 +74,7 @@ class ConfirmButton extends StatelessWidget {
                   desc: 'This is also Ignored',
                   btnOkText: "次の問題",
                   btnOkOnPress: () {
-                    MakeQuestion().getExcelValue();
+                    // MakeQuestion().getExcelValue();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
