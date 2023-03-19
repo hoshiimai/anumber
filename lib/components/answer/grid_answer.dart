@@ -12,11 +12,11 @@ OUT：・問題の数字
 履歴：
 ****************************************
 */
-import 'package:anumber/components/board/cell_answer.dart';
+import 'package:anumber/components/answer/cell_answer.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/cell.dart';
 
-import '../answer/illustrated.dart';
+import 'illustrated.dart';
 
 
 class AnswerGrid extends StatelessWidget {
@@ -34,7 +34,7 @@ class AnswerGrid extends StatelessWidget {
     required this.specifiedY,
     required this.initX,
     required this.initY,
-    required this.animCell,
+    // required this.animCell,
     required this.timer,
   });
   final List<List<int>> data;
@@ -49,7 +49,7 @@ class AnswerGrid extends StatelessWidget {
   final int specifiedY;
   final int initX;
   final int initY;
-  final bool animCell;
+  // final bool animCell;
   final bool timer;
   static int blockX1 = 0;
   static int blockY1 = 0;

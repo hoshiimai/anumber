@@ -24,7 +24,8 @@ import 'package:provider/provider.dart';
 import '../../main.dart';
 import '../../makeQuestion.dart';
 import '../../sudoku.dart';
-import '../board/grid_answer.dart';
+import '../answer/answer.dart';
+import '../answer/grid_answer.dart';
 import '../database/database_connection.dart';
 
 class AnswerScreen extends StatefulWidget {
@@ -49,130 +50,142 @@ class _SudokuState extends State<AnswerScreen> {
   int initY1 = -1;
   int specifiedX = 5;
   int specifiedY = 4;
-  bool cell = false;
+  // bool cell = false;
   bool _timeRunning = false;
   bool _timer = true;
   final fabKey = GlobalKey();
   final _database = Database();
-
-  List<Map<String, dynamic>> history = [];
-  int currentIndex = -1;
+  int count = 0;
 
   @override
   void initState() {
     super.initState();
+    makeAnswerList();
     // state = widget.level;
     // print(state);
-    start();
+    // Answer.getAnswer(setState, initX, initY, initX1, initY1);
+    
+
   }
 
-  start() async{
-    await Future.delayed(Duration(milliseconds: 700));
-    setState(() {
-      Infomation.answer[5][6] = 2;
-    });
-    await Future.delayed(Duration(milliseconds: 400));
-    setState(() {
-      initX = 5;
-    });
-    await Future.delayed(Duration(milliseconds: 700));
-    setState(() {
-      Infomation.answer[5][6] = 0;
-      Infomation.answer[0][0] = 2;
-    });
-    // await Future.delayed(Duration(milliseconds: 400));
-    // setState(() {
-    //   initY = 0;
-    // });
-    await Future.delayed(Duration(milliseconds: 700));
-    setState(() {
-      Infomation.data[3][1] = 9;
-    });
-    await Future.delayed(Duration(milliseconds: 700));
-    setState(() {
-      Infomation.data[3][2] = 9;
-    });
-    await Future.delayed(Duration(milliseconds: 400));
-    setState(() {
-      initX1 = 3;
-    });
-    await Future.delayed(Duration(milliseconds: 700));
-    setState(() {
-      Infomation.answer[7][3] = 2;
-    });
-    await Future.delayed(Duration(milliseconds: 400));
-    setState(() {
-      initY1 = 3;
-    });
-    await Future.delayed(Duration(milliseconds: 700));
-    setState(() {
-      Infomation.answer[7][3] = 0;
-      Infomation.data[1][4] = 9;
-    });
-    await Future.delayed(Duration(milliseconds: 700));
-    setState(() {
-      Infomation.data[2][4] = 9;
-    });
-    await Future.delayed(Duration(milliseconds: 400));
-    setState(() {
-      initY = 4;
-      Infomation.answer[0][0] = 0;
-    });
-    await Future.delayed(Duration(milliseconds: 700));
-    setState(() {
-      Infomation.data[4][5] = 9;
-      Infomation.answer[4][5] = 2;
-    });
-    addToHistory();
-  }
 
-  void addToHistory() {
-  currentIndex++;
-  if (history.length > currentIndex) {
-    history.removeRange(currentIndex, history.length);
-  }
-  history.add({
-    "initY": initY,
-    "answer": List<List<int>>.from(Infomation.answer),
-    "data": List<List<int>>.from(Infomation.data),
-  });
-}
+  void makeAnswerList() {
+    List<Function> steps = [
+      () {
+        addAnswerList();
+      },
 
+      () {
+        Infomation.answer[5][6] = 2;
+        addAnswerList();
+      },
 
-  void onBackwardPressed() {
-    if (currentIndex > 0) {
-      // 履歴の最初まで戻る
-      currentIndex--;
+      () {
+        initX = 5;
+        addAnswerList();
+      },
+
+      () {
+        Infomation.answer[5][6] = 0;
+        Infomation.answer[0][0] = 2;
+        addAnswerList();
+      },
+
+      () {
+        Infomation.data[3][1] = 9;
+        addAnswerList();
+      },
+
+      () {
+        Infomation.data[3][2] = 9;
+        addAnswerList();
+      },
+
+      () {
+        initX1 = 3;
+        addAnswerList();
+      },
+
+      () {
+        Infomation.answer[7][3] = 2;
+        addAnswerList();
+      },
+
+      () {
+        initY1 = 3;
+        addAnswerList();
+      },
+
+      () {
+        Infomation.answer[7][3] = 0;
+        Infomation.data[1][4] = 9;
+        addAnswerList();
+      },
+
+      () {
+        Infomation.data[2][4] = 9;
+        addAnswerList();
+      },
+
+      () {
+        initY = 4;
+        Infomation.answer[0][0] = 0;
+        addAnswerList();
+      },
+
+      () {
+        Infomation.data[4][5] = 9;
+        Infomation.answer[4][5] = 2;
+        addAnswerList();
+      },
+
+      () {
+        Infomation.data = Infomation.dataList.first;
+        Infomation.answer = Infomation.answerList.first;
+        initX = -1;
+        initY = -1;
+        initX1 = -1;
+        initY1 = -1;
+      }
+    ];
+
+    for (var step in steps) {
       setState(() {
-        // historyリストから状態を読み込む
-        Infomation.answer = List.from(history[currentIndex][0]);
-        Infomation.data = List.from(history[currentIndex][1]);
-        initX = history[currentIndex][2];
-        initY = history[currentIndex][3];
-        initX1 = history[currentIndex][4];
-        initY1 = history[currentIndex][5];
+        step();
       });
     }
+    
+    print(Infomation.data);
+    print('***********************');
+    print(Infomation.answer);
+    print('***********************');
+    print(initX);
+    print(initX1);
+    print(initY);
+    print(initY1);
   }
 
-  
-  void onForwardPressed() {
-    if (currentIndex < history.length - 1) {
-      // 履歴の最後まで進む
-      currentIndex++;
-      setState(() {
-        // historyリストから状態を読み込む
-        Infomation.answer = List.from(history[currentIndex][0]);
-        Infomation.data = List.from(history[currentIndex][1]);
-        initX = history[currentIndex][2];
-        initY = history[currentIndex][3];
-        initX1 = history[currentIndex][4];
-        initY1 = history[currentIndex][5];
-      });
-    }
-}
+  void addAnswerList() {
+    Infomation.dataList.add(List.from(
+      Infomation.data.map((row) => List<int>.from(row))
+    ));
+    Infomation.answerList.add(List.from(
+      Infomation.answer.map((row) => List<int>.from(row))
+    ));
+    Infomation.xyList.add([initX, initY, initX1, initY1]);
+  }
 
 
+  Future<void> getAnswer() async{
+  setState(() {
+      Infomation.data = Infomation.dataList[count];
+      Infomation.answer = Infomation.answerList[count];
+      initX = Infomation.xyList[count][0];
+      initY = Infomation.xyList[count][1];
+      initX1 = Infomation.xyList[count][2];
+      initY1 = Infomation.xyList[count][3];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -268,27 +281,27 @@ class _SudokuState extends State<AnswerScreen> {
                     alignment: Alignment.center,
                     children: [
                       // 問題の盤面
-                    AnswerGrid(
-                      init: Infomation.init,
-                      data: Infomation.data,
-                      anim: Infomation.answer,
-                      selectedX: selectedX,
-                      selectedY: selectedY,
-                      specifiedX: specifiedX,
-                      specifiedY: specifiedY,
-                      isAnswerRow: initX,
-                      isAnswerColumn: initY,
-                      initX: initX1,
-                      initY: initY1,
-                      animCell: cell,
-                      timer: _timer,
-                      onTap: (int x, int y) {
-                        setState(() {
-                          selectedX = x;
-                          selectedY = y;
-                        });
-                      },
-                    ),
+                      AnswerGrid(
+                        init: Infomation.init,
+                        data: Infomation.data,
+                        anim: Infomation.answer,
+                        selectedX: selectedX,
+                        selectedY: selectedY,
+                        specifiedX: specifiedX,
+                        specifiedY: specifiedY,
+                        isAnswerRow: initX,
+                        isAnswerColumn: initY,
+                        initX: initX1,
+                        initY: initY1,
+                        // animCell: cell,
+                        timer: _timer,
+                        onTap: (int x, int y) {
+                          setState(() {
+                            selectedX = x;
+                            selectedY = y;
+                          });
+                        },
+                      ),
                       // ),
 
                     //   // 候補の盤面
@@ -307,11 +320,17 @@ class _SudokuState extends State<AnswerScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           GestureDetector(
-                            onTap: () => onBackwardPressed(),
+                            onTap: () async{
+                              count > 0 ? count -= 1 : null;
+                              await getAnswer();
+                            },
                             child: const Icon(Icons.undo, size: 30.0),
                           ),
                           GestureDetector(
-                            onTap: () => onForwardPressed(),
+                            onTap: () async{
+                              count < Infomation.dataList.length -1 ? count += 1 : null;
+                              await getAnswer();
+                            },
                             child: const Icon(Icons.redo, size: 30.0),
                           ),
                         ],
