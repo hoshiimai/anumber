@@ -7,10 +7,9 @@ OUT：入力マスに0を入れる
 履歴：
 ****************************************
 */
+import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../infomation.dart';
 
 class ControlButton extends StatelessWidget {
   ControlButton({
@@ -30,15 +29,15 @@ class ControlButton extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () => onBack(),
-          child: const Icon(Icons.undo, size: 30.0),
+          child: Icon(Icons.undo, size: 30.0, color: AppColors.isText),
         ),
         GestureDetector(
           onTap: () => onTap(0),
-          child: const Icon(Icons.auto_fix_high_outlined, size: 30.0),
+          child: Icon(Icons.auto_fix_high_outlined, size: 30.0, color: AppColors.isText),
         ),
         GestureDetector(
           onTap: () => onPress(),
-          child: const Icon(Icons.mode_edit_outline, size: 30.0),
+          child: Icon(Icons.mode_edit_outline, size: 30.0, color: AppColors.isText),
         ),
       ],
     );
@@ -84,7 +83,7 @@ class Numbers extends StatelessWidget {
       child: Text(
         number.toString(),
         style: TextStyle(
-          color: isPress ? Colors.blueGrey : Colors.blue[900],
+          color: isPress ? Colors.blueGrey : AppColors.isInput,
           fontSize: 40,
           fontWeight: FontWeight.w300
         ),

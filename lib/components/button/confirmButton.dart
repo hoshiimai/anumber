@@ -12,6 +12,7 @@ OUT：・ヒントの表示
 import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
@@ -23,6 +24,7 @@ class ConfirmButton extends StatelessWidget {
     required this.answer,
   });
   final int answer;
+  final _audio = AudioCache();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class ConfirmButton extends StatelessWidget {
             //     borderRadius: BorderRadius.circular(6),
             //   ),
             // ),
-            onPressed: () {
+            onPressed: () async {
               if (answer == Infomation.kotae) {
                 AwesomeDialog(
                   context: context,
@@ -94,6 +96,8 @@ class ConfirmButton extends StatelessWidget {
                   },
                   btnCancelColor: Colors.blueAccent,
                 ).show();
+                await Future.delayed(const Duration(milliseconds: 600));
+                Infomation.sound ? _audio.play('correct.mp3') : null;
               } else {
                 AwesomeDialog(
                   context: context,
@@ -124,6 +128,8 @@ class ConfirmButton extends StatelessWidget {
                   btnCancelOnPress: () {},
                   btnCancelColor: Colors.blueAccent,
                 ).show();
+                await Future.delayed(const Duration(milliseconds: 700));
+                Infomation.sound ? _audio.play('incorrect.mp3') : null;
               }
             },
             child: Text(

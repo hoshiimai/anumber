@@ -79,70 +79,70 @@ class MakeQuestion {
             .toList(); // 2次元リストに変換
     
 
-    // for (var i = 0; i < 9; i++) {
-    //   for (var j = 0; j < 9; j++) {
-    //     for (var l = 0; l < 9; l++) { 
-    //       shuffle2[0][l] = numberMap[shuffle1[line1[0]][l]]!;
-    //       shuffle2[1][l] = numberMap[shuffle1[line1[1]][l]]!;
-    //       shuffle2[2][l] = numberMap[shuffle1[line1[2]][l]]!;
-    //       shuffle2[3][l] = numberMap[shuffle1[line2[0]][l]]!;
-    //       shuffle2[4][l] = numberMap[shuffle1[line2[1]][l]]!;
-    //       shuffle2[5][l] = numberMap[shuffle1[line2[2]][l]]!;
-    //       shuffle2[6][l] = numberMap[shuffle1[line3[0]][l]]!;
-    //       shuffle2[7][l] = numberMap[shuffle1[line3[1]][l]]!;
-    //       shuffle2[8][l] = numberMap[shuffle1[line3[2]][l]]!;
+    for (var i = 0; i < 9; i++) {
+      for (var j = 0; j < 9; j++) {
+        for (var l = 0; l < 9; l++) { 
+          shuffle2[0][l] = numberMap[shuffle1[line1[0]][l]]!;
+          shuffle2[1][l] = numberMap[shuffle1[line1[1]][l]]!;
+          shuffle2[2][l] = numberMap[shuffle1[line1[2]][l]]!;
+          shuffle2[3][l] = numberMap[shuffle1[line2[0]][l]]!;
+          shuffle2[4][l] = numberMap[shuffle1[line2[1]][l]]!;
+          shuffle2[5][l] = numberMap[shuffle1[line2[2]][l]]!;
+          shuffle2[6][l] = numberMap[shuffle1[line3[0]][l]]!;
+          shuffle2[7][l] = numberMap[shuffle1[line3[1]][l]]!;
+          shuffle2[8][l] = numberMap[shuffle1[line3[2]][l]]!;
 
-    //       shuffle4[0][l] = shuffle3[line1[0]][l];
-    //       shuffle4[1][l] = shuffle3[line1[1]][l];
-    //       shuffle4[2][l] = shuffle3[line1[2]][l];
-    //       shuffle4[3][l] = shuffle3[line2[0]][l];
-    //       shuffle4[4][l] = shuffle3[line2[1]][l];
-    //       shuffle4[5][l] = shuffle3[line2[2]][l];
-    //       shuffle4[6][l] = shuffle3[line3[0]][l];
-    //       shuffle4[7][l] = shuffle3[line3[1]][l];
-    //       shuffle4[8][l] = shuffle3[line3[2]][l];
-    //     }
-    //     for (var r = 0; r < 9; r++) {
-    //       Infomation.init[r][0] = shuffle2[r][column1[0]];
-    //       Infomation.init[r][1] = shuffle2[r][column1[1]];
-    //       Infomation.init[r][2] = shuffle2[r][column1[2]];
-    //       Infomation.init[r][3] = shuffle2[r][column2[0]];
-    //       Infomation.init[r][4] = shuffle2[r][column2[1]];
-    //       Infomation.init[r][5] = shuffle2[r][column2[2]];
-    //       Infomation.init[r][6] = shuffle2[r][column3[0]];
-    //       Infomation.init[r][7] = shuffle2[r][column3[1]];
-    //       Infomation.init[r][8] = shuffle2[r][column3[2]];
+          shuffle4[0][l] = shuffle3[line1[0]][l];
+          shuffle4[1][l] = shuffle3[line1[1]][l];
+          shuffle4[2][l] = shuffle3[line1[2]][l];
+          shuffle4[3][l] = shuffle3[line2[0]][l];
+          shuffle4[4][l] = shuffle3[line2[1]][l];
+          shuffle4[5][l] = shuffle3[line2[2]][l];
+          shuffle4[6][l] = shuffle3[line3[0]][l];
+          shuffle4[7][l] = shuffle3[line3[1]][l];
+          shuffle4[8][l] = shuffle3[line3[2]][l];
+        }
+        for (var r = 0; r < 9; r++) {
+          Infomation.init[r][0] = shuffle2[r][column1[0]];
+          Infomation.init[r][1] = shuffle2[r][column1[1]];
+          Infomation.init[r][2] = shuffle2[r][column1[2]];
+          Infomation.init[r][3] = shuffle2[r][column2[0]];
+          Infomation.init[r][4] = shuffle2[r][column2[1]];
+          Infomation.init[r][5] = shuffle2[r][column2[2]];
+          Infomation.init[r][6] = shuffle2[r][column3[0]];
+          Infomation.init[r][7] = shuffle2[r][column3[1]];
+          Infomation.init[r][8] = shuffle2[r][column3[2]];
 
-    //       Infomation.animation[r][0] = shuffle4[r][column1[0]];
-    //       Infomation.animation[r][1] = shuffle4[r][column1[1]];
-    //       Infomation.animation[r][2] = shuffle4[r][column1[2]];
-    //       Infomation.animation[r][3] = shuffle4[r][column2[0]];
-    //       Infomation.animation[r][4] = shuffle4[r][column2[1]];
-    //       Infomation.animation[r][5] = shuffle4[r][column2[2]];
-    //       Infomation.animation[r][6] = shuffle4[r][column3[0]];
-    //       Infomation.animation[r][7] = shuffle4[r][column3[1]];
-    //       Infomation.animation[r][8] = shuffle4[r][column3[2]];
-    //     }
-    //   }
-    // }
+          Infomation.animation[r][0] = shuffle4[r][column1[0]];
+          Infomation.animation[r][1] = shuffle4[r][column1[1]];
+          Infomation.animation[r][2] = shuffle4[r][column1[2]];
+          Infomation.animation[r][3] = shuffle4[r][column2[0]];
+          Infomation.animation[r][4] = shuffle4[r][column2[1]];
+          Infomation.animation[r][5] = shuffle4[r][column2[2]];
+          Infomation.animation[r][6] = shuffle4[r][column3[0]];
+          Infomation.animation[r][7] = shuffle4[r][column3[1]];
+          Infomation.animation[r][8] = shuffle4[r][column3[2]];
+        }
+      }
+    }
 
-    // Infomation.selectedX = columnMerged.indexOf(xCoordinate);
-    // Infomation.selectedY = lineMerged.indexOf(yCoordinate);
-    // Infomation.kotae = numberMap[kotaeCoordinate]!;
+    Infomation.selectedX = columnMerged.indexOf(xCoordinate);
+    Infomation.selectedY = lineMerged.indexOf(yCoordinate);
+    Infomation.kotae = numberMap[kotaeCoordinate]!;
 
 
     //検証用---------------------------
-    Infomation.init = shuffle1;
-    Infomation.animation = shuffle3;
-    Infomation.selectedX = xCoordinate;
-    Infomation.selectedY = yCoordinate;
-    Infomation.kotae = kotaeCoordinate;
-
-    Infomation.specifiedX = xCoordinate;
-    Infomation.specifiedY = yCoordinate;
+    Infomation.specifiedX = columnMerged.indexOf(xCoordinate);
+    Infomation.specifiedY = lineMerged.indexOf(yCoordinate);
     //---------------------------
-
+    
+    Infomation.columnList = columnMerged;
+    Infomation.lineList = lineMerged;
     Infomation.data = Infomation.init;
+
+
+    print(columnMerged);
+    print(lineMerged);
     // print(Infomation.animation);
     // print(Infomation.const_animation);
     // print(number);

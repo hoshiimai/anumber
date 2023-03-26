@@ -32,6 +32,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   excel: ^2.0.1
   file_picker: ^5.2.5
+  audioplayers: ^0.19.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -57,7 +58,10 @@ flutter:
   # To add Flutter specific assets to your application, add an assets section,
   # like this:
   assets:
-    - assets/DB.xlsx
+    - assets/
+    # - assets/DB.xlsx
+    # - assets/button.mp3
+    # - assets/correct1.mp3
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

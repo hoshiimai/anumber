@@ -10,6 +10,7 @@ OUT：・問題の数字(描画)
 履歴：
 ****************************************
 */
+import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 
@@ -51,48 +52,48 @@ class Cell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-
+    
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
         // 盤面のサイズ(一マスのサイズを指定)
-        width: (screenSize.width)/9.5,
-        height: (screenSize.width)/9.5,
+        width: (screenSize.width) * 0.98 / 9 < (screenSize.height) * 0.46 / 9 ? (screenSize.width) * 0.98 / 9 : (screenSize.height) * 0.46 /9,
+        height:(screenSize.width) * 0.98 / 9 < (screenSize.height) * 0.46 / 9 ? (screenSize.width) * 0.98 / 9 : (screenSize.height) * 0.46 /9,
 
         child: Container(
           decoration: BoxDecoration(
             // 盤面の色設定
             color
               : isSelected // 選択マスかどうか
-              ? Colors.blue[100]
+              ? AppColors.isSelect
               : isBlock1 // 選択マスの領域(ブロック)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
+              ? AppColors.isBlock
               : isBlock2 // 選択マスの領域(ブロック)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
+              ? AppColors.isBlock
               : isBlock3 // 選択マスの領域(ブロック)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
+              ? AppColors.isBlock
               : isBlock4 // 選択マスの領域(ブロック)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
+              ? AppColors.isBlock
               : isSameLine // 選択マスの領域(行列)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
-              : Colors.white, // 標準の色
+              ? AppColors.isBlock
+              : AppColors.isOther, // 標準の色
 
             // 盤面の枠線描画                
             border: Border(
               left: BorderSide(
-                color: isLeft ? Colors.red : Colors.black,
+                color: isLeft ? Colors.red : AppColors.isLine,
                 width: (x % 3 == 0 || isLeft) ? 2 : 0,
               ),
               right: BorderSide(
-                color: isRight ? Colors.red : Colors.black,
+                color: isRight ? Colors.red : AppColors.isLine,
                 width: (x == 8 || isRight) ? 2 : 0,
               ),
               top: BorderSide(
-                color: isTop ? Colors.red : Colors.black,
+                color: isTop ? Colors.red : AppColors.isLine,
                 width: (y % 3 == 0 || isTop) ? 2 : 0,
               ),
               bottom: BorderSide(
-                color: isBottom ? Colors.red : Colors.black,
+                color: isBottom ? Colors.red : AppColors.isLine,
                 width: (y == 8 || isBottom) ? 2 : 0,
               ),
             ),
@@ -105,7 +106,7 @@ class Cell extends StatelessWidget {
               number == 0 ? '' : number.toString(),
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
-                color: inputNum ? Colors.blue[900] : Colors.black,
+                color: inputNum ? AppColors.isInput : AppColors.isText,
                 fontSize: (screenSize.width)*7/95
               ),
             ),

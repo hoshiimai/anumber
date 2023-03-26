@@ -8,13 +8,15 @@
 
 abstract class Infomation {
   
-
+  static bool sound = true;
   static int specifiedX = -1;
   static int specifiedY = -1;
   static int selectedX = 0;
   static int selectedY = 0;
   static int kotae = 0;
 
+  static List<int> columnList = [];
+  static List<int> lineList = [];
 
 
   //最初のアニメーション用リスト

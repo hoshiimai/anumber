@@ -15,6 +15,8 @@ import 'package:anumber/components/history/history.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
 import 'package:anumber/home.dart';
 import 'package:anumber/infomation.dart';
+import 'package:anumber/style/theme_controller.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +54,7 @@ class _SudokuState extends State<Sudoku> {
   final _database = Database();
   // 候補入力判断用フラグ
   bool isEdit = false;
-  
+  final _audio = AudioCache();
 
   @override
   void initState() {
@@ -72,6 +74,7 @@ class _SudokuState extends State<Sudoku> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    var appbarSize = AppBar().preferredSize.height;
     return AbsorbPointer(
       absorbing: !_isTappable,
       // onWillPop: () => Future.value(false),
@@ -79,11 +82,14 @@ class _SudokuState extends State<Sudoku> {
         // alignment: Alignment.center,
         children: <Widget>[
           Scaffold(
-            backgroundColor: Color.fromARGB(255, 247, 246, 246),
+            backgroundColor: AppColors.isOther,
             appBar: AppBar(
-              backgroundColor: Color.fromARGB(255, 247, 246, 246),
+              backgroundColor: AppColors.isOther,
+                iconTheme: IconThemeData(
+                  color: AppColors.isText,
+                ),
               leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black,),
+                icon: Icon(Icons.arrow_back),
                 onPressed: () async {
                   _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
                   setState(() {
@@ -114,6 +120,167 @@ class _SudokuState extends State<Sudoku> {
               ),
               elevation: 1,
             ),
+
+            endDrawer: Drawer(
+              child: ListView(
+                children: <Widget>[
+                  SizedBox(
+                    height: 64,
+                    child: DrawerHeader(
+                      decoration: BoxDecoration(),
+                      padding: EdgeInsets.all(0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        SizedBox(
+                          height: appbarSize,
+                          child: Row(
+                            children:[ 
+                              Icon(Icons.palette_outlined),
+                              //余白
+                              SizedBox(
+                                width: (screenSize.width) / 20,
+                              ),
+                              Text('色'),
+                            ]
+                          ),
+                        ),
+                      ]
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: appbarSize * 0.8,
+                          child: ClipOval(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  AppColors.colorState = 1;
+                                });
+                                print(AppColors.colorState);
+                              },
+                              child: Container(),
+                              style: ElevatedButton.styleFrom(
+                                shape: CircleBorder(),
+                                padding: EdgeInsets.all(16.0),
+                                primary: Colors.white,
+                                elevation: 0,
+                                side: BorderSide(color: Colors.blue, width: 2),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: appbarSize * 0.8,
+                          child: ClipOval(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  AppColors.colorState = 2;
+                                });
+                                print(AppColors.colorState);
+                              },
+                              child: Container(),
+                              style: ElevatedButton.styleFrom(
+                                shape: CircleBorder(),
+                                padding: EdgeInsets.all(16.0),
+                                primary: Colors.black,
+                                elevation: 0,
+                                // side: BorderSide(color: Colors.blue, width: 2),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: appbarSize * 0.8,
+                          child: ClipOval(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  AppColors.colorState = 3;
+                                });
+                                print(AppColors.colorState);
+                              },
+                              child: Container(),
+                              style: ElevatedButton.styleFrom(
+                                shape: CircleBorder(),
+                                padding: EdgeInsets.all(16.0),
+                                primary: Colors.orange[100],
+                                elevation: 0,
+                                // side: BorderSide(color: Colors.blue, width: 2),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        Infomation.sound = !Infomation.sound;
+                      });
+                      print(Infomation.sound);
+                    },
+                    child: ListTile(
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            height: appbarSize,
+                            child: Row(
+                              children:[ 
+                                Infomation.sound ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
+                                // Infomation.sound ? Icons.volume_up : Icons.volume_off,
+                                //余白
+                                SizedBox(
+                                  width: (screenSize.width) / 20,
+                                ),
+                                Infomation.sound ? const Text('音 ON') : const Text('音 OFF'),
+                              ]
+                            ),
+                          ),
+                        ]
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: ListTile(
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            height: appbarSize,
+                            child: Row(
+                              children:[ 
+                                const Icon(Icons.help_outline),
+                                //余白
+                                SizedBox(
+                                  width: (screenSize.width) / 20,
+                                ),
+                                const Text('遊び方'),
+                              ]
+                            ),
+                          ),
+                        ]
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+
+
             body: Center(
               child: Column(
                 // 盤面、アイコン、数字ボタンを縦方向に並べ、スペースを均等に配置
@@ -241,6 +408,7 @@ class _SudokuState extends State<Sudoku> {
                     isPress: isEdit,
                     onTap: (int number) {
                       controlNumber(setState, isEdit, number);
+                      Infomation.sound ? _audio.play('button.mp3') : null;
                     },
                   ),
 

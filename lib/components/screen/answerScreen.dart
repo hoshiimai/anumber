@@ -42,15 +42,6 @@ class _SudokuState extends State<AnswerScreen> {
   
   // late String state;
   bool _isTappable = true;
-  // int selectedX = 5;
-  // int selectedY = 4;
-  int initX = -1;
-  int initX1 = -1;
-  int initY = -1;
-  int initY1 = -1;
-  // int specifiedX = 5;
-  // int specifiedY = 4;
-  // bool cell = false;
   bool _timeRunning = false;
   bool _timer = true;
   final fabKey = GlobalKey();
@@ -60,121 +51,8 @@ class _SudokuState extends State<AnswerScreen> {
   @override
   void initState() {
     super.initState();
-    makeAnswerList();
-    print(Infomation.init);
-    // state = widget.level;
-    // print(state);
-    // Answer.getAnswer(setState, initX, initY, initX1, initY1);
-    
-
+    Answer.makeAnswerList(setState);
   }
-
-
-  void makeAnswerList() {
-    List<Function> steps = [
-      () {
-        addAnswerList();
-      },
-
-      () {
-        Infomation.answer[6][1] = 2;
-        addAnswerList();
-      },
-
-      () {
-        initX = 6;
-        addAnswerList();
-      },
-
-      () {
-        Infomation.answer[6][1] = 0;
-        Infomation.answer[8][6] = 2;
-        addAnswerList();
-      },
-
-      () {
-        initX1 = 8;
-        addAnswerList();
-      },
-
-      () {
-        Infomation.data[7][4] = 1;
-        Infomation.data[7][5] = 1;
-        addAnswerList();
-      },
-
-      () {
-        initY = 6;
-        addAnswerList();
-      },
-
-      () {
-        Infomation.answer[8][6] = 0;
-        Infomation.answer[2][8] = 2;
-        addAnswerList();
-      },
-
-      () {
-        initY1 = 8;
-        addAnswerList();
-      },
-
-      () {
-        Infomation.answer[2][8] = 0;
-        Infomation.data[4][7] = 1;
-        Infomation.data[5][7] = 1;
-        addAnswerList();
-      },
-
-      () {
-        Infomation.data[4][0] = 1;
-        Infomation.data[5][0] = 1;
-        Infomation.data[5][2] = 1;
-        addAnswerList();
-      },
-
-      () {
-        initX = 4;
-        initY = 4;
-        initX1 = 5;
-        initY1 = 5;
-        addAnswerList();
-      },
-
-      () {
-        Infomation.data[3][3] = 1;
-        Infomation.answer[3][3] = 2;
-        addAnswerList();
-      },
-
-      () {
-        Infomation.init = Infomation.dataList.first;
-        Infomation.data = Infomation.dataList.first;
-        Infomation.answer = Infomation.answerList.first;
-        initX = -1;
-        initY = -1;
-        initX1 = -1;
-        initY1 = -1;
-      }
-    ];
-
-    for (var step in steps) {
-      setState(() {
-        step();
-      });
-    }
-  }
-
-  void addAnswerList() {
-    Infomation.dataList.add(List.from(
-      Infomation.data.map((row) => List<int>.from(row))
-    ));
-    Infomation.answerList.add(List.from(
-      Infomation.answer.map((row) => List<int>.from(row))
-    ));
-    Infomation.xyList.add([initX, initY, initX1, initY1]);
-  }
-
 
   Future<void> getAnswer() async{
   setState(() {
@@ -293,21 +171,8 @@ class _SudokuState extends State<AnswerScreen> {
                         isAnswerColumn: initY,
                         initX: initX1,
                         initY: initY1,
-                        // animCell: cell,
                         timer: _timer,
-                        // onTap: (int x, int y) {
-                        //   setState(() {
-                        //     Infomation.selectedX = x;
-                        //     Infomation.selectedY = y;
-                        //   });
-                        // },
                       ),
-                      // ),
-
-                    //   // 候補の盤面
-                    // CandidateGrid(
-                    //   candidate: Infomation.tmp,
-                    // ),
                     ],
                   ),
 
@@ -335,23 +200,9 @@ class _SudokuState extends State<AnswerScreen> {
                           ),
                         ],
                       ),
-                  // 余白
                   
                   SizedBox(
                     height: (screenSize.width) / 10,
-                  ),
-
-                  // 数字ボタン
-                  Numbers(
-                    isPress: false,
-                    onTap: (int number) {
-            
-                    },
-                  ),
-
-                  // 余白
-                  SizedBox(
-                    height: (screenSize.width) / 15,
                   ),
 
                   //決定、解答ボタン
