@@ -9,6 +9,8 @@ OUT：入力マスに0を入れる
 */
 import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:line_icons/line_icons.dart';
 
 
 class ControlButton extends StatelessWidget {
@@ -22,22 +24,25 @@ class ControlButton extends StatelessWidget {
   final Function() onPress;
   final Function() onBack;
 
+
   @override
   Widget build(BuildContext context) {
+  var screenSize = MediaQuery.of(context).size;
+  var iconsize = ((screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
           onTap: () => onBack(),
-          child: Icon(Icons.undo, size: 30.0, color: AppColors.isText),
+          child: Icon(LineIcons.alternateUndo, size: iconsize, color: AppColors.isText, semanticLabel: '元に戻る'),
         ),
         GestureDetector(
           onTap: () => onTap(0),
-          child: Icon(Icons.auto_fix_high_outlined, size: 30.0, color: AppColors.isText),
+          child: Icon(LineIcons.eraser, size: iconsize, color: AppColors.isText, semanticLabel: '消す'),
         ),
         GestureDetector(
           onTap: () => onPress(),
-          child: Icon(Icons.mode_edit_outline, size: 30.0, color: AppColors.isText),
+          child: Icon(LineIcons.pen, size: iconsize, color: AppColors.isText,  semanticLabel: 'メモ'),
         ),
       ],
     );
@@ -68,40 +73,42 @@ class Numbers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        for (final int i in numberTexts) _number(i),
+        for (final int i in numberTexts) _number(i, screenSize),
       ],
     );
   }
 
 //数字入力ボタン
-  Widget _number(int number) {
+  Widget _number(int number , Size screenSize) {
+    var fontsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 *1.26 : ((screenSize.height) * 0.45 / 9) *0.71 *1.26;
     return GestureDetector(
       onTap: () => onTap(number),
       child: Text(
         number.toString(),
         style: TextStyle(
           color: isPress ? Colors.blueGrey : AppColors.isInput,
-          fontSize: 40,
-          fontWeight: FontWeight.w300
+          fontSize: fontsize,
+          fontWeight: FontWeight.w400
         ),
       ),
     );
   }
 
   //数字入力ボタン(候補用)
-  Widget _candidate(int number) {
-    return GestureDetector(
-      onTap: () => onTap(number),
-      child: Text(
-        number.toString(),
-        style: const TextStyle(
-          color: Colors.blueGrey,
-          fontSize: 35,
-        ),
-      ),
-    );
-  }
+  // Widget _candidate(int number) {
+  //   return GestureDetector(
+  //     onTap: () => onTap(number),
+  //     child: Text(
+  //       number.toString(),
+  //       style: const TextStyle(
+  //         color: Colors.blueGrey,
+  //         fontSize: 35,
+  //       ),
+  //     ),
+  //   );
+  // }
 }

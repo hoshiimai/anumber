@@ -57,8 +57,8 @@ class Cell extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         // 盤面のサイズ(一マスのサイズを指定)
-        width: (screenSize.width) * 0.98 / 9 < (screenSize.height) * 0.46 / 9 ? (screenSize.width) * 0.98 / 9 : (screenSize.height) * 0.46 /9,
-        height:(screenSize.width) * 0.98 / 9 < (screenSize.height) * 0.46 / 9 ? (screenSize.width) * 0.98 / 9 : (screenSize.height) * 0.46 /9,
+        width: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (screenSize.width) * 0.97 / 9 : (screenSize.height) * 0.45 /9,
+        height:(screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (screenSize.width) * 0.97 / 9 : (screenSize.height) * 0.45 /9,
 
         child: Container(
           decoration: BoxDecoration(
@@ -107,7 +107,7 @@ class Cell extends StatelessWidget {
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
                 color: inputNum ? AppColors.isInput : AppColors.isText,
-                fontSize: (screenSize.width)*7/95
+                fontSize:(screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71
               ),
             ),
           ),

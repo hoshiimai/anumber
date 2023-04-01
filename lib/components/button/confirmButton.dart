@@ -29,13 +29,14 @@ class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    var fontsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.618 : ((screenSize.height) * 0.45 / 9) *0.618;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         //決定(答え判定)ボタン
         SizedBox(
-          height: (screenSize.width)/10,
-          width: (screenSize.width)/4,
+          height: fontsize * 1.618,
+          width: fontsize * 3.82,
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
               primary: Colors.white,
@@ -135,7 +136,7 @@ class ConfirmButton extends StatelessWidget {
             child: Text(
               '決定',
               style: TextStyle(
-                fontSize: (screenSize.width)/18,
+                fontSize: fontsize,
                 color: Colors.blue[900],
               ),
             ),
@@ -145,8 +146,8 @@ class ConfirmButton extends StatelessWidget {
 
         //解答ボタン
         SizedBox(
-          height: (screenSize.width)/10,
-          width: (screenSize.width)/4,
+          height: fontsize * 1.618,
+          width: fontsize * 3.82,
           child: ElevatedButton(
             // style: ElevatedButton.styleFrom(
             //   primary: Colors.blue[900],
@@ -201,7 +202,7 @@ class ConfirmButton extends StatelessWidget {
             child: Text(
               '答え',
               style: TextStyle(
-                fontSize: (screenSize.width)/18,
+                fontSize: fontsize,
                 color: Colors.blue[900],
               ),
             ),

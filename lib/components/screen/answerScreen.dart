@@ -9,6 +9,7 @@ OUT：ゲーム画面
 */
 import 'dart:async';
 
+import 'package:anumber/app.dart';
 import 'package:anumber/components/answer/grid_illust.dart';
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';

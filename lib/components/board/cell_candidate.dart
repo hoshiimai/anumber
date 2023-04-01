@@ -22,8 +22,10 @@ class Candidate extends StatelessWidget {
 
     return GestureDetector(
       child: SizedBox(
-        width:(screenSize.width)/28.5,
-        height:(screenSize.width)/28.5,
+        // width:(screenSize.width)/28.5,
+        // height:(screenSize.width)/28.5,
+        width: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9)/3 : ((screenSize.height) * 0.45 /9)/3,
+        height:(screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9)/3 : ((screenSize.height) * 0.45 /9)/3,
 
         child: Center(
           child: Text(
@@ -31,11 +33,11 @@ class Candidate extends StatelessWidget {
             style: TextStyle(
                 color: Colors.grey[600],
                 // fontWeight: FontWeight.bold,
-                fontSize: (screenSize.width)*1.4/45),
+                fontSize: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (((screenSize.width) * 0.97 / 9) *0.71)/2.5 : (((screenSize.height) * 0.45 / 9) *0.71)/2.5,
           ),
         ),
       ),
-      // ),
+      ),
     );
   }
 }

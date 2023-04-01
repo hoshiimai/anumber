@@ -9,6 +9,7 @@ OUT：ゲーム画面
 */
 import 'dart:async';
 
+import 'package:anumber/app.dart';
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/history/history.dart';
@@ -22,6 +23,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -83,43 +85,47 @@ class _SudokuState extends State<Sudoku> {
         children: <Widget>[
           Scaffold(
             backgroundColor: AppColors.isOther,
-            appBar: AppBar(
-              backgroundColor: AppColors.isOther,
-                iconTheme: IconThemeData(
-                  color: AppColors.isText,
-                ),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () async {
-                  _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
-                  setState(() {
-                    // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
-                    // 初期化
-                    Stopwatch.time = DateTime.utc(0, 0, 0);
-                    Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-                    Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-                    Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
-                    Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
-                    Infomation.historyList = [];
-                    Infomation.tmp_historyList = [];
-                    Infomation.specifiedX = -1;
-                    Infomation.specifiedY = -1;
-                    Infomation.selectedX = 0;
-                    Infomation.selectedY = 0;
-                    Infomation.kotae = 0;
+                appBar: PreferredSize(
+                  preferredSize: screenSize * 0.043,
+                  child: AppBar(
+                      systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: AppColors.isOther),
+                    backgroundColor: AppColors.isOther,
+                      iconTheme: IconThemeData(
+                        color: AppColors.isText,
+                      ),
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () async {
+                        _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
+                        setState(() {
+                          // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
+                          // 初期化
+                          Stopwatch.time = DateTime.utc(0, 0, 0);
+                          Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.historyList = [];
+                          Infomation.tmp_historyList = [];
+                          Infomation.specifiedX = -1;
+                          Infomation.specifiedY = -1;
+                          Infomation.selectedX = 0;
+                          Infomation.selectedY = 0;
+                          Infomation.kotae = 0;
 
-                  });
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
-                },
-              ),
-              title: Text(
-                'A Number',
-                style: TextStyle(
-                  color: Colors.blue[900],
+                        });
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
+                      },
+                    ),
+                    title: Text(
+                      'A Number',
+                      style: TextStyle(
+                        color: Colors.blue[900],
+                      ),
+                    ),
+                    elevation: 1,
+                  ),
                 ),
-              ),
-              elevation: 1,
-            ),
 
             endDrawer: Drawer(
               child: ListView(
@@ -167,7 +173,6 @@ class _SudokuState extends State<Sudoku> {
                                 setState(() {
                                   AppColors.colorState = 1;
                                 });
-                                print(AppColors.colorState);
                               },
                               child: Container(),
                               style: ElevatedButton.styleFrom(
@@ -175,7 +180,7 @@ class _SudokuState extends State<Sudoku> {
                                 padding: EdgeInsets.all(16.0),
                                 primary: Colors.white,
                                 elevation: 0,
-                                side: BorderSide(color: Colors.blue, width: 2),
+                                side: AppColors.colorState == 1 ? const BorderSide(color: Colors.blue, width: 2) : const BorderSide(color: Color.fromARGB(255, 163, 163, 163), width: 2),
                               ),
                             ),
                           ),
@@ -188,7 +193,6 @@ class _SudokuState extends State<Sudoku> {
                                 setState(() {
                                   AppColors.colorState = 2;
                                 });
-                                print(AppColors.colorState);
                               },
                               child: Container(),
                               style: ElevatedButton.styleFrom(
@@ -196,7 +200,7 @@ class _SudokuState extends State<Sudoku> {
                                 padding: EdgeInsets.all(16.0),
                                 primary: Colors.black,
                                 elevation: 0,
-                                // side: BorderSide(color: Colors.blue, width: 2),
+                                side: AppColors.colorState == 2 ? const BorderSide(color: Colors.blue, width: 2) : null,
                               ),
                             ),
                           ),
@@ -205,11 +209,11 @@ class _SudokuState extends State<Sudoku> {
                           height: appbarSize * 0.8,
                           child: ClipOval(
                             child: ElevatedButton(
+
                               onPressed: () {
                                 setState(() {
                                   AppColors.colorState = 3;
                                 });
-                                print(AppColors.colorState);
                               },
                               child: Container(),
                               style: ElevatedButton.styleFrom(
@@ -217,7 +221,7 @@ class _SudokuState extends State<Sudoku> {
                                 padding: EdgeInsets.all(16.0),
                                 primary: Colors.orange[100],
                                 elevation: 0,
-                                // side: BorderSide(color: Colors.blue, width: 2),
+                                side: AppColors.colorState == 3 ? const BorderSide(color: Colors.blue, width: 2) : null,
                               ),
                             ),
                           ),
@@ -288,7 +292,7 @@ class _SudokuState extends State<Sudoku> {
                 children: [
                   //余白
                   SizedBox(
-                    height: (screenSize.width) / 10,
+                    height: (screenSize.height) * 0.05,
                   ),
 
                   Row(
@@ -333,7 +337,7 @@ class _SudokuState extends State<Sudoku> {
 
                   //余白
                   SizedBox(
-                    height: (screenSize.width) / 50,
+                    height: (screenSize.height) * 0.015,
                   ),
 
                   // 問題の盤面の上に候補の盤面を重ねて表示
@@ -377,7 +381,7 @@ class _SudokuState extends State<Sudoku> {
 
                   // 余白
                   SizedBox(
-                    height: (screenSize.width) / 15,
+                    height: (screenSize.width) / 10,
                   ),
 
                   // アイコンボタン

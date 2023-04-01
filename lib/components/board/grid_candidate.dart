@@ -27,9 +27,9 @@ class CandidateGrid extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for (final MapEntry<int, int> c in r.value.asMap().entries)
-                  Candidate(
-                    number: c.value,
-                  ),
+                Candidate(
+                  number: c.value,
+                ),
             ],
           ),
       ],
