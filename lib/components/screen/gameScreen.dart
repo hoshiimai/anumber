@@ -8,31 +8,23 @@ OUT：ゲーム画面
 ****************************************
 */
 import 'dart:async';
-
 import 'package:anumber/app.dart';
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/history/history.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
-import 'package:anumber/home.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/style/theme_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-
+import 'package:line_icons/line_icons.dart';
 import '../button/controlNumber.dart';
 import '../initprocess/grid_init.dart';
 import '../initprocess/initProcess.dart';
-import '../../main.dart';
-import '../../sudoku.dart';
 import '../database/database_connection.dart';
 
 
@@ -77,6 +69,7 @@ class _SudokuState extends State<Sudoku> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     var appbarSize = AppBar().preferredSize.height;
+    var fontsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71;
     return AbsorbPointer(
       absorbing: !_isTappable,
       // onWillPop: () => Future.value(false),
@@ -88,13 +81,16 @@ class _SudokuState extends State<Sudoku> {
                 appBar: PreferredSize(
                   preferredSize: screenSize * 0.043,
                   child: AppBar(
-                      systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: AppColors.isOther),
-                    backgroundColor: AppColors.isOther,
+                      systemOverlayStyle: SystemUiOverlayStyle(
+                        statusBarColor: AppColors.isOther,
+                        statusBarIconBrightness: AppColors.colorState == 2 ? Brightness.light : Brightness.dark
+                      ),
+                      backgroundColor: AppColors.isOther,
                       iconTheme: IconThemeData(
                         color: AppColors.isText,
                       ),
                     leading: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(LineIcons.angleLeft),
                       onPressed: () async {
                         _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
                         setState(() {
@@ -117,10 +113,13 @@ class _SudokuState extends State<Sudoku> {
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
                       },
                     ),
-                    title: Text(
-                      'A Number',
-                      style: TextStyle(
-                        color: Colors.blue[900],
+                    title: Center(
+                      child: Text(
+                        'A Number',
+                        style: TextStyle(
+                          fontSize: fontsize *0.7,
+                          color: Colors.blue[900],
+                        ),
                       ),
                     ),
                     elevation: 1,
@@ -131,14 +130,14 @@ class _SudokuState extends State<Sudoku> {
               child: ListView(
                 children: <Widget>[
                   SizedBox(
-                    height: 64,
+                    height: appbarSize * 0.83,
                     child: DrawerHeader(
-                      decoration: BoxDecoration(),
-                      padding: EdgeInsets.all(0),
+                      decoration: const BoxDecoration(),
+                      padding: const EdgeInsets.all(0),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: IconButton(
-                          icon: Icon(Icons.close),
+                          icon: const Icon(LineIcons.times),
                           onPressed: () => Navigator.of(context).pop(),
                         ),
                       ),
@@ -150,7 +149,7 @@ class _SudokuState extends State<Sudoku> {
                         SizedBox(
                           height: appbarSize,
                           child: Row(
-                            children:[ 
+                            children:[
                               Icon(Icons.palette_outlined),
                               //余白
                               SizedBox(
@@ -300,7 +299,7 @@ class _SudokuState extends State<Sudoku> {
                       Padding(
                         padding: EdgeInsets.only(left: (screenSize.width) / 25),
                         child: Text(
-                          widget.level,
+                          '難易度 ：${widget.level}',
                           style: TextStyle(
                             fontSize: (screenSize.width) / 25,
                           ),
@@ -308,14 +307,14 @@ class _SudokuState extends State<Sudoku> {
                       ),
 
                       SizedBox(
-                        width: (screenSize.width) / 1.5,
+                        width: (screenSize.width) / 2,
                       ),
                     
                       InkWell(
                         // padding: EdgeInsets.only(left: (screenSize.width) / 1.8),
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        child: _timeRunning ?  Icon(Icons.pause_circle_outline,) : Icon(Icons.play_arrow),
+                        child: _timeRunning ?  const Icon(LineIcons.pauseCircle) : const Icon(Icons.play_arrow),
                         onTap: () {
                           setState(() {
                               _timeRunning = !_timeRunning;
@@ -381,7 +380,7 @@ class _SudokuState extends State<Sudoku> {
 
                   // 余白
                   SizedBox(
-                    height: (screenSize.width) / 10,
+                    height: (screenSize.width) / 13,
                   ),
 
                   // アイコンボタン
@@ -404,7 +403,7 @@ class _SudokuState extends State<Sudoku> {
 
                   // 余白
                   SizedBox(
-                    height: (screenSize.width) / 10,
+                    height: (screenSize.width) / 13,
                   ),
 
                   // 数字入力ボタン

@@ -4,7 +4,7 @@ abstract class AppColors {
 
 
 
-  static int _colorState = 3;
+  static int _colorState = 1;
   
   static int get colorState => _colorState;
   

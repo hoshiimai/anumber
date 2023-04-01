@@ -9,7 +9,6 @@ OUT：入力マスに0を入れる
 */
 import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 
 
@@ -34,15 +33,33 @@ class ControlButton extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () => onBack(),
-          child: Icon(LineIcons.alternateUndo, size: iconsize, color: AppColors.isText, semanticLabel: '元に戻る'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(LineIcons.alternateUndo, size: iconsize, color: AppColors.isText),
+              Text('元に戻す', style: TextStyle(fontSize: iconsize *0.4, color: AppColors.isText)),
+            ],
+          ),
         ),
         GestureDetector(
-          onTap: () => onTap(0),
-          child: Icon(LineIcons.eraser, size: iconsize, color: AppColors.isText, semanticLabel: '消す'),
+          onTap: () => onBack(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(LineIcons.eraser, size: iconsize, color: AppColors.isText),
+              Text('消す', style: TextStyle(fontSize: iconsize *0.4, color: AppColors.isText)),
+            ],
+          ),
         ),
         GestureDetector(
-          onTap: () => onPress(),
-          child: Icon(LineIcons.pen, size: iconsize, color: AppColors.isText,  semanticLabel: 'メモ'),
+          onTap: () => onBack(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(LineIcons.pen, size: iconsize, color: AppColors.isText),
+              Text('メモ', style: TextStyle(fontSize: iconsize *0.4, color: AppColors.isText)),
+            ],
+          ),
         ),
       ],
     );

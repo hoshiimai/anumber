@@ -11,7 +11,6 @@ import 'package:anumber/app.dart';
 import 'package:anumber/makeQuestion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'home.dart';
 
 
 void main() {
