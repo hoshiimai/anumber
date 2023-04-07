@@ -61,8 +61,8 @@ class _SudokuState extends State<Sudoku> {
         });
       });
     });
+    _database.insertLevel(widget.level);
   }
-
 
 
   @override
@@ -92,7 +92,7 @@ class _SudokuState extends State<Sudoku> {
                     leading: IconButton(
                       icon: const Icon(LineIcons.angleLeft),
                       onPressed: () async {
-                        _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
+                        _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, widget.level);
                         setState(() {
                           // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
                           // 初期化
@@ -126,6 +126,8 @@ class _SudokuState extends State<Sudoku> {
                   ),
                 ),
 
+//----------------------------------------------------------------------------------------------------------------------------------------
+            //ハンバーガーメニュー
             endDrawer: Drawer(
               child: ListView(
                 children: <Widget>[
@@ -241,7 +243,7 @@ class _SudokuState extends State<Sudoku> {
                           SizedBox(
                             height: appbarSize,
                             child: Row(
-                              children:[ 
+                              children:[
                                 Infomation.sound ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
                                 // Infomation.sound ? Icons.volume_up : Icons.volume_off,
                                 //余白
@@ -282,8 +284,7 @@ class _SudokuState extends State<Sudoku> {
               ),
             ),
 
-
-
+//----------------------------------------------------------------------------------------------------------------------------------------
             body: Center(
               child: Column(
                 // 盤面、アイコン、数字ボタンを縦方向に並べ、スペースを均等に配置
@@ -314,14 +315,17 @@ class _SudokuState extends State<Sudoku> {
                         // padding: EdgeInsets.only(left: (screenSize.width) / 1.8),
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        child: _timeRunning ?  const Icon(LineIcons.pauseCircle) : const Icon(Icons.play_arrow),
-                        onTap: () {
-                          setState(() {
-                              _timeRunning = !_timeRunning;
-                              _timer = !_timer;
-                          });
-                        },
+                        child: _timeRunning ? const Icon(LineIcons.pauseCircle) : const Icon(Icons.play_arrow),
+                        onTap: _timeRunning
+                          ? () {
+                              setState(() {
+                                _timeRunning = !_timeRunning;
+                                _timer = !_timer;
+                              });
+                            }
+                          : null,
                       ),
+
                       
                       SizedBox(
                         width: (screenSize.width) / 60,
@@ -339,16 +343,17 @@ class _SudokuState extends State<Sudoku> {
                     height: (screenSize.height) * 0.015,
                   ),
 
+//----------------------------------------------------------------------------------------------------------------------------------------
                   // 問題の盤面の上に候補の盤面を重ねて表示
                   Stack(
                     alignment: Alignment.center,
                     children: [
-
                       _isTappable
                         //メインの盤面
                         ? SudokuGrid(
                               init: Infomation.init,  //問題用リスト(入力マスかどうか判定用)
                               data: Infomation.zero,  //盤面全体の数字リスト
+                              all : Infomation.allAnswers, //全解答のリスト 
                               selectedX: Infomation.selectedX,   //選択マスx座標
                               selectedY: Infomation.selectedY,   //選択マスy座標
                               specifiedX: Infomation.specifiedX, //問題マスx座標
@@ -378,6 +383,7 @@ class _SudokuState extends State<Sudoku> {
                     ],
                   ),
 
+//----------------------------------------------------------------------------------------------------------------------------------------
                   // 余白
                   SizedBox(
                     height: (screenSize.width) / 13,
@@ -394,6 +400,7 @@ class _SudokuState extends State<Sudoku> {
                       deleteNumber(setState, number);
                     },
 
+                    // メモボタン
                     onPress: () {
                       setState(() {
                         isEdit = !isEdit;
@@ -406,12 +413,12 @@ class _SudokuState extends State<Sudoku> {
                     height: (screenSize.width) / 13,
                   ),
 
-                  // 数字入力ボタン
+                  // 数字ボタン
                   Numbers(
                     isPress: isEdit,
                     onTap: (int number) {
-                      controlNumber(setState, isEdit, number);
                       Infomation.sound ? _audio.play('button.mp3') : null;
+                      controlNumber(setState, isEdit, number);
                     },
                   ),
 
@@ -420,10 +427,20 @@ class _SudokuState extends State<Sudoku> {
                     height: (screenSize.width) / 15,
                   ),
 
-                  //決定、解答ボタン
-                  ConfirmButton(answer: Infomation.zero[Infomation.selectedY][Infomation.selectedX]),
+                  //決定、答えボタン
+                  ConfirmButton(
+                    answer: Infomation.zero[Infomation.specifiedY][Infomation.specifiedX],
+                    onAnswered: (isCorrect) {
+                      if (isCorrect) {
+                        setState(() {
+                          _timeRunning = false;
+                        });
+                      }
+                    },
+                  ),
 
-                  SizedBox(
+//----------------------------------------------------------------------------------------------------------------------------------------
+                  const SizedBox(
                     height: 50.0, //バナー広告のサイズ 320×50 なので
                     width: double.infinity,
                     // child: AdWidget(ad: myBanner),
@@ -443,7 +460,7 @@ class _SudokuState extends State<Sudoku> {
             top: (screenSize.width) / 1.26,
             // left: 160.0,
             // top: 325.8,
-            child: Container(
+            child: SizedBox(
               width: (screenSize.width) / 4.5,
               height: (screenSize.width) / 4.5,
               child: !_timer ? 
@@ -455,7 +472,6 @@ class _SudokuState extends State<Sudoku> {
                         _timeRunning = true;
                         _timer = true;
                       });
-                      print((screenSize.width) / 5);
                     },
                 ) : null,
               ),

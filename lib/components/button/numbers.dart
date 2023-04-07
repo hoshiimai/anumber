@@ -42,7 +42,7 @@ class ControlButton extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => onBack(),
+          onTap: () => onTap(0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -52,7 +52,7 @@ class ControlButton extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => onBack(),
+          onTap: () => onPress(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

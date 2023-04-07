@@ -23,6 +23,7 @@ class SudokuGrid extends StatelessWidget {
     super.key,
     required this.data,
     required this.init,
+    required this.all,
     required this.onTap,
     required this.selectedX,
     required this.selectedY,
@@ -31,6 +32,7 @@ class SudokuGrid extends StatelessWidget {
   });
   final List<List<int>> data;
   final List<List<int>> init;
+  final List<List<int>> all;
   // final List<List<int>> anim;
   final Function(int x, int y) onTap;
   final int selectedX;
@@ -60,6 +62,7 @@ class SudokuGrid extends StatelessWidget {
                 Cell(
                   number: c.value,  // 数字
                   inputNum: init[r.key][c.key] == 0,  // 入力された数字かどうか判定
+                  checkNum: specifiedX == -999 ? c.value == all[r.key][c.key] : true, // 入力された数字が正しいかどうか判定
                   isSelected: selectedX == c.key && selectedY == r.key,  // 選択マス判定
                   isSameLine: selectedX == c.key || selectedY == r.key,  // 選択マスの行列判定
 

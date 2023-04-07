@@ -8,6 +8,7 @@
 
 abstract class Infomation {
   
+  static int id = 0;
   static bool sound = true;
   static int specifiedX = -1;
   static int specifiedY = -1;
@@ -19,6 +20,7 @@ abstract class Infomation {
   static List<int> lineList = [];
 
 
+  //遊び方用リスト
   static List<List<int>> help = [
     [2, 8, 4, 0, 0, 0, 7, 0, 0],
     [0, 0, 0, 0, 0, 3, 0, 9, 0],
@@ -121,6 +123,20 @@ abstract class Infomation {
     [0, 0, 0, 0, 0, 7, 0, 0, 0],
     [0, 0, 0, 9, 8, 0, 0, 7, 2],
     [2, 0, 0, 6, 0, 0, 5, 4, 0]
+  ];
+
+
+  //全解答用のリスト
+  static List<List<int>> allAnswers = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
 
   //候補用リスト

@@ -10,6 +10,7 @@ OUT：・問題の数字(描画)
 履歴：
 ****************************************
 */
+import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 
@@ -19,41 +20,22 @@ class Init extends StatelessWidget {
     required this.number,
     required this.x,
     required this.y,
-    // required this.onTap,
-    // required this.inputNum,
-    // required this.isSelected,
     required this.isInit,
     required this.isCell,
-    // required this.isSameLine,
-    // required this.isBlock1,
-    // required this.isBlock2,
-    // required this.isBlock3,
-    // required this.isBlock4,
     required this.isLeft,
     required this.isRight,
     required this.isTop,
     required this.isBottom, 
-    // required this.inputNum,
-    // required this.isTime, required this.inputNum,
   });
   final int number;
   final int x;
   final int y;
-  // final Function() onTap;
-  // final bool inputNum;
-  // final bool isSelected;
   final bool isInit;
   final bool isCell;
-  // final bool isSameLine;
-  // final bool isBlock1;
-  // final bool isBlock2;
-  // final bool isBlock3;
-  // final bool isBlock4;
   final bool isLeft;
   final bool isRight;
   final bool isTop;
   final bool isBottom;
-  // final bool isTime;
 
   @override
   Widget build(BuildContext context) {
@@ -63,47 +45,35 @@ class Init extends StatelessWidget {
       // onTap: onTap,
       child: SizedBox(
         // 盤面のサイズ(一マスのサイズを指定)
-        width: (screenSize.width)/9.5,
-        height: (screenSize.width)/9.5,
+        width: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (screenSize.width) * 0.97 / 9 : (screenSize.height) * 0.45 /9,
+        height:(screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (screenSize.width) * 0.97 / 9 : (screenSize.height) * 0.45 /9,
 
         child: Container(
           decoration: BoxDecoration(
             // 盤面の色設定
             color
-              // : isSelected // 選択マスかどうか
-              // ? Colors.blue[100]
               : isInit // 最初のアニメーション
-              ? Colors.blue[100]
+              ? AppColors.isSelect
               : isCell // 選択マスの領域(ブロック)かどうか
-              ? const Color.fromARGB(255, 241, 241, 241)
-              // : isBlock1 // 選択マスの領域(ブロック)かどうか
-              // ? const Color.fromARGB(255, 241, 241, 241)
-              // : isBlock2 // 選択マスの領域(ブロック)かどうか
-              // ? const Color.fromARGB(255, 241, 241, 241)
-              // : isBlock3 // 選択マスの領域(ブロック)かどうか
-              // ? const Color.fromARGB(255, 241, 241, 241)
-              // : isBlock4 // 選択マスの領域(ブロック)かどうか
-              // ? const Color.fromARGB(255, 241, 241, 241)
-              // : isSameLine // 選択マスの領域(行列)かどうか
-              // ? const Color.fromARGB(255, 241, 241, 241)
-              : Colors.white, // 標準の色
+              ? AppColors.isBlock
+              : AppColors.isOther, // 標準の色
 
             // 盤面の枠線描画                
             border: Border(
               left: BorderSide(
-                color: isLeft ? Colors.red : Colors.black,
+                color: isLeft ? Colors.red : AppColors.isLine,
                 width: (x % 3 == 0 || isLeft) ? 2 : 0,
               ),
               right: BorderSide(
-                color: isRight ? Colors.red : Colors.black,
+                color: isRight ? Colors.red : AppColors.isLine,
                 width: (x == 8 || isRight) ? 2 : 0,
               ),
               top: BorderSide(
-                color: isTop ? Colors.red : Colors.black,
+                color: isTop ? Colors.red : AppColors.isLine,
                 width: (y % 3 == 0 || isTop) ? 2 : 0,
               ),
               bottom: BorderSide(
-                color: isBottom ? Colors.red : Colors.black,
+                color: isBottom ? Colors.red : AppColors.isLine,
                 width: (y == 8 || isBottom) ? 2 : 0,
               ),
             ),
@@ -116,8 +86,8 @@ class Init extends StatelessWidget {
               number == 0 ? '' : number.toString(),
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
-                color: Colors.black,
-                fontSize: (screenSize.width)*7/95
+                color: AppColors.isText,
+                fontSize:(screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71
               ),
             ),
           ),

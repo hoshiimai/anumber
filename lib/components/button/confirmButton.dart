@@ -9,6 +9,7 @@ OUT：・ヒントの表示
 履歴：
 ****************************************
 */
+import 'package:anumber/components/database/database_connection.dart';
 import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
@@ -16,14 +17,18 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
+import 'package:anumber/components/stopwatch/stop_watch.dart';
+
 
 
 class ConfirmButton extends StatelessWidget {
   ConfirmButton({
     super.key,
     required this.answer,
+    required this.onAnswered,
   });
   final int answer;
+  final Function(bool isCorrect) onAnswered;
   final _audio = AudioCache();
 
   @override
@@ -44,26 +49,17 @@ class ConfirmButton extends StatelessWidget {
               elevation: 3,
               shadowColor: Colors.grey[50],
               shape: RoundedRectangleBorder(
-                // side: BorderSide(color: Color.fromARGB(255, 2, 67, 189), width: 2),
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            // style: ElevatedButton.styleFrom(
-            //   primary: Colors.blue[900],
-            //   onPrimary: Colors.purple,
-            //   shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.circular(6),
-            //   ),
-            // ),
             onPressed: () async {
               if (answer == Infomation.kotae) {
+                onAnswered(true); // コールバック関数を呼び出す
                 AwesomeDialog(
                   context: context,
                   headerAnimationLoop: false,
                   animType: AnimType.scale,
-                  //title: 'INFO',
                   dialogType: DialogType.success,
-                  //borderSide: BorderSide(color: Colors.green, width: 2),
                   body: const Center(
                     child: Text(
                       '正解！',
@@ -76,12 +72,28 @@ class ConfirmButton extends StatelessWidget {
                   title: 'This is Ignored',
                   desc: 'This is also Ignored',
                   btnOkText: "次の問題",
-                  btnOkOnPress: () {
-                    // MakeQuestion().getExcelValue();
-                    Navigator.push(
+                  btnOkOnPress: () async {
+                    // 初期化
+                    Stopwatch.time = DateTime.utc(0, 0, 0);
+                    Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
+                    Infomation.historyList = [];
+                    Infomation.tmp_historyList = [];
+                    Infomation.specifiedX = -1;
+                    Infomation.specifiedY = -1;
+                    Infomation.selectedX = 0;
+                    Infomation.selectedY = 0;
+                    Infomation.kotae = 0;
+                    
+                    await MakeQuestion().getExcelValue();
+                    // String resultLevel = Database().selectLevel();
+
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Sudoku(level: "",), 
+                        builder: (context) => Sudoku(level: '',), 
                       ),
                     );
                   },
@@ -91,7 +103,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Sudoku(level: "",), 
+                        builder: (context) => AnswerScreen(), 
                       ),
                     );
                   },
@@ -120,7 +132,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Sudoku(level: "",), 
+                        builder: (context) => AnswerScreen(), 
                       ),
                     );
                   },
@@ -149,31 +161,15 @@ class ConfirmButton extends StatelessWidget {
           height: fontsize * 1.618,
           width: fontsize * 3.82,
           child: ElevatedButton(
-            // style: ElevatedButton.styleFrom(
-            //   primary: Colors.blue[900],
-            //   onPrimary: Colors.purple,
-            //   shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.circular(6),
-            //   ),
-            // ),
             style: ElevatedButton.styleFrom(
               primary: Colors.white,
               onPrimary: Colors.transparent,
               elevation: 3,
               shadowColor: Colors.grey[50],
               shape: RoundedRectangleBorder(
-                // side: BorderSide(color: Color.fromARGB(255, 2, 67, 189), width: 2),
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            // style: ElevatedButton.styleFrom(
-            //   primary: Colors.transparent,
-            //   onPrimary: Colors.transparent,
-            //   shape: RoundedRectangleBorder(
-            //     side: BorderSide(color: Colors.blue[900], width: 2),
-            //     borderRadius: BorderRadius.circular(6),
-            //   ),
-            // ),
             onPressed: () {
               showDialog(
                 context: context,
@@ -184,8 +180,7 @@ class ConfirmButton extends StatelessWidget {
                     actions: <Widget>[
                       TextButton(
                         child: const Text("OK", style: TextStyle(color: Colors.blue),),
-                        onPressed: () => Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => 
-                            AnswerScreen(), 
+                        onPressed: () => Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => AnswerScreen(),
                             transitionDuration: Duration(seconds: 0),
                           ),
                         ),

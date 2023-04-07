@@ -22,6 +22,7 @@ class Cell extends StatelessWidget {
     required this.y,
     required this.onTap,
     required this.inputNum,
+    required this.checkNum,
     required this.isSelected,
     required this.isSameLine,
     required this.isBlock1,
@@ -38,6 +39,7 @@ class Cell extends StatelessWidget {
   final int y;
   final Function() onTap;
   final bool inputNum;
+  final bool checkNum;
   final bool isSelected;
   final bool isSameLine;
   final bool isBlock1;
@@ -106,7 +108,7 @@ class Cell extends StatelessWidget {
               number == 0 ? '' : number.toString(),
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
-                color: inputNum ? AppColors.isInput : AppColors.isText,
+                color: inputNum ? checkNum ? AppColors.isInput : Colors.red : AppColors.isText,
                 fontSize:(screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71
               ),
             ),

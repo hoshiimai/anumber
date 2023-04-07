@@ -8,13 +8,23 @@ import 'dart:convert';
 
 class Database {
 
-  Future<void> insertDB(timer, List<List<int>> value, List<List<int>> zero, List<List<int>> candidate) async {
+  Future<void> insertDB(timer, List<List<int>> value, List<List<int>> zero, List<List<int>> candidate, String level) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setInt('id', 999);
     prefs.setString('time', timer.toString());
     prefs.setString('value', jsonEncode(value));
     prefs.setString('zero', jsonEncode(zero));
     prefs.setString('candidate', jsonEncode(candidate));
+    prefs.setString('level', level.toString());
+
+
+    print('insert 成功');
+  }
+
+  insertLevel(String level) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt('id', 999);
+    prefs.setString('level', level.toString());
 
     print('insert 成功');
   }
@@ -44,6 +54,17 @@ class Database {
     }
     
     return [];
+  }
+
+  selectLevel() async {
+    final prefs = await SharedPreferences.getInstance();
+    final id = prefs.getInt('id');
+    final level = prefs.getString('level');
+    if (id != null) {
+      return level;
+    }
+    
+    return 'エラー';
   }
 
 

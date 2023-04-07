@@ -27,7 +27,8 @@ class Stopwatch extends StatefulWidget {
   bool isRunning;
   static DateTime time = DateTime.utc(0, 0, 0);
   
-  get _stopwatchState => null; 
+  _StopwatchState get _stopwatchState => _StopwatchState();
+  // get _stopwatchState => null; 
 
   @override
   // ignore: library_private_types_in_public_api
@@ -59,6 +60,7 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     // _database.initDatabase();
   }
+
 
   @override
   void dispose() {
