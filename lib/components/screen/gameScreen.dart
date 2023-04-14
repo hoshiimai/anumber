@@ -61,7 +61,6 @@ class _SudokuState extends State<Sudoku> {
         });
       });
     });
-    _database.insertLevel(widget.level);
   }
 
 
@@ -430,6 +429,7 @@ class _SudokuState extends State<Sudoku> {
                   //決定、答えボタン
                   ConfirmButton(
                     answer: Infomation.zero[Infomation.specifiedY][Infomation.specifiedX],
+                    tmpLevel: widget.level,
                     onAnswered: (isCorrect) {
                       if (isCorrect) {
                         setState(() {

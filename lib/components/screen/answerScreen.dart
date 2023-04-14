@@ -100,6 +100,8 @@ class _SudokuState extends State<AnswerScreen> {
                     leading: IconButton(
                       icon: const Icon(LineIcons.angleLeft),
                       onPressed: () async {
+                        // Navigator.pop(context); 
+                        Navigator.maybePop(context);
                         // _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
                         // setState(() {
                         //   // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));

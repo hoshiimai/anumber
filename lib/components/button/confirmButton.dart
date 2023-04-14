@@ -25,9 +25,11 @@ class ConfirmButton extends StatelessWidget {
   ConfirmButton({
     super.key,
     required this.answer,
+    required this.tmpLevel,
     required this.onAnswered,
   });
   final int answer;
+  final String tmpLevel;
   final Function(bool isCorrect) onAnswered;
   final _audio = AudioCache();
 
@@ -93,7 +95,7 @@ class ConfirmButton extends StatelessWidget {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Sudoku(level: '',), 
+                        builder: (context) => Sudoku(level: tmpLevel,), 
                       ),
                     );
                   },

@@ -57,7 +57,7 @@ class _SudokuState extends State<Help> {
   }
 
   Future<void> getAnswer() async{
-  setState(() {
+    setState(() {
       Infomation.data = Infomation.dataList[count];
       Infomation.answer = Infomation.answerList[count];
       initX = Infomation.xyList[count][0];
@@ -128,7 +128,6 @@ class _SudokuState extends State<Help> {
                   SizedBox(
                     height: (screenSize.width) / 15,
                   ),
-
                 ],
               ),
             ),

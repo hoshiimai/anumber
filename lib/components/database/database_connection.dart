@@ -21,14 +21,6 @@ class Database {
     print('insert 成功');
   }
 
-  insertLevel(String level) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setInt('id', 999);
-    prefs.setString('level', level.toString());
-
-    print('insert 成功');
-  }
-
 
   Future<List> selectDB() async {
     final prefs = await SharedPreferences.getInstance();
@@ -51,20 +43,10 @@ class Database {
       print("id: $id");
       print('☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆');
       return [time, value, zero, candidate];
+
     }
     
     return [];
-  }
-
-  selectLevel() async {
-    final prefs = await SharedPreferences.getInstance();
-    final id = prefs.getInt('id');
-    final level = prefs.getString('level');
-    if (id != null) {
-      return level;
-    }
-    
-    return 'エラー';
   }
 
 

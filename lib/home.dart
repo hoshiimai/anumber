@@ -10,6 +10,7 @@ OUT：playGame.dartに遷移
 
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/infomation.dart';
+import 'package:anumber/work.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'components/database/database_connection.dart';
@@ -46,13 +47,14 @@ class _SudokuState extends State<Home> {
 
   Future<void> selectTime() async {
     final result = await _database.selectDB();
+    print(result);
     if(result.isNotEmpty) {
       // _database.initDatabase();
       // print('exist ok');
       setState(() {
         isResume = true;
-        time = result[0];
-        state = result[1];
+        // time = result[0];
+        // state = result[1];
       });
       print("レコード存在チェック: $isResume");
       print("time: $time");
@@ -141,7 +143,7 @@ class _SudokuState extends State<Home> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AnswerScreen(),
+                                  builder: (context) => IntroductionPage(),
                                   // builder: (context) => const Sudoku(level: "初級"),
                                 ),
                               );
