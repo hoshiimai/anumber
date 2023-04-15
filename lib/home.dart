@@ -143,7 +143,7 @@ class _SudokuState extends State<Home> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => IntroductionPage(),
+                                  builder: (context) =>  AnswerScreen(),
                                   // builder: (context) => const Sudoku(level: "初級"),
                                 ),
                               );

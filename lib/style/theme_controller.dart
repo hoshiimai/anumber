@@ -19,6 +19,9 @@ abstract class AppColors {
   static Color get isLine => _isLine;
   static Color get isText => _isText;
   static Color get isInput => _isInput;
+  static Color get isConfirmButton => _isConfirmButton;
+  static Color get isButtonLine => _isButtonLine;
+  static Color get isButtonText => _isButtonText;
   
 
 
@@ -27,35 +30,48 @@ abstract class AppColors {
   static Color _isSelect = Color(0xFFBBE1FB);
   static Color _isLine = Colors.black;
   static Color _isText = Colors.black;
-  static Color _isInput = Color.fromARGB(255, 13, 0, 255);
+  static Color _isInput = Colors.blue[900]!;
+  static Color _isConfirmButton = Colors.white;
+  static Color _isButtonLine = Colors.transparent;
+  static Color _isButtonText = Colors.blue[900]!;
 
 
   static void switchTheme() {
-    _isBlock  = _colorState == 1 ? const Color(0xFFE1E8ED)
-              : _colorState == 2 ? const Color(0xFF121212)
+    _isBlock  = _colorState == 1 ? Color.fromRGBO(225, 232, 237, 1)
+              : _colorState == 2 ? const Color(0xFF202124)
                                 :  const Color(0xFFFFE4B5);
 
     _isOther  = _colorState == 1 ? const Color(0xFFFAFAFA)
-              : _colorState == 2 ? const Color(0xFF1F1F1F)
+              : _colorState == 2 ? Color.fromARGB(255, 4, 4, 12)
                                 :  const Color(0xFFFFF8DC);
 
     _isSelect = _colorState == 1 ? const Color(0xFFBBE1FB)
-              : _colorState == 2 ? const Color(0xFF2A2621)
+              : _colorState == 2 ? Colors.blueGrey
                                  : const Color(0xFFBBD8FA);
 
     _isLine   = _colorState == 1 ? Colors.black
-              : _colorState == 2 ? Colors.white
+              : _colorState == 2 ? Colors.white70
                                  : Colors.black;
 
     _isText   = _colorState == 1 ? Colors.black
-              : _colorState == 2 ? Colors.white
+              : _colorState == 2 ? Colors.white70
                                  : Colors.black;
 
-    _isInput  = _colorState == 1 ? const Color.fromARGB(255, 13, 0, 255)
-              : _colorState == 2 ? const Color(0xFF82794E)
-                                 : const Color.fromARGB(255, 13, 0, 255);
+    _isInput  = _colorState == 1 ? Colors.blue[900]!
+              : _colorState == 2 ? Colors.blue[900]!
+                                 : Colors.blue[900]!;
 
+    _isConfirmButton  = _colorState == 1 ? Colors.white
+                      : _colorState == 2 ? const Color(0xFF202124)
+                                         : const Color(0xFFFFE4B5);
 
+    _isButtonLine     = _colorState == 1 ? Colors.transparent
+                      : _colorState == 2 ? const Color(0xFF202124)
+                                         : Colors.transparent;
+
+    _isButtonText     = _colorState == 1 ? Colors.blue[900]!
+                      : _colorState == 2 ? Colors.white70
+                                         : Colors.blue[900]!;
   }
 }
 

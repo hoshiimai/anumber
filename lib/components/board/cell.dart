@@ -80,7 +80,7 @@ class Cell extends StatelessWidget {
               ? AppColors.isBlock
               : AppColors.isOther, // 標準の色
 
-            // 盤面の枠線描画                
+            // 盤面の枠線描画            
             border: Border(
               left: BorderSide(
                 color: isLeft ? Colors.red : AppColors.isLine,

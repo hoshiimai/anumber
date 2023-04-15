@@ -73,27 +73,7 @@ class Answer extends StatelessWidget {
 
         child: Container(
           decoration: BoxDecoration(
-            // 盤面の色設定
-            color
-              : isAnswerRow
-              ? Colors.blue[200]
-              : isAnswerColumn
-              ? Colors.blue[200]
-              : isSelected // 選択マスかどうか
-              ? AppColors.isSelect
-              : isBlock1 // 選択マスの領域(ブロック)かどうか
-              ? AppColors.isBlock
-              : isBlock2 // 選択マスの領域(ブロック)かどうか
-              ? AppColors.isBlock
-              : isBlock3 // 選択マスの領域(ブロック)かどうか
-              ? AppColors.isBlock
-              : isBlock4 // 選択マスの領域(ブロック)かどうか
-              ? AppColors.isBlock
-              : isSameLine // 選択マスの領域(行列)かどうか
-              ? AppColors.isBlock
-              : AppColors.isOther, // 標準の色
-
-            // 盤面の枠線描画                
+                        // 盤面の枠線描画                
             border: Border(
               left: BorderSide(
                 color: isLeft ? Colors.red : AppColors.isLine,
@@ -112,6 +92,29 @@ class Answer extends StatelessWidget {
                 width: (y == 8 || isBottom) ? 2 : 0,
               ),
             ),
+            // 盤面の色設定
+            color
+              : isAnswerRow
+              ? Colors.blueGrey[100]
+              // ? Color.fromARGB(255, 55, 65, 71)
+              : isAnswerColumn
+              ? Colors.blueGrey[100]
+              // ? Color.fromARGB(255, 55, 65, 71)
+              : isSelected // 選択マスかどうか
+              ? AppColors.isSelect
+              // : isBlock1 // 選択マスの領域(ブロック)かどうか
+              // ? AppColors.isBlock
+              // : isBlock2 // 選択マスの領域(ブロック)かどうか
+              // ? AppColors.isBlock
+              // : isBlock3 // 選択マスの領域(ブロック)かどうか
+              // ? AppColors.isBlock
+              // : isBlock4 // 選択マスの領域(ブロック)かどうか
+              // ? AppColors.isBlock
+              // : isSameLine // 選択マスの領域(行列)かどうか
+              // ? AppColors.isBlock
+              : AppColors.isOther, // 標準の色
+
+
           ),
 
           // 表示する数字を描画
@@ -135,7 +138,8 @@ class Answer extends StatelessWidget {
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
                 color: isCell ? Colors.red : (inputNum ? AppColors.isInput : AppColors.isText),
-                fontSize: isCell ? (screenSize.width) * 10 / 95 : (screenSize.width) * 7 / 95,
+                fontSize: (screenSize.width) * 7 / 95,
+                // fontSize: isCell ? (screenSize.width) * 10 / 95 : (screenSize.width) * 7 / 95,
               ),
             ),
           ),

@@ -1,138 +1,100 @@
-/*
-****************************************
-機能：anumberを解く時のメインページ
-IN：問題、解答、ヒント
-OUT：ゲーム画面
-----------------------------------------
-履歴：
-****************************************
-*/
-import 'dart:async';
-
-import 'package:anumber/app.dart';
-import 'package:anumber/components/answer/grid_illust.dart';
-import 'package:anumber/components/button/confirmButton.dart';
-import 'package:anumber/components/board/grid_candidate.dart';
-import 'package:anumber/components/stopwatch/stop_watch.dart';
 import 'package:anumber/home.dart';
-import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
-import 'package:anumber/components/board/grid.dart';
-import 'package:anumber/components/button/numbers.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 
-import '../../main.dart';
-import '../../makeQuestion.dart';
-import '../../sudoku.dart';
-import 'components/answer/answer.dart';
-import 'components/answer/grid_answer.dart';
-
-class Help extends StatefulWidget {
-  const Help({super.key});
-
-  // final String level;
-
-  // const AnswerScreen({Key? key, required this.level}) : super(key: key);
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _SudokuState createState() => _SudokuState();
-}
-
-class _SudokuState extends State<Help> {
-  
-  // late String state;
-  bool _isTappable = true;
-  bool _timeRunning = false;
-  bool _timer = true;
-  final fabKey = GlobalKey();
-  // final _database = Database();
-  int count = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    Answer.makeAnswerList(setState);
-  }
-
-  Future<void> getAnswer() async{
-    setState(() {
-      Infomation.data = Infomation.dataList[count];
-      Infomation.answer = Infomation.answerList[count];
-      initX = Infomation.xyList[count][0];
-      initY = Infomation.xyList[count][1];
-      initX1 = Infomation.xyList[count][2];
-      initY1 = Infomation.xyList[count][3];
-    });
-  }
+class Help extends StatelessWidget {
+  const Help({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    return AbsorbPointer(
-      absorbing: !_isTappable,
-      // onWillPop: () => Future.value(false),
-      child: Stack(
-        // alignment: Alignment.center,
-        children: <Widget>[
-          Scaffold(
-            backgroundColor: Color.fromARGB(255, 247, 246, 246),
-            appBar: AppBar(
-              backgroundColor: Color.fromARGB(255, 247, 246, 246),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black,),
-                onPressed: () async {
-                  // _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
-                  setState(() {
-                    Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));;
-                  });
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
-                },
-              ),
-              title: Text(
-                'A Number',
-                style: TextStyle(
-                  color: Colors.blue[900],
+    return Scaffold(
+      body: SafeArea(
+        // ここでIntroductionScreenのライブラリーを呼び出している
+        child: IntroductionScreen(
+          // ...省略...
+          pages: [
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/43429.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              elevation: 1,
             ),
-            body: Center(
-              child: Column(
-                // 盤面、アイコン、数字ボタンを縦方向に並べ、スペースを均等に配置
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  //余白
-                  SizedBox(
-                    height: (screenSize.width) / 10,
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/43430.jpg'),
+                    fit: BoxFit.cover,
                   ),
-
-                  // 問題の盤面
-                  AnswerGrid(
-                    init: Infomation.init,
-                    data: Infomation.data,
-                    anim: Infomation.answer,
-                    selectedX: Infomation.selectedX,
-                    selectedY: Infomation.selectedY,
-                    specifiedX: Infomation.specifiedX,
-                    specifiedY: Infomation.specifiedY,
-                    isAnswerRow: initX,
-                    isAnswerColumn: initY,
-                    initX: initX1,
-                    initY: initY1,
-                    timer: _timer,
-                  ),
-
-                  // 余白
-                  SizedBox(
-                    height: (screenSize.width) / 15,
-                  ),
-                ],
+                ),
               ),
             ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/43431.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/43432.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/43433.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          ],
+          onDone: () async => Navigator.push(context,MaterialPageRoute(builder: (context) => const Home())),
+          showBackButton: true,
+          next: const Icon(Icons.arrow_forward_ios),
+          back: const Icon(Icons.arrow_back_ios),
+          done: const Text(
+            'OK',
+            style: TextStyle(fontWeight: FontWeight.w600),
           ),
-        ],
+          dotsDecorator: DotsDecorator(
+            size: const Size.square(10.0),
+            // ここの大きさを変更することで
+            // 現在の位置を表しているマーカーのUIが変更するよ!
+            activeSize: const Size(20.0, 10.0),
+            activeColor: Colors.blue,
+            color: Colors.black26,
+            spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+            activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25.0),
+            ),
+          ),
+        ),
       ),
     );
   }

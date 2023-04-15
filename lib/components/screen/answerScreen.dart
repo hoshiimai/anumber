@@ -397,7 +397,7 @@ class _SudokuState extends State<AnswerScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(LineIcons.arrowLeft, size: fontsize *1.2, color: AppColors.isText),
-                            Text('戻る', style: TextStyle(fontSize: iconsize *0.5, color: AppColors.isText)),
+                            // Text('戻る', style: TextStyle(fontSize: iconsize *0.5, color: AppColors.isText)),
                           ],
                         ),
                       ),
@@ -410,7 +410,7 @@ class _SudokuState extends State<AnswerScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(LineIcons.arrowRight, size: fontsize *1.2, color: AppColors.isText),
-                            Text('進む', style: TextStyle(fontSize: iconsize *0.5, color: AppColors.isText)),
+                            // Text('進む', style: TextStyle(fontSize: iconsize *0.5, color: AppColors.isText)),
                           ],
                         ),
                       ),

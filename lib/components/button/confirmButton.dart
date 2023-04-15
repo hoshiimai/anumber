@@ -13,6 +13,7 @@ import 'package:anumber/components/database/database_connection.dart';
 import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
+import 'package:anumber/style/theme_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -36,22 +37,24 @@ class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    var fontsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.618 : ((screenSize.height) * 0.45 / 9) *0.618;
+    var fontsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.68 : ((screenSize.height) * 0.45 / 9) *0.68;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         //決定(答え判定)ボタン
         SizedBox(
-          height: fontsize * 1.618,
-          width: fontsize * 3.82,
+          height: (screenSize.width) / 20 * 2.1,
+          width: (screenSize.width) / 20 * 4.6,
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-              primary: Colors.white,
+              primary: AppColors.isConfirmButton,
               onPrimary: Colors.transparent,
               elevation: 3,
-              shadowColor: Colors.grey[50],
+              // shadowColor: Colors.grey[50],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: AppColors.isButtonLine, width: 0.2),
               ),
             ),
             onPressed: () async {
@@ -150,8 +153,8 @@ class ConfirmButton extends StatelessWidget {
             child: Text(
               '決定',
               style: TextStyle(
-                fontSize: fontsize,
-                color: Colors.blue[900],
+                fontSize: (screenSize.width) / 20,
+                color: AppColors.isButtonText,
               ),
             ),
           ),
@@ -160,16 +163,17 @@ class ConfirmButton extends StatelessWidget {
 
         //解答ボタン
         SizedBox(
-          height: fontsize * 1.618,
-          width: fontsize * 3.82,
+          height: (screenSize.width) / 20 * 2.1,
+          width: (screenSize.width) / 20 * 4.6,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.white,
+              primary: AppColors.isConfirmButton,
               onPrimary: Colors.transparent,
               elevation: 3,
-              shadowColor: Colors.grey[50],
+              // shadowColor: Colors.grey[50],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: AppColors.isButtonLine, width: 0.2),
               ),
             ),
             onPressed: () {
@@ -199,8 +203,8 @@ class ConfirmButton extends StatelessWidget {
             child: Text(
               '答え',
               style: TextStyle(
-                fontSize: fontsize,
-                color: Colors.blue[900],
+                fontSize: (screenSize.width) / 20,
+                color: AppColors.isButtonText,
               ),
             ),
           ),

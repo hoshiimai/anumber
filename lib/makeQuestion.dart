@@ -20,7 +20,9 @@ class MakeQuestion {
     final g_CellIndex = 'G$rowIndex';
 
     final List<int> line1=[0,1,2],line2=[3,4,5],line3=[6,7,8],
-                  column1=[0,1,2],column2=[3,4,5],column3=[6,7,8];
+                    column1=[0,1,2],column2=[3,4,5],column3=[6,7,8];
+    final List<int> blockLine1=[0,1,2],blockLine2=[3,4,5],blockLine3=[6,7,8],
+                    blockColumn1=[0,1,2],blockColumn2=[3,4,5],blockColumn3=[6,7,8];
     final List<int> number = [1,2,3,4,5,6,7,8,9];
 
     List<List<int>> shuffle1 = List.generate(9, (_) => List.filled(9, 0)); // 問題1
@@ -36,6 +38,13 @@ class MakeQuestion {
     column1.shuffle();
     column2.shuffle();
     column3.shuffle();
+
+    blockLine1.shuffle();
+    blockLine2.shuffle();
+    blockLine3.shuffle();
+    blockColumn1.shuffle();
+    blockColumn2.shuffle();
+    blockColumn3.shuffle();
     number.shuffle();
     final List<int> lineMerged = line1 + line2 + line3;
     final List<int> columnMerged = column1 + column2 + column3;
