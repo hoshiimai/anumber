@@ -8,6 +8,8 @@ OUT：playGame.dartに遷移
 ****************************************
 */
 
+import 'dart:convert';
+
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/work.dart';
@@ -41,27 +43,10 @@ class _SudokuState extends State<Home> {
     super.initState();
     // _database.deleteDB();
     selectTime();
-    // print(isResume);
   }
 
 
-  Future<void> selectTime() async {
-    final result = await _database.selectDB();
-    print(result);
-    if(result.isNotEmpty) {
-      // _database.initDatabase();
-      // print('exist ok');
-      setState(() {
-        isResume = true;
-        // time = result[0];
-        // state = result[1];
-      });
-      print("レコード存在チェック: $isResume");
-      print("time: $time");
-    } else {
-      // print('exist ng');
-    }
-  }
+
 
 
   @override
@@ -94,11 +79,12 @@ class _SudokuState extends State<Home> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                    ), onPressed: () { 
-                        Navigator.push(
+                    ), onPressed: () async { 
+                        setLocaldata();
+                        await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Sudoku(level: state),
+                            builder: (context) => Sudoku(level: state, initFlag: false,),
                           ),
                         );
                       // _database.deleteAllStopwatchData();
@@ -158,7 +144,7 @@ class _SudokuState extends State<Home> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: "中級",), 
+                                  builder: (context) => const Sudoku(level: "中級", initFlag: true,), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();
@@ -171,7 +157,7 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: "上級",), 
+                                  builder: (context) => const Sudoku(level: "上級", initFlag: true,), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();
@@ -200,5 +186,48 @@ class _SudokuState extends State<Home> {
         ),
       ),
     );
+  }
+
+  Future<void> selectTime() async {
+    final result = await _database.selectDB();
+    if(result.isNotEmpty) {
+      print(result);
+      // _database.initDatabase();
+      print('exist ok');
+      setState(() {
+        isResume = true;
+        time = result[1];
+        // state = result[1];
+      });
+      print("レコード存在チェック: $isResume");
+      print("time: $time");
+    } else {
+      print('exist ng');
+    }
+  }
+
+  Future<void> setLocaldata() async {
+    final result = await _database.selectDB();
+    setState(() {
+      Infomation.id = int.parse(result[0]);
+      // time = result[1];
+      Infomation.init = (jsonDecode(result[2]) as List<dynamic>).map((e) => List<int>.from(e)).toList();
+      Infomation.zero = (jsonDecode(result[3]) as List<dynamic>).map((e) => List<int>.from(e)).toList();
+      Infomation.tmp = (jsonDecode(result[4]) as List<dynamic>).map((e) => List<int>.from(e)).toList();
+      Infomation.selectedX = int.parse(result[5]);
+      Infomation.selectedY = int.parse(result[6]);
+      Infomation.answerX = int.parse(result[5]);
+      Infomation.answerY = int.parse(result[6]);
+      Infomation.kotae = int.parse(result[7]);
+      state = result[8];
+    });
+    //     final Map<String, dynamic> data = {
+    //   'id': id.toString(),
+    //   'time': timer.toString(),
+    //   'value': jsonEncode(value),
+    //   'zero': jsonEncode(zero),
+    //   'candidate': jsonEncode(candidate),
+    //   'level': level.toString()
+    // };
   }
 }

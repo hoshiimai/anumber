@@ -15,43 +15,113 @@ class Answer {
         },
 
         () {
-          Infomation.answer[Infomation.lineList.indexOf(0)][Infomation.columnList.indexOf(2)] = 999;
+          Infomation.answerCandidate[7][0] = 4;
+          Infomation.answerCandidate[16][0] = 4;
+          Infomation.answerCandidate[7][9] = 4;
+          Infomation.answerCandidate[16][6] = 4;
+          Infomation.answerCandidate[22][6] = 4;
+          Infomation.answerCandidate[22][9] = 4;
+
+          Infomation.answerCandidate[1][0] = 4;
+          Infomation.answerCandidate[1][6] = 4;
+          Infomation.answerCandidate[13][9] = 4;
+          Infomation.answerCandidate[25][9] = 4;
+
           addAnswerList();
         },
 
         () {
-          initX = Infomation.lineList.indexOf(0);
+          Infomation.animation_candidate[7][0] = 999;
+          Infomation.animation_candidate[8][0] = 111;
+          Infomation.animation_candidate[9][0] = 111;
+          Infomation.animation_candidate[10][0] = 111;
+          Infomation.animation_candidate[11][0] = 111;
+          Infomation.animation_candidate[12][0] = 111;
+          Infomation.animation_candidate[13][0] = 111;
+          Infomation.animation_candidate[14][0] = 111;
+          Infomation.animation_candidate[15][0] = 111;
+          Infomation.animation_candidate[16][0] = 999;
+
+          Infomation.animation_candidate[7][1] = 555;
+          Infomation.animation_candidate[7][2] = 555;
+          Infomation.animation_candidate[7][3] = 555;
+          Infomation.animation_candidate[7][4] = 555;
+          Infomation.animation_candidate[7][5] = 555;
+          Infomation.animation_candidate[7][6] = 555;
+          Infomation.animation_candidate[7][7] = 555;
+          Infomation.animation_candidate[7][8] = 555;
+          Infomation.animation_candidate[7][9] = 999;
+
+          Infomation.animation_candidate[16][1] = 555;
+          Infomation.animation_candidate[16][2] = 555;
+          Infomation.animation_candidate[16][3] = 555;
+          Infomation.animation_candidate[16][4] = 555;
+          Infomation.animation_candidate[16][5] = 555;
+          Infomation.animation_candidate[16][6] = 999;
+
+          Infomation.animation_candidate[22][6] = 999;
+          Infomation.animation_candidate[22][7] = 555;
+          Infomation.animation_candidate[22][8] = 555;
+          Infomation.animation_candidate[22][9] = 999;
+
+          Infomation.animation_candidate[8][9] = 111;
+          Infomation.animation_candidate[9][9] = 111;
+          Infomation.animation_candidate[10][9] = 111;
+          Infomation.animation_candidate[11][9] = 111;
+          Infomation.animation_candidate[12][9] = 111;
+          Infomation.animation_candidate[13][9] = 111;
+          Infomation.animation_candidate[14][9] = 111;
+          Infomation.animation_candidate[15][9] = 111;
+          Infomation.animation_candidate[16][9] = 111;
+          Infomation.animation_candidate[17][9] = 111;
+          Infomation.animation_candidate[18][9] = 111;
+          Infomation.animation_candidate[19][9] = 111;
+          Infomation.animation_candidate[20][9] = 111;
+          Infomation.animation_candidate[21][9] = 111;
+
+          Infomation.animation_candidate[17][6] = 111;
+          Infomation.animation_candidate[18][6] = 111;
+          Infomation.animation_candidate[19][6] = 111;
+          Infomation.animation_candidate[20][6] = 111;
+          Infomation.animation_candidate[21][6] = 111;
+
+
+          Infomation.animation_candidate[1][0] = 444;
+          Infomation.animation_candidate[1][6] = 444;
+          Infomation.animation_candidate[13][9] = 444;
+          Infomation.animation_candidate[25][9] = 444;
+          // initX = Infomation.lineList.indexOf(0);
           addAnswerList();
         },
 
-        () {
-          Infomation.answer[Infomation.lineList.indexOf(0)][Infomation.columnList.indexOf(2)] = 0;
-          Infomation.answer[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(4)] = 999;
-          addAnswerList();
-        },
+        // () {
+        //   Infomation.answer[Infomation.lineList.indexOf(0)][Infomation.columnList.indexOf(2)] = 0;
+        //   Infomation.answer[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(4)] = 999;
+        //   addAnswerList();
+        // },
 
-        () {
-          initY = Infomation.columnList.indexOf(4);
-          addAnswerList();
-        },
+        // () {
+        //   initY = Infomation.columnList.indexOf(4);
+        //   addAnswerList();
+        // },
 
-        () {
-          Infomation.answer[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(4)] = 0;
-          Infomation.answer[Infomation.lineList.indexOf(4)][Infomation.columnList.indexOf(3)] = 999;
-          addAnswerList();
-        },
+        // () {
+        //   Infomation.answer[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(4)] = 0;
+        //   Infomation.answer[Infomation.lineList.indexOf(4)][Infomation.columnList.indexOf(3)] = 999;
+        //   addAnswerList();
+        // },
 
-        () {
-          initY1 = Infomation.columnList.indexOf(3);
-          addAnswerList();
-        },
+        // () {
+        //   initY1 = Infomation.columnList.indexOf(3);
+        //   addAnswerList();
+        // },
 
-        () {
-          Infomation.answer[Infomation.lineList.indexOf(4)][Infomation.columnList.indexOf(3)] = 0;
-          Infomation.data[Infomation.lineList.indexOf(2)][Infomation.columnList.indexOf(5)] = Infomation.kotae;
-          Infomation.answer[Infomation.lineList.indexOf(2)][Infomation.columnList.indexOf(5)] = 999;
-          addAnswerList();
-        },
+        // () {
+        //   Infomation.answer[Infomation.lineList.indexOf(4)][Infomation.columnList.indexOf(3)] = 0;
+        //   Infomation.data[Infomation.lineList.indexOf(2)][Infomation.columnList.indexOf(5)] = Infomation.kotae;
+        //   Infomation.answer[Infomation.lineList.indexOf(2)][Infomation.columnList.indexOf(5)] = 999;
+        //   addAnswerList();
+        // },
 
         () {
           Infomation.init = Infomation.dataList.first;

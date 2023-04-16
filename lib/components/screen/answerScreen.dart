@@ -9,26 +9,15 @@ OUT：ゲーム画面
 */
 import 'dart:async';
 
-import 'package:anumber/app.dart';
-import 'package:anumber/components/answer/grid_illust.dart';
-import 'package:anumber/components/button/confirmButton.dart';
+import 'package:anumber/components/answer/grid_answer_candidate.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
-import 'package:anumber/home.dart';
 import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
-import 'package:anumber/components/board/grid.dart';
-import 'package:anumber/components/button/numbers.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:provider/provider.dart';
-
-import '../../main.dart';
-import '../../makeQuestion.dart';
 import '../../style/theme_controller.dart';
-import '../../sudoku.dart';
 import '../answer/answer.dart';
 import '../answer/grid_answer.dart';
 import '../database/database_connection.dart';
@@ -124,7 +113,7 @@ class _SudokuState extends State<AnswerScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Sudoku(level: "中級",), 
+                            builder: (context) => Sudoku(level: "中級", initFlag: false), 
                           ),
                         );
                         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
@@ -375,6 +364,11 @@ class _SudokuState extends State<AnswerScreen> {
                         initX: initX1,
                         initY: initY1,
                         timer: _timer,
+                      ),
+                      // 候補の盤面
+                      AnswerCandidateGrid(
+                        candidate: Infomation.answerCandidate,
+                        candianim: Infomation.animation_candidate,
                       ),
                     ],
                   ),

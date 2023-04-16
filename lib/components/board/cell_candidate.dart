@@ -34,9 +34,9 @@ class Candidate extends StatelessWidget {
                 color: Colors.grey[600],
                 // fontWeight: FontWeight.bold,
                 fontSize: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (((screenSize.width) * 0.97 / 9) *0.71)/2.5 : (((screenSize.height) * 0.45 / 9) *0.71)/2.5,
+            ),
           ),
         ),
-      ),
       ),
     );
   }

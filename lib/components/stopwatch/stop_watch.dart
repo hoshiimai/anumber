@@ -102,7 +102,7 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
         // insertTime();
         // insertDatabase();
         // _database.insertDB(DateFormat.ms().format(Stopwatch.time), Data.init, Data.zero, Data.tmp);
-        _database.deleteDB();
+        // _database.deleteDB();
       }
     } else if (state == AppLifecycleState.resumed && mounted) {
       // フォアグラウンドに復帰した時

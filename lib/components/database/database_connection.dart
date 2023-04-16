@@ -8,56 +8,64 @@ import 'dart:convert';
 
 class Database {
 
-  Future<void> insertDB(timer, List<List<int>> value, List<List<int>> zero, List<List<int>> candidate, String level) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setInt('id', 999);
-    prefs.setString('time', timer.toString());
-    prefs.setString('value', jsonEncode(value));
-    prefs.setString('zero', jsonEncode(zero));
-    prefs.setString('candidate', jsonEncode(candidate));
-    prefs.setString('level', level.toString());
-
-
-    print('insert 成功');
-  }
-
-
-  Future<List> selectDB() async {
-    final prefs = await SharedPreferences.getInstance();
-    final id = prefs.getInt('id');
-    final time = prefs.getString('time');
-    final value = prefs.getString('value');
-    final zero = prefs.getString('zero');
-    final candidate = prefs.getString('candidate');
-    if (id != null) {
-      print('------------------------------------------------------------------------------------------------');
-      print('Time: $time');
-      print('------------------------------------------------------------------------------------------------');
-      // print('Value: $value');
-      // print('------------------------------------------------------------------------------------------------');
-      // print('init: $zero');
-      // print('------------------------------------------------------------------------------------------------');
-      // print('candidate: $candidate');
-      // print('------------------------------------------------------------------------------------------------');
-      print('☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆');
-      print("id: $id");
-      print('☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆');
-      return [time, value, zero, candidate];
-
+  Future<void> insertDB(
+    id, 
+    timer, 
+    List<List<int>> value,
+    List<List<int>> zero,
+    List<List<int>> candidate,
+    int specifiedX,
+    int specifiedY,
+    int kotae,
+    String level
+    ) async {
+      final prefs = await SharedPreferences.getInstance();
+      final Map<String, dynamic> data = {
+        'id': id.toString(),
+        'time': timer.toString(),
+        'value': jsonEncode(value),
+        'zero': jsonEncode(zero),
+        'candidate': jsonEncode(candidate),
+        'specifiedX': specifiedX.toString(),
+        'specifiedY': specifiedY.toString(),
+        'kotae': kotae.toString(),
+        'level': level.toString()
+      };
+      // await prefs.clear(); // 既存のデータを消去する
+      await prefs.setString('data', jsonEncode(data)); // 新規でデータを挿入する
+      print('insert 成功');
     }
-    
+
+
+
+  Future<List<String>> selectDB() async {
+    final prefs = await SharedPreferences.getInstance();
+    final dataJson = prefs.getString('data');
+    if (dataJson != null) {
+      final data = jsonDecode(dataJson);
+      return [      
+        data['id'].toString(),
+        data['time'].toString(),
+        data['value'],
+        data['zero'],
+        data['candidate'],
+        data['specifiedX'].toString(),
+        data['specifiedY'].toString(),
+        data['kotae'].toString(),
+        data['level'].toString(),
+      ];
+    }
+    print('select失敗');
     return [];
   }
 
 
+
+
   Future<void> deleteDB() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove('id');
-    prefs.remove('time');
-    prefs.remove('value');
-    prefs.remove('zero');
-    prefs.remove('candidate');
-    
-    print('delete 成功');
+    await prefs.clear();
+    print('データをすべて削除しました');
   }
+
 }

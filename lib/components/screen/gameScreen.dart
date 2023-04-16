@@ -30,8 +30,9 @@ import '../database/database_connection.dart';
 
 class Sudoku extends StatefulWidget {
   final String level;
+  final bool initFlag;
 
-  const Sudoku({Key? key, required this.level}) : super(key: key);
+  const Sudoku({Key? key, required this.level, required this.initFlag}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -53,14 +54,20 @@ class _SudokuState extends State<Sudoku> {
   @override
   void initState() {
     super.initState();
-    InitProcess.getdata(setState).then((_) {
-      _timeRunning = !_timeRunning;
-      Future.delayed(Duration.zero, () {
-        setState(() {
-          _isTappable = true;
+    if(widget.initFlag) {
+      InitProcess.getdata(setState).then((_) {
+        _timeRunning = !_timeRunning;
+        Future.delayed(Duration.zero, () {
+          setState(() {
+            _isTappable = true;
+          });
         });
       });
-    });
+    } else {
+      setState(() {
+        _isTappable = true;
+      });
+    }
   }
 
 
@@ -91,7 +98,7 @@ class _SudokuState extends State<Sudoku> {
                     leading: IconButton(
                       icon: const Icon(LineIcons.angleLeft),
                       onPressed: () async {
-                        _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, widget.level);
+                        _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, widget.level);
                         setState(() {
                           // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
                           // 初期化
@@ -428,7 +435,7 @@ class _SudokuState extends State<Sudoku> {
 
                   //決定、答えボタン
                   ConfirmButton(
-                    answer: Infomation.zero[Infomation.specifiedY][Infomation.specifiedX],
+                    answer: Infomation.zero[Infomation.answerY][Infomation.answerX],
                     tmpLevel: widget.level,
                     onAnswered: (isCorrect) {
                       if (isCorrect) {

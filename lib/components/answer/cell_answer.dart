@@ -68,8 +68,8 @@ class Answer extends StatelessWidget {
       // onTap: onTap,
       child: SizedBox(
         // 盤面のサイズ(一マスのサイズを指定)
-        width: (screenSize.width) * 0.98 / 9 < (screenSize.height) * 0.46 / 9 ? (screenSize.width) * 0.98 / 9 : (screenSize.height) * 0.46 /9,
-        height:(screenSize.width) * 0.98 / 9 < (screenSize.height) * 0.46 / 9 ? (screenSize.width) * 0.98 / 9 : (screenSize.height) * 0.46 /9,
+        width: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (screenSize.width) * 0.97 / 9 : (screenSize.height) * 0.45 /9,
+        height:(screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (screenSize.width) * 0.97 / 9 : (screenSize.height) * 0.45 /9,
 
         child: Container(
           decoration: BoxDecoration(
