@@ -358,6 +358,7 @@ class _PlaySudokuState extends State<PlaySudoku> {
                   },
 
                   // メモボタン
+                  onEdit: isEdit,
                   onPress: () {
                     setState(() {
                       isEdit = !isEdit;

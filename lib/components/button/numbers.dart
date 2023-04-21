@@ -18,10 +18,12 @@ class ControlButton extends StatelessWidget {
     required this.onTap,
     required this.onPress,
     required this.onBack,
+    required this.onEdit,
   });
   final Function(int number) onTap;
   final Function() onPress;
   final Function() onBack;
+  final bool onEdit;
 
 
   @override
@@ -57,7 +59,7 @@ class ControlButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(LineIcons.pen, size: iconsize, color: AppColors.isText),
-              Text('メモ OFF', style: TextStyle(fontSize: iconsize *0.4, color: AppColors.isText)),
+              Text(onEdit ? 'メモ OFF' : 'メモ ON', style: TextStyle(fontSize: iconsize *0.4, color: AppColors.isText)),
             ],
           ),
         ),

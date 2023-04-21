@@ -122,14 +122,14 @@ class _SudokuState extends State<Home> {
                         title: const Text('難易度選択'),
                         actions: <CupertinoActionSheetAction>[
                           CupertinoActionSheetAction(
-                            child: const Text('初級',
-                              style: TextStyle(color: Colors.blue)),
+                            child: Text('初級',
+                              style: TextStyle(color: Colors.blue[900])),
                             onPressed: () async{
                               MakeQuestion().getExcelValue();
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  AnswerScreen(),
+                                  builder: (context) =>  AnswerScreen(level: "中級"),
                                   // builder: (context) => const Sudoku(level: "初級"),
                                 ),
                               );
@@ -137,8 +137,8 @@ class _SudokuState extends State<Home> {
                             },
                           ),
                           CupertinoActionSheetAction(
-                            child: const Text('中級',
-                              style: TextStyle(color: Colors.blue)),
+                            child: Text('中級',
+                              style: TextStyle(color: Colors.blue[900])),
                             onPressed: () async {
                               MakeQuestion().getExcelValue();
                               await Navigator.push(
@@ -151,8 +151,8 @@ class _SudokuState extends State<Home> {
                             },
                           ),
                           CupertinoActionSheetAction(
-                            child: const Text('上級',
-                              style: TextStyle(color: Colors.blue)),
+                            child: Text('上級',
+                              style: TextStyle(color: Colors.blue[900])),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -170,7 +170,7 @@ class _SudokuState extends State<Home> {
                   child: const Text(
                     '難易度選択',
                     style: TextStyle(
-                      fontFamily: 'Yu Gothic',
+                      // fontFamily: 'Yu Gothic',
                       fontSize: 25,
                       color: Color(0xff707070),
                       fontWeight: FontWeight.w700,
@@ -191,7 +191,9 @@ class _SudokuState extends State<Home> {
   Future<void> selectTime() async {
     final result = await _database.selectDB();
     if(result.isNotEmpty) {
-      print(result);
+      print(result[5]);
+      print(result[6]);
+      print(result[7]);
       // _database.initDatabase();
       print('exist ok');
       setState(() {
@@ -216,6 +218,8 @@ class _SudokuState extends State<Home> {
       Infomation.tmp = (jsonDecode(result[4]) as List<dynamic>).map((e) => List<int>.from(e)).toList();
       Infomation.selectedX = int.parse(result[5]);
       Infomation.selectedY = int.parse(result[6]);
+      Infomation.specifiedX = int.parse(result[5]);
+      Infomation.specifiedY = int.parse(result[6]);
       Infomation.answerX = int.parse(result[5]);
       Infomation.answerY = int.parse(result[6]);
       Infomation.kotae = int.parse(result[7]);

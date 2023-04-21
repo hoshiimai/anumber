@@ -23,9 +23,9 @@ import '../answer/grid_answer.dart';
 import '../database/database_connection.dart';
 
 class AnswerScreen extends StatefulWidget {
-  // final String level;
+  final String level;
 
-  // const AnswerScreen({Key? key, required this.level}) : super(key: key);
+  const AnswerScreen({Key? key, required this.level}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -113,7 +113,7 @@ class _SudokuState extends State<AnswerScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Sudoku(level: "中級", initFlag: false), 
+                            builder: (context) => Sudoku(level: widget.level, initFlag: false), 
                           ),
                         );
                         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
@@ -306,7 +306,7 @@ class _SudokuState extends State<AnswerScreen> {
                         padding: EdgeInsets.only(left: (screenSize.width) / 25),
                         child: Text(
                           // '難易度 ：${widget.level}',
-                          '難易度 ： 中級',
+                          '難易度 ：${widget.level}',
                           style: TextStyle(
                             fontSize: (screenSize.width) / 25,
                           ),
@@ -382,30 +382,38 @@ class _SudokuState extends State<AnswerScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      GestureDetector(
-                        onTap: () async{
-                          count > 0 ? count -= 1 : null;
-                          await getAnswer();
+                      InkWell(
+                        onTap: () async {
+                          if (count > 0) {
+                            count -= 1;
+                            await getAnswer();
+                          }
                         },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(LineIcons.arrowLeft, size: fontsize *1.2, color: AppColors.isText),
-                            // Text('戻る', style: TextStyle(fontSize: iconsize *0.5, color: AppColors.isText)),
-                          ],
+                        child: Icon(
+                          LineIcons.arrowLeft,
+                          size: fontsize * 1.4,
+                          color: AppColors.isText,
                         ),
                       ),
-                      GestureDetector(
+
+                      Container(
+                        child: Text(
+                          '${count +1}/${Infomation.dataList.length}',
+                          style: TextStyle(
+                            fontSize: (screenSize.width) / 25,
+                          ),
+                        ),
+                      ),
+
+                      InkWell(
                         onTap: () async{
                           count < Infomation.dataList.length -1 ? count += 1 : null;
                           await getAnswer();
                         },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(LineIcons.arrowRight, size: fontsize *1.2, color: AppColors.isText),
-                            // Text('進む', style: TextStyle(fontSize: iconsize *0.5, color: AppColors.isText)),
-                          ],
+                        child: Icon(
+                          LineIcons.arrowRight,
+                          size: fontsize * 1.4,
+                          color: AppColors.isText,
                         ),
                       ),
                     ],
@@ -472,6 +480,51 @@ class _SudokuState extends State<AnswerScreen> {
                         ),
                       ),
                     ],
+                  ),
+
+                  SizedBox(
+                    height: (screenSize.width) / 13,
+                  ),
+
+                  // SizedBox(
+                  //   height: buttonsize * 2,
+                  //   width: buttonsize * 12.5,
+                  //   child: ElevatedButton(
+                  //       style: ElevatedButton.styleFrom(
+                  //       primary: Colors.white,
+                  //       onPrimary: Colors.transparent,
+                  //       elevation: 3,
+                  //       shadowColor: Colors.grey[50],
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(20),
+                  //       ),
+                  //     ),
+                  //     onPressed: () async {
+                      
+
+                  //     },
+                  //     child: Text(
+                  //       '全て完成させる',
+                  //       style: TextStyle(
+                  //         fontSize: buttonsize,
+                  //         color: Colors.blue[900],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.blue[900], //ボタンの背景色
+                        minimumSize: Size(buttonsize * 12.5, buttonsize * 2)),
+                    child: Text(
+                      "全て完成させる",
+                      style: TextStyle(
+                        color: Colors.white, // ボタンのテキストの色
+                        fontSize: buttonsize,
+                      ),
+                    ),
                   ),
 
                   const SizedBox(

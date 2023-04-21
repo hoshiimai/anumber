@@ -98,7 +98,7 @@ class ConfirmButton extends StatelessWidget {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Sudoku(level: tmpLevel,), 
+                        builder: (context) => Sudoku(level: tmpLevel, initFlag: true,), 
                       ),
                     );
                   },
@@ -108,7 +108,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AnswerScreen(), 
+                        builder: (context) => AnswerScreen(level: tmpLevel), 
                       ),
                     );
                   },
@@ -137,7 +137,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AnswerScreen(), 
+                        builder: (context) => AnswerScreen(level: tmpLevel), 
                       ),
                     );
                   },
@@ -186,7 +186,7 @@ class ConfirmButton extends StatelessWidget {
                     actions: <Widget>[
                       TextButton(
                         child: const Text("OK", style: TextStyle(color: Colors.blue),),
-                        onPressed: () => Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => AnswerScreen(),
+                        onPressed: () => Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => AnswerScreen(level: tmpLevel),
                             transitionDuration: Duration(seconds: 0),
                           ),
                         ),

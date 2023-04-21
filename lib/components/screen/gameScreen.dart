@@ -66,6 +66,7 @@ class _SudokuState extends State<Sudoku> {
     } else {
       setState(() {
         _isTappable = true;
+        // _timeRunning = true;
       });
     }
   }
@@ -107,12 +108,15 @@ class _SudokuState extends State<Sudoku> {
                           Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
                           Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
                           Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.tmp = List.generate(27, (_) => List.generate(27, (_) => 0));
                           Infomation.historyList = [];
                           Infomation.tmp_historyList = [];
                           Infomation.specifiedX = -1;
                           Infomation.specifiedY = -1;
                           Infomation.selectedX = 0;
                           Infomation.selectedY = 0;
+                          Infomation.answerX = 0;
+                          Infomation.answerY = 0;
                           Infomation.kotae = 0;
 
                         });
@@ -308,6 +312,7 @@ class _SudokuState extends State<Sudoku> {
                         child: Text(
                           '難易度 ：${widget.level}',
                           style: TextStyle(
+                            color: AppColors.isText,
                             fontSize: (screenSize.width) / 25,
                           ),
                         ),
@@ -321,7 +326,6 @@ class _SudokuState extends State<Sudoku> {
                         // padding: EdgeInsets.only(left: (screenSize.width) / 1.8),
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        child: _timeRunning ? const Icon(LineIcons.pauseCircle) : const Icon(Icons.play_arrow),
                         onTap: _timeRunning
                           ? () {
                               setState(() {
@@ -330,6 +334,7 @@ class _SudokuState extends State<Sudoku> {
                               });
                             }
                           : null,
+                        child: _timeRunning ? Icon(LineIcons.pauseCircle, color: AppColors.isText) : Icon(Icons.play_arrow, color: AppColors.isText),
                       ),
 
                       
@@ -407,6 +412,7 @@ class _SudokuState extends State<Sudoku> {
                     },
 
                     // メモボタン
+                    onEdit: isEdit,
                     onPress: () {
                       setState(() {
                         isEdit = !isEdit;

@@ -9,6 +9,7 @@ OUI：タイム
 */
 
 import 'dart:async';
+import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -154,7 +155,7 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Text(DateFormat.ms().format(Stopwatch.time), style: TextStyle(fontSize: 15,));
+    return Text(DateFormat.ms().format(Stopwatch.time), style: TextStyle(fontSize: 15, color: AppColors.isText));
   }
 }
 
