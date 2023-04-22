@@ -56,6 +56,15 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+  - family: Nunito
+    fonts:
+      - asset: assets/fonts/Nunito/static/Nunito-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Nunito/static/Nunito-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/Nunito/static/Nunito-Bold.ttf
+
 
   # To add Flutter specific assets to your application, add an assets section,
   # like this:
@@ -64,7 +73,8 @@ flutter:
     - assets/DB.xlsx
     - assets/button.mp3
     - assets/correct.mp3
-    - assets/correct.mp3
+    - assets/incorrect.mp3
+    - assets/fonts/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

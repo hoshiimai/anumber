@@ -4,18 +4,18 @@ import 'package:anumber/work.dart';
 import 'package:flutter/material.dart';
 
 
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Nunito',
-      ),
+      // title: 'Flutter Demo',
+      // theme: ThemeData(
+        // primarySwatch: Colors.blue,
+        // fontFamily: 'Nunito',
+      // ),
+      debugShowCheckedModeBanner: false, // debugモードのバナーを非表示にする
       home: const MyStatefulWidget(),
     );
   }
@@ -49,9 +49,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
-          BottomNavigationBarItem(icon: Icon(Icons.help_outline), label: '遊び方'),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home, color: Colors.blue[900],), label: 'ホーム'),
+          BottomNavigationBarItem(icon: Icon(Icons.help_outline, color: Colors.blue[900],), label: '遊び方'),
         ],
         type: BottomNavigationBarType.fixed,
       )

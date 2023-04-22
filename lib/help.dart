@@ -1,3 +1,4 @@
+import 'package:anumber/app.dart';
 import 'package:anumber/home.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -74,20 +75,19 @@ class Help extends StatelessWidget {
               ),
             ),
           ],
-          onDone: () async => Navigator.push(context,MaterialPageRoute(builder: (context) => const Home())),
+          onDone: () async => Navigator.push(context,MaterialPageRoute(builder: (context) => const MyApp())),
           showBackButton: true,
-          next: const Icon(Icons.arrow_forward_ios),
-          back: const Icon(Icons.arrow_back_ios),
-          done: const Text(
+          next: Icon(Icons.arrow_forward_ios, color: Colors.blue[900]),
+          back: Icon(Icons.arrow_back_ios, color: Colors.blue[900]),
+          done: Text(
             'OK',
-            style: TextStyle(fontWeight: FontWeight.w600),
+            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.blue[900]),
           ),
           dotsDecorator: DotsDecorator(
             size: const Size.square(10.0),
             // ここの大きさを変更することで
-            // 現在の位置を表しているマーカーのUIが変更するよ!
             activeSize: const Size(20.0, 10.0),
-            activeColor: Colors.blue,
+            activeColor: Colors.blue[900],
             color: Colors.black26,
             spacing: const EdgeInsets.symmetric(horizontal: 3.0),
             activeShape: RoundedRectangleBorder(

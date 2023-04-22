@@ -12,14 +12,11 @@ import 'dart:convert';
 
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/infomation.dart';
-import 'package:anumber/work.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'components/database/database_connection.dart';
 import 'components/screen/answerScreen.dart';
-import 'package:flutter/services.dart';
-import 'package:excel/excel.dart';
-
 import 'makeQuestion.dart';
 
 class Home extends StatefulWidget {
@@ -36,6 +33,7 @@ class _SudokuState extends State<Home> {
   bool isResume = false;
   String time = "00:00";
   String state = "取得エラー";
+  String level = "";
 
 
   @override
@@ -53,7 +51,17 @@ class _SudokuState extends State<Home> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xfffff8dc),
+      backgroundColor: const Color(0xFFFAFAFA),
+      appBar: (
+        AppBar(
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness:Brightness.dark
+          ),
+          backgroundColor: const Color(0xFFFAFAFA),
+          elevation: 0,
+        )
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -75,7 +83,7 @@ class _SudokuState extends State<Home> {
                 child: isResume ?
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: Colors.blue[900],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
@@ -89,15 +97,28 @@ class _SudokuState extends State<Home> {
                         );
                       // _database.deleteAllStopwatchData();
                      },
-                    child: Text(
-                      '続ける $time',
-                      style: const TextStyle(
-                        fontFamily: 'Yu Gothic',
-                        fontSize: 25,
-                        color: Color(0xff707070),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                     child: Column(
+                      children: [
+                        Text(
+                          '続ける',
+                          style: const TextStyle(
+                            fontFamily: 'Nunito',
+                            fontSize: 25,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          '$level $time',
+                          style: const TextStyle(
+                            fontFamily: 'Nunito',
+                            fontSize: 15,
+                            color: Colors.blueGrey,
+                            // fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ]
+                     )
                   ) : null,
               ),
                                   //余白
@@ -119,11 +140,13 @@ class _SudokuState extends State<Home> {
                     showCupertinoModalPopup<void>(
                       context: context,
                       builder: (BuildContext context) => CupertinoActionSheet(
-                        title: const Text('難易度選択'),
+                        // title: const Text('難易度選択'),
                         actions: <CupertinoActionSheetAction>[
                           CupertinoActionSheetAction(
-                            child: Text('初級',
-                              style: TextStyle(color: Colors.blue[900])),
+                            child: Text(
+                              '初級',
+                              style: TextStyle(color: Colors.blue[900], fontFamily: 'Nunito')
+                            ),
                             onPressed: () async{
                               MakeQuestion().getExcelValue();
                               await Navigator.push(
@@ -137,8 +160,10 @@ class _SudokuState extends State<Home> {
                             },
                           ),
                           CupertinoActionSheetAction(
-                            child: Text('中級',
-                              style: TextStyle(color: Colors.blue[900])),
+                            child: Text(
+                              '中級',
+                              style: TextStyle(color: Colors.blue[900], fontFamily: 'Nunito')
+                            ),
                             onPressed: () async {
                               MakeQuestion().getExcelValue();
                               await Navigator.push(
@@ -151,8 +176,10 @@ class _SudokuState extends State<Home> {
                             },
                           ),
                           CupertinoActionSheetAction(
-                            child: Text('上級',
-                              style: TextStyle(color: Colors.blue[900])),
+                            child: Text(
+                              '上級',
+                              style: TextStyle(color: Colors.blue[900], fontFamily: 'Nunito')
+                            ),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -168,7 +195,7 @@ class _SudokuState extends State<Home> {
                     );
                   },
                   child: const Text(
-                    '難易度選択',
+                    '新しいゲーム',
                     style: TextStyle(
                       // fontFamily: 'Yu Gothic',
                       fontSize: 25,
@@ -194,11 +221,13 @@ class _SudokuState extends State<Home> {
       print(result[5]);
       print(result[6]);
       print(result[7]);
+      print(result[8]);
       // _database.initDatabase();
       print('exist ok');
       setState(() {
         isResume = true;
         time = result[1];
+        level = result[8];
         // state = result[1];
       });
       print("レコード存在チェック: $isResume");

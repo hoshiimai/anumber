@@ -9,7 +9,6 @@ OUT：・ヒントの表示
 履歴：
 ****************************************
 */
-import 'package:anumber/components/database/database_connection.dart';
 import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
@@ -102,7 +101,7 @@ class ConfirmButton extends StatelessWidget {
                       ),
                     );
                   },
-                  btnOkColor: Colors.blueAccent,
+                  btnOkColor: Colors.blue[900],
                   btnCancelText: "解説",
                   btnCancelOnPress: () {
                     Navigator.push(
@@ -112,7 +111,7 @@ class ConfirmButton extends StatelessWidget {
                       ),
                     );
                   },
-                  btnCancelColor: Colors.blueAccent,
+                  btnCancelColor: Colors.blue[900],
                 ).show();
                 await Future.delayed(const Duration(milliseconds: 600));
                 Infomation.sound ? _audio.play('correct.mp3') : null;
@@ -141,10 +140,10 @@ class ConfirmButton extends StatelessWidget {
                       ),
                     );
                   },
-                  btnOkColor: Colors.blueAccent,
+                  btnOkColor: Colors.blue[900],
                   btnCancelText: "閉じる",
                   btnCancelOnPress: () {},
-                  btnCancelColor: Colors.blueAccent,
+                  btnCancelColor: Colors.blue[900],
                 ).show();
                 await Future.delayed(const Duration(milliseconds: 700));
                 Infomation.sound ? _audio.play('incorrect.mp3') : null;
@@ -185,14 +184,14 @@ class ConfirmButton extends StatelessWidget {
                     content: const Text('解答を表示します。よろしいですか？'),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text("OK", style: TextStyle(color: Colors.blue),),
+                        child: Text("OK", style: TextStyle(color: Colors.blue[900]),),
                         onPressed: () => Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => AnswerScreen(level: tmpLevel),
                             transitionDuration: Duration(seconds: 0),
                           ),
                         ),
                       ),
                       TextButton(
-                        child: const Text("キャンセル", style: TextStyle(color: Colors.blue),),
+                        child: Text("キャンセル", style: TextStyle(color: Colors.blue[900]),),
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],
