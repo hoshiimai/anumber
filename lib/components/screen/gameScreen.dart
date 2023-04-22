@@ -31,8 +31,9 @@ import '../database/database_connection.dart';
 class Sudoku extends StatefulWidget {
   final String level;
   final bool initFlag;
+  final bool isResume;
 
-  const Sudoku({Key? key, required this.level, required this.initFlag}) : super(key: key);
+  const Sudoku({Key? key, required this.level, required this.initFlag, required this.isResume}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -56,7 +57,16 @@ class _SudokuState extends State<Sudoku> {
     super.initState();
     if(widget.initFlag) {
       InitProcess.getdata(setState).then((_) {
-        _timeRunning = !_timeRunning;
+        _timeRunning = true;
+        Future.delayed(Duration.zero, () {
+          setState(() {
+            _isTappable = true;
+          });
+        });
+      });
+    } else if(widget.isResume) {
+      InitProcess.selectTime(setState).then((_) {
+        _timeRunning = true;
         Future.delayed(Duration.zero, () {
           setState(() {
             _isTappable = true;
@@ -66,7 +76,6 @@ class _SudokuState extends State<Sudoku> {
     } else {
       setState(() {
         _isTappable = true;
-        // _timeRunning = true;
       });
     }
   }
@@ -311,7 +320,7 @@ class _SudokuState extends State<Sudoku> {
                         Padding(
                           padding: EdgeInsets.only(left: (screenSize.width) / 25),
                           child: Text(
-                            '難易度 ：${widget.level}',
+                            '難易度：${widget.level}',
                             style: TextStyle(
                               color: AppColors.isText,
                               fontSize: (screenSize.width) / 25,
@@ -346,6 +355,7 @@ class _SudokuState extends State<Sudoku> {
                         //ストップウォッチ
                         Stopwatch(
                             isRunning: _timeRunning,
+                            level: widget.level,
                         ),
                       ],
                     ),

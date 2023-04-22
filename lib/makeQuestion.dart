@@ -242,7 +242,7 @@ class MakeQuestion {
     Infomation.data = Infomation.init;
 
 
-    print(Infomation.id);
+    // print(Infomation.id);
     // print(columnMerged);
     // print(lineMerged);
     // print(Infomation.allAnswers);

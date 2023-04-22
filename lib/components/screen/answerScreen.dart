@@ -10,17 +10,17 @@ OUT：ゲーム画面
 import 'dart:async';
 
 import 'package:anumber/components/answer/grid_answer_candidate.dart';
-import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
+import 'package:anumber/components/screen/playSudoku.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
 import 'package:anumber/infomation.dart';
+import 'package:anumber/makeQuestion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
 import '../../style/theme_controller.dart';
 import '../answer/answer.dart';
 import '../answer/grid_answer.dart';
-import '../database/database_connection.dart';
 
 class AnswerScreen extends StatefulWidget {
   final String level;
@@ -36,10 +36,6 @@ class _SudokuState extends State<AnswerScreen> {
   
   // late String state;
   bool _isTappable = true;
-  bool _timeRunning = false;
-  bool _timer = true;
-  final fabKey = GlobalKey();
-  final _database = Database();
   int count = 0;
 
   @override
@@ -89,34 +85,12 @@ class _SudokuState extends State<AnswerScreen> {
                     leading: IconButton(
                       icon: const Icon(LineIcons.angleLeft),
                       onPressed: () async {
-                        // Navigator.pop(context); 
-                        Navigator.maybePop(context);
-                        // _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
-                        // setState(() {
-                        //   // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
-                        //   // 初期化
-                        //   Stopwatch.time = DateTime.utc(0, 0, 0);
-                        //   Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-                        //   Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-                        //   Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
-                        //   Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
-                        //   Infomation.historyList = [];
-                        //   Infomation.tmp_historyList = [];
-                        //   Infomation.specifiedX = -1;
-                        //   Infomation.specifiedY = -1;
-                        //   Infomation.selectedX = 0;
-                        //   Infomation.selectedY = 0;
-                        //   Infomation.kotae = 0;
-
-                        // });
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Sudoku(level: widget.level, initFlag: false), 
+                            builder: (context) => Sudoku(level: widget.level, initFlag: false, isResume: false), 
                           ),
                         );
-                        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
                       },
                     ),
                     title: Center(
@@ -305,38 +279,11 @@ class _SudokuState extends State<AnswerScreen> {
                       Padding(
                         padding: EdgeInsets.only(left: (screenSize.width) / 25),
                         child: Text(
-                          // '難易度 ：${widget.level}',
                           '難易度 ：${widget.level}',
                           style: TextStyle(
                             fontSize: (screenSize.width) / 25,
                           ),
                         ),
-                      ),
-
-                      SizedBox(
-                        width: (screenSize.width) / 2,
-                      ),
-                    
-                      InkWell(
-                        // padding: EdgeInsets.only(left: (screenSize.width) / 1.8),
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        child: _timeRunning ?  const Icon(LineIcons.pauseCircle) : const Icon(Icons.play_arrow),
-                        onTap: () {
-                          setState(() {
-                              _timeRunning = !_timeRunning;
-                              _timer = !_timer;
-                          });
-                        },
-                      ),
-                      
-                      SizedBox(
-                        width: (screenSize.width) / 60,
-                      ),
-
-                      //ストップウォッチ
-                      Stopwatch(
-                          isRunning: _timeRunning,
                       ),
                     ],
                   ),
@@ -363,7 +310,6 @@ class _SudokuState extends State<AnswerScreen> {
                         isAnswerColumn: initY,
                         initX: initX1,
                         initY: initY1,
-                        timer: _timer,
                       ),
                       // 候補の盤面
                       AnswerCandidateGrid(
@@ -401,6 +347,7 @@ class _SudokuState extends State<AnswerScreen> {
                           '${count +1}/${Infomation.dataList.length}',
                           style: TextStyle(
                             fontSize: (screenSize.width) / 25,
+                            color: AppColors.isText
                           ),
                         ),
                       ),
@@ -432,49 +379,75 @@ class _SudokuState extends State<AnswerScreen> {
                         width: buttonsize * 5.6,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                            primary: Colors.white,
+                            primary: AppColors.isConfirmButton,
                             onPrimary: Colors.transparent,
                             elevation: 3,
-                            shadowColor: Colors.grey[50],
+                            // shadowColor: Colors.grey[50],
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
                           onPressed: () async {
-                          
-
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Sudoku(level: widget.level, initFlag: false, isResume: false), 
+                              ),
+                            );
                           },
                           child: Text(
                             '戻る',
                             style: TextStyle(
                               fontSize: buttonsize,
-                              color: Colors.blue[900],
+                              color: AppColors.isButtonText,
                             ),
                           ),
                         ),
                       ),
+
                       SizedBox(
                         height: buttonsize * 1.618,
                         width: buttonsize * 5.6,
                         child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                            primary: Colors.white,
+                          style: ElevatedButton.styleFrom(
+                            primary: AppColors.isConfirmButton,
                             onPrimary: Colors.transparent,
                             elevation: 3,
-                            shadowColor: Colors.grey[50],
+                            // shadowColor: Colors.grey[50],
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
                           onPressed: () async {
-                          
+                            // 初期化
+                            setState(() {
+                              Stopwatch.time = DateTime.utc(0, 0, 0);
+                              Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                              Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                              Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
+                              Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
+                              Infomation.historyList = [];
+                              Infomation.tmp_historyList = [];
+                              Infomation.specifiedX = -1;
+                              Infomation.specifiedY = -1;
+                              Infomation.selectedX = 0;
+                              Infomation.selectedY = 0;
+                              Infomation.kotae = 0;
+                            });
+                            
+                            await MakeQuestion().getExcelValue();
+                            // ignore: use_build_context_synchronously
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) => Sudoku(level: widget.level, initFlag: true, isResume: false,)),
+                              (Route<dynamic> route) => false,
+                            );
 
                           },
                           child: Text(
                             '次の問題',
                             style: TextStyle(
                               fontSize: buttonsize,
-                              color: Colors.blue[900],
+                              color: AppColors.isButtonText,
                             ),
                           ),
                         ),
@@ -486,42 +459,22 @@ class _SudokuState extends State<AnswerScreen> {
                     height: (screenSize.width) / 13,
                   ),
 
-                  // SizedBox(
-                  //   height: buttonsize * 2,
-                  //   width: buttonsize * 12.5,
-                  //   child: ElevatedButton(
-                  //       style: ElevatedButton.styleFrom(
-                  //       primary: Colors.white,
-                  //       onPrimary: Colors.transparent,
-                  //       elevation: 3,
-                  //       shadowColor: Colors.grey[50],
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(20),
-                  //       ),
-                  //     ),
-                  //     onPressed: () async {
-                      
-
-                  //     },
-                  //     child: Text(
-                  //       '全て完成させる',
-                  //       style: TextStyle(
-                  //         fontSize: buttonsize,
-                  //         color: Colors.blue[900],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PlaySudoku(), 
+                      ),
+                    );
+                    },
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.blue[900], //ボタンの背景色
-                        minimumSize: Size(buttonsize * 12.5, buttonsize * 2)),
+                      primary: AppColors.isButtonText, //ボタンの背景色
+                      minimumSize: Size(buttonsize * 12.5, buttonsize * 2)),
                     child: Text(
                       "全て完成させる",
                       style: TextStyle(
-                        color: Colors.white, // ボタンのテキストの色
+                        color: AppColors.isConfirmButton, // ボタンのテキストの色
                         fontSize: buttonsize,
                       ),
                     ),

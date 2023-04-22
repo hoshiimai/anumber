@@ -25,7 +25,6 @@ class AnswerGrid extends StatelessWidget {
     required this.data,
     required this.init,
     required this.anim,
-    // required this.onTap,
     required this.selectedX,
     required this.selectedY,
     required this.isAnswerRow,
@@ -34,13 +33,10 @@ class AnswerGrid extends StatelessWidget {
     required this.specifiedY,
     required this.initX,
     required this.initY,
-    // required this.animCell,
-    required this.timer,
   });
   final List<List<int>> data;
   final List<List<int>> init;
   final List<List<int>> anim;
-  // final Function(int x, int y) onTap;
   final int selectedX;
   final int selectedY;
   final int specifiedX;
@@ -49,8 +45,6 @@ class AnswerGrid extends StatelessWidget {
   final int specifiedY;
   final int initX;
   final int initY;
-  // final bool animCell;
-  final bool timer;
   static int blockX1 = 0;
   static int blockY1 = 0;
   static int blockX2 = 0;
@@ -80,7 +74,6 @@ class AnswerGrid extends StatelessWidget {
                   isAnswerRow: isAnswerRow == r.key || initX == r.key,  // 
                   isAnswerColumn: isAnswerColumn == c.key || initY == c.key,  // 
                   isCell: anim[r.key][c.key] == 999,
-                  // isTime: timer,
                   // 選択マスの領域(ブロック)のマス判定
                   isBlock1: Block[blockX1] == c.key && Block[blockY1] == r.key,
                   isBlock2: Block[blockX2] == c.key && Block[blockY2] == r.key,

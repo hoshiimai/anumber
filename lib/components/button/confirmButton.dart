@@ -93,12 +93,9 @@ class ConfirmButton extends StatelessWidget {
                     
                     await MakeQuestion().getExcelValue();
                     // String resultLevel = Database().selectLevel();
-
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Sudoku(level: tmpLevel, initFlag: true,), 
-                      ),
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => Sudoku(level: tmpLevel, initFlag: true, isResume: false,)),
+                      (Route<dynamic> route) => false,
                     );
                   },
                   btnOkColor: Colors.blue[900],
@@ -160,7 +157,7 @@ class ConfirmButton extends StatelessWidget {
         ),
 
 
-        //解答ボタン
+        //答えボタン
         SizedBox(
           height: (screenSize.width) / 20 * 2.1,
           width: (screenSize.width) / 20 * 4.6,
@@ -185,10 +182,13 @@ class ConfirmButton extends StatelessWidget {
                     actions: <Widget>[
                       TextButton(
                         child: Text("OK", style: TextStyle(color: Colors.blue[900]),),
-                        onPressed: () => Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => AnswerScreen(level: tmpLevel),
+                        onPressed: () {
+                          onAnswered(true); // コールバック関数を呼び出す
+                          Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => AnswerScreen(level: tmpLevel),
                             transitionDuration: Duration(seconds: 0),
                           ),
-                        ),
+                         );
+                        }
                       ),
                       TextButton(
                         child: Text("キャンセル", style: TextStyle(color: Colors.blue[900]),),

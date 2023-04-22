@@ -9,12 +9,11 @@ OUI：タイム
 */
 
 import 'dart:async';
+import 'package:anumber/infomation.dart';
 import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-
-import '../../infomation.dart';
 import '../database/database_connection.dart';
 
 
@@ -22,14 +21,16 @@ import '../database/database_connection.dart';
 class Stopwatch extends StatefulWidget {
   Stopwatch({
     Key? key,
-    required this.isRunning, 
+    required this.isRunning,
+    required this.level,
   }) : super(key: key);
 
   bool isRunning;
+  String level;
+
   static DateTime time = DateTime.utc(0, 0, 0);
   
   _StopwatchState get _stopwatchState => _StopwatchState();
-  // get _stopwatchState => null; 
 
   @override
   // ignore: library_private_types_in_public_api
@@ -58,17 +59,14 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    
     WidgetsBinding.instance.addObserver(this);
-    // _database.initDatabase();
   }
-
 
   @override
   void dispose() {
     widget.isRunning = false;
-    // _timer.cancel();
-    // insertTime();
-    // _database.printStopwatchData();
+    _timer.cancel();
     super.dispose();
   }
 
@@ -86,7 +84,6 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
             });
           } else {
             timer.cancel();
-            // insertTime();
           }
         },
       );
@@ -95,15 +92,11 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // print("state = $state");
     if (state == AppLifecycleState.paused) {
       // バックグラウンドに遷移した時
       if (_timer.isActive) {
         _timer.cancel(); // タイマーを停止する
-        // insertTime();
-        // insertDatabase();
-        // _database.insertDB(DateFormat.ms().format(Stopwatch.time), Data.init, Data.zero, Data.tmp);
-        // _database.deleteDB();
+        _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, widget.level);
       }
     } else if (state == AppLifecycleState.resumed && mounted) {
       // フォアグラウンドに復帰した時
@@ -115,47 +108,11 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
           });
         },
       );
-      // _database.printStopwatchData();
-      // _database.deleteAllStopwatchData();
-      // _database.selectDB();
     }
   }
-
-  /// アプリがバックグラウンドに遷移した際のハンドラ
-  // void _handleOnPaused() {
-  //   if (_timer.isActive) {
-  //     _timer.cancel(); // タイマーを停止する
-  //     insertTime();
-  //   }
-  // }
-
-  /// アプリがフォアグラウンドに復帰した際のハンドラ
-  // void _handleOnResumed() {
-  //   _timer = Timer.periodic(
-  //     const Duration(seconds: 1),
-  //     (Timer timer) {
-  //       setState(() {
-  //         _time = _time.add(const Duration(seconds: 1));
-  //       });
-  //     },
-  //   );
-  //   _database.printStopwatchData();
-  //   _database.deleteAllStopwatchData();
-  // }
-
-  // Future insertTime() async{
-  //   await _database.insertStopwatchData(Stopwatch.time);
-  //   print('実行されてるよ');
-  // }
-
-  // Future insertDatabase() async{
-  //   await _database.insertDB(Stopwatch.time, Data.zero);
-  //   print('実行されてるよ');
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Text(DateFormat.ms().format(Stopwatch.time), style: TextStyle(fontSize: 15, color: AppColors.isText));
   }
 }
-

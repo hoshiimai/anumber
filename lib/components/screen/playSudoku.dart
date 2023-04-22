@@ -73,27 +73,9 @@ class _PlaySudokuState extends State<PlaySudoku> {
                     ),
                   leading: IconButton(
                     icon: const Icon(LineIcons.angleLeft),
-                    onPressed: () async {
-                      // _database.insertDB(DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp);
-                      setState(() {
-                        // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
-                        // 初期化
-                        Stopwatch.time = DateTime.utc(0, 0, 0);
-                        Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-                        Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-                        Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
-                        Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
-                        Infomation.historyList = [];
-                        Infomation.tmp_historyList = [];
-                        Infomation.specifiedX = -1;
-                        Infomation.specifiedY = -1;
-                        Infomation.selectedX = 0;
-                        Infomation.selectedY = 0;
-                        Infomation.kotae = 0;
-
-                      });
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
-                    },
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }
                   ),
                   title: Center(
                     child: Text(
@@ -274,43 +256,44 @@ class _PlaySudokuState extends State<PlaySudoku> {
               children: [
                 //余白
                 SizedBox(
-                  height: (screenSize.height) * 0.05,
+                  height: (screenSize.height) * 0.09,
                 ),
 
-                Row(
-                  children: [
-                    SizedBox(
-                      width: (screenSize.width) /1.26,
-                    ),
+                // Row(
+                //   children: [
+                //     SizedBox(
+                //       width: (screenSize.width) /1.26,
+                //     ),
                   
-                    InkWell(
-                      // padding: EdgeInsets.only(left: (screenSize.width) / 1.8),
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      child: _timeRunning ?  const Icon(LineIcons.pauseCircle) : const Icon(Icons.play_arrow),
-                      onTap: () {
-                        setState(() {
-                            _timeRunning = !_timeRunning;
-                            _timer = !_timer;
-                        });
-                      },
-                    ),
+                //     InkWell(
+                //       // padding: EdgeInsets.only(left: (screenSize.width) / 1.8),
+                //       splashColor: Colors.transparent,
+                //       highlightColor: Colors.transparent,
+                //       child: _timeRunning ?  const Icon(LineIcons.pauseCircle) : const Icon(Icons.play_arrow),
+                //       onTap: () {
+                //         setState(() {
+                //             _timeRunning = !_timeRunning;
+                //             _timer = !_timer;
+                //         });
+                //       },
+                //     ),
                     
-                    SizedBox(
-                      width: (screenSize.width) / 60,
-                    ),
+                //     SizedBox(
+                //       width: (screenSize.width) / 60,
+                //     ),
 
-                    //ストップウォッチ
-                    Stopwatch(
-                        isRunning: _timeRunning,
-                    ),
-                  ],
-                ),
+                //     //ストップウォッチ
+                //     Stopwatch(
+                //         isRunning: _timeRunning,
+                //         level: widget.level,
+                //     ),
+                //   ],
+                // ),
 
                 //余白
-                SizedBox(
-                  height: (screenSize.height) * 0.015,
-                ),
+                // SizedBox(
+                //   height: (screenSize.height) * 0.015,
+                // ),
 
 //----------------------------------------------------------------------------------------------------------------------------------------
                 // 問題の盤面の上に候補の盤面を重ねて表示

@@ -92,7 +92,7 @@ class _SudokuState extends State<Home> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Sudoku(level: state, initFlag: false,),
+                            builder: (context) => Sudoku(level: state, initFlag: false, isResume: true),
                           ),
                         );
                       // _database.deleteAllStopwatchData();
@@ -169,7 +169,7 @@ class _SudokuState extends State<Home> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: "中級", initFlag: true,), 
+                                  builder: (context) => const Sudoku(level: "中級", initFlag: true, isResume: false,), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();
@@ -184,7 +184,7 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: "上級", initFlag: true,), 
+                                  builder: (context) => const Sudoku(level: "上級", initFlag: true, isResume: false,), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();
@@ -218,22 +218,11 @@ class _SudokuState extends State<Home> {
   Future<void> selectTime() async {
     final result = await _database.selectDB();
     if(result.isNotEmpty) {
-      print(result[5]);
-      print(result[6]);
-      print(result[7]);
-      print(result[8]);
-      // _database.initDatabase();
-      print('exist ok');
       setState(() {
         isResume = true;
         time = result[1];
         level = result[8];
-        // state = result[1];
       });
-      print("レコード存在チェック: $isResume");
-      print("time: $time");
-    } else {
-      print('exist ng');
     }
   }
 

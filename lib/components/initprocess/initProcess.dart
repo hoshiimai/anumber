@@ -1,8 +1,13 @@
+import 'package:anumber/components/database/database_connection.dart';
 import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
+import 'package:anumber/components/stopwatch/stop_watch.dart';
+import 'package:intl/intl.dart';
 
-  int initX = -1;
-  int initY = -1;
+
+int initX = -1;
+int initY = -1;
+final _database = Database();
 
 class InitProcess {
   
@@ -59,5 +64,16 @@ class InitProcess {
       Infomation.selected_historyList.add([Infomation.selectedX, Infomation.selectedY]);
       // Infomation.animation = Infomation.const_zero;
     });
+  }
+
+  //続きから再開時の処理
+  static Future<void> selectTime(StateSetter setState) async {
+    final result = await _database.selectDB();
+    if(result.isNotEmpty) {
+      setState(() {
+        Stopwatch.time = DateFormat('mm:ss').parse(result[1]);
+      });
+
+    }
   }
 }
