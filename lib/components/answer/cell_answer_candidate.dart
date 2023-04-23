@@ -79,6 +79,7 @@ class AnswerCandidat extends StatelessWidget {
                 number == 0 ? '' : number.toString(),
                 style: TextStyle(
                   color:  Colors.white,
+                  fontFamily: "Nunito",
                   fontSize: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (((screenSize.width) * 0.97 / 9) *0.71)/2.5 : (((screenSize.height) * 0.45 / 9) *0.71)/2.5,
                 ),
               ),

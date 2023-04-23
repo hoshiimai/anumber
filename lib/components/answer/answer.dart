@@ -15,6 +15,17 @@ class Answer {
         },
 
         () {
+          //検証用
+          Infomation.answerCandidate[6][0] = 1;
+          Infomation.answerCandidate[6][1] = 2;
+          Infomation.answerCandidate[6][2] = 3;
+          Infomation.answerCandidate[7][1] = 5;
+          Infomation.answerCandidate[7][2] = 6;
+          Infomation.answerCandidate[8][0] = 7;
+          Infomation.answerCandidate[8][1] = 8;
+          Infomation.answerCandidate[8][2] = 9;
+
+          //
           Infomation.answerCandidate[7][0] = 4;
           Infomation.answerCandidate[16][0] = 4;
           Infomation.answerCandidate[7][9] = 4;

@@ -109,27 +109,12 @@ class Numbers extends StatelessWidget {
       child: Text(
         number.toString(),
         style: TextStyle(
-
-          
           color: isPress ? Colors.blueGrey : AppColors.isInput,
           fontSize: fontsize,
+          fontFamily: "Nunito",
           fontWeight: FontWeight.w400
         ),
       ),
     );
   }
-
-  //数字入力ボタン(候補用)
-  // Widget _candidate(int number) {
-  //   return GestureDetector(
-  //     onTap: () => onTap(number),
-  //     child: Text(
-  //       number.toString(),
-  //       style: const TextStyle(
-  //         color: Colors.blueGrey,
-  //         fontSize: 35,
-  //       ),
-  //     ),
-  //   );
-  // }
 }

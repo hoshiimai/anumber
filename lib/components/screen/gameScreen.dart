@@ -139,6 +139,8 @@ class _SudokuState extends State<Sudoku> {
                           style: TextStyle(
                             fontSize: fontsize *0.7,
                             color: Colors.blue[900],
+                            fontFamily: "Nunito",
+                            fontWeight: FontWeight.bold
                           ),
                         ),
                       ),

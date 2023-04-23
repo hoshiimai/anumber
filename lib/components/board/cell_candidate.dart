@@ -32,7 +32,7 @@ class Candidate extends StatelessWidget {
             number == 0 ? '' : number.toString(),
             style: TextStyle(
                 color: Colors.grey[600],
-                // fontWeight: FontWeight.bold,
+                fontFamily: "Nunito",
                 fontSize: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (((screenSize.width) * 0.97 / 9) *0.71)/2.5 : (((screenSize.height) * 0.45 / 9) *0.71)/2.5,
             ),
           ),

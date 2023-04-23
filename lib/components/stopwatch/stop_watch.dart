@@ -113,6 +113,6 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Text(DateFormat.ms().format(Stopwatch.time), style: TextStyle(fontSize: 15, color: AppColors.isText));
+    return Text(DateFormat.ms().format(Stopwatch.time), style: TextStyle(fontSize: 15, fontFamily: "Nunito", color: AppColors.isText));
   }
 }

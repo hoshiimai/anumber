@@ -35,6 +35,8 @@ dependencies:
   audioplayers: ^0.19.1
   line_icons: ^2.0.1
   introduction_screen: any
+  flutter_native_splash: any
+  # flutter_launcher_icons: any
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -48,6 +50,18 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   path_animator: ^0.0.1
 
+
+flutter_native_splash:
+  color: 'FAFAFA'
+  image: 'assets/images/splash.png'
+  fullscreen: true
+
+# flutter_icons:
+#   android: true 
+#   ios: true
+#   image_path: "assets/images/mian.jpg"
+
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -56,14 +70,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  fonts:
-  - family: Nunito
-    fonts:
-      - asset: assets/fonts/Nunito/static/Nunito-Regular.ttf
-        weight: 400
-      - asset: assets/fonts/Nunito/static/Nunito-SemiBold.ttf
-        weight: 600
-      - asset: assets/fonts/Nunito/static/Nunito-Bold.ttf
 
 
   # To add Flutter specific assets to your application, add an assets section,
@@ -88,6 +94,15 @@ flutter:
   # have a "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+  - family: Noto Sans JP
+    fonts:
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf
+  # fonts:
+  - family: Nunito
+    fonts:
+      - asset: assets/fonts/Nunito/static/Nunito-Regular.ttf
+  #       - asset: assets/fonts/Nunito/static/Nunito-Bold.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

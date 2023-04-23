@@ -99,21 +99,20 @@ class _SudokuState extends State<Home> {
                      },
                      child: Column(
                       children: [
-                        Text(
+                        const Text(
                           '続ける',
-                          style: const TextStyle(
-                            fontFamily: 'Nunito',
+                          style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
                           '$level $time',
                           style: const TextStyle(
-                            fontFamily: 'Nunito',
                             fontSize: 15,
                             color: Colors.blueGrey,
+                            fontFamily: "Nunito",
                             // fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -145,7 +144,7 @@ class _SudokuState extends State<Home> {
                           CupertinoActionSheetAction(
                             child: Text(
                               '初級',
-                              style: TextStyle(color: Colors.blue[900], fontFamily: 'Nunito')
+                              style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP")
                             ),
                             onPressed: () async{
                               MakeQuestion().getExcelValue();
@@ -162,7 +161,7 @@ class _SudokuState extends State<Home> {
                           CupertinoActionSheetAction(
                             child: Text(
                               '中級',
-                              style: TextStyle(color: Colors.blue[900], fontFamily: 'Nunito')
+                              style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP")
                             ),
                             onPressed: () async {
                               MakeQuestion().getExcelValue();
@@ -178,7 +177,7 @@ class _SudokuState extends State<Home> {
                           CupertinoActionSheetAction(
                             child: Text(
                               '上級',
-                              style: TextStyle(color: Colors.blue[900], fontFamily: 'Nunito')
+                              style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP")
                             ),
                             onPressed: () {
                               Navigator.push(
