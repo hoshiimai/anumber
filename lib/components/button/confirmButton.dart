@@ -14,6 +14,7 @@ import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
 import 'package:anumber/style/theme_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
@@ -69,6 +70,7 @@ class ConfirmButton extends StatelessWidget {
                       '正解！',
                       style: TextStyle(
                         fontSize: 20,
+                        fontFamily: "Noto Sans JP"
                       ),
                       //style: TextStyle(fontStyle: FontStyle.italic),
                     ),
@@ -100,6 +102,7 @@ class ConfirmButton extends StatelessWidget {
                   },
                   btnOkColor: Colors.blue[900],
                   btnCancelText: "解説",
+                  buttonsTextStyle: const TextStyle(fontFamily: "Noto Sans JP"),
                   btnCancelOnPress: () {
                     Navigator.push(
                       context,
@@ -124,11 +127,12 @@ class ConfirmButton extends StatelessWidget {
                       '残念',
                       style: TextStyle(
                         fontSize: 20,
+                        fontFamily: "Noto Sans JP"
                       ),
                       //style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                   ),
-                  btnOkText: "解説",
+                  btnOkText: "答え",
                   btnOkOnPress: () {
                     Navigator.push(
                       context,
@@ -141,6 +145,7 @@ class ConfirmButton extends StatelessWidget {
                   btnCancelText: "閉じる",
                   btnCancelOnPress: () {},
                   btnCancelColor: Colors.blue[900],
+                  buttonsTextStyle: const TextStyle(fontFamily: "Noto Sans JP")
                 ).show();
                 await Future.delayed(const Duration(milliseconds: 700));
                 Infomation.sound ? _audio.play('incorrect.mp3') : null;
@@ -178,10 +183,10 @@ class ConfirmButton extends StatelessWidget {
                 builder: (context) {
                   return AlertDialog(
                     title: const Text('答え'),
-                    content: const Text('解答を表示します。よろしいですか？'),
+                    content: const Text('答えを表示します。よろしいですか？'),
                     actions: <Widget>[
                       TextButton(
-                        child: Text("OK", style: TextStyle(color: Colors.blue[900]),),
+                        child: Text("OK", style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP"),),
                         onPressed: () {
                           onAnswered(true); // コールバック関数を呼び出す
                           Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => AnswerScreen(level: tmpLevel),
@@ -191,7 +196,7 @@ class ConfirmButton extends StatelessWidget {
                         }
                       ),
                       TextButton(
-                        child: Text("キャンセル", style: TextStyle(color: Colors.blue[900]),),
+                        child: Text("キャンセル", style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP"),),
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],

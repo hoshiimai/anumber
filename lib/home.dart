@@ -151,7 +151,7 @@ class _SudokuState extends State<Home> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  AnswerScreen(level: "中級"),
+                                  builder: (context) =>  const Sudoku(level: "初級", initFlag: true, isResume: false),
                                   // builder: (context) => const Sudoku(level: "初級"),
                                 ),
                               );
@@ -183,7 +183,7 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: "上級", initFlag: true, isResume: false,), 
+                                  builder: (context) => const Sudoku(level: "上級", initFlag: true, isResume: false), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();

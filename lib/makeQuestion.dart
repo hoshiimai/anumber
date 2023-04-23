@@ -86,6 +86,8 @@ class MakeQuestion {
             .map((row) => row.trim().split(' ').map(int.parse).toList()) // 各行を数値に変換
             .toList(); // 2次元リストに変換
 
+
+
     shuffle3 = animation
             .toString()
             .trim() // 先頭と末尾の空白文字を削除
@@ -103,7 +105,7 @@ class MakeQuestion {
 
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
-        for (var l = 0; l < 9; l++) { 
+        for (var l = 0; l < 9; l++) {
           shuffle2[0][l] = shuffle1[line1[0]][l];
           shuffle2[1][l] = shuffle1[line1[1]][l];
           shuffle2[2][l] = shuffle1[line1[2]][l];
@@ -230,7 +232,9 @@ class MakeQuestion {
 
     Infomation.selectedX = columnMerged.indexOf(xCoordinate);
     Infomation.selectedY = lineMerged.indexOf(yCoordinate);
-    Infomation.kotae = numberMap[kotaeCoordinate]!;
+    // Infomation.kotae = numberMap[kotaeCoordinate]!; // これが正しい
+    Infomation.kotae = kotaeCoordinate; // 検証用
+
     Infomation.id = id;
 
 

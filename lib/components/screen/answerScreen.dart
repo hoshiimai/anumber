@@ -377,8 +377,8 @@ class _SudokuState extends State<AnswerScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
-                        height: buttonsize * 1.618,
-                        width: buttonsize * 5.6,
+                        height: (screenSize.width) / 20 * 2.1,
+                        width: (screenSize.width) / 20 * 6,                        
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                             primary: AppColors.isConfirmButton,
@@ -400,7 +400,7 @@ class _SudokuState extends State<AnswerScreen> {
                           child: Text(
                             '戻る',
                             style: TextStyle(
-                              fontSize: buttonsize,
+                              fontSize: (screenSize.width) / 20,
                               color: AppColors.isButtonText,
                             ),
                           ),
@@ -408,8 +408,8 @@ class _SudokuState extends State<AnswerScreen> {
                       ),
 
                       SizedBox(
-                        height: buttonsize * 1.618,
-                        width: buttonsize * 5.6,
+                        height: (screenSize.width) / 20 * 2.1,
+                        width: (screenSize.width) / 20 * 6,                              
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: AppColors.isConfirmButton,
@@ -448,7 +448,7 @@ class _SudokuState extends State<AnswerScreen> {
                           child: Text(
                             '次の問題',
                             style: TextStyle(
-                              fontSize: buttonsize,
+                              fontSize: (screenSize.width) / 20,
                               color: AppColors.isButtonText,
                             ),
                           ),
@@ -472,12 +472,12 @@ class _SudokuState extends State<AnswerScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       primary: AppColors.isButtonText, //ボタンの背景色
-                      minimumSize: Size(buttonsize * 12.5, buttonsize * 2)),
+                      minimumSize: Size((screenSize.width) / 20 * 15, (screenSize.width) / 20 * 2.3)),
                     child: Text(
                       "全て完成させる",
                       style: TextStyle(
                         color: AppColors.isConfirmButton, // ボタンのテキストの色
-                        fontSize: buttonsize,
+                        fontSize: (screenSize.width) / 20,
                       ),
                     ),
                   ),

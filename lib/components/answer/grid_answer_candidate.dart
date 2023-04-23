@@ -9,7 +9,6 @@ OUT：候補の数字
 */
 import 'package:anumber/components/answer/cell_answer_candidate.dart';
 import 'package:flutter/material.dart';
-import 'package:anumber/components/board/cell_candidate.dart';
 
 
 class AnswerCandidateGrid extends StatelessWidget {

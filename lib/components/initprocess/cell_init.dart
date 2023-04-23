@@ -87,6 +87,7 @@ class Init extends StatelessWidget {
               style: TextStyle(
                 // 問題の数字か、入力された数字かで色分け
                 color: AppColors.isText,
+                fontFamily: "Nunito",
                 fontSize:(screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71
               ),
             ),
