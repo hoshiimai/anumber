@@ -48,10 +48,10 @@ class _SudokuState extends State<AnswerScreen> {
     setState(() {
       Infomation.data = Infomation.dataList[count];
       Infomation.answer = Infomation.answerList[count];
-      initX = Infomation.xyList[count][0];
-      initY = Infomation.xyList[count][1];
-      initX1 = Infomation.xyList[count][2];
-      initY1 = Infomation.xyList[count][3];
+      Infomation.initX = Infomation.xyList[count][0];
+      Infomation.initY = Infomation.xyList[count][1];
+      Infomation.initX1 = Infomation.xyList[count][2];
+      Infomation.initY1 = Infomation.xyList[count][3];
     });
   }
 
@@ -308,10 +308,10 @@ class _SudokuState extends State<AnswerScreen> {
                         selectedY: Infomation.selectedY,
                         specifiedX: Infomation.specifiedX,
                         specifiedY: Infomation.specifiedY,
-                        isAnswerRow: initX,
-                        isAnswerColumn: initY,
-                        initX: initX1,
-                        initY: initY1,
+                        isAnswerRow: Infomation.initX,
+                        isAnswerColumn: Infomation.initY,
+                        initX: Infomation.initX1,
+                        initY: Infomation.initY1,
                       ),
                       // 候補の盤面
                       AnswerCandidateGrid(

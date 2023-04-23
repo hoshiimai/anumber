@@ -1,10 +1,10 @@
 import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
 
-int initX = -1;
-int initX1 = -1;
-int initY = -1;
-int initY1 = -1;
+// static int initX = -1;
+// static int initX1 = -1;
+// static int initY = -1;
+// static int initY1 = -1;
 
 class Answer {
   static void makeAnswerList(StateSetter setState) {
@@ -133,7 +133,7 @@ class Answer {
 
         () {
           Infomation.answer[Infomation.lineList.indexOf(3)][Infomation.columnList.indexOf(6)] = 0;
-          initX = Infomation.lineList.indexOf(3);
+          Infomation.initX = Infomation.lineList.indexOf(3);
           addAnswerList();
         },
 
@@ -144,7 +144,7 @@ class Answer {
 
         () {
           Infomation.answer[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(3)] = 0;
-          initX1 = Infomation.lineList.indexOf(5);
+          Infomation.initX1 = Infomation.lineList.indexOf(5);
           addAnswerList();
         },
 
@@ -155,7 +155,7 @@ class Answer {
 
         () {
           Infomation.answer[Infomation.lineList.indexOf(7)][Infomation.columnList.indexOf(1)] = 0;
-          initY = Infomation.columnList.indexOf(1);
+          Infomation.initY = Infomation.columnList.indexOf(1);
           addAnswerList();
         },
 
@@ -169,10 +169,10 @@ class Answer {
           Infomation.init = Infomation.dataList.first;
           Infomation.data = Infomation.dataList.first;
           Infomation.answer = Infomation.answerList.first;
-          initX = -1;
-          initY = -1;
-          initX1 = -1;
-          initY1 = -1;
+          Infomation.initX = -1;
+          Infomation.initY = -1;
+          Infomation.initX1 = -1;
+          Infomation.initY1 = -1;
         }
       ];
       for (var step in steps) {
@@ -193,7 +193,7 @@ class Answer {
         },
 
         () {
-          initX = Infomation.lineList.indexOf(6);
+          Infomation.initX = Infomation.lineList.indexOf(6);
           addAnswerList();
         },
 
@@ -206,7 +206,7 @@ class Answer {
         },
 
         () {
-          initX1 = Infomation.lineList.indexOf(8);
+          Infomation.initX1 = Infomation.lineList.indexOf(8);
           addAnswerList();
         },
 
@@ -219,7 +219,7 @@ class Answer {
         },
 
         () {
-          initY = Infomation.columnList.indexOf(6);
+          Infomation.initY = Infomation.columnList.indexOf(6);
           addAnswerList();
         },
 
@@ -232,7 +232,7 @@ class Answer {
         },
 
         () {
-          initY1 = Infomation.columnList.indexOf(8);
+          Infomation.initY1 = Infomation.columnList.indexOf(8);
           addAnswerList();
         },
 
@@ -258,10 +258,10 @@ class Answer {
         },
 
         () {
-          initX = Infomation.lineList.indexOf(4);
-          initX1 = Infomation.lineList.indexOf(5);
-          initY = -1;
-          initY1 = -1;
+          Infomation.initX = Infomation.lineList.indexOf(4);
+          Infomation.initX1 = Infomation.lineList.indexOf(5);
+          Infomation.initY = -1;
+          Infomation.initY1 = -1;
           addAnswerList();
         },
 
@@ -278,8 +278,8 @@ class Answer {
         },
 
         () {
-          initY = Infomation.columnList.indexOf(4);
-          initY1 = Infomation.columnList.indexOf(5);
+          Infomation.initY = Infomation.columnList.indexOf(4);
+          Infomation.initY1 = Infomation.columnList.indexOf(5);
           addAnswerList();
         },
 
@@ -295,10 +295,10 @@ class Answer {
           Infomation.init = Infomation.dataList.first;
           Infomation.data = Infomation.dataList.first;
           Infomation.answer = Infomation.answerList.first;
-          initX = -1;
-          initY = -1;
-          initX1 = -1;
-          initY1 = -1;
+          Infomation.initX = -1;
+          Infomation.initY = -1;
+          Infomation.initX1 = -1;
+          Infomation.initY1 = -1;
         }
       ];
       for (var step in steps) {
@@ -316,7 +316,7 @@ class Answer {
     Infomation.answerList.add(List.from(
       Infomation.answer.map((row) => List<int>.from(row))
     ));
-    Infomation.xyList.add([initX, initY, initX1, initY1]);
+    Infomation.xyList.add([Infomation.initX, Infomation.initY, Infomation.initX1, Infomation.initY1]);
   }
 }
 

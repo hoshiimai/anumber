@@ -73,6 +73,10 @@ abstract class Infomation {
   static List<List<List<int>>> dataList = [];
   static List<List<List<int>>> answerList = [];
   static List<List<int>> xyList = [];
+  static int initX = -1;
+  static int initX1 = -1;
+  static int initY = -1;
+  static int initY1 = -1;
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //履歴取得用
