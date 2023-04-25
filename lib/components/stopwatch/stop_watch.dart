@@ -22,11 +22,9 @@ class Stopwatch extends StatefulWidget {
   Stopwatch({
     Key? key,
     required this.isRunning,
-    required this.level,
   }) : super(key: key);
 
   bool isRunning;
-  String level;
 
   static DateTime time = DateTime.utc(0, 0, 0);
   
@@ -96,7 +94,7 @@ class _StopwatchState extends State<Stopwatch> with WidgetsBindingObserver {
       // バックグラウンドに遷移した時
       if (_timer.isActive) {
         _timer.cancel(); // タイマーを停止する
-        _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, widget.level);
+        _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, Infomation.level, Infomation.sound);
       }
     } else if (state == AppLifecycleState.resumed && mounted) {
       // フォアグラウンドに復帰した時

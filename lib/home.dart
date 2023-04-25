@@ -16,7 +16,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'components/database/database_connection.dart';
-import 'components/screen/answerScreen.dart';
 import 'makeQuestion.dart';
 
 class Home extends StatefulWidget {
@@ -32,7 +31,7 @@ class _SudokuState extends State<Home> {
   final _database = Database();
   bool isResume = false;
   String time = "00:00";
-  String state = "取得エラー";
+  String state = "エラー";
   String level = "";
 
 
@@ -92,7 +91,7 @@ class _SudokuState extends State<Home> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Sudoku(level: state, initFlag: false, isResume: true),
+                            builder: (context) => Sudoku(initFlag: false, isResume: true),
                           ),
                         );
                       // _database.deleteAllStopwatchData();
@@ -120,7 +119,7 @@ class _SudokuState extends State<Home> {
                      )
                   ) : null,
               ),
-                                  //余白
+              //余白
               SizedBox(
                 height: (screenSize.width) / 20,
               ),
@@ -147,11 +146,14 @@ class _SudokuState extends State<Home> {
                               style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP")
                             ),
                             onPressed: () async{
+                              setState(() {
+                                Infomation.level = "初級";
+                              });
                               MakeQuestion().getExcelValue();
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  const Sudoku(level: "初級", initFlag: true, isResume: false),
+                                  builder: (context) =>  const Sudoku(initFlag: true, isResume: false),
                                   // builder: (context) => const Sudoku(level: "初級"),
                                 ),
                               );
@@ -164,11 +166,14 @@ class _SudokuState extends State<Home> {
                               style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP")
                             ),
                             onPressed: () async {
+                              setState(() {
+                                Infomation.level = "中級";
+                              });                              
                               MakeQuestion().getExcelValue();
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: "中級", initFlag: true, isResume: false,), 
+                                  builder: (context) => const Sudoku(initFlag: true, isResume: false,), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();
@@ -180,10 +185,13 @@ class _SudokuState extends State<Home> {
                               style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP")
                             ),
                             onPressed: () {
+                              setState(() {
+                                Infomation.level = "上級";
+                              });                              
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(level: "上級", initFlag: true, isResume: false), 
+                                  builder: (context) => const Sudoku(initFlag: true, isResume: false), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();
@@ -240,7 +248,7 @@ class _SudokuState extends State<Home> {
       Infomation.answerX = int.parse(result[5]);
       Infomation.answerY = int.parse(result[6]);
       Infomation.kotae = int.parse(result[7]);
-      state = result[8];
+      Infomation.level = result[8];
     });
     //     final Map<String, dynamic> data = {
     //   'id': id.toString(),

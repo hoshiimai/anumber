@@ -43,6 +43,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_riverpod: ^2.2.0
   collection: any
+  loading_animation_widget: ^1.2.0+4
+  card_loading: ^0.3.0
 
 dev_dependencies:
   flutter_test:

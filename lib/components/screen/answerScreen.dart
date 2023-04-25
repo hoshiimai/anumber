@@ -23,9 +23,8 @@ import '../answer/answer.dart';
 import '../answer/grid_answer.dart';
 
 class AnswerScreen extends StatefulWidget {
-  final String level;
 
-  const AnswerScreen({Key? key, required this.level}) : super(key: key);
+  const AnswerScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -41,6 +40,17 @@ class _SudokuState extends State<AnswerScreen> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      Infomation.data = Infomation.init;
+      Infomation.answer = List.generate(9, (_) => List.filled(9, 0));
+      Infomation.dataList = [];
+      Infomation.answerList = [];
+      Infomation.xyList = [];
+      Infomation.initX = -1;
+      Infomation.initX1 = -1;
+      Infomation.initY = -1;
+      Infomation.initY1 = -1;
+    });
     Answer.makeAnswerList(setState);
   }
 
@@ -88,7 +98,7 @@ class _SudokuState extends State<AnswerScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Sudoku(level: widget.level, initFlag: false, isResume: false), 
+                            builder: (context) => Sudoku(initFlag: false, isResume: false), 
                           ),
                         );
                       },
@@ -281,7 +291,7 @@ class _SudokuState extends State<AnswerScreen> {
                       Padding(
                         padding: EdgeInsets.only(left: (screenSize.width) / 25),
                         child: Text(
-                          '難易度 ：${widget.level}',
+                          '難易度 ：${Infomation.level}',
                           style: TextStyle(
                             fontSize: (screenSize.width) / 25,
                           ),
@@ -393,7 +403,7 @@ class _SudokuState extends State<AnswerScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Sudoku(level: widget.level, initFlag: false, isResume: false), 
+                                builder: (context) => Sudoku(initFlag: false, isResume: false), 
                               ),
                             );
                           },
@@ -440,7 +450,7 @@ class _SudokuState extends State<AnswerScreen> {
                             await MakeQuestion().getExcelValue();
                             // ignore: use_build_context_synchronously
                             Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) => Sudoku(level: widget.level, initFlag: true, isResume: false,)),
+                              MaterialPageRoute(builder: (context) => Sudoku(initFlag: true, isResume: false,)),
                               (Route<dynamic> route) => false,
                             );
 

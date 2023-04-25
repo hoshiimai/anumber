@@ -17,7 +17,8 @@ class Database {
     int specifiedX,
     int specifiedY,
     int kotae,
-    String level
+    String level,
+    bool sound
     ) async {
       final prefs = await SharedPreferences.getInstance();
       final Map<String, dynamic> data = {
@@ -29,7 +30,8 @@ class Database {
         'specifiedX': specifiedX.toString(),
         'specifiedY': specifiedY.toString(),
         'kotae': kotae.toString(),
-        'level': level.toString()
+        'level': level.toString(),
+        'sound': sound
       };
       // await prefs.clear(); // 既存のデータを消去する
       await prefs.setString('data', jsonEncode(data)); // 新規でデータを挿入する

@@ -29,11 +29,10 @@ import '../database/database_connection.dart';
 
 
 class Sudoku extends StatefulWidget {
-  final String level;
   final bool initFlag;
   final bool isResume;
 
-  const Sudoku({Key? key, required this.level, required this.initFlag, required this.isResume}) : super(key: key);
+  const Sudoku({Key? key, required this.initFlag, required this.isResume}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -109,7 +108,7 @@ class _SudokuState extends State<Sudoku> {
                       leading: IconButton(
                         icon: const Icon(LineIcons.angleLeft),
                         onPressed: () async {
-                          _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, widget.level);
+                          _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, Infomation.level, Infomation.sound);
                           setState(() {
                             // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
                             // 初期化
@@ -322,7 +321,7 @@ class _SudokuState extends State<Sudoku> {
                         Padding(
                           padding: EdgeInsets.only(left: (screenSize.width) / 25),
                           child: Text(
-                            '難易度：${widget.level}',
+                            '難易度：${Infomation.level}',
                             style: TextStyle(
                               color: AppColors.isText,
                               fontSize: (screenSize.width) / 25,
@@ -357,7 +356,6 @@ class _SudokuState extends State<Sudoku> {
                         //ストップウォッチ
                         Stopwatch(
                             isRunning: _timeRunning,
-                            level: widget.level,
                         ),
                       ],
                     ),
@@ -455,7 +453,6 @@ class _SudokuState extends State<Sudoku> {
                     //決定、答えボタン
                     ConfirmButton(
                       answer: Infomation.zero[Infomation.answerY][Infomation.answerX],
-                      tmpLevel: widget.level,
                       onAnswered: (isCorrect) {
                         if (isCorrect) {
                           setState(() {

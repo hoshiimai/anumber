@@ -26,11 +26,9 @@ class ConfirmButton extends StatelessWidget {
   ConfirmButton({
     super.key,
     required this.answer,
-    required this.tmpLevel,
     required this.onAnswered,
   });
   final int answer;
-  final String tmpLevel;
   final Function(bool isCorrect) onAnswered;
   final _audio = AudioCache();
 
@@ -94,9 +92,8 @@ class ConfirmButton extends StatelessWidget {
                     Infomation.kotae = 0;
                     
                     await MakeQuestion().getExcelValue();
-                    // String resultLevel = Database().selectLevel();
                     Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => Sudoku(level: tmpLevel, initFlag: true, isResume: false,)),
+                      MaterialPageRoute(builder: (context) => Sudoku(initFlag: true, isResume: false,)),
                       (Route<dynamic> route) => false,
                     );
                   },
@@ -107,7 +104,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AnswerScreen(level: tmpLevel), 
+                        builder: (context) => AnswerScreen(), 
                       ),
                     );
                   },
@@ -137,7 +134,7 @@ class ConfirmButton extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AnswerScreen(level: tmpLevel), 
+                        builder: (context) => AnswerScreen(), 
                       ),
                     );
                   },
@@ -189,7 +186,7 @@ class ConfirmButton extends StatelessWidget {
                         child: Text("OK", style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP"),),
                         onPressed: () {
                           onAnswered(true); // コールバック関数を呼び出す
-                          Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => AnswerScreen(level: tmpLevel),
+                          Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___) => AnswerScreen(),
                             transitionDuration: Duration(seconds: 0),
                           ),
                          );
