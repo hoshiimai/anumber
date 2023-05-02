@@ -398,10 +398,10 @@ class _SudokuState extends State<Sudoku> {
                               animCell: cell, //問題の領域塗りつぶし判定
                             ),
 
-                        // 候補の盤面
-                        CandidateGrid(
-                          candidate: Infomation.tmp,
-                        ),
+                          // 候補の盤面
+                          CandidateGrid(
+                            candidate: Infomation.tmp,
+                          ),
                       ],
                     ),
 

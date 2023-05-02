@@ -12,10 +12,10 @@ final _database = Database();
 class InitProcess {
   
   static Future<void> getdata(StateSetter setState) async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(microseconds: 500));
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
-        await Future.delayed(Duration(milliseconds: 10));
+        await Future.delayed(const Duration(milliseconds: 10));
         if (Infomation.animation[i][j] == 1) {
           setState(() {
             initX = j;
@@ -38,19 +38,19 @@ class InitProcess {
         }
 
         if (Infomation.init[i][j] != 0) {
-          await Future.delayed(Duration(milliseconds: 10));
+          await Future.delayed(const Duration(milliseconds: 10));
           setState(() {
             Infomation.zero[i][j] = Infomation.init[i][j];
           });
         }
       }
     }
-    await Future.delayed(Duration(milliseconds: 10));
+    await Future.delayed(const Duration(milliseconds: 10));
     setState(() {
       initX = -1;
       initY = -1;
     });
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     setState(() {
       initX = -1;
       initY = -1;

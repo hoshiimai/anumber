@@ -12,6 +12,7 @@ OUT：・問題の数字(描画)
 */
 import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 
 
 class Init extends StatelessWidget {
@@ -47,7 +48,6 @@ class Init extends StatelessWidget {
         // 盤面のサイズ(一マスのサイズを指定)
         width: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (screenSize.width) * 0.97 / 9 : (screenSize.height) * 0.45 /9,
         height:(screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (screenSize.width) * 0.97 / 9 : (screenSize.height) * 0.45 /9,
-
         child: Container(
           decoration: BoxDecoration(
             // 盤面の色設定

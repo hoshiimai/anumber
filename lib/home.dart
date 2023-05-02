@@ -10,6 +10,7 @@ OUT：playGame.dartに遷移
 
 import 'dart:convert';
 
+import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,10 +72,10 @@ class _SudokuState extends State<Home> {
               //   height: 10,
               //   color: const Color(0xfffff8dc),
               // ),
-              // Image(
-              //   width: 335,
-              //   image: AssetImage('images/main01.png'),
-              // ),
+              const Image(
+                image: AssetImage('assets/images/43946.jpg'),
+                fit: BoxFit.cover,
+              ),
               
               Container(                                                                                                                                
                 width: 250,
@@ -91,7 +92,7 @@ class _SudokuState extends State<Home> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Sudoku(initFlag: false, isResume: true),
+                            builder: (context) => const Sudoku(initFlag: false, isResume: true),
                           ),
                         );
                       // _database.deleteAllStopwatchData();
@@ -153,6 +154,7 @@ class _SudokuState extends State<Home> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
+                                  // builder: (context) => AnswerScreen(),
                                   builder: (context) =>  const Sudoku(initFlag: true, isResume: false),
                                   // builder: (context) => const Sudoku(level: "初級"),
                                 ),
@@ -213,7 +215,7 @@ class _SudokuState extends State<Home> {
                 ),
               ),
               SizedBox(
-                height: (screenSize.width) / 2,
+                height: (screenSize.height) / 20,
               ),
             ],
           ),

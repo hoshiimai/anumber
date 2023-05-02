@@ -73,7 +73,10 @@ abstract class Infomation {
 
   static List<List<List<int>>> dataList = [];
   static List<List<List<int>>> answerList = [];
+  static List<List<List<int>>> candidateList = [];
   static List<List<int>> xyList = [];
+  static List<int> sortingList = [];
+  static List<List<int>> endList = [];
   static int initX = -1;
   static int initX1 = -1;
   static int initY = -1;

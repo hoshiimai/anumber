@@ -13,17 +13,23 @@ class MakeQuestion {
     Infomation.data = List.generate(9, (_) => List.filled(9, 0));
     Infomation.answer = List.generate(9, (_) => List.filled(9, 0));
     Infomation.allAnswers = List.generate(9, (_) => List.filled(9, 0));
+    Infomation.tmp = List.generate(27, (_) => List.filled(27, 0));
+    Infomation.answerCandidate = List.generate(27, (_) => List.filled(27, 0));
+    Infomation.animation_candidate = List.generate(27, (_) => List.filled(27, 0));
     Infomation.dataList = [];
-    Infomation.answerList = [];
-    Infomation.xyList = [];
+    Infomation.candidateList = [];
+    Infomation.sortingList = [];
     Infomation.initX = -1;
     Infomation.initX1 = -1;
     Infomation.initY = -1;
     Infomation.initY1 = -1;
 
-
     final random = Random();
-    final rowIndex = random.nextInt(2) + 2; // B2からB51(※現在はB2の範囲でテスト中)の範囲の行インデックスをランダムに選択
+    final rowIndex = Infomation.level == "初級" ? random.nextInt(2) + 2
+                   : Infomation.level == "中級" ? 2
+                  //  : Infomation.level == "中級" ? random.nextInt(5) + 2
+                   : random.nextInt(5) + 2;
+
     final a_CellIndex = 'A$rowIndex';
     final b_CellIndex = 'B$rowIndex';
     final c_CellIndex = 'C$rowIndex';
@@ -43,25 +49,25 @@ class MakeQuestion {
     List<List<int>> shuffle3 = List.generate(9, (_) => List.filled(9, 0)); // 全解答
 
 
-    line1.shuffle();
-    line2.shuffle();
-    line3.shuffle();
-    column1.shuffle();
-    column2.shuffle();
-    column3.shuffle();
+    // line1.shuffle();
+    // line2.shuffle();
+    // line3.shuffle();
+    // column1.shuffle();
+    // column2.shuffle();
+    // column3.shuffle();
 
-    blockLine1.shuffle();
-    blockLine2.shuffle();
-    blockLine3.shuffle();
-    blockColumn1.shuffle();
-    blockColumn2.shuffle();
-    blockColumn3.shuffle();
-    number.shuffle();
+    // blockLine1.shuffle();
+    // blockLine2.shuffle();
+    // blockLine3.shuffle();
+    // blockColumn1.shuffle();
+    // blockColumn2.shuffle();
+    // blockColumn3.shuffle();
+    // number.shuffle();
     
     final List<List<int>> lineToMerge = [line1, line2, line3];
     final List<List<int>> columnToMerge = [column1, column2, column3];
-    lineToMerge.shuffle();
-    columnToMerge.shuffle();
+    // lineToMerge.shuffle();
+    // columnToMerge.shuffle();
 
     final List<int> lineMerged = lineToMerge.expand((row) => row).toList();
     final List<int> columnMerged = columnToMerge.expand((row) => row).toList();
@@ -88,7 +94,7 @@ class MakeQuestion {
     // ExcelファイルをパースしてWorkbookオブジェクトを作成します
     final excel = Excel.decodeBytes(bytes);
     // シート名を指定してSheetオブジェクトを作成します
-    final sheet = excel['初級'];
+    final sheet = excel[Infomation.level];
     // 特定のセルの値を取得します
     final id = sheet.cell(CellIndex.indexByString(a_CellIndex)).value;
     final mondai = sheet.cell(CellIndex.indexByString(b_CellIndex)).value;
@@ -125,6 +131,9 @@ class MakeQuestion {
 
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
+        // Infomation.init[i][j] = shuffle1[lineMerged[i]][columnMerged[j]];
+        // Infomation.animation[i][j] = shuffle2[lineMerged[i]][columnMerged[j]];
+        // Infomation.allAnswers[i][j] = shuffle3[lineMerged[i]][columnMerged[j]];
         Infomation.init[i][j] = numberMap[shuffle1[lineMerged[i]][columnMerged[j]]]!;
         Infomation.animation[i][j] = shuffle2[lineMerged[i]][columnMerged[j]];
         Infomation.allAnswers[i][j] = numberMap[shuffle3[lineMerged[i]][columnMerged[j]]]!;
@@ -139,7 +148,7 @@ class MakeQuestion {
     Infomation.kotae = numberMap[kotaeCoordinate]!; // これが正しい
     // Infomation.kotae = kotaeCoordinate; // 検証用
 
-    Infomation.id = id;
+    Infomation.id = id; 
 
 
     Infomation.answerX = columnMerged.indexOf(xCoordinate);
@@ -148,22 +157,6 @@ class MakeQuestion {
     Infomation.columnList = columnMerged;
     Infomation.lineList = lineMerged;
     Infomation.data = Infomation.init;
-
-
-    // print(Infomation.id);
-    // print(columnMerged);
-    // print(lineMerged);
-    // print(Infomation.allAnswers);
-    // print(Infomation.animation);
-    // print(Infomation.const_animation);
-    // print(number);
-    // print(Infomation.selectedX);
-    // print(Infomation.selectedY);
-    // print(column_merged.indexOf(x_Coordinate));
-    // print(line_merged.indexOf(y_Coordinate));
-    // print(Infomation.kotae);
-
-
 
   }
 }

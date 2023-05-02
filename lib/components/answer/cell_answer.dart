@@ -10,6 +10,7 @@ OUT：・問題の数字(描画)
 履歴：
 ****************************************
 */
+import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
 
 import '../../style/theme_controller.dart';
@@ -94,7 +95,21 @@ class Answer extends StatelessWidget {
               ? Colors.blueGrey[100]
               : isSelected // 選択マスかどうか
               ? AppColors.isSelect
-              : AppColors.isOther, // 標準の色
+
+              : Infomation.level == "初級" && Infomation.id == 2 // 初級189のみ領域を塗りつぶす
+              ? (
+                isBlock1 // 選択マスの領域(ブロック)かどうか
+                ? AppColors.isBlock
+                : isBlock2 // 選択マスの領域(ブロック)かどうか
+                ? AppColors.isBlock
+                : isBlock3 // 選択マスの領域(ブロック)かどうか
+                ? AppColors.isBlock
+                : isBlock4 // 選択マスの領域(ブロック)かどうか
+                ? AppColors.isBlock
+                : isSameLine // 選択マスの領域(行列)かどうか
+                ? AppColors.isBlock
+                : AppColors.isOther // 標準の色
+              ) : Colors.transparent, 
 
 
           ),

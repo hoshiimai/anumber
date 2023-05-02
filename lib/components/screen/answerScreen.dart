@@ -36,6 +36,7 @@ class _SudokuState extends State<AnswerScreen> {
   // late String state;
   bool _isTappable = true;
   int count = 0;
+  bool flag189 = true;
 
   @override
   void initState() {
@@ -43,13 +44,20 @@ class _SudokuState extends State<AnswerScreen> {
     setState(() {
       Infomation.data = Infomation.init;
       Infomation.answer = List.generate(9, (_) => List.filled(9, 0));
+      Infomation.tmp = List.generate(27, (_) => List.filled(27, 0));
+      Infomation.answerCandidate = List.generate(27, (_) => List.filled(27, 0));
+      Infomation.animation_candidate = List.generate(27, (_) => List.filled(27, 0));
       Infomation.dataList = [];
       Infomation.answerList = [];
+      Infomation.candidateList = [];
       Infomation.xyList = [];
+      Infomation.sortingList = [];
       Infomation.initX = -1;
       Infomation.initX1 = -1;
       Infomation.initY = -1;
       Infomation.initY1 = -1;
+      Infomation.selectedX = Infomation.answerX;
+      Infomation.selectedY = Infomation.answerY;
     });
     Answer.makeAnswerList(setState);
   }
@@ -58,11 +66,21 @@ class _SudokuState extends State<AnswerScreen> {
     setState(() {
       Infomation.data = Infomation.dataList[count];
       Infomation.answer = Infomation.answerList[count];
+      Infomation.answerCandidate = Infomation.candidateList[count];
       Infomation.initX = Infomation.xyList[count][0];
       Infomation.initY = Infomation.xyList[count][1];
       Infomation.initX1 = Infomation.xyList[count][2];
       Infomation.initY1 = Infomation.xyList[count][3];
     });
+    if(Infomation.level == "初級" && Infomation.id == 2 && count == 1 && flag189) {
+      setState(() {
+        _isTappable = false;
+        Answer.auto189(setState).then((_) {
+          _isTappable = true;
+        });
+        flag189 = false;
+      });
+    }
   }
 
   @override
@@ -70,8 +88,8 @@ class _SudokuState extends State<AnswerScreen> {
     var screenSize = MediaQuery.of(context).size;
     var appbarSize = AppBar().preferredSize.height;
     var fontsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71;
-    var iconsize = ((screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71);
-    var buttonsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.618 : ((screenSize.height) * 0.45 / 9) *0.618;
+    // var iconsize = ((screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71);
+    // var buttonsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.618 : ((screenSize.height) * 0.45 / 9) *0.618;
 
     return AbsorbPointer(
       absorbing: !_isTappable,

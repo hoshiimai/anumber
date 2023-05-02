@@ -8,13 +8,13 @@ OUT：home.dart
 */
 
 import 'package:anumber/app.dart';
-import 'package:anumber/makeQuestion.dart';
+// import 'package:anumber/makeQuestion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 
 void main() {
-  MakeQuestion().getExcelValue();
+  // MakeQuestion().getExcelValue();
   //AdMobの初期化処理
   // WidgetsFlutterBinding.ensureInitialized();
   // MobileAds.instance.initialize();
