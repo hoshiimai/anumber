@@ -50,14 +50,23 @@ class _SudokuState extends State<AnswerScreen> {
       Infomation.dataList = [];
       Infomation.answerList = [];
       Infomation.candidateList = [];
+      Infomation.animationCandidateList = [];
       Infomation.xyList = [];
       Infomation.sortingList = [];
       Infomation.initX = -1;
       Infomation.initX1 = -1;
+      Infomation.initX2 = -1;
+      Infomation.initX3 = -1;
+      Infomation.initX4 = -1;
       Infomation.initY = -1;
       Infomation.initY1 = -1;
+      Infomation.initY2 = -1;
+      Infomation.initY3 = -1;
+      Infomation.initY4 = -1;
       Infomation.selectedX = Infomation.answerX;
       Infomation.selectedY = Infomation.answerY;
+      Infomation.frameBorderX = -2;
+      Infomation.frameBorderY = -2;
     });
     Answer.makeAnswerList(setState);
   }
@@ -67,10 +76,19 @@ class _SudokuState extends State<AnswerScreen> {
       Infomation.data = Infomation.dataList[count];
       Infomation.answer = Infomation.answerList[count];
       Infomation.answerCandidate = Infomation.candidateList[count];
+      Infomation.animation_candidate = Infomation.animationCandidateList[count];
       Infomation.initX = Infomation.xyList[count][0];
       Infomation.initY = Infomation.xyList[count][1];
       Infomation.initX1 = Infomation.xyList[count][2];
       Infomation.initY1 = Infomation.xyList[count][3];
+      Infomation.initX2 = Infomation.xyList[count][4];
+      Infomation.initY2 = Infomation.xyList[count][5];
+      Infomation.initX3 = Infomation.xyList[count][6];
+      Infomation.initY3 = Infomation.xyList[count][7];
+      Infomation.initX4 = Infomation.xyList[count][8];
+      Infomation.initY4 = Infomation.xyList[count][9];
+      Infomation.frameBorderX = Infomation.xyList[count][10];
+      Infomation.frameBorderY = Infomation.xyList[count][11];
     });
     if(Infomation.level == "初級" && Infomation.id == 2 && count == 1 && flag189) {
       setState(() {
@@ -336,10 +354,18 @@ class _SudokuState extends State<AnswerScreen> {
                         selectedY: Infomation.selectedY,
                         specifiedX: Infomation.specifiedX,
                         specifiedY: Infomation.specifiedY,
-                        isAnswerRow: Infomation.initX,
-                        isAnswerColumn: Infomation.initY,
-                        initX: Infomation.initX1,
-                        initY: Infomation.initY1,
+                        initX0: Infomation.initX,
+                        initY0: Infomation.initY,
+                        initX1: Infomation.initX1,
+                        initY1: Infomation.initY1,
+                        initX2: Infomation.initX2,
+                        initY2: Infomation.initY2,
+                        initX3: Infomation.initX3,
+                        initY3: Infomation.initY3,
+                        initX4: Infomation.initX4,
+                        initY4: Infomation.initY4,
+                        frameBorderX: Infomation.frameBorderX,
+                        frameBorderY: Infomation.frameBorderY
                       ),
                       // 候補の盤面
                       AnswerCandidateGrid(

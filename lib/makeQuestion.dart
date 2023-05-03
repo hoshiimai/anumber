@@ -18,11 +18,20 @@ class MakeQuestion {
     Infomation.animation_candidate = List.generate(27, (_) => List.filled(27, 0));
     Infomation.dataList = [];
     Infomation.candidateList = [];
+    Infomation.animationCandidateList = [];
     Infomation.sortingList = [];
     Infomation.initX = -1;
     Infomation.initX1 = -1;
+    Infomation.initX2 = -1;
+    Infomation.initX3 = -1;
+    Infomation.initX4 = -1;
     Infomation.initY = -1;
     Infomation.initY1 = -1;
+    Infomation.initY2 = -1;
+    Infomation.initY3 = -1;
+    Infomation.initY4 = -1;
+    Infomation.frameBorderX = -2;
+    Infomation.frameBorderY = -2;
 
     final random = Random();
     final rowIndex = Infomation.level == "初級" ? random.nextInt(2) + 2
@@ -49,29 +58,32 @@ class MakeQuestion {
     List<List<int>> shuffle3 = List.generate(9, (_) => List.filled(9, 0)); // 全解答
 
 
-    // line1.shuffle();
-    // line2.shuffle();
-    // line3.shuffle();
-    // column1.shuffle();
-    // column2.shuffle();
-    // column3.shuffle();
+    line1.shuffle();
+    line2.shuffle();
+    line3.shuffle();
+    column1.shuffle();
+    column2.shuffle();
+    column3.shuffle();
 
-    // blockLine1.shuffle();
-    // blockLine2.shuffle();
-    // blockLine3.shuffle();
-    // blockColumn1.shuffle();
-    // blockColumn2.shuffle();
-    // blockColumn3.shuffle();
-    // number.shuffle();
+    blockLine1.shuffle();
+    blockLine2.shuffle();
+    blockLine3.shuffle();
+    blockColumn1.shuffle();
+    blockColumn2.shuffle();
+    blockColumn3.shuffle();
+    number.shuffle();
     
     final List<List<int>> lineToMerge = [line1, line2, line3];
     final List<List<int>> columnToMerge = [column1, column2, column3];
-    // lineToMerge.shuffle();
-    // columnToMerge.shuffle();
+    lineToMerge.shuffle();
+    columnToMerge.shuffle();
 
     final List<int> lineMerged = lineToMerge.expand((row) => row).toList();
     final List<int> columnMerged = columnToMerge.expand((row) => row).toList();
 
+
+    final List<int> lineMergedCandidate = lineMerged.expand((e) => [e*3, e*3+1, e*3+2]).toList();
+    final List<int> columnMergedCandidate = columnMerged.expand((e) => [e*3, e*3+1, e*3+2]).toList();
 
     final numberMap = {
       0 : 0,
@@ -112,7 +124,6 @@ class MakeQuestion {
             .map((row) => row.trim().split(' ').map(int.parse).toList()) // 各行を数値に変換
             .toList(); // 2次元リストに変換
 
-
     //アニメーション
     shuffle2 = animation
             .toString()
@@ -137,16 +148,14 @@ class MakeQuestion {
         Infomation.init[i][j] = numberMap[shuffle1[lineMerged[i]][columnMerged[j]]]!;
         Infomation.animation[i][j] = shuffle2[lineMerged[i]][columnMerged[j]];
         Infomation.allAnswers[i][j] = numberMap[shuffle3[lineMerged[i]][columnMerged[j]]]!;
+
       }
     }
 
 
-
-
     Infomation.selectedX = columnMerged.indexOf(xCoordinate);
     Infomation.selectedY = lineMerged.indexOf(yCoordinate);
-    Infomation.kotae = numberMap[kotaeCoordinate]!; // これが正しい
-    // Infomation.kotae = kotaeCoordinate; // 検証用
+    Infomation.kotae = numberMap[kotaeCoordinate]!;
 
     Infomation.id = id; 
 
@@ -156,7 +165,10 @@ class MakeQuestion {
     
     Infomation.columnList = columnMerged;
     Infomation.lineList = lineMerged;
+    Infomation.candidateColumnList = columnMergedCandidate;
+    Infomation.candidateLineList = lineMergedCandidate;
     Infomation.data = Infomation.init;
 
+    Infomation.numMap = number;
   }
 }

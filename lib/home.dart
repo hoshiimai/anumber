@@ -52,17 +52,22 @@ class _SudokuState extends State<Home> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      appBar: (
-        AppBar(
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness:Brightness.dark
-          ),
-          backgroundColor: const Color(0xFFFAFAFA),
-          elevation: 0,
-        )
-      ),
-      body: SafeArea(
+      // appBar: (
+      //   AppBar(
+      //     systemOverlayStyle: const SystemUiOverlayStyle(
+      //       statusBarColor: Colors.transparent,
+      //       statusBarIconBrightness:Brightness.dark
+      //     ),
+      //     backgroundColor: const Color(0xFFFAFAFA),
+      //     elevation: 0,
+      //   )
+      // ),
+      body: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage('assets/images/43946.jpg'),
+          fit: BoxFit.cover,
+        )),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -72,10 +77,6 @@ class _SudokuState extends State<Home> {
               //   height: 10,
               //   color: const Color(0xfffff8dc),
               // ),
-              const Image(
-                image: AssetImage('assets/images/43946.jpg'),
-                fit: BoxFit.cover,
-              ),
               
               Container(                                                                                                                                
                 width: 250,
@@ -175,7 +176,8 @@ class _SudokuState extends State<Home> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(initFlag: true, isResume: false,), 
+                                  builder: (context) => const AnswerScreen(), 
+                                  // builder: (context) => const Sudoku(initFlag: true, isResume: false,), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();

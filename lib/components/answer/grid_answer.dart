@@ -27,12 +27,20 @@ class AnswerGrid extends StatelessWidget {
     required this.anim,
     required this.selectedX,
     required this.selectedY,
-    required this.isAnswerRow,
-    required this.isAnswerColumn,
     required this.specifiedX,
     required this.specifiedY,
-    required this.initX,
-    required this.initY,
+    required this.initX0,
+    required this.initY0,
+    required this.initX1,
+    required this.initY1,
+    required this.initX2,
+    required this.initY2,
+    required this.initX3,
+    required this.initY3,
+    required this.initX4,
+    required this.initY4,
+    required this.frameBorderX,
+    required this.frameBorderY,
   });
   final List<List<int>> data;
   final List<List<int>> init;
@@ -40,11 +48,19 @@ class AnswerGrid extends StatelessWidget {
   final int selectedX;
   final int selectedY;
   final int specifiedX;
-  final int isAnswerRow;
-  final int isAnswerColumn;
   final int specifiedY;
-  final int initX;
-  final int initY;
+  final int initX0;
+  final int initY0;
+  final int initX1;
+  final int initY1;
+  final int initX2;
+  final int initY2;
+  final int initX3;
+  final int initY3;
+  final int initX4;
+  final int initY4;
+  final int frameBorderX;
+  final int frameBorderY;
   static int blockX1 = 0;
   static int blockY1 = 0;
   static int blockX2 = 0;
@@ -71,8 +87,8 @@ class AnswerGrid extends StatelessWidget {
                   // isInit: initX == c.key && initY == r.key,  // 選択マス判定
                   isSelected: selectedX == c.key && selectedY == r.key,  // 選択マス判定
                   isSameLine: selectedX == c.key || selectedY == r.key,  // 選択マスの行列判定
-                  isAnswerRow: isAnswerRow == r.key || initX == r.key,  // 
-                  isAnswerColumn: isAnswerColumn == c.key || initY == c.key,  // 
+                  isAnswerRow: initY0 == r.key || initY1 == r.key || initY2 == r.key || initY3 == r.key || initY4 == r.key,   
+                  isAnswerColumn: initX0 == c.key || initX1 == c.key || initX2 == c.key || initX3 == c.key || initX4 == c.key,   
                   isCell: anim[r.key][c.key] == 999,
                   // 選択マスの領域(ブロック)のマス判定
                   isBlock1: Block[blockX1] == c.key && Block[blockY1] == r.key,
@@ -86,6 +102,14 @@ class AnswerGrid extends StatelessWidget {
                   isTop: (specifiedX == c.key && specifiedY == r.key) || (specifiedX == c.key && (specifiedY + 1) == r.key),
                   isBottom: specifiedX == c.key && specifiedY == 8 && specifiedY == r.key, 
                   
+                  // 解説用　行・列を枠線でハイライト
+                  isFrameLeft: (frameBorderX == c.key && frameBorderY == r.key),
+                  isFrameRight: c.key == 8 && frameBorderY == r.key,
+                  isFrameTop: frameBorderY == r.key || frameBorderY +1 == r.key,
+                  isFrameBottom: frameBorderY == 8 && frameBorderY == r.key, 
+
+                  
+
                   x: c.key,
                   y: r.key,
                   // onTap: () => onTap(c.key, r.key),

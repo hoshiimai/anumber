@@ -36,6 +36,10 @@ class Answer extends StatelessWidget {
     required this.isRight,
     required this.isTop,
     required this.isBottom,
+    required this.isFrameLeft,
+    required this.isFrameRight,
+    required this.isFrameTop,
+    required this.isFrameBottom,
   });
   final int number;
   final int x;
@@ -54,6 +58,10 @@ class Answer extends StatelessWidget {
   final bool isRight;
   final bool isTop;
   final bool isBottom;
+  final bool isFrameLeft;
+  final bool isFrameRight;
+  final bool isFrameTop;
+  final bool isFrameBottom;
 
   @override
   Widget build(BuildContext context) {
@@ -71,20 +79,32 @@ class Answer extends StatelessWidget {
                         // 盤面の枠線描画                
             border: Border(
               left: BorderSide(
-                color: isLeft ? Colors.red : AppColors.isLine,
-                width: (x % 3 == 0 || isLeft) ? 2 : 0,
+                color: isLeft ? Colors.red 
+                              : isFrameLeft
+                              ? Colors.blue[700]!
+                              : AppColors.isLine,
+                width: (x % 3 == 0 || isLeft || isFrameLeft) ? 2 : 0,
               ),
               right: BorderSide(
-                color: isRight ? Colors.red : AppColors.isLine,
-                width: (x == 8 || isRight) ? 2 : 0,
+                color: isRight ? Colors.red 
+                               : isFrameRight
+                               ? Colors.blue[700]!
+                               : AppColors.isLine,
+                width: (x == 8 || isRight || isFrameRight) ? 2 : 0,
               ),
               top: BorderSide(
-                color: isTop ? Colors.red : AppColors.isLine,
-                width: (y % 3 == 0 || isTop) ? 2 : 0,
+                color: isTop ? Colors.red
+                             : isFrameTop 
+                             ? Colors.blue[700]!
+                             : AppColors.isLine,
+                width: (y % 3 == 0 || isTop || isFrameTop) ? 2 : 0,
               ),
               bottom: BorderSide(
-                color: isBottom ? Colors.red : AppColors.isLine,
-                width: (y == 8 || isBottom) ? 2 : 0,
+                color: isBottom ? Colors.red 
+                                : isFrameBottom
+                                ? Colors.blue[700]!
+                                : AppColors.isLine,
+                width: (y == 8 || isBottom || isFrameBottom) ? 2 : 0,
               ),
             ),
             // 盤面の色設定
@@ -96,7 +116,7 @@ class Answer extends StatelessWidget {
               : isSelected // 選択マスかどうか
               ? AppColors.isSelect
 
-              : Infomation.level == "初級" && Infomation.id == 2 // 初級189のみ領域を塗りつぶす
+              : (Infomation.level == "初級" && Infomation.id == 2) // 初級189のみ領域を塗りつぶす
               ? (
                 isBlock1 // 選択マスの領域(ブロック)かどうか
                 ? AppColors.isBlock

@@ -21,6 +21,9 @@ abstract class Infomation {
 
   static List<int> columnList = [];
   static List<int> lineList = [];
+  static List<int> candidateColumnList = [];
+  static List<int> candidateLineList = [];
+  static List<int> numMap = [1,2,3,4,5,6,7,8,9];
 
 
   //遊び方用リスト
@@ -49,7 +52,6 @@ abstract class Infomation {
   //問題のリスト
   static List<List<int>> init = List.generate(9, (_) => List.filled(9, 0));
 
-
   //全解答用のリスト
   static List<List<int>> allAnswers = List.generate(9, (_) => List.filled(9, 0));
 
@@ -74,13 +76,22 @@ abstract class Infomation {
   static List<List<List<int>>> dataList = [];
   static List<List<List<int>>> answerList = [];
   static List<List<List<int>>> candidateList = [];
+  static List<List<List<int>>> animationCandidateList = [];
   static List<List<int>> xyList = [];
   static List<int> sortingList = [];
   static List<List<int>> endList = [];
   static int initX = -1;
   static int initX1 = -1;
+  static int initX2 = -1;
+  static int initX3 = -1;
+  static int initX4 = -1;
   static int initY = -1;
   static int initY1 = -1;
+  static int initY2 = -1;
+  static int initY3 = -1;
+  static int initY4 = -1;
+  static int frameBorderX = -2;
+  static int frameBorderY = -2;
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //履歴取得用
