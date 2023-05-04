@@ -7,12 +7,16 @@ import 'package:intl/intl.dart';
 
 int initX = -1;
 int initY = -1;
+bool skeletonFlag = true;
 final _database = Database();
 
 class InitProcess {
-  
   static Future<void> getdata(StateSetter setState) async {
-    await Future.delayed(const Duration(microseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 1500));
+    setState((){
+      skeletonFlag = false;
+    });
+
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
         await Future.delayed(const Duration(milliseconds: 10));
@@ -63,6 +67,7 @@ class InitProcess {
       ));
       Infomation.selected_historyList.add([Infomation.selectedX, Infomation.selectedY]);
       // Infomation.animation = Infomation.const_zero;
+      skeletonFlag = true;
     });
   }
 

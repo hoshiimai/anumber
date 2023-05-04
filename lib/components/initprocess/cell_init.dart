@@ -23,6 +23,7 @@ class Init extends StatelessWidget {
     required this.y,
     required this.isInit,
     required this.isCell,
+    required this.isSkeleton,
     required this.isLeft,
     required this.isRight,
     required this.isTop,
@@ -33,6 +34,7 @@ class Init extends StatelessWidget {
   final int y;
   final bool isInit;
   final bool isCell;
+  final bool isSkeleton;
   final bool isLeft;
   final bool isRight;
   final bool isTop;
@@ -52,6 +54,8 @@ class Init extends StatelessWidget {
           decoration: BoxDecoration(
             // 盤面の色設定
             color
+              : isSkeleton
+              ? AppColors.isBlock
               : isInit // 最初のアニメーション
               ? AppColors.isSelect
               : isCell // 選択マスの領域(ブロック)かどうか
@@ -77,6 +81,24 @@ class Init extends StatelessWidget {
                 width: (y == 8 || isBottom) ? 2 : 0,
               ),
             ),
+            // border: Border(
+            //   left: BorderSide(
+            //     color: (isSkeleton && x != 0) ? Colors.transparent : isLeft ? Colors.red : AppColors.isLine,
+            //     width: (x % 3 == 0 || isLeft) ? 2 : 0,
+            //   ),
+            //   right: BorderSide(
+            //     color: (isSkeleton && x != 8) ? Colors.transparent : isRight ? Colors.red : AppColors.isLine,
+            //     width: (x == 8 || isRight) ? 2 : 0,
+            //   ),
+            //   top: BorderSide(
+            //     color: (isSkeleton && y != 0) ? Colors.transparent : isTop ? Colors.red : AppColors.isLine,
+            //     width: (y % 3 == 0 || isTop) ? 2 : 0,
+            //   ),
+            //   bottom: BorderSide(
+            //     color: (isSkeleton && y != 8) ? Colors.transparent : isBottom ? Colors.red : AppColors.isLine,
+            //     width: (y == 8 || isBottom) ? 2 : 0,
+            //   ),
+            // ),
           ),
 
           // 表示する数字を描画

@@ -21,6 +21,8 @@ import 'package:line_icons/line_icons.dart';
 import '../../style/theme_controller.dart';
 import '../answer/answer.dart';
 import '../answer/grid_answer.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 
 class AnswerScreen extends StatefulWidget {
 
@@ -37,6 +39,8 @@ class _SudokuState extends State<AnswerScreen> {
   bool _isTappable = true;
   int count = 0;
   bool flag189 = true;
+  final _audio = AudioCache();
+
 
   @override
   void initState() {
@@ -386,6 +390,7 @@ class _SudokuState extends State<AnswerScreen> {
                     children: [
                       InkWell(
                         onTap: () async {
+                          Infomation.sound ? _audio.play('button3.mp3') : null;
                           if (count > 0) {
                             count -= 1;
                             await getAnswer();
@@ -410,6 +415,7 @@ class _SudokuState extends State<AnswerScreen> {
 
                       InkWell(
                         onTap: () async{
+                          Infomation.sound ? _audio.play('button3.mp3') : null;
                           count < Infomation.dataList.length -1 ? count += 1 : null;
                           await getAnswer();
                         },

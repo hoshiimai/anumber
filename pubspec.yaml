@@ -80,6 +80,8 @@ flutter:
     - assets/images/
     - assets/DB.xlsx
     - assets/button.mp3
+    - assets/button2.mp3
+    - assets/button3.mp3
     - assets/correct.mp3
     - assets/incorrect.mp3
     - assets/fonts/

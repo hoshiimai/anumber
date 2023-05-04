@@ -17,6 +17,7 @@ abstract class Infomation {
   static int kotae = 0;
   static int answerX = 0;
   static int answerY = 0;
+  static int correctCount = 0;
   static String level = "";
 
   static List<int> columnList = [];

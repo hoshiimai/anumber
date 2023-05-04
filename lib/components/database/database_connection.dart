@@ -38,6 +38,16 @@ class Database {
       print('insert 成功');
     }
 
+  Future<void> inseretCorrectCount(id, int count) async {
+    final prefs = await SharedPreferences.getInstance();
+    final Map<String, dynamic> countData = {
+      'id': id.toString(),
+      'count': count.toString(),
+    };
+      await prefs.setString('countData', jsonEncode(countData)); // 新規でデータを挿入する
+      print('カウント　insert 成功');
+  }
+
 
 
   Future<List<String>> selectDB() async {
@@ -55,6 +65,20 @@ class Database {
         data['specifiedY'].toString(),
         data['kotae'].toString(),
         data['level'].toString(),
+      ];
+    }
+    print('select失敗');
+    return [];
+  }
+
+  Future<List<String>> selectCorrectCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    final dataJson = prefs.getString('countData');
+    if (dataJson != null) {
+      final countData = jsonDecode(dataJson);
+      return [      
+        countData['id'].toString(),
+        countData['count'].toString(),
       ];
     }
     print('select失敗');

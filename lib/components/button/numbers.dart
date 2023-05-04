@@ -7,6 +7,7 @@ OUT：入力マスに0を入れる
 履歴：
 ****************************************
 */
+import 'package:anumber/infomation.dart';
 import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';

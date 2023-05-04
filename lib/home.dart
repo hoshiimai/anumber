@@ -10,12 +10,10 @@ OUT：playGame.dartに遷移
 
 import 'dart:convert';
 
-import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'components/database/database_connection.dart';
 import 'makeQuestion.dart';
 
@@ -41,6 +39,7 @@ class _SudokuState extends State<Home> {
     super.initState();
     // _database.deleteDB();
     selectTime();
+    countCorrect();
   }
 
 
@@ -176,8 +175,7 @@ class _SudokuState extends State<Home> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const AnswerScreen(), 
-                                  // builder: (context) => const Sudoku(initFlag: true, isResume: false,), 
+                                  builder: (context) => const Sudoku(initFlag: true, isResume: false,), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();
@@ -235,6 +233,16 @@ class _SudokuState extends State<Home> {
         level = result[8];
       });
     }
+  }
+
+  Future<void> countCorrect() async {
+    final result = await _database.selectCorrectCount();
+    if(result.isNotEmpty) {
+      setState(() {
+        Infomation.correctCount = int.parse(result[1]);
+      });
+    }
+    print(Infomation.correctCount);
   }
 
   Future<void> setLocaldata() async {

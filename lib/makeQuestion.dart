@@ -35,8 +35,7 @@ class MakeQuestion {
 
     final random = Random();
     final rowIndex = Infomation.level == "初級" ? random.nextInt(2) + 2
-                   : Infomation.level == "中級" ? 2
-                  //  : Infomation.level == "中級" ? random.nextInt(5) + 2
+                   : Infomation.level == "中級" ? random.nextInt(5) + 2
                    : random.nextInt(5) + 2;
 
     final a_CellIndex = 'A$rowIndex';
@@ -58,25 +57,25 @@ class MakeQuestion {
     List<List<int>> shuffle3 = List.generate(9, (_) => List.filled(9, 0)); // 全解答
 
 
-    line1.shuffle();
-    line2.shuffle();
-    line3.shuffle();
-    column1.shuffle();
-    column2.shuffle();
-    column3.shuffle();
+    // line1.shuffle();
+    // line2.shuffle();
+    // line3.shuffle();
+    // column1.shuffle();
+    // column2.shuffle();
+    // column3.shuffle();
 
-    blockLine1.shuffle();
-    blockLine2.shuffle();
-    blockLine3.shuffle();
-    blockColumn1.shuffle();
-    blockColumn2.shuffle();
-    blockColumn3.shuffle();
-    number.shuffle();
-    
+    // blockLine1.shuffle();
+    // blockLine2.shuffle();
+    // blockLine3.shuffle();
+    // blockColumn1.shuffle();
+    // blockColumn2.shuffle();
+    // blockColumn3.shuffle();
+    // number.shuffle();
+
     final List<List<int>> lineToMerge = [line1, line2, line3];
     final List<List<int>> columnToMerge = [column1, column2, column3];
-    lineToMerge.shuffle();
-    columnToMerge.shuffle();
+    // lineToMerge.shuffle();
+    // columnToMerge.shuffle();
 
     final List<int> lineMerged = lineToMerge.expand((row) => row).toList();
     final List<int> columnMerged = columnToMerge.expand((row) => row).toList();

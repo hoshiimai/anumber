@@ -9,18 +9,19 @@ OUT：・ヒントの表示
 履歴：
 ****************************************
 */
+import 'package:anumber/components/database/database_connection.dart';
 import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
 import 'package:anumber/style/theme_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
 
 
+final _database = Database();
 
 class ConfirmButton extends StatelessWidget {
   ConfirmButton({
@@ -58,6 +59,16 @@ class ConfirmButton extends StatelessWidget {
             onPressed: () async {
               if (answer == Infomation.kotae) {
                 onAnswered(true); // コールバック関数を呼び出す
+                final result = await _database.selectCorrectCount();
+                if(result.isNotEmpty) {
+                  Infomation.correctCount = Infomation.level == "初級" ? int.parse(result[1])+1
+                                          : Infomation.level == "中級" ? int.parse(result[1])+3
+                                                                       : int.parse(result[1])+5;
+                  _database.inseretCorrectCount(Infomation.id, Infomation.correctCount);
+                } else {
+                  _database.inseretCorrectCount(Infomation.id, 1);
+                }
+                print(Infomation.correctCount);
                 AwesomeDialog(
                   context: context,
                   headerAnimationLoop: false,
@@ -126,7 +137,6 @@ class ConfirmButton extends StatelessWidget {
                         fontSize: 20,
                         fontFamily: "Noto Sans JP"
                       ),
-                      //style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                   ),
                   btnOkText: "答え",

@@ -22,6 +22,7 @@ import 'package:anumber/components/button/numbers.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 import '../button/controlNumber.dart';
 import '../initprocess/grid_init.dart';
 import '../initprocess/initProcess.dart';
@@ -388,15 +389,29 @@ class _SudokuState extends State<Sudoku> {
                                 },
                             )
                           //最初のアニメーション
-                          : InitGrid(
-                              data: Infomation.zero,  //盤面全体の数字リスト
-                              anim: Infomation.animation,   //最初のアニメーション用リスト
-                              specifiedX: Infomation.specifiedX, //問題マスx座標
-                              specifiedY: Infomation.specifiedY, //問題マスy座標
-                              initX: initX,   //アニメーション移動マスx座標
-                              initY: initY,   //アニメーション移動マスy座標
-                              animCell: cell, //問題の領域塗りつぶし判定
-                            ),
+                          : skeletonFlag
+                            ? SkeletonAnimation(
+                                child: InitGrid(
+                                  data: Infomation.zero,  //盤面全体の数字リスト
+                                  anim: Infomation.animation,   //最初のアニメーション用リスト
+                                  specifiedX: Infomation.specifiedX, //問題マスx座標
+                                  specifiedY: Infomation.specifiedY, //問題マスy座標
+                                  initX: initX,   //アニメーション移動マスx座標
+                                  initY: initY,   //アニメーション移動マスy座標
+                                  animCell: cell, //問題の領域塗りつぶし判定
+                                  showSkeleton: skeletonFlag,
+                                ),
+                              )
+                            : InitGrid(
+                                  data: Infomation.zero,  //盤面全体の数字リスト
+                                  anim: Infomation.animation,   //最初のアニメーション用リスト
+                                  specifiedX: Infomation.specifiedX, //問題マスx座標
+                                  specifiedY: Infomation.specifiedY, //問題マスy座標
+                                  initX: initX,   //アニメーション移動マスx座標
+                                  initY: initY,   //アニメーション移動マスy座標
+                                  animCell: cell, //問題の領域塗りつぶし判定
+                                  showSkeleton: skeletonFlag,
+                              ),
 
                           // 候補の盤面
                           CandidateGrid(
@@ -414,17 +429,20 @@ class _SudokuState extends State<Sudoku> {
                     // アイコンボタン
                     ControlButton(
                       onBack: () {
+                        Infomation.sound ? _audio.play('button3.mp3') : null;
                         getHistory(setState);
                       },
                       
                       // 数字消すボタン
                       onTap: (int number) {
+                        Infomation.sound ? _audio.play('button3.mp3') : null;
                         deleteNumber(setState, number);
                       },
 
                       // メモボタン
                       onEdit: isEdit,
                       onPress: () {
+                        Infomation.sound ? _audio.play('button3.mp3') : null;
                         setState(() {
                           isEdit = !isEdit;
                         });
