@@ -74,13 +74,16 @@ abstract class Infomation {
 
   static List<List<int>> answer = List.generate(9, (_) => List.filled(9, 0));
 
+  static List<List<int>> paintCandidate1 = List.generate(27, (_) => List.filled(27, 0));
+  static List<List<int>> paintCandidate2 = List.generate(27, (_) => List.filled(27, 0));
+
+
   static List<List<List<int>>> dataList = [];
   static List<List<List<int>>> answerList = [];
   static List<List<List<int>>> candidateList = [];
   static List<List<List<int>>> animationCandidateList = [];
   static List<List<int>> xyList = [];
   static List<int> sortingList = [];
-  static List<List<int>> endList = [];
   static int initX = -1;
   static int initX1 = -1;
   static int initX2 = -1;
@@ -91,11 +94,12 @@ abstract class Infomation {
   static int initY2 = -1;
   static int initY3 = -1;
   static int initY4 = -1;
-  static int frameBorderX = -100;
-  static int frameBorderY = -100;
+  // static int frameBorderX = -100;
+  // static int frameBorderY = -100;
   static List<int> borderListX = [-100];
   static List<int> borderListY = [-100];
   static List<List<List<int>>> borderXYList = [];
+  static List<List<List<List<int>>>> paintList = [];
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //履歴取得用

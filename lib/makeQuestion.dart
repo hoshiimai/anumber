@@ -16,6 +16,8 @@ class MakeQuestion {
     Infomation.tmp = List.generate(27, (_) => List.filled(27, 0));
     Infomation.answerCandidate = List.generate(27, (_) => List.filled(27, 0));
     Infomation.animation_candidate = List.generate(27, (_) => List.filled(27, 0));
+    Infomation.paintCandidate1 = List.generate(27, (_) => List.filled(27, 0));
+    Infomation.paintCandidate2 = List.generate(27, (_) => List.filled(27, 0));
     Infomation.dataList = [];
     Infomation.candidateList = [];
     Infomation.animationCandidateList = [];
@@ -30,16 +32,15 @@ class MakeQuestion {
     Infomation.initY2 = -1;
     Infomation.initY3 = -1;
     Infomation.initY4 = -1;
-    Infomation.frameBorderX = -100;
-    Infomation.frameBorderY = -100;
     Infomation.borderListX = [-100];
     Infomation.borderListY = [-100];
     Infomation.borderXYList = [];
+    Infomation.paintList = [];    
 
     final random = Random();
     final rowIndex = Infomation.level == "初級" ? random.nextInt(2) + 2
                    : Infomation.level == "中級" ? random.nextInt(5) + 2
-                   :  3;
+                   :  5;
 
     final a_CellIndex = 'A$rowIndex';
     final b_CellIndex = 'B$rowIndex';

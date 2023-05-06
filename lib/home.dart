@@ -10,6 +10,7 @@ OUT：playGame.dartに遷移
 
 import 'dart:convert';
 
+import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:flutter/cupertino.dart';
@@ -194,7 +195,8 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const Sudoku(initFlag: true, isResume: false), 
+                                  builder: (context) => const AnswerScreen(), 
+                                  // builder: (context) => const Sudoku(initFlag: true, isResume: false), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();

@@ -10,6 +10,7 @@ OUT：ゲーム画面
 import 'dart:async';
 
 import 'package:anumber/components/answer/grid_answer_candidate.dart';
+import 'package:anumber/components/answer/grid_answer_candidate_paint.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/components/screen/playSudoku.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
@@ -38,7 +39,7 @@ class _SudokuState extends State<AnswerScreen> {
   // late String state;
   bool _isTappable = true;
   int count = 0;
-  bool flag189 = true;
+  bool autoFlag = true;
   final _audio = AudioCache();
 
 
@@ -51,6 +52,8 @@ class _SudokuState extends State<AnswerScreen> {
       Infomation.tmp = List.generate(27, (_) => List.filled(27, 0));
       Infomation.answerCandidate = List.generate(27, (_) => List.filled(27, 0));
       Infomation.animation_candidate = List.generate(27, (_) => List.filled(27, 0));
+      Infomation.paintCandidate1 = List.generate(27, (_) => List.filled(27, 0));
+      Infomation.paintCandidate2 = List.generate(27, (_) => List.filled(27, 0));
       Infomation.dataList = [];
       Infomation.answerList = [];
       Infomation.candidateList = [];
@@ -69,11 +72,10 @@ class _SudokuState extends State<AnswerScreen> {
       Infomation.initY4 = -1;
       Infomation.selectedX = Infomation.answerX;
       Infomation.selectedY = Infomation.answerY;
-      Infomation.frameBorderX = -100;
-      Infomation.frameBorderY = -100;
       Infomation.borderListX = [-100];
       Infomation.borderListY = [-100];
       Infomation.borderXYList = [];
+      Infomation.paintList = [];
     });
     Answer.makeAnswerList(setState);
   }
@@ -94,22 +96,33 @@ class _SudokuState extends State<AnswerScreen> {
       Infomation.initY3 = Infomation.xyList[count][7];
       Infomation.initX4 = Infomation.xyList[count][8];
       Infomation.initY4 = Infomation.xyList[count][9];
-      Infomation.frameBorderX = Infomation.xyList[count][10];
-      Infomation.frameBorderY = Infomation.xyList[count][11];
       Infomation.borderListX = Infomation.borderXYList[count][0];
       Infomation.borderListY = Infomation.borderXYList[count][1];
+      Infomation.paintCandidate1 = Infomation.paintList[count][0];
+      Infomation.paintCandidate2 = Infomation.paintList[count][1];
     });
-    // print(Infomation.borderXYList[count]);
-    // print(Infomation.borderXYList[0][1]);
 
-    if(Infomation.level == "初級" && Infomation.id == 2 && count == 1 && flag189) {
-      setState(() {
+    if(Infomation.level == "初級") {
+      if(Infomation.id == 2 && count == 1 && autoFlag) {
         _isTappable = false;
-        Answer.auto189(setState).then((_) {
-          _isTappable = true;
-        });
-        flag189 = false;
-      });
+        await Answer.auto189(setState);
+        _isTappable = true;
+        autoFlag = false;
+      }
+    } else if(Infomation.level == "上級") {
+      if(Infomation.id == 2 && count == 7 && autoFlag) {
+        _isTappable = false;
+        await Answer.flashingNum(setState);
+        _isTappable = true;
+      }else if(Infomation.id == 3 && count == 4 && autoFlag) {
+        _isTappable = false;
+        await Answer.flashingNum(setState);
+        _isTappable = true;
+      }else if(Infomation.id == 4 && count == 5 && autoFlag) {
+        _isTappable = false;
+        await Answer.flashingNum(setState);
+        _isTappable = true;
+      }
     }
   }
 
@@ -118,14 +131,10 @@ class _SudokuState extends State<AnswerScreen> {
     var screenSize = MediaQuery.of(context).size;
     var appbarSize = AppBar().preferredSize.height;
     var fontsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71;
-    // var iconsize = ((screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71);
-    // var buttonsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.618 : ((screenSize.height) * 0.45 / 9) *0.618;
 
     return AbsorbPointer(
       absorbing: !_isTappable,
-      // onWillPop: () => Future.value(false),
       child: Stack(
-        // alignment: Alignment.center,
         children: <Widget>[
           Scaffold(
             backgroundColor: AppColors.isOther,
@@ -376,15 +385,18 @@ class _SudokuState extends State<AnswerScreen> {
                         initY3: Infomation.initY3,
                         initX4: Infomation.initX4,
                         initY4: Infomation.initY4,
-                        frameBorderX: Infomation.frameBorderX,
-                        frameBorderY: Infomation.frameBorderY,
                         borderListX: Infomation.borderListX,
                         borderListY: Infomation.borderListY,
+                      ),
+                      // 線描画(Paint)
+                      AnswerCandidateGridPaint(
+                        paintCandidate: Infomation.paintCandidate1,
                       ),
                       // 候補の盤面
                       AnswerCandidateGrid(
                         candidate: Infomation.answerCandidate,
                         candianim: Infomation.animation_candidate,
+                        // startPoint: Infomation.paintCandidate,
                       ),
                     ],
                   ),

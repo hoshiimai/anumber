@@ -33,7 +33,7 @@ class Candidate extends StatelessWidget {
             style: TextStyle(
                 color: Colors.grey[600],
                 fontFamily: "Nunito",
-                fontSize: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (((screenSize.width) * 0.97 / 9) *0.71)/2.5 : (((screenSize.height) * 0.45 / 9) *0.71)/2.5,
+                fontSize: (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? (((screenSize.width) * 0.97 / 9) *0.71)/2.75 : (((screenSize.height) * 0.45 / 9) *0.71)/2.75,
             ),
           ),
         ),

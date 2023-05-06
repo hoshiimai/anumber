@@ -40,8 +40,6 @@ class AnswerGrid extends StatelessWidget {
     required this.initY3,
     required this.initX4,
     required this.initY4,
-    required this.frameBorderX,
-    required this.frameBorderY,
     required this.borderListX,
     required this.borderListY,
   });
@@ -62,8 +60,6 @@ class AnswerGrid extends StatelessWidget {
   final int initY3;
   final int initX4;
   final int initY4;
-  final int frameBorderX;
-  final int frameBorderY;
   final List<int> borderListX;
   final List<int> borderListY;
   static int blockX1 = 0;
@@ -248,53 +244,69 @@ class AnswerGrid extends StatelessWidget {
   }
 
   checkCLB(String t, int cKey, int rKey) {
+    if(Infomation.level == "初級") {
+      return false;
+    }
 
-    //行
-    // if(t == "L") {
-    //   return (borderListY.contains(rKey) && cKey == 0);
-    // } else if(t == "R") {
-    //   return (borderListY.contains(rKey) && cKey == 8);
-    // } else if(t == "T") {
-    //   return (borderListY.contains(rKey) || borderListY.contains(rKey-1));
-    // } else if(t == "B") {
-    //   return (rKey == 8 && borderListY.contains(8));
-    // }
-
-    //列
-    // if(t == "L") {
-    //   return (borderListX.contains(cKey) || borderListX.contains(cKey-1));
-    // } else if(t == "R") {
-    //   return (cKey == 8 && borderListX.contains(8));
-    // } else if(t == "T") {
-    //   return (borderListX.contains(cKey) && rKey == 0);
-    // } else if(t == "B") {
-    //   return (borderListX.contains(cKey) && rKey == 8);
-    // }
-
-    //ブロック
-    if(Infomation.level == "上級" && Infomation.id == 1) {
-      if(t == "L") {
-        return ((borderListX.contains(cKey)) || borderListX.contains(cKey-3)) && (borderListY.contains(rKey) || borderListY.contains(rKey-1) || borderListY.contains(rKey-2));
-      } else if(t == "R") {
-        return ((cKey == 8 && borderListX.contains(6))) && (borderListY.contains(rKey) || borderListY.contains(rKey-1) || borderListY.contains(rKey-2));
-      } else if(t == "T") {
-        return ((borderListY.contains(rKey)) || borderListY.contains(rKey-3)) && (borderListX.contains(cKey) || borderListX.contains(cKey-1) || borderListX.contains(cKey-2));
-      } else if(t == "B") {
-        return ((rKey == 8 && borderListY.contains(6))) && (borderListX.contains(cKey) || borderListX.contains(cKey-1) || borderListX.contains(cKey-2));
+    if(Infomation.level == "中級") {
+      if(Infomation.id == 2) { // 行
+        if(t == "L") {
+          return (borderListY.contains(rKey) && cKey == 0);
+        } else if(t == "R") {
+          return (borderListY.contains(rKey) && cKey == 8);
+        } else if(t == "T") {
+          return (borderListY.contains(rKey) || borderListY.contains(rKey-1));
+        } else if(t == "B") {
+          return (rKey == 8 && borderListY.contains(8));
+        }        
+      } else {
+        return false;
       }
-    } else if(Infomation.level == "上級" && Infomation.id == 2) {
-      // isLeft: (specifiedX == c.key && specifiedY == r.key) || ((specifiedX + 1) == c.key && specifiedY == r.key),
-      // isRight: specifiedX == 8 && c.key == 8 && specifiedY == r.key,
-      // isTop: (specifiedX == c.key && specifiedY == r.key) || (specifiedX == c.key && (specifiedY + 1) == r.key),
-      // isBottom: specifiedX == c.key && specifiedY == 8 && specifiedY == r.key,
-      if(t == "L") {
-        return ((borderListX.contains(cKey) && borderListY.contains(rKey)) || (borderListX.contains(cKey-1) && borderListY.contains(rKey)));
-      } else if(t == "R") {
-        return (borderListX.contains(8) && cKey == 8 && borderListY.contains(rKey));
-      } else if(t == "T") {
-        return ((borderListX.contains(cKey) && borderListY.contains(rKey)) || (borderListX.contains(cKey) && borderListY.contains(rKey-1)));
-      } else if(t == "B") {
-        return (borderListX.contains(cKey) && borderListY.contains(8) && borderListY.contains(rKey));
+    }
+
+    if(Infomation.level == "上級") {
+      if(Infomation.id == 1) { // ブロック
+        if(t == "L") {
+          return ((borderListX.contains(cKey)) || borderListX.contains(cKey-3)) && (borderListY.contains(rKey) || borderListY.contains(rKey-1) || borderListY.contains(rKey-2));
+        } else if(t == "R") {
+          return ((cKey == 8 && borderListX.contains(6))) && (borderListY.contains(rKey) || borderListY.contains(rKey-1) || borderListY.contains(rKey-2));
+        } else if(t == "T") {
+          return ((borderListY.contains(rKey)) || borderListY.contains(rKey-3)) && (borderListX.contains(cKey) || borderListX.contains(cKey-1) || borderListX.contains(cKey-2));
+        } else if(t == "B") {
+          return ((rKey == 8 && borderListY.contains(6))) && (borderListX.contains(cKey) || borderListX.contains(cKey-1) || borderListX.contains(cKey-2));
+        }
+      } else if(Infomation.id == 2) { // マス
+        if(t == "L") {
+          return ((borderListX.contains(cKey) && borderListY.contains(rKey)) || (borderListX.contains(cKey-1) && borderListY.contains(rKey)));
+        } else if(t == "R") {
+          return (borderListX.contains(8) && cKey == 8 && borderListY.contains(rKey));
+        } else if(t == "T") {
+          return ((borderListX.contains(cKey) && borderListY.contains(rKey)) || (borderListX.contains(cKey) && borderListY.contains(rKey-1)));
+        } else if(t == "B") {
+          return (borderListX.contains(cKey) && borderListY.contains(8) && borderListY.contains(rKey));
+        }
+      } else if(Infomation.id == 3) { // 列
+        if(t == "L") {
+          return (borderListX.contains(cKey) || borderListX.contains(cKey-1));
+        } else if(t == "R") {
+          return (cKey == 8 && borderListX.contains(8));
+        } else if(t == "T") {
+          return (borderListX.contains(cKey) && rKey == 0);
+        } else if(t == "B") {
+          return (borderListX.contains(cKey) && rKey == 8);
+        }
+      } else if(Infomation.id == 4) { // 行
+        if(t == "L") {
+          return (borderListY.contains(rKey) && cKey == 0);
+        } else if(t == "R") {
+          return (borderListY.contains(rKey) && cKey == 8);
+        } else if(t == "T") {
+          return (borderListY.contains(rKey) || borderListY.contains(rKey-1));
+        } else if(t == "B") {
+          return (rKey == 8 && borderListY.contains(8));
+        }        
+      } else {
+        return false;
       }
     }
   }

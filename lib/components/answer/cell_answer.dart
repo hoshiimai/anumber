@@ -127,7 +127,7 @@ class Answer extends StatelessWidget {
               : isSelected // 選択マスかどうか
               ? AppColors.isSelect
 
-              : (Infomation.level == "初級" && Infomation.id == 1) // 初級189のみ領域を塗りつぶす
+              : (Infomation.level == "初級" && Infomation.id == 2) // 初級189のみ領域を塗りつぶす
               ? (
                 isBlock1 // 選択マスの領域(ブロック)かどうか
                 ? AppColors.isBlock

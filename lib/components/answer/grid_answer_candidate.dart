@@ -30,14 +30,14 @@ class AnswerCandidateGrid extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               for (final MapEntry<int, int> c in r.value.asMap().entries)
-                AnswerCandidat(
+                AnswerCandidate(
                   number: c.value,
-                  isNum: candianim[r.key][c.key] == 888,
                   isCell: candianim[r.key][c.key] == 999,
-                  isVertical: candianim[r.key][c.key] == 444,
-                  isHorizontal: candianim[r.key][c.key] == 555,
+                  // isVertical: candianim[r.key][c.key] == 666,
+                  // isHorizontal: candianim[r.key][c.key] == 888,
+                  isNum: candianim[r.key][c.key] == 555,
                   isFalse: candianim[r.key][c.key] == 444,
-                  isStart: candianim[r.key][c.key] == 111,
+                  // isPaint: startPoint[r.key][c.key] == 111,
                   // endPoint: Infomation.endList,
                   x: c.key,
                   y: r.key,
