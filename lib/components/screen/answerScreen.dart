@@ -114,14 +114,19 @@ class _SudokuState extends State<AnswerScreen> {
         _isTappable = false;
         await Answer.flashingNum(setState);
         _isTappable = true;
-      }else if(Infomation.id == 3 && count == 4 && autoFlag) {
+      } else if(Infomation.id == 3 && count == 4 && autoFlag) {
         _isTappable = false;
         await Answer.flashingNum(setState);
         _isTappable = true;
-      }else if(Infomation.id == 4 && count == 5 && autoFlag) {
+      } else if(Infomation.id == 4 && count == 5 && autoFlag) {
         _isTappable = false;
         await Answer.flashingNum(setState);
         _isTappable = true;
+      } else if(Infomation.id == 5 && count == 5 && autoFlag) {
+        _isTappable = false;
+        await Answer.flashingNum(setState);
+        _isTappable = true;
+        autoFlag = false;
       }
     }
   }

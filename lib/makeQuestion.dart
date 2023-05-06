@@ -40,7 +40,7 @@ class MakeQuestion {
     final random = Random();
     final rowIndex = Infomation.level == "初級" ? random.nextInt(2) + 2
                    : Infomation.level == "中級" ? random.nextInt(5) + 2
-                   :  5;
+                   :  6;
 
     final a_CellIndex = 'A$rowIndex';
     final b_CellIndex = 'B$rowIndex';

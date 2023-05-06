@@ -143,20 +143,36 @@ class Answer extends StatelessWidget {
               ) : Colors.transparent, 
           ),
 
-          // 表示する数字を描画
-          child: Center(
-            child: Text(
-              // 空のマスには0が設定されるため、0の時は消す、それ以外は描画
-              number == 0 ? '' : number.toString(),
-              style: TextStyle(
-                // 問題の数字か、入力された数字かで色分け
-                color: isCell ? Colors.red : (inputNum ? AppColors.isInput : AppColors.isText),
-                fontSize: (screenSize.width) * 7 / 95,
-                fontFamily: "Nunito",
-                // fontSize: isCell ? (screenSize.width) * 10 / 95 : (screenSize.width) * 7 / 95,
+          child: Stack(
+            children: [
+              // 円(塗りつぶし)
+              // Center(
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //       color: isCell ? Colors.red : Colors.transparent,
+              //       shape: BoxShape.circle,
+              //     ),
+              //       width: (screenSize.width) * 7 / 95,
+              //       height: (screenSize.width) * 7 / 95,
+              //   ),
+              // ),
+
+              // 表示する数字を描画
+              Center(
+                child: Text(
+                  // 空のマスには0が設定されるため、0の時は消す、それ以外は描画
+                  number == 0 ? '' : number.toString(),
+                  style: TextStyle(
+                    // 問題の数字か、入力された数字かで色分け
+                    color: isCell ? Colors.red : AppColors.isText,
+                    fontSize: (screenSize.width) * 7 / 95,
+                    fontFamily: "Nunito",
+                    // fontSize: isCell ? (screenSize.width) * 10 / 95 : (screenSize.width) * 7 / 95,
+                  ),
+                ),
               ),
-            ),
-          ),
+            ],
+          )
         ),
       ),
     );
