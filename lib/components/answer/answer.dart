@@ -726,6 +726,316 @@ class Answer {
         }
       }
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    } else if(Infomation.level == "上級") {
+      if(Infomation.id == 1){ // 上級1
+        List<Function> steps = [
+          () {
+            addAnswerList();
+          },
+
+          () {
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(20) + my(8)]
+                          [Infomation.candidateColumnList.indexOf(19) + mx(8)] = Infomation.numMap[8-1];
+            addAnswerList();
+          },
+
+          () {
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(10) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(13) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(21) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(9) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(22) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = Infomation.numMap[4-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(20) + my(8)]
+                          [Infomation.candidateColumnList.indexOf(19) + mx(8)] = Infomation.numMap[8-1];
+
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(10) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(13) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(21) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(9) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(22) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 999;
+            addAnswerList();
+          },
+
+          () {
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(20) + my(8)]
+                          [Infomation.candidateColumnList.indexOf(19) + mx(8)] = 0;            
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 0;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 0;                                 
+
+            Infomation.data[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(6)] = Infomation.numMap[4-1];
+            Infomation.answer[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(6)] = 999;
+            addAnswerList();
+          },
+
+          () {
+            Infomation.initX = Infomation.columnList.indexOf(6);
+            Infomation.initY = Infomation.lineList.indexOf(6);
+
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 4;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 999;                           
+
+            Infomation.data[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(6)] = 0;
+            Infomation.answer[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(6)] = 0;            
+            addAnswerList();
+          },
+
+          () {
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(10) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(13) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(4)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(21) + mx(4)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(9) + mx(4)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(22) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 0;
+
+
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(10) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(13) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(16) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(21) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(9) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(19) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 999;
+            Infomation.animation_candidate[Infomation.candidateLineList.indexOf(22) + my(4)]
+                          [Infomation.candidateColumnList.indexOf(12) + mx(4)] = 999;
+
+            Infomation.data[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(7)] = Infomation.numMap[4-1];
+            Infomation.data[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(6)] = Infomation.numMap[4-1];
+            Infomation.data[Infomation.lineList.indexOf(7)][Infomation.columnList.indexOf(4)] = Infomation.numMap[4-1];
+            Infomation.answer[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(7)] = 999;
+            Infomation.answer[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(6)] = 999;
+            Infomation.answer[Infomation.lineList.indexOf(7)][Infomation.columnList.indexOf(4)] = 999;
+            addAnswerList();
+          },
+
+          () {
+            Infomation.initX = -1;
+            Infomation.initY = -1;
+            addAnswerList();
+          },
+
+          () {
+            Infomation.borderListX.add(Infomation.columnList.indexOf(3));
+            Infomation.borderListY.add(Infomation.lineList.indexOf(3));
+            addAnswerList();
+          },
+
+          () {
+            Infomation.initX = Infomation.columnList.indexOf(4);
+            Infomation.initY = Infomation.lineList.indexOf(5);
+            addAnswerList();
+          },
+
+          () {
+            Infomation.data[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(6)] = Infomation.kotae;
+            Infomation.answer[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(6)] = 999;
+
+            Infomation.data[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(7)] = 0;
+            Infomation.data[Infomation.lineList.indexOf(7)][Infomation.columnList.indexOf(4)] = 0;
+            Infomation.answer[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(7)] = 0;
+            Infomation.answer[Infomation.lineList.indexOf(7)][Infomation.columnList.indexOf(4)] = 0;
+
+            Infomation.borderListX = [-100];
+            Infomation.borderListY = [-100];
+            addAnswerList();
+          },
+
+          () {
+            Infomation.init = Infomation.dataList.first;
+            Infomation.data = Infomation.dataList.first;
+            Infomation.answer = Infomation.answerList.first;
+            Infomation.answerCandidate = Infomation.candidateList.first;
+            Infomation.animation_candidate = Infomation.animationCandidateList.first;
+            Infomation.initX = -1;
+            Infomation.initY = -1;
+            Infomation.borderListX = [-100];
+            Infomation.borderListY = [-100];
+          }
+        ];
+        for (var step in steps) {
+          setState(() {
+            step();
+          });
+        }
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      } else if(Infomation.id == 2){ // 上級2
+        List<Function> steps = [
+          () {
+            addAnswerList();
+          },
+
+          () {
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(15) + my(3)]
+                          [Infomation.candidateColumnList.indexOf(17) + mx(3)] = Infomation.numMap[3-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(17) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(7)] = Infomation.numMap[7-1];
+            addAnswerList();
+          },
+
+          () {
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(9) + my(3)]
+                          [Infomation.candidateColumnList.indexOf(17) + mx(3)] = Infomation.numMap[3-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(11) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(7)] = Infomation.numMap[7-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(9) + my(3)]
+                          [Infomation.candidateColumnList.indexOf(20) + mx(3)] = Infomation.numMap[3-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(10) + my(5)]
+                          [Infomation.candidateColumnList.indexOf(19) + mx(5)] = Infomation.numMap[5-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(5)]
+                          [Infomation.candidateColumnList.indexOf(25) + mx(5)] = Infomation.numMap[5-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(17) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(24) + mx(7)] = Infomation.numMap[7-1];
+            addAnswerList();
+          },
+
+          () {
+            Infomation.borderListX.add(Infomation.columnList.indexOf(6));
+            Infomation.borderListY.add(Infomation.lineList.indexOf(3));
+            addAnswerList();
+          },
+
+          () {
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(9) + my(3)]
+                          [Infomation.candidateColumnList.indexOf(20) + mx(3)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(10) + my(5)]
+                          [Infomation.candidateColumnList.indexOf(19) + mx(5)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(15) + my(3)]
+                          [Infomation.candidateColumnList.indexOf(17) + mx(3)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(17) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(7)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(5)]
+                          [Infomation.candidateColumnList.indexOf(25) + mx(5)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(17) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(24) + mx(7)] = 0;               
+
+            Infomation.data[Infomation.lineList.indexOf(3)][Infomation.columnList.indexOf(6)] = Infomation.numMap[5-1];
+            Infomation.data[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(5)] = Infomation.numMap[3-1];
+            Infomation.data[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(8)] = Infomation.numMap[7-1];
+            Infomation.answer[Infomation.lineList.indexOf(3)][Infomation.columnList.indexOf(6)] = 999;
+            Infomation.answer[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(5)] = 999;
+            Infomation.answer[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(8)] = 999;
+
+            addAnswerList();
+          },
+
+          () {
+            Infomation.data[Infomation.lineList.indexOf(3)][Infomation.columnList.indexOf(5)] = Infomation.numMap[7-1];
+            Infomation.data[Infomation.lineList.indexOf(3)][Infomation.columnList.indexOf(6)] = Infomation.numMap[3-1];
+            Infomation.data[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(8)] = 0;
+            Infomation.answer[Infomation.lineList.indexOf(3)][Infomation.columnList.indexOf(5)] = 999;
+            Infomation.answer[Infomation.lineList.indexOf(5)][Infomation.columnList.indexOf(8)] = 0;
+
+
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(9) + my(3)]
+                          [Infomation.candidateColumnList.indexOf(17) + mx(3)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(11) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(7)] = 0;
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(5)]
+                          [Infomation.candidateColumnList.indexOf(25) + mx(5)] = Infomation.numMap[5-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(17) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(24) + mx(7)] = Infomation.numMap[7-1];                          
+            addAnswerList();
+          },
+
+          () {
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(15) + my(3)]
+                          [Infomation.candidateColumnList.indexOf(17) + mx(3)] = Infomation.numMap[3-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(17) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(7)] = Infomation.numMap[7-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(9) + my(3)]
+                          [Infomation.candidateColumnList.indexOf(17) + mx(3)] = Infomation.numMap[3-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(11) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(15) + mx(7)] = Infomation.numMap[7-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(9) + my(3)]
+                          [Infomation.candidateColumnList.indexOf(20) + mx(3)] = Infomation.numMap[3-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(10) + my(5)]
+                          [Infomation.candidateColumnList.indexOf(19) + mx(5)] = Infomation.numMap[5-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(16) + my(5)]
+                          [Infomation.candidateColumnList.indexOf(25) + mx(5)] = Infomation.numMap[5-1];
+            Infomation.answerCandidate[Infomation.candidateLineList.indexOf(17) + my(7)]
+                          [Infomation.candidateColumnList.indexOf(24) + mx(7)] = Infomation.numMap[7-1];
+
+            Infomation.borderListX = [-100];
+            Infomation.borderListY = [-100];
+            addAnswerList();
+          },
+
+          () {
+
+
+            addAnswerList();
+          },
+
+          () {
+            Infomation.init = Infomation.dataList.first;
+            Infomation.data = Infomation.dataList.first;
+            Infomation.answer = Infomation.answerList.first;
+            Infomation.answerCandidate = Infomation.candidateList.first;
+            Infomation.animation_candidate = Infomation.animationCandidateList.first;
+            Infomation.initX = -1;
+            Infomation.initY = -1;
+            Infomation.borderListX = [-100];
+            Infomation.borderListY = [-100];
+          }
+        ];
+        for (var step in steps) {
+          setState(() {
+            step();
+          });
+        }
+      }
     }
   }
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -754,6 +1064,12 @@ class Answer {
       Infomation.initX4, Infomation.initY4,
       Infomation.frameBorderX, Infomation.frameBorderY
     ]);
+
+    Infomation.borderXYList.add([
+      List<int>.from(Infomation.borderListX),
+      List<int>.from(Infomation.borderListY)
+    ]);
+    // print(Infomation.borderXYList);
   }
 
 
@@ -810,6 +1126,13 @@ class Answer {
       Infomation.data[Infomation.lineList.indexOf(1)][Infomation.columnList.indexOf(6)] = Infomation.kotae;
     });
   }
+
+  // static Future<void> flashingNum(StateSetter setState) async {
+  //   await Future.delayed(const Duration(milliseconds: 500));
+  //   setState(() {
+  //     Infomation.answer[Infomation.lineList.indexOf(1)][Infomation.columnList.indexOf(2)] = 999;
+  //   });
+  // }
 
   // x軸に移動する座標を返す　引数：セルに入力する数字(オリジナル時点)
   static int mx(int i) {

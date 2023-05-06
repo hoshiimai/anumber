@@ -30,13 +30,16 @@ class MakeQuestion {
     Infomation.initY2 = -1;
     Infomation.initY3 = -1;
     Infomation.initY4 = -1;
-    Infomation.frameBorderX = -2;
-    Infomation.frameBorderY = -2;
+    Infomation.frameBorderX = -100;
+    Infomation.frameBorderY = -100;
+    Infomation.borderListX = [-100];
+    Infomation.borderListY = [-100];
+    Infomation.borderXYList = [];
 
     final random = Random();
     final rowIndex = Infomation.level == "初級" ? random.nextInt(2) + 2
                    : Infomation.level == "中級" ? random.nextInt(5) + 2
-                   : random.nextInt(5) + 2;
+                   :  3;
 
     final a_CellIndex = 'A$rowIndex';
     final b_CellIndex = 'B$rowIndex';
@@ -137,7 +140,7 @@ class MakeQuestion {
             .split('\n') // 改行で分割
             .map((row) => row.trim().split(' ').map(int.parse).toList()) // 各行を数値に変換
             .toList(); // 2次元リストに変換
-
+    
 
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
@@ -150,7 +153,6 @@ class MakeQuestion {
 
       }
     }
-
 
     Infomation.selectedX = columnMerged.indexOf(xCoordinate);
     Infomation.selectedY = lineMerged.indexOf(yCoordinate);

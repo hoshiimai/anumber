@@ -91,8 +91,11 @@ abstract class Infomation {
   static int initY2 = -1;
   static int initY3 = -1;
   static int initY4 = -1;
-  static int frameBorderX = -2;
-  static int frameBorderY = -2;
+  static int frameBorderX = -100;
+  static int frameBorderY = -100;
+  static List<int> borderListX = [-100];
+  static List<int> borderListY = [-100];
+  static List<List<List<int>>> borderXYList = [];
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //履歴取得用

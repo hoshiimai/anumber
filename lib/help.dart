@@ -1,6 +1,7 @@
 import 'package:anumber/app.dart';
 import 'package:anumber/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 class Help extends StatelessWidget {
@@ -8,6 +9,10 @@ class Help extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color(0xFFFAFAFA),
+      statusBarIconBrightness: Brightness.dark
+    ));
     return Scaffold(
       body: SafeArea(
         // ここでIntroductionScreenのライブラリーを呼び出している
@@ -20,7 +25,7 @@ class Help extends StatelessWidget {
               decoration: const PageDecoration(
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/43429.jpg'),
+                    image: AssetImage('assets/images/Group 2.png'),
                     fit: BoxFit.cover,
                   ),
                 ),

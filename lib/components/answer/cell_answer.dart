@@ -79,32 +79,43 @@ class Answer extends StatelessWidget {
                         // 盤面の枠線描画                
             border: Border(
               left: BorderSide(
-                color: isLeft ? Colors.red 
-                              : isFrameLeft
-                              ? Colors.blue[700]!
-                              : AppColors.isLine,
-                width: (x % 3 == 0 || isLeft || isFrameLeft) ? 2 : 0,
+                color: isFrameLeft ? Colors.greenAccent
+                                   : isLeft ? Colors.red 
+                                   : AppColors.isLine,
+                width: isFrameLeft ? 5
+                                   : (x % 3 == 0 || isLeft)
+                                   ? 2 
+                                   : 0,
               ),
               right: BorderSide(
-                color: isRight ? Colors.red 
-                               : isFrameRight
-                               ? Colors.blue[700]!
-                               : AppColors.isLine,
-                width: (x == 8 || isRight || isFrameRight) ? 2 : 0,
+                color: isFrameRight ? Colors.greenAccent
+                                    : isRight
+                                    ? Colors.red 
+                                    : AppColors.isLine,
+                width: isFrameRight ? 5
+                                    : (x == 8 || isRight)
+                                    ? 2
+                                    : 0,
               ),
               top: BorderSide(
-                color: isTop ? Colors.red
-                             : isFrameTop 
-                             ? Colors.blue[700]!
-                             : AppColors.isLine,
-                width: (y % 3 == 0 || isTop || isFrameTop) ? 2 : 0,
+                color: isFrameTop ? Colors.greenAccent
+                                  : isTop
+                                  ? Colors.red
+                                  : AppColors.isLine,
+                width: isFrameTop ? 5
+                                  : (y % 3 == 0 || isTop)
+                                  ? 2
+                                  : 0,
               ),
               bottom: BorderSide(
-                color: isBottom ? Colors.red 
-                                : isFrameBottom
-                                ? Colors.blue[700]!
-                                : AppColors.isLine,
-                width: (y == 8 || isBottom || isFrameBottom) ? 2 : 0,
+                color: isFrameBottom ? Colors.greenAccent
+                                     : isBottom 
+                                     ? Colors.red 
+                                     : AppColors.isLine,
+                width: isFrameBottom ? 5
+                                     : (y == 8 || isBottom)
+                                     ? 2 
+                                     : 0,
               ),
             ),
             // 盤面の色設定
@@ -130,8 +141,6 @@ class Answer extends StatelessWidget {
                 ? AppColors.isBlock
                 : AppColors.isOther // 標準の色
               ) : Colors.transparent, 
-
-
           ),
 
           // 表示する数字を描画

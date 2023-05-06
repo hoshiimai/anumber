@@ -13,6 +13,7 @@ OUT：・問題の数字
 ****************************************
 */
 import 'package:anumber/components/answer/cell_answer.dart';
+import 'package:anumber/infomation.dart';
 import 'package:flutter/material.dart';
 import 'package:anumber/components/board/cell.dart';
 
@@ -41,6 +42,8 @@ class AnswerGrid extends StatelessWidget {
     required this.initY4,
     required this.frameBorderX,
     required this.frameBorderY,
+    required this.borderListX,
+    required this.borderListY,
   });
   final List<List<int>> data;
   final List<List<int>> init;
@@ -61,6 +64,8 @@ class AnswerGrid extends StatelessWidget {
   final int initY4;
   final int frameBorderX;
   final int frameBorderY;
+  final List<int> borderListX;
+  final List<int> borderListY;
   static int blockX1 = 0;
   static int blockY1 = 0;
   static int blockX2 = 0;
@@ -100,15 +105,13 @@ class AnswerGrid extends StatelessWidget {
                   isLeft: (specifiedX == c.key && specifiedY == r.key) || ((specifiedX + 1) == c.key && specifiedY == r.key),
                   isRight: specifiedX == 8 && c.key == 8 && specifiedY == r.key,
                   isTop: (specifiedX == c.key && specifiedY == r.key) || (specifiedX == c.key && (specifiedY + 1) == r.key),
-                  isBottom: specifiedX == c.key && specifiedY == 8 && specifiedY == r.key, 
+                  isBottom: specifiedX == c.key && specifiedY == 8 && specifiedY == r.key,
                   
                   // 解説用　行・列を枠線でハイライト
-                  isFrameLeft: (frameBorderX == c.key && frameBorderY == r.key),
-                  isFrameRight: c.key == 8 && frameBorderY == r.key,
-                  isFrameTop: frameBorderY == r.key || frameBorderY +1 == r.key,
-                  isFrameBottom: frameBorderY == 8 && frameBorderY == r.key, 
-
-                  
+                  isFrameLeft: checkCLB("L", c.key, r.key),
+                  isFrameRight: checkCLB("R", c.key, r.key),
+                  isFrameTop: checkCLB("T", c.key, r.key),
+                  isFrameBottom: checkCLB("B", c.key, r.key), 
 
                   x: c.key,
                   y: r.key,
@@ -242,5 +245,57 @@ class AnswerGrid extends StatelessWidget {
       blockX4: blockX4,
       blockY4: blockY4
     };
+  }
+
+  checkCLB(String t, int cKey, int rKey) {
+
+    //行
+    // if(t == "L") {
+    //   return (borderListY.contains(rKey) && cKey == 0);
+    // } else if(t == "R") {
+    //   return (borderListY.contains(rKey) && cKey == 8);
+    // } else if(t == "T") {
+    //   return (borderListY.contains(rKey) || borderListY.contains(rKey-1));
+    // } else if(t == "B") {
+    //   return (rKey == 8 && borderListY.contains(8));
+    // }
+
+    //列
+    // if(t == "L") {
+    //   return (borderListX.contains(cKey) || borderListX.contains(cKey-1));
+    // } else if(t == "R") {
+    //   return (cKey == 8 && borderListX.contains(8));
+    // } else if(t == "T") {
+    //   return (borderListX.contains(cKey) && rKey == 0);
+    // } else if(t == "B") {
+    //   return (borderListX.contains(cKey) && rKey == 8);
+    // }
+
+    //ブロック
+    if(Infomation.level == "上級" && Infomation.id == 1) {
+      if(t == "L") {
+        return ((borderListX.contains(cKey)) || borderListX.contains(cKey-3)) && (borderListY.contains(rKey) || borderListY.contains(rKey-1) || borderListY.contains(rKey-2));
+      } else if(t == "R") {
+        return ((cKey == 8 && borderListX.contains(6))) && (borderListY.contains(rKey) || borderListY.contains(rKey-1) || borderListY.contains(rKey-2));
+      } else if(t == "T") {
+        return ((borderListY.contains(rKey)) || borderListY.contains(rKey-3)) && (borderListX.contains(cKey) || borderListX.contains(cKey-1) || borderListX.contains(cKey-2));
+      } else if(t == "B") {
+        return ((rKey == 8 && borderListY.contains(6))) && (borderListX.contains(cKey) || borderListX.contains(cKey-1) || borderListX.contains(cKey-2));
+      }
+    } else if(Infomation.level == "上級" && Infomation.id == 2) {
+      // isLeft: (specifiedX == c.key && specifiedY == r.key) || ((specifiedX + 1) == c.key && specifiedY == r.key),
+      // isRight: specifiedX == 8 && c.key == 8 && specifiedY == r.key,
+      // isTop: (specifiedX == c.key && specifiedY == r.key) || (specifiedX == c.key && (specifiedY + 1) == r.key),
+      // isBottom: specifiedX == c.key && specifiedY == 8 && specifiedY == r.key,
+      if(t == "L") {
+        return ((borderListX.contains(cKey) && borderListY.contains(rKey)) || (borderListX.contains(cKey-1) && borderListY.contains(rKey)));
+      } else if(t == "R") {
+        return (borderListX.contains(8) && cKey == 8 && borderListY.contains(rKey));
+      } else if(t == "T") {
+        return ((borderListX.contains(cKey) && borderListY.contains(rKey)) || (borderListX.contains(cKey) && borderListY.contains(rKey-1)));
+      } else if(t == "B") {
+        return (borderListX.contains(cKey) && borderListY.contains(8) && borderListY.contains(rKey));
+      }
+    }
   }
 }

@@ -69,8 +69,11 @@ class _SudokuState extends State<AnswerScreen> {
       Infomation.initY4 = -1;
       Infomation.selectedX = Infomation.answerX;
       Infomation.selectedY = Infomation.answerY;
-      Infomation.frameBorderX = -2;
-      Infomation.frameBorderY = -2;
+      Infomation.frameBorderX = -100;
+      Infomation.frameBorderY = -100;
+      Infomation.borderListX = [-100];
+      Infomation.borderListY = [-100];
+      Infomation.borderXYList = [];
     });
     Answer.makeAnswerList(setState);
   }
@@ -93,7 +96,12 @@ class _SudokuState extends State<AnswerScreen> {
       Infomation.initY4 = Infomation.xyList[count][9];
       Infomation.frameBorderX = Infomation.xyList[count][10];
       Infomation.frameBorderY = Infomation.xyList[count][11];
+      Infomation.borderListX = Infomation.borderXYList[count][0];
+      Infomation.borderListY = Infomation.borderXYList[count][1];
     });
+    // print(Infomation.borderXYList[count]);
+    // print(Infomation.borderXYList[0][1]);
+
     if(Infomation.level == "初級" && Infomation.id == 2 && count == 1 && flag189) {
       setState(() {
         _isTappable = false;
@@ -369,7 +377,9 @@ class _SudokuState extends State<AnswerScreen> {
                         initX4: Infomation.initX4,
                         initY4: Infomation.initY4,
                         frameBorderX: Infomation.frameBorderX,
-                        frameBorderY: Infomation.frameBorderY
+                        frameBorderY: Infomation.frameBorderY,
+                        borderListX: Infomation.borderListX,
+                        borderListY: Infomation.borderListY,
                       ),
                       // 候補の盤面
                       AnswerCandidateGrid(

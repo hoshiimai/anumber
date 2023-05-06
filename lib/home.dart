@@ -64,7 +64,7 @@ class _SudokuState extends State<Home> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-          image: AssetImage('assets/images/43946.jpg'),
+          image: AssetImage('assets/images/home1.jpg'),
           fit: BoxFit.cover,
         )),
         child: Center(
@@ -189,7 +189,8 @@ class _SudokuState extends State<Home> {
                             onPressed: () {
                               setState(() {
                                 Infomation.level = "上級";
-                              });                              
+                              });
+                              MakeQuestion().getExcelValue();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
