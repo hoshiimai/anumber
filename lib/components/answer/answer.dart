@@ -745,8 +745,8 @@ class Answer {
           },
 
           () {
-            Infomation.borderListX.add(Infomation.columnList.indexOf(3));
-            Infomation.borderListY.add(Infomation.lineList.indexOf(3));
+            Infomation.borderListX.add(Infomation.columnList.indexOf(3) - (Infomation.columnList.indexOf(3) % 3));
+            Infomation.borderListY.add(Infomation.lineList.indexOf(3) - Infomation.lineList.indexOf(3) % 3);
             addAnswerList();
           },
 
