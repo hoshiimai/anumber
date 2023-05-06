@@ -195,8 +195,7 @@ class _SudokuState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const AnswerScreen(), 
-                                  // builder: (context) => const Sudoku(initFlag: true, isResume: false), 
+                                  builder: (context) => const Sudoku(initFlag: true, isResume: false), 
                                 ),
                               );
                               // _database.deleteAllStopwatchData();
