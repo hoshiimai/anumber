@@ -13,6 +13,7 @@ import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/history/history.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
+import 'package:anumber/help.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/style/theme_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -281,7 +282,30 @@ class _SudokuState extends State<Sudoku> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, Infomation.level, Infomation.sound);
+                        setState(() {
+                          // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
+                          // 初期化
+                          Stopwatch.time = DateTime.utc(0, 0, 0);
+                          Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.tmp = List.generate(27, (_) => List.generate(27, (_) => 0));
+                          Infomation.historyList = [];
+                          Infomation.tmp_historyList = [];
+                          Infomation.specifiedX = -1;
+                          Infomation.specifiedY = -1;
+                          Infomation.selectedX = 0;
+                          Infomation.selectedY = 0;
+                          Infomation.answerX = 0;
+                          Infomation.answerY = 0;
+                          Infomation.kotae = 0;
+
+                        });
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyStatefulWidget()));
+                      },
                       child: ListTile(
                         title: Row(
                           children: [

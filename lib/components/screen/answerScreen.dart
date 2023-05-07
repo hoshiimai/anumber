@@ -14,6 +14,7 @@ import 'package:anumber/components/answer/grid_answer_candidate_paint.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/components/screen/playSudoku.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
+import 'package:anumber/help.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
 import 'package:flutter/material.dart';
@@ -312,7 +313,28 @@ class _SudokuState extends State<AnswerScreen> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          // 初期化
+                          Stopwatch.time = DateTime.utc(0, 0, 0);
+                          Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
+                          Infomation.tmp = List.generate(27, (_) => List.generate(27, (_) => 0));
+                          Infomation.historyList = [];
+                          Infomation.tmp_historyList = [];
+                          Infomation.specifiedX = -1;
+                          Infomation.specifiedY = -1;
+                          Infomation.selectedX = 0;
+                          Infomation.selectedY = 0;
+                          Infomation.answerX = 0;
+                          Infomation.answerY = 0;
+                          Infomation.kotae = 0;
+
+                        });
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Help()));
+                      },
                     child: ListTile(
                       title: Row(
                         children: [
