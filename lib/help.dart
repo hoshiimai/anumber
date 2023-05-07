@@ -15,9 +15,8 @@ class Help extends StatelessWidget {
     ));
     return Scaffold(
       body: SafeArea(
-        // ここでIntroductionScreenのライブラリーを呼び出している
+        // ここでIntroductionScreenのライブラリーを呼び出し
         child: IntroductionScreen(
-          // ...省略...
           pages: [
             PageViewModel(
               title: '',
@@ -25,7 +24,7 @@ class Help extends StatelessWidget {
               decoration: const PageDecoration(
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Group 2.png'),
+                    image: AssetImage('assets/images/help1.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -37,7 +36,7 @@ class Help extends StatelessWidget {
               decoration: const PageDecoration(
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/43430.jpg'),
+                    image: AssetImage('assets/images/help2.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -49,7 +48,7 @@ class Help extends StatelessWidget {
               decoration: const PageDecoration(
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/43431.jpg'),
+                    image: AssetImage('assets/images/help3.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -61,7 +60,7 @@ class Help extends StatelessWidget {
               decoration: const PageDecoration(
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/43432.jpg'),
+                    image: AssetImage('assets/images/help4.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -73,7 +72,55 @@ class Help extends StatelessWidget {
               decoration: const PageDecoration(
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/43433.jpg'),
+                    image: AssetImage('assets/images/help5.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/help6.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/help7.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/help8.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/help9.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -89,7 +136,7 @@ class Help extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w600, color: Colors.blue[900]),
           ),
           dotsDecorator: DotsDecorator(
-            size: const Size.square(10.0),
+            size: const Size.square(5.0),
             // ここの大きさを変更することで
             activeSize: const Size(20.0, 10.0),
             activeColor: Colors.blue[900],

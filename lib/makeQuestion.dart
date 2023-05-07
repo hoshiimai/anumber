@@ -40,7 +40,8 @@ class MakeQuestion {
     final random = Random();
     final rowIndex = Infomation.level == "初級" ? random.nextInt(2) + 2
                    : Infomation.level == "中級" ? random.nextInt(5) + 2
-                   : random.nextInt(5) + 2;
+                   : Infomation.level == "上級" ? 6 //random.nextInt(5) + 2
+                   : 2;
 
     final a_CellIndex = 'A$rowIndex';
     final b_CellIndex = 'B$rowIndex';
@@ -61,7 +62,7 @@ class MakeQuestion {
     List<List<int>> shuffle3 = List.generate(9, (_) => List.filled(9, 0)); // 全解答
 
 
-    line1.shuffle();
+    // line1.shuffle();
     line2.shuffle();
     line3.shuffle();
     column1.shuffle();
@@ -78,15 +79,21 @@ class MakeQuestion {
 
     final List<List<int>> lineToMerge = [line1, line2, line3];
     final List<List<int>> columnToMerge = [column1, column2, column3];
+    final List<List<int>> lineToMerge_swordfish = [line1, line2, line3];
+    final List<List<int>> columnToMerge_swordfish = [column1, column2, column3];
     lineToMerge.shuffle();
     columnToMerge.shuffle();
 
     final List<int> lineMerged = lineToMerge.expand((row) => row).toList();
     final List<int> columnMerged = columnToMerge.expand((row) => row).toList();
+    final List<int> lineMerged_swordfish = lineToMerge_swordfish.expand((row) => row).toList();
+    final List<int> columnMerged_swordfish = columnToMerge_swordfish.expand((row) => row).toList();
 
 
     final List<int> lineMergedCandidate = lineMerged.expand((e) => [e*3, e*3+1, e*3+2]).toList();
     final List<int> columnMergedCandidate = columnMerged.expand((e) => [e*3, e*3+1, e*3+2]).toList();
+    final List<int> lineMergedCandidate_swordfish = lineMerged_swordfish.expand((e) => [e*3, e*3+1, e*3+2]).toList();
+    final List<int> columnMergedCandidate_swordfish = columnMerged_swordfish.expand((e) => [e*3, e*3+1, e*3+2]).toList();
 
     final numberMap = {
       0 : 0,
@@ -134,6 +141,7 @@ class MakeQuestion {
             .split('\n') // 改行で分割
             .map((row) => row.trim().split(' ').map(int.parse).toList()) // 各行を数値に変換
             .toList(); // 2次元リストに変換
+
     //全解答
     shuffle3 = kotaeAllCoordinate
             .toString()
@@ -143,32 +151,57 @@ class MakeQuestion {
             .toList(); // 2次元リストに変換
     
 
-    for (var i = 0; i < 9; i++) {
-      for (var j = 0; j < 9; j++) {
-        // Infomation.init[i][j] = shuffle1[lineMerged[i]][columnMerged[j]];
-        // Infomation.animation[i][j] = shuffle2[lineMerged[i]][columnMerged[j]];
-        // Infomation.allAnswers[i][j] = shuffle3[lineMerged[i]][columnMerged[j]];
-        Infomation.init[i][j] = numberMap[shuffle1[lineMerged[i]][columnMerged[j]]]!;
-        Infomation.animation[i][j] = shuffle2[lineMerged[i]][columnMerged[j]];
-        Infomation.allAnswers[i][j] = numberMap[shuffle3[lineMerged[i]][columnMerged[j]]]!;
+    if(Infomation.level == "上級" && id == 4) {
+      for (var i = 0; i < 9; i++) {
+        for (var j = 0; j < 9; j++) {
+          Infomation.init[i][j] = numberMap[shuffle1[lineMerged_swordfish[i]][columnMerged_swordfish[j]]]!;
+          Infomation.animation[i][j] = shuffle2[lineMerged_swordfish[i]][columnMerged_swordfish[j]];
+          Infomation.allAnswers[i][j] = numberMap[shuffle3[lineMerged_swordfish[i]][columnMerged_swordfish[j]]]!;
 
+        }
+      }
+    } else {
+      for (var i = 0; i < 9; i++) {
+        for (var j = 0; j < 9; j++) {
+          Infomation.init[i][j] = numberMap[shuffle1[lineMerged[i]][columnMerged[j]]]!;
+          Infomation.animation[i][j] = shuffle2[lineMerged[i]][columnMerged[j]];
+          Infomation.allAnswers[i][j] = numberMap[shuffle3[lineMerged[i]][columnMerged[j]]]!;
+
+        }
       }
     }
 
-    Infomation.selectedX = columnMerged.indexOf(xCoordinate);
-    Infomation.selectedY = lineMerged.indexOf(yCoordinate);
+
+    if(Infomation.level == "上級" && id == 4) {
+      Infomation.selectedX = columnMerged_swordfish.indexOf(xCoordinate);
+      Infomation.selectedY = lineMerged_swordfish.indexOf(yCoordinate);
+
+      Infomation.answerX = columnMerged_swordfish.indexOf(xCoordinate);
+      Infomation.answerY = lineMerged_swordfish.indexOf(yCoordinate);
+
+      Infomation.columnList = columnMerged_swordfish;
+      Infomation.lineList = lineMerged_swordfish;
+
+      Infomation.candidateColumnList = columnMergedCandidate_swordfish;
+      Infomation.candidateLineList = lineMergedCandidate_swordfish;      
+    } else {
+      Infomation.selectedX = columnMerged.indexOf(xCoordinate);
+      Infomation.selectedY = lineMerged.indexOf(yCoordinate);
+
+      Infomation.answerX = columnMerged.indexOf(xCoordinate);
+      Infomation.answerY = lineMerged.indexOf(yCoordinate);
+
+      Infomation.columnList = columnMerged;
+      Infomation.lineList = lineMerged; 
+
+      Infomation.candidateColumnList = columnMergedCandidate;
+      Infomation.candidateLineList = lineMergedCandidate;
+    }
+
     Infomation.kotae = numberMap[kotaeCoordinate]!;
 
     Infomation.id = id; 
-
-
-    Infomation.answerX = columnMerged.indexOf(xCoordinate);
-    Infomation.answerY = lineMerged.indexOf(yCoordinate);
     
-    Infomation.columnList = columnMerged;
-    Infomation.lineList = lineMerged;
-    Infomation.candidateColumnList = columnMergedCandidate;
-    Infomation.candidateLineList = lineMergedCandidate;
     Infomation.data = Infomation.init;
 
     Infomation.numMap = number;

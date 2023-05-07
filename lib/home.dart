@@ -31,7 +31,6 @@ class _SudokuState extends State<Home> {
   final _database = Database();
   bool isResume = false;
   String time = "00:00";
-  String state = "エラー";
   String level = "";
 
 
@@ -52,16 +51,6 @@ class _SudokuState extends State<Home> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      // appBar: (
-      //   AppBar(
-      //     systemOverlayStyle: const SystemUiOverlayStyle(
-      //       statusBarColor: Colors.transparent,
-      //       statusBarIconBrightness:Brightness.dark
-      //     ),
-      //     backgroundColor: const Color(0xFFFAFAFA),
-      //     elevation: 0,
-      //   )
-      // ),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -72,13 +61,7 @@ class _SudokuState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // Container(
-              //   width: 10,
-              //   height: 10,
-              //   color: const Color(0xfffff8dc),
-              // ),
-              
-              Container(                                                                                                                                
+              SizedBox(                                                                                                                                
                 width: 250,
                 height: 65,
                 child: isResume ?
@@ -89,14 +72,14 @@ class _SudokuState extends State<Home> {
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                     ), onPressed: () async { 
-                        setLocaldata();
-                        await Navigator.push(
+                        await setLocaldata();
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const Sudoku(initFlag: false, isResume: true),
                           ),
                         );
-                      // _database.deleteAllStopwatchData();
                      },
                      child: Column(
                       children: [
@@ -114,7 +97,6 @@ class _SudokuState extends State<Home> {
                             fontSize: 15,
                             color: Colors.blueGrey,
                             fontFamily: "Nunito",
-                            // fontWeight: FontWeight.w700,
                           ),
                         ),
                       ]
@@ -140,7 +122,6 @@ class _SudokuState extends State<Home> {
                     showCupertinoModalPopup<void>(
                       context: context,
                       builder: (BuildContext context) => CupertinoActionSheet(
-                        // title: const Text('難易度選択'),
                         actions: <CupertinoActionSheetAction>[
                           CupertinoActionSheetAction(
                             child: Text(
@@ -151,16 +132,15 @@ class _SudokuState extends State<Home> {
                               setState(() {
                                 Infomation.level = "初級";
                               });
-                              MakeQuestion().getExcelValue();
-                              await Navigator.push(
+                              await MakeQuestion().getExcelValue();
+                              // ignore: use_build_context_synchronously
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   // builder: (context) => AnswerScreen(),
                                   builder: (context) =>  const Sudoku(initFlag: true, isResume: false),
-                                  // builder: (context) => const Sudoku(level: "初級"),
                                 ),
                               );
-                              // _database.deleteAllStopwatchData();
                             },
                           ),
                           CupertinoActionSheetAction(
@@ -172,14 +152,14 @@ class _SudokuState extends State<Home> {
                               setState(() {
                                 Infomation.level = "中級";
                               });                              
-                              MakeQuestion().getExcelValue();
-                              await Navigator.push(
+                              await MakeQuestion().getExcelValue();
+                              // ignore: use_build_context_synchronously
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const Sudoku(initFlag: true, isResume: false,), 
                                 ),
                               );
-                              // _database.deleteAllStopwatchData();
                             },
                           ),
                           CupertinoActionSheetAction(
@@ -187,18 +167,18 @@ class _SudokuState extends State<Home> {
                               '上級',
                               style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP")
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               setState(() {
                                 Infomation.level = "上級";
                               });
-                              MakeQuestion().getExcelValue();
+                              await MakeQuestion().getExcelValue();
+                              // ignore: use_build_context_synchronously
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const Sudoku(initFlag: true, isResume: false), 
                                 ),
                               );
-                              // _database.deleteAllStopwatchData();
                             },
                           ),
                         ],
@@ -208,7 +188,6 @@ class _SudokuState extends State<Home> {
                   child: const Text(
                     '新しいゲーム',
                     style: TextStyle(
-                      // fontFamily: 'Yu Gothic',
                       fontSize: 25,
                       color: Color(0xff707070),
                       fontWeight: FontWeight.w700,
@@ -244,7 +223,6 @@ class _SudokuState extends State<Home> {
         Infomation.correctCount = int.parse(result[1]);
       });
     }
-    print(Infomation.correctCount);
   }
 
   Future<void> setLocaldata() async {
@@ -264,13 +242,5 @@ class _SudokuState extends State<Home> {
       Infomation.kotae = int.parse(result[7]);
       Infomation.level = result[8];
     });
-    //     final Map<String, dynamic> data = {
-    //   'id': id.toString(),
-    //   'time': timer.toString(),
-    //   'value': jsonEncode(value),
-    //   'zero': jsonEncode(zero),
-    //   'candidate': jsonEncode(candidate),
-    //   'level': level.toString()
-    // };
   }
 }
