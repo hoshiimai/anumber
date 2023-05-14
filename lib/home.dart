@@ -52,18 +52,29 @@ class _SudokuState extends State<Home> {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
       body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-          image: AssetImage('assets/images/home1.jpg'),
-          fit: BoxFit.cover,
-        )),
+        decoration: BoxDecoration(
+          image: DateTime.now().hour >= 5 && DateTime.now().hour < 16
+              ? const DecorationImage(
+                  image: AssetImage('assets/images/home1.jpg'),
+                  fit: BoxFit.cover,
+                )
+              : DateTime.now().hour >= 16 && DateTime.now().hour < 19
+              ? const DecorationImage(
+                  image: AssetImage('assets/images/home1.jpg'),
+                  fit: BoxFit.cover,
+                )
+              : const DecorationImage(
+                  image: AssetImage('assets/images/home1.jpg'),
+                  fit: BoxFit.cover,
+                )
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(                                                                                                                                
-                width: 250,
-                height: 65,
+                width: screenSize.width *0.7,
+                height: screenSize.width * 0.15,
                 child: isResume ?
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -82,21 +93,22 @@ class _SudokuState extends State<Home> {
                         );
                      },
                      child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           '続ける',
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: screenSize.width *0.05,
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
                           '$level $time',
-                          style: const TextStyle(
-                            fontSize: 15,
+                          style: TextStyle(
+                            fontSize: screenSize.width *0.04,
                             color: Colors.blueGrey,
-                            fontFamily: "Nunito",
+                            fontFamily: "Noto Sans JP",
                           ),
                         ),
                       ]
@@ -109,8 +121,8 @@ class _SudokuState extends State<Home> {
               ),
 
               SizedBox(
-                width: 250,
-                height: 65,
+                width: screenSize.width *0.7,
+                height: screenSize.width * 0.15,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -185,11 +197,11 @@ class _SudokuState extends State<Home> {
                       ),
                     );
                   },
-                  child: const Text(
+                  child: Text(
                     '新しいゲーム',
                     style: TextStyle(
-                      fontSize: 25,
-                      color: Color(0xff707070),
+                      fontSize: screenSize.width * 0.06,
+                      color: const Color(0xff707070),
                       fontWeight: FontWeight.w700,
                     ),
                   ),

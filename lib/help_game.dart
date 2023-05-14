@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-class Help extends StatelessWidget {
-  const Help({Key? key}) : super(key: key);
+class HelpGame extends StatelessWidget {
+  const HelpGame({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,7 @@ class Help extends StatelessWidget {
               ),
             ),
           ],
-          onDone: () async => Navigator.push(context,MaterialPageRoute(builder: (context) => const MyApp())),
+          onDone: () async => Navigator.of(context).pop(),
           showBackButton: true,
           next: Icon(Icons.arrow_forward_ios, color: Colors.blue[900]),
           back: Icon(Icons.arrow_back_ios, color: Colors.blue[900]),

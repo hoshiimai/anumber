@@ -13,7 +13,8 @@ import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/history/history.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
-import 'package:anumber/help.dart';
+import 'package:anumber/help_game.dart';
+import 'package:anumber/help_home.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/style/theme_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -246,7 +247,7 @@ class _PlaySudokuState extends State<PlaySudoku> {
                       Infomation.kotae = 0;
 
                     });
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Help()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HelpGame()));
                   },
                   child: ListTile(
                     title: Row(

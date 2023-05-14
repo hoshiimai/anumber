@@ -14,7 +14,8 @@ import 'package:anumber/components/answer/grid_answer_candidate_paint.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/components/screen/playSudoku.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
-import 'package:anumber/help.dart';
+import 'package:anumber/help_game.dart';
+import 'package:anumber/help_home.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
 import 'package:flutter/material.dart';
@@ -333,7 +334,7 @@ class _SudokuState extends State<AnswerScreen> {
                           Infomation.kotae = 0;
 
                         });
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Help()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HelpGame()));
                       },
                     child: ListTile(
                       title: Row(
@@ -373,7 +374,7 @@ class _SudokuState extends State<AnswerScreen> {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: (screenSize.width) / 25),
+                        padding: EdgeInsets.only(left: (screenSize.width) / 23),
                         child: Text(
                           '難易度 ：${Infomation.level}',
                           style: TextStyle(
