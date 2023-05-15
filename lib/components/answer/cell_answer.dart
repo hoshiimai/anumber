@@ -79,41 +79,37 @@ class Answer extends StatelessWidget {
                         // 盤面の枠線描画                
             border: Border(
               left: BorderSide(
-                color: isFrameLeft ? Colors.greenAccent
+                color: isFrameLeft ? Colors.transparent
                                    : isLeft ? Colors.red 
                                    : AppColors.isLine,
-                width: isFrameLeft ? 5
-                                   : (x % 3 == 0 || isLeft)
+                width: (x % 3 == 0 || isLeft)
                                    ? 2 
                                    : 0,
               ),
               right: BorderSide(
-                color: isFrameRight ? Colors.greenAccent
+                color: isFrameRight ? Colors.transparent
                                     : isRight
                                     ? Colors.red 
                                     : AppColors.isLine,
-                width: isFrameRight ? 5
-                                    : (x == 8 || isRight)
+                width: (x == 8 || isRight)
                                     ? 2
                                     : 0,
               ),
               top: BorderSide(
-                color: isFrameTop ? Colors.greenAccent
+                color: isFrameTop ? Colors.transparent
                                   : isTop
                                   ? Colors.red
                                   : AppColors.isLine,
-                width: isFrameTop ? 5
-                                  : (y % 3 == 0 || isTop)
+                width: (y % 3 == 0 || isTop)
                                   ? 2
                                   : 0,
               ),
               bottom: BorderSide(
-                color: isFrameBottom ? Colors.greenAccent
+                color: isFrameBottom ? Colors.transparent
                                      : isBottom 
                                      ? Colors.red 
                                      : AppColors.isLine,
-                width: isFrameBottom ? 5
-                                     : (y == 8 || isBottom)
+                width: (y == 8 || isBottom)
                                      ? 2 
                                      : 0,
               ),
@@ -145,18 +141,6 @@ class Answer extends StatelessWidget {
 
           child: Stack(
             children: [
-              // 円(塗りつぶし)
-              // Center(
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       color: isCell ? Colors.red : Colors.transparent,
-              //       shape: BoxShape.circle,
-              //     ),
-              //       width: (screenSize.width) * 7 / 95,
-              //       height: (screenSize.width) * 7 / 95,
-              //   ),
-              // ),
-
               // 表示する数字を描画
               Center(
                 child: Text(

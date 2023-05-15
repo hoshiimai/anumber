@@ -9,6 +9,7 @@ OUT：ゲーム画面
 */
 import 'dart:async';
 
+import 'package:anumber/components/answer/grid_answer_CLB.dart';
 import 'package:anumber/components/answer/grid_answer_candidate.dart';
 import 'package:anumber/components/answer/grid_answer_candidate_paint.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
@@ -413,6 +414,12 @@ class _SudokuState extends State<AnswerScreen> {
                         initY3: Infomation.initY3,
                         initX4: Infomation.initX4,
                         initY4: Infomation.initY4,
+                        borderListX: Infomation.borderListX,
+                        borderListY: Infomation.borderListY,
+                      ),
+                      // 問題の盤面(ブロック行列ラインのハイライト用)
+                      AnswerGridCLB(
+                        data: Infomation.data,
                         borderListX: Infomation.borderListX,
                         borderListY: Infomation.borderListY,
                       ),

@@ -113,7 +113,6 @@ class _SudokuState extends State<Sudoku> {
                         onPressed: () async {
                           _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, Infomation.level, Infomation.sound);
                           setState(() {
-                            // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
                             // 初期化
                             Stopwatch.time = DateTime.utc(0, 0, 0);
                             Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));

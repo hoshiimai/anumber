@@ -1,8 +1,8 @@
-import 'package:anumber/app.dart';
-import 'package:anumber/home.dart';
+import 'package:anumber/style/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:line_icons/line_icons.dart';
 
 class HelpGame extends StatelessWidget {
   const HelpGame({Key? key}) : super(key: key);
