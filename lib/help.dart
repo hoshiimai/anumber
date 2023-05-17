@@ -1,0 +1,106 @@
+import 'package:anumber/app.dart';
+import 'package:anumber/home.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:introduction_screen/introduction_screen.dart';
+
+class Help extends StatelessWidget {
+  const Help({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color(0xFFFAFAFA),
+      statusBarIconBrightness: Brightness.dark
+    ));
+    return Scaffold(
+      body: SafeArea(
+        // ここでIntroductionScreenのライブラリーを呼び出している
+        child: IntroductionScreen(
+          // ...省略...
+          pages: [
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/Group 2.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/43430.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/43431.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/43432.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            PageViewModel(
+              title: '',
+              body: '',
+              decoration: const PageDecoration(
+                boxDecoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/43433.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          ],
+          onDone: () async => Navigator.push(context,MaterialPageRoute(builder: (context) => const MyApp())),
+          showBackButton: true,
+          next: Icon(Icons.arrow_forward_ios, color: Colors.blue[900]),
+          back: Icon(Icons.arrow_back_ios, color: Colors.blue[900]),
+          done: Text(
+            'OK',
+            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.blue[900]),
+          ),
+          dotsDecorator: DotsDecorator(
+            size: const Size.square(10.0),
+            // ここの大きさを変更することで
+            activeSize: const Size(20.0, 10.0),
+            activeColor: Colors.blue[900],
+            color: Colors.black26,
+            spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+            activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25.0),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

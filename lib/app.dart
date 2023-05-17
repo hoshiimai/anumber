@@ -1,4 +1,4 @@
-import 'package:anumber/help_home.dart';
+import 'package:anumber/help.dart';
 import 'package:anumber/home.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +29,8 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static final _screens = [
-    const Home(),
-    const HelpHome()
+    Home(),
+    Help()
   ];
 
   int _selectedIndex = 0;
@@ -49,8 +49,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home, color: Colors.blueGrey,), label: 'ホーム'),
-          BottomNavigationBarItem(icon: Icon(Icons.help_outline, color: Colors.blueGrey,), label: '遊び方'),
+          BottomNavigationBarItem(icon: Icon(Icons.home, color: Colors.blue[900],), label: 'ホーム'),
+          BottomNavigationBarItem(icon: Icon(Icons.help_outline, color: Colors.blue[900],), label: '遊び方'),
         ],
         type: BottomNavigationBarType.fixed,
       )

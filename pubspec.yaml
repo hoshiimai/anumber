@@ -28,7 +28,7 @@ dependencies:
   provider: ^6.0.4
   sqflite: ^2.2.4+1
   path_provider: ^2.0.12
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.1.0
   animated_text_kit: ^4.2.2
   excel: ^2.0.1
   file_picker: ^5.2.5

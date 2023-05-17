@@ -13,8 +13,6 @@ import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/history/history.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
-import 'package:anumber/help_game.dart';
-import 'package:anumber/help_home.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/style/theme_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -113,6 +111,7 @@ class _SudokuState extends State<Sudoku> {
                         onPressed: () async {
                           _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, Infomation.level, Infomation.sound);
                           setState(() {
+                            // Infomation.animation = List<List<int>>.from(Infomation.const_animation.map((e) => List<int>.from(e)));
                             // 初期化
                             Stopwatch.time = DateTime.utc(0, 0, 0);
                             Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
@@ -175,12 +174,12 @@ class _SudokuState extends State<Sudoku> {
                             height: appbarSize,
                             child: Row(
                               children:[
-                                const Icon(Icons.palette_outlined),
+                                Icon(Icons.palette_outlined),
                                 //余白
                                 SizedBox(
                                   width: (screenSize.width) / 20,
                                 ),
-                                const Text('色'),
+                                Text('色'),
                               ]
                             ),
                           ),
@@ -198,13 +197,14 @@ class _SudokuState extends State<Sudoku> {
                                     AppColors.colorState = 1;
                                   });
                                 },
+                                child: Container(),
                                 style: ElevatedButton.styleFrom(
-                                  shape: const CircleBorder(), backgroundColor: Colors.white,
-                                  padding: const EdgeInsets.all(16.0),
+                                  shape: CircleBorder(),
+                                  padding: EdgeInsets.all(16.0),
+                                  primary: Colors.white,
                                   elevation: 0,
                                   side: AppColors.colorState == 1 ? const BorderSide(color: Colors.blue, width: 2) : const BorderSide(color: Color.fromARGB(255, 163, 163, 163), width: 2),
                                 ),
-                                child: Container(),
                               ),
                             ),
                           ),
@@ -217,13 +217,14 @@ class _SudokuState extends State<Sudoku> {
                                     AppColors.colorState = 2;
                                   });
                                 },
+                                child: Container(),
                                 style: ElevatedButton.styleFrom(
-                                  shape: const CircleBorder(), backgroundColor: Colors.black,
-                                  padding: const EdgeInsets.all(16.0),
+                                  shape: CircleBorder(),
+                                  padding: EdgeInsets.all(16.0),
+                                  primary: Colors.black,
                                   elevation: 0,
                                   side: AppColors.colorState == 2 ? const BorderSide(color: Colors.blue, width: 2) : null,
                                 ),
-                                child: Container(),
                               ),
                             ),
                           ),
@@ -237,13 +238,14 @@ class _SudokuState extends State<Sudoku> {
                                     AppColors.colorState = 3;
                                   });
                                 },
+                                child: Container(),
                                 style: ElevatedButton.styleFrom(
-                                  shape: const CircleBorder(), backgroundColor: Colors.orange[100],
-                                  padding: const EdgeInsets.all(16.0),
+                                  shape: CircleBorder(),
+                                  padding: EdgeInsets.all(16.0),
+                                  primary: Colors.orange[100],
                                   elevation: 0,
                                   side: AppColors.colorState == 3 ? const BorderSide(color: Colors.blue, width: 2) : null,
                                 ),
-                                child: Container(),
                               ),
                             ),
                           ),
@@ -255,6 +257,7 @@ class _SudokuState extends State<Sudoku> {
                         setState(() {
                           Infomation.sound = !Infomation.sound;
                         });
+                        print(Infomation.sound);
                       },
                       child: ListTile(
                         title: Row(
@@ -264,6 +267,7 @@ class _SudokuState extends State<Sudoku> {
                               child: Row(
                                 children:[
                                   Infomation.sound ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
+                                  // Infomation.sound ? Icons.volume_up : Icons.volume_off,
                                   //余白
                                   SizedBox(
                                     width: (screenSize.width) / 20,
@@ -277,29 +281,7 @@ class _SudokuState extends State<Sudoku> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, Infomation.level, Infomation.sound);
-                        setState(() {
-                          // 初期化
-                          Stopwatch.time = DateTime.utc(0, 0, 0);
-                          Infomation.animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-                          Infomation.const_animation = List.generate(9, (_) => List.generate(9, (_) => 0));
-                          Infomation.zero = List.generate(9, (_) => List.generate(9, (_) => 0));
-                          Infomation.init = List.generate(9, (_) => List.generate(9, (_) => 0));
-                          Infomation.tmp = List.generate(27, (_) => List.generate(27, (_) => 0));
-                          Infomation.historyList = [];
-                          Infomation.tmp_historyList = [];
-                          Infomation.specifiedX = -1;
-                          Infomation.specifiedY = -1;
-                          Infomation.selectedX = 0;
-                          Infomation.selectedY = 0;
-                          Infomation.answerX = 0;
-                          Infomation.answerY = 0;
-                          Infomation.kotae = 0;
-
-                        });
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HelpGame()));
-                      },
+                      onTap: () {},
                       child: ListTile(
                         title: Row(
                           children: [
@@ -328,6 +310,7 @@ class _SudokuState extends State<Sudoku> {
               body: Center(
                 child: Column(
                   // 盤面、アイコン、数字ボタンを縦方向に並べ、スペースを均等に配置
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     //余白
                     SizedBox(
@@ -336,12 +319,14 @@ class _SudokuState extends State<Sudoku> {
 
                     Row(
                       children: [
-                        const Spacer(),
-                        Text(
-                          '難易度：${Infomation.level}',
-                          style: TextStyle(
-                            color: AppColors.isText,
-                            fontSize: (screenSize.width) / 25,
+                        Padding(
+                          padding: EdgeInsets.only(left: (screenSize.width) / 25),
+                          child: Text(
+                            '難易度：${Infomation.level}',
+                            style: TextStyle(
+                              color: AppColors.isText,
+                              fontSize: (screenSize.width) / 25,
+                            ),
                           ),
                         ),
 
@@ -350,6 +335,7 @@ class _SudokuState extends State<Sudoku> {
                         ),
                       
                         InkWell(
+                          // padding: EdgeInsets.only(left: (screenSize.width) / 1.8),
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: _timeRunning
@@ -372,7 +358,6 @@ class _SudokuState extends State<Sudoku> {
                         Stopwatch(
                             isRunning: _timeRunning,
                         ),
-                        const Spacer(),
                       ],
                     ),
 

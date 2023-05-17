@@ -455,7 +455,6 @@ class Answer {
             Infomation.initY = Infomation.lineList.indexOf(1);
             Infomation.initY1 = Infomation.lineList.indexOf(2);
             Infomation.data[Infomation.lineList.indexOf(0)][Infomation.columnList.indexOf(0)] = Infomation.kotae;
-            Infomation.answer[Infomation.lineList.indexOf(0)][Infomation.columnList.indexOf(0)] = 999;
             addAnswerList();
           },
 
@@ -584,7 +583,6 @@ class Answer {
             Infomation.initX = Infomation.columnList.indexOf(6);
             Infomation.initY = Infomation.lineList.indexOf(0);
             Infomation.data[Infomation.lineList.indexOf(2)][Infomation.columnList.indexOf(8)] = Infomation.kotae;
-            Infomation.answer[Infomation.lineList.indexOf(2)][Infomation.columnList.indexOf(8)] = 999;
             addAnswerList();
           },
 
@@ -682,7 +680,7 @@ class Answer {
             Infomation.initY = Infomation.lineList.indexOf(6);
 
             Infomation.answerCandidate[Infomation.candidateLineList.indexOf(19) + my(4)]
-                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = Infomation.numMap[4-1];
+                          [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 4;
             Infomation.animation_candidate[Infomation.candidateLineList.indexOf(19) + my(4)]
                           [Infomation.candidateColumnList.indexOf(18) + mx(4)] = 999;                           
 

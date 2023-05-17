@@ -1,6 +1,6 @@
 {
-    "name": "anumber",
-    "short_name": "anumber",
+    "name": "anumber_production",
+    "short_name": "anumber_production",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
