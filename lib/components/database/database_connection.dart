@@ -1,4 +1,5 @@
 import 'package:anumber/components/board/cell_candidate.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -7,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class Database {
+  static const _methodChannel = MethodChannel('work.hondakenya.flutterWidgetkit/sample');
 
   Future<void> insertDB(
     id, 
@@ -38,7 +40,52 @@ class Database {
       print('insert 成功');
     }
 
-  Future<void> inseretCorrectCount(id, int count) async {
+
+    Future<void> insertCorrectCount(int count) async {
+      final database = await openDatabase(
+        'correctCount.db',
+        version: 1,
+        onCreate: (db, version) async {
+          await db.execute('CREATE TABLE IF NOT EXISTS counts (id INTEGER PRIMARY KEY, count INTEGER)');
+        },
+      );
+
+      final countData = {
+        'count': count,
+      };
+
+      await database.insert('counts', countData,
+          conflictAlgorithm: ConflictAlgorithm.replace);
+      print('カウント　insert 成功');
+
+      await database.close();
+    }
+
+
+    Future<Map<String, dynamic>?> getCountData() async {
+      final database = await openDatabase(
+        'your_database.db',
+        version: 1,
+        onCreate: (db, version) async {
+          await db.execute('CREATE TABLE IF NOT EXISTS counts (id INTEGER PRIMARY KEY, count INTEGER)');
+        },
+      );
+
+      final List<Map<String, dynamic>> results = await database.query('counts');
+
+      if (results.isNotEmpty) {
+        final countData = results.first;
+        return {
+          'id': countData['id'],
+          'count': countData['count'],
+        };
+      }
+
+      return null;
+    }
+
+    
+  Future<void> insertCorrectCount1(id, int count) async {
     final prefs = await SharedPreferences.getInstance();
     final Map<String, dynamic> countData = {
       'id': id.toString(),
@@ -46,6 +93,13 @@ class Database {
     };
       await prefs.setString('countData', jsonEncode(countData)); // 新規でデータを挿入する
       print('カウント　insert 成功');
+
+      try {
+        final result = await _methodChannel.invokeMethod('setCounterForWidgetKit');
+        print(result);
+      } on PlatformException catch (e) {
+        print('${e.message}');
+      }
   }
 
 

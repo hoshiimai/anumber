@@ -10,15 +10,19 @@ OUT：・ヒントの表示
 ****************************************
 */
 import 'package:anumber/components/database/database_connection.dart';
+import 'package:anumber/components/database/database_helper.dart';
 import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
 import 'package:anumber/style/theme_controller.dart';
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
+// import 'package:just_audio/just_audio.dart';
+// import 'package:audio_session/audio_session.dart';
+import 'package:just_audio/just_audio.dart';
 
 
 final _database = Database();
@@ -31,7 +35,8 @@ class ConfirmButton extends StatelessWidget {
   });
   final int answer;
   final Function(bool isCorrect) onAnswered;
-  final _audio = AudioCache();
+  // final _audio = AudioCache();
+  final _player = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +69,34 @@ class ConfirmButton extends StatelessWidget {
                   Infomation.correctCount = Infomation.level == "初級" ? int.parse(result[1])+1
                                           : Infomation.level == "中級" ? int.parse(result[1])+3
                                                                        : int.parse(result[1])+5;
-                  _database.inseretCorrectCount(Infomation.id, Infomation.correctCount);
-                } else {
-                  _database.inseretCorrectCount(Infomation.id, 1);
-                }
+                  _database.insertCorrectCount(Infomation.correctCount);
+                // final dbHelper = DatabaseHelper.instance;
+                // Map<String, dynamic> row = {
+                //   DatabaseHelper.count : 4,
+                // };
+
+                // final db = await dbHelper.database;
+                // final existingCount = await db.query(DatabaseHelper.table,
+                //     where: "${DatabaseHelper.count} = ?", whereArgs: [row[DatabaseHelper.count]]);
+
+                // if (existingCount.isNotEmpty) {
+                //   final existingId = existingCount.first['id'];
+                //   await db.update(
+                //     DatabaseHelper.table,
+                //     row,
+                //     where: "id = ?",
+                //     whereArgs: [existingId],
+                //   );
+                //   print('Updated row with id: $existingId');
+                // } else {
+                //   await dbHelper.insert(row);
+                //   print('Inserted new row');
+                // }
+                  // print('inserted row : ${row[DatabaseHelper.count]}');
+                  
+                
                 print(Infomation.correctCount);
+                }
                 AwesomeDialog(
                   context: context,
                   headerAnimationLoop: false,
@@ -81,7 +109,7 @@ class ConfirmButton extends StatelessWidget {
                         fontSize: 20,
                         fontFamily: "Noto Sans JP"
                       ),
-                      //style: TextStyle(fontStyle: FontStyle.italic),
+                      //style: TextStyle(fontStyle: FontStyle.italic),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                     ),
                   ),
                   title: 'This is Ignored',
@@ -122,7 +150,8 @@ class ConfirmButton extends StatelessWidget {
                   btnCancelColor: Colors.blue[900],
                 ).show();
                 await Future.delayed(const Duration(milliseconds: 600));
-                Infomation.sound ? _audio.play('correct.mp3') : null;
+                // Infomation.sound ? _audio.play('correct.mp3') : null;
+                Infomation.sound ? await _player.setFilePath('correct.mp3') : null;
               } else {
                 AwesomeDialog(
                   context: context,
@@ -155,7 +184,7 @@ class ConfirmButton extends StatelessWidget {
                   buttonsTextStyle: const TextStyle(fontFamily: "Noto Sans JP")
                 ).show();
                 await Future.delayed(const Duration(milliseconds: 700));
-                Infomation.sound ? _audio.play('incorrect.mp3') : null;
+                // Infomation.sound ? _audio.play('incorrect.mp3') : null;
               }
             },
             child: Text(

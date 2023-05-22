@@ -447,7 +447,7 @@ class _SudokuState extends State<AnswerScreen> {
                     children: [
                       InkWell(
                         onTap: () async {
-                          Infomation.sound ? _audio.play('button3.mp3') : null;
+                          // Infomation.sound ? _audio.play('button3.mp3') : null;
                           if (count > 0) {
                             count -= 1;
                             await getAnswer();
@@ -472,9 +472,12 @@ class _SudokuState extends State<AnswerScreen> {
 
                       InkWell(
                         onTap: () async{
-                          Infomation.sound ? _audio.play('button3.mp3') : null;
+                          // Infomation.sound ? _audio.play('button3.mp3') : null;
                           count < Infomation.dataList.length -1 ? count += 1 : null;
                           await getAnswer();
+
+
+                          
                         },
                         child: Icon(
                           LineIcons.arrowRight,

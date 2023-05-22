@@ -444,20 +444,20 @@ class _SudokuState extends State<Sudoku> {
                     // アイコンボタン
                     ControlButton(
                       onBack: () {
-                        Infomation.sound ? _audio.play('button3.mp3') : null;
+                        // Infomation.sound ? _audio.play('button3.mp3') : null;
                         getHistory(setState);
                       },
                       
                       // 数字消すボタン
                       onTap: (int number) {
-                        Infomation.sound ? _audio.play('button3.mp3') : null;
+                        // Infomation.sound ? _audio.play('button3.mp3') : null;
                         deleteNumber(setState, number);
                       },
 
                       // メモボタン
                       onEdit: isEdit,
                       onPress: () {
-                        Infomation.sound ? _audio.play('button3.mp3') : null;
+                        // Infomation.sound ? _audio.play('button3.mp3') : null;
                         setState(() {
                           isEdit = !isEdit;
                         });
@@ -473,7 +473,7 @@ class _SudokuState extends State<Sudoku> {
                     Numbers(
                       isPress: isEdit,
                       onTap: (int number) {
-                        Infomation.sound ? _audio.play('button.mp3') : null;
+                        // Infomation.sound ? _audio.play('button.mp3') : null;
                         controlNumber(setState, isEdit, number);
                       },
                     ),
