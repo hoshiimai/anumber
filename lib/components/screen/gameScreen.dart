@@ -29,6 +29,8 @@ import '../button/controlNumber.dart';
 import '../initprocess/grid_init.dart';
 import '../initprocess/initProcess.dart';
 import '../database/database_connection.dart';
+// import 'package:just_audio/just_audio.dart';
+
 
 
 class Sudoku extends StatefulWidget {
@@ -52,7 +54,7 @@ class _SudokuState extends State<Sudoku> {
   final _database = Database();
   // 候補入力判断用フラグ
   bool isEdit = false;
-  final _audio = AudioCache();
+  final _audio = AudioPlayer();
 
   @override
   void initState() {
@@ -444,20 +446,20 @@ class _SudokuState extends State<Sudoku> {
                     // アイコンボタン
                     ControlButton(
                       onBack: () {
-                        // Infomation.sound ? _audio.play('button3.mp3') : null;
+                        Infomation.sound ? _audio.play(AssetSource('button.mp3')) : null;
                         getHistory(setState);
                       },
                       
                       // 数字消すボタン
                       onTap: (int number) {
-                        // Infomation.sound ? _audio.play('button3.mp3') : null;
+                        Infomation.sound ? _audio.play(AssetSource('button.mp3')) : null;
                         deleteNumber(setState, number);
                       },
 
                       // メモボタン
                       onEdit: isEdit,
                       onPress: () {
-                        // Infomation.sound ? _audio.play('button3.mp3') : null;
+                        Infomation.sound ? _audio.play(AssetSource('button.mp3')) : null;
                         setState(() {
                           isEdit = !isEdit;
                         });
@@ -473,7 +475,7 @@ class _SudokuState extends State<Sudoku> {
                     Numbers(
                       isPress: isEdit,
                       onTap: (int number) {
-                        // Infomation.sound ? _audio.play('button.mp3') : null;
+                        Infomation.sound ? _audio.play(AssetSource('button.mp3')) : null;
                         controlNumber(setState, isEdit, number);
                       },
                     ),

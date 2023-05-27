@@ -39,7 +39,7 @@ class _SudokuState extends State<Home> {
     super.initState();
     // _database.deleteDB();
     selectTime();
-    // countCorrect();
+    countCorrect();
   }
 
 
@@ -55,16 +55,16 @@ class _SudokuState extends State<Home> {
         decoration: BoxDecoration(
           image: DateTime.now().hour >= 5 && DateTime.now().hour < 16
               ? const DecorationImage(
-                  image: AssetImage('assets/images/home11.jpg'),
+                  image: AssetImage('assets/images/home1.jpg'),
                   fit: BoxFit.cover,
                 )
               : DateTime.now().hour >= 16 && DateTime.now().hour < 19
               ? const DecorationImage(
-                  image: AssetImage('assets/images/home11.jpg'),
+                  image: AssetImage('assets/images/home1.jpg'),
                   fit: BoxFit.cover,
                 )
               : const DecorationImage(
-                  image: AssetImage('assets/images/home11.jpg'),
+                  image: AssetImage('assets/images/home1.jpg'),
                   fit: BoxFit.cover,
                 )
         ),
@@ -216,18 +216,6 @@ class _SudokuState extends State<Home> {
       ),
     );
   }
-
-
-    void printCountData() async {
-      final countData = await _database.getCountData();
-      if (countData != null) {
-        final count = countData['count'];
-        print('Count: $count');
-      } else {
-        print('No count data found.');
-      }
-    }
-
 
   Future<void> selectTime() async {
     final result = await _database.selectDB();

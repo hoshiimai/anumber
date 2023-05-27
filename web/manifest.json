@@ -1,6 +1,6 @@
 {
-    "name": "anumber",
-    "short_name": "anumber",
+    "name": "muti_role_based_app",
+    "short_name": "muti_role_based_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
