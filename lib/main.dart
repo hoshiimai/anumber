@@ -1,35 +1,68 @@
-/*
-****************************************
-機能：アプリ起動時の画面
-OUT：home.dart
-----------------------------------------
-履歴：
-****************************************
-*/
-
-import 'package:anumber/app.dart';
-// import 'package:anumber/makeQuestion.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+void main() => runApp(const MyApp());
 
-void main() {
-  // MakeQuestion().getExcelValue();
-  //AdMobの初期化処理
-  WidgetsFlutterBinding.ensureInitialized();
-  // MobileAds.instance.initialize();
-  WidgetsFlutterBinding.ensureInitialized();
-  //向き指定
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,//縦固定
-  ]);
-  runApp(
-    MaterialApp(
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
       theme: ThemeData(
-        fontFamily: "Noto Sans JP", // ここを追加
+        primarySwatch: Colors.blue,
       ),
-    debugShowCheckedModeBanner: false, // debugモードのバナーを非表示にする
-    home: MyApp(),
-  ));
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+  final _audio = AudioCache();
+
+  void _incrementCounter() {
+    setState(() {
+      _audio.play('button.mp3');
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
 }
