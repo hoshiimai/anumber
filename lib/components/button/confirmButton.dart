@@ -15,14 +15,13 @@ import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
 import 'package:anumber/style/theme_controller.dart';
-// import 'package:audioplayers/audioplayers.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
 // import 'package:just_audio/just_audio.dart';
 // import 'package:audio_session/audio_session.dart';
-import 'package:just_audio/just_audio.dart';
 
 
 final _database = Database();
@@ -35,8 +34,7 @@ class ConfirmButton extends StatelessWidget {
   });
   final int answer;
   final Function(bool isCorrect) onAnswered;
-  // final _audio = AudioCache();
-  final _player = AudioPlayer();
+  final _audio = AudioCache();
 
   @override
   Widget build(BuildContext context) {
@@ -150,8 +148,7 @@ class ConfirmButton extends StatelessWidget {
                   btnCancelColor: Colors.blue[900],
                 ).show();
                 await Future.delayed(const Duration(milliseconds: 600));
-                // Infomation.sound ? _audio.play('correct.mp3') : null;
-                Infomation.sound ? await _player.setFilePath('correct.mp3') : null;
+                Infomation.sound ? _audio.play('correct.mp3') : null;
               } else {
                 AwesomeDialog(
                   context: context,
@@ -184,7 +181,7 @@ class ConfirmButton extends StatelessWidget {
                   buttonsTextStyle: const TextStyle(fontFamily: "Noto Sans JP")
                 ).show();
                 await Future.delayed(const Duration(milliseconds: 700));
-                // Infomation.sound ? _audio.play('incorrect.mp3') : null;
+                Infomation.sound ? _audio.play('incorrect.mp3') : null;
               }
             },
             child: Text(

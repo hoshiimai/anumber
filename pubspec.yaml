@@ -29,14 +29,13 @@ dependencies:
   sqflite: ^2.2.4+1
   path_provider: ^2.0.12
   shared_preferences: any
-  audioplayers: any
+  audioplayers: ^0.19.1
   animated_text_kit: ^4.2.2
   excel: ^2.0.1
   file_picker: ^5.2.5
   line_icons: ^2.0.1
   introduction_screen: any
   flutter_native_splash: any
-  just_audio: any
   # flutter_launcher_icons: any
 
   # The following adds the Cupertino Icons font to your application.
@@ -46,6 +45,7 @@ dependencies:
   collection: any
   loading_animation_widget: ^1.2.0+4
   skeleton_text: ^3.0.0
+  # google_mobile_ads: any
 
 dev_dependencies:
   flutter_test:
@@ -56,7 +56,7 @@ dev_dependencies:
 
 flutter_native_splash:
   color: 'FAFAFA'
-  image: 'assets/images/splash.jpg'
+  image: 'assets/images/splash.png'
   fullscreen: true
 
 # flutter_icons:
