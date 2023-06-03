@@ -8,7 +8,6 @@ OUT：ゲーム画面
 ****************************************
 */
 import 'dart:async';
-import 'dart:io';
 import 'package:anumber/app.dart';
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
@@ -23,7 +22,6 @@ import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
 import 'package:flutter/services.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:skeleton_text/skeleton_text.dart';
@@ -31,6 +29,8 @@ import '../button/controlNumber.dart';
 import '../initprocess/grid_init.dart';
 import '../initprocess/initProcess.dart';
 import '../database/database_connection.dart';
+// import 'package:just_audio/just_audio.dart';
+
 
 
 class Sudoku extends StatefulWidget {
@@ -54,32 +54,7 @@ class _SudokuState extends State<Sudoku> {
   final _database = Database();
   // 候補入力判断用フラグ
   bool isEdit = false;
-  final _audio = AudioCache();
-  // final BannerAd myBanner = BannerAd(
-  //   //TEST ANDROID : ca-app-pub-3940256099942544/6300978111
-  //   //TEST IOS : ca-app-pub-3940256099942544/2934735716
-  //   adUnitId: Platform.isAndroid
-  //       ? 'ca-app-pub-3940256099942544/6300978111'
-  //       : 'ca-app-pub-3940256099942544/2934735716',
-  //   size: AdSize.banner,
-  //   request: AdRequest(),
-  //   listener: BannerAdListener(
-  //     onAdLoaded: (Ad ad) => print('バナー広告がロードされました'),
-  //     // Called when an ad request failed.
-  //     onAdFailedToLoad: (Ad ad, LoadAdError error) {
-  //       // Dispose the ad here to free resources.
-  //       ad.dispose();
-  //       print('バナー広告の読み込みが次の理由で失敗しました: $error');
-  //     },
-  //     // Called when an ad opens an overlay that covers the screen.
-  //     onAdOpened: (Ad ad) => print('バナー広告が開かれました'),
-  //     // Called when an ad removes an overlay that covers the screen.
-  //     onAdClosed: (Ad ad) => print('バナー広告が閉じられました'),
-  //     // Called when an impression occurs on the ad.
-  //     onAdImpression: (Ad ad) => print('Ad impression.'),
-  //   ),
-  // );
-
+  final _audio = AudioPlayer();
 
   @override
   void initState() {
@@ -115,14 +90,6 @@ class _SudokuState extends State<Sudoku> {
     var screenSize = MediaQuery.of(context).size;
     var appbarSize = AppBar().preferredSize.height;
     var fontsize = (screenSize.width) * 0.97 / 9 < (screenSize.height) * 0.45 / 9 ? ((screenSize.width) * 0.97 / 9) *0.71 : ((screenSize.height) * 0.45 / 9) *0.71;
-    // myBanner.load();
-    // final AdWidget adWidget = AdWidget(ad: myBanner);
-    // final Container adContainer = Container(
-    //   alignment: Alignment.center,
-    //   child: adWidget,
-    //   width: myBanner.size.width.toDouble(),
-    //   height: myBanner.size.height.toDouble(),
-    // );
     return AbsorbPointer(
       absorbing: !_isTappable,
       child: WillPopScope(
@@ -479,21 +446,22 @@ class _SudokuState extends State<Sudoku> {
                     // アイコンボタン
                     ControlButton(
                       onBack: () {
-                        Infomation.sound ? _audio.play('button3.mp3') : null;
+                        Infomation.sound ? _audio.play('button.mp3') : null;
                         getHistory(setState);
                       },
                       
                       // 数字消すボタン
                       onTap: (int number) {
-                        Infomation.sound ? _audio.play('button3.mp3') : null;
+                        Infomation.sound ? _audio.play('button.mp3') : null;
                         deleteNumber(setState, number);
                       },
 
                       // メモボタン
                       onEdit: isEdit,
                       onPress: () {
-                        Infomation.sound ? _audio.play('button3.mp3') : null;
+                        // Infomation.sound ? _audio.play(AssetSource('button.mp3')) : null;
                         setState(() {
+                          _audio.play('button.mp3');
                           isEdit = !isEdit;
                         });
                       },
@@ -531,12 +499,11 @@ class _SudokuState extends State<Sudoku> {
                     ),
 
   //----------------------------------------------------------------------------------------------------------------------------------------
-                    // const SizedBox(
-                    //   height: 50.0, //バナー広告のサイズ 320×50 なので
-                    //   width: double.infinity,
-                    //   // child: AdWidget(ad: myBanner),
-                    // ),
-                    // adContainer
+                    const SizedBox(
+                      height: 50.0, //バナー広告のサイズ 320×50 なので
+                      width: double.infinity,
+                      // child: AdWidget(ad: myBanner),
+                    ),
                   ],
                 ),
               ),

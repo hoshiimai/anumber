@@ -26,6 +26,8 @@ import '../../style/theme_controller.dart';
 import '../answer/answer.dart';
 import '../answer/grid_answer.dart';
 import 'package:audioplayers/audioplayers.dart';
+// import 'package:just_audio/just_audio.dart';
+
 
 
 class AnswerScreen extends StatefulWidget {
@@ -43,7 +45,7 @@ class _SudokuState extends State<AnswerScreen> {
   bool _isTappable = true;
   int count = 0;
   bool autoFlag = true;
-  final _audio = AudioCache();
+  final _audio = AudioPlayer();
 
 
   @override
@@ -475,9 +477,6 @@ class _SudokuState extends State<AnswerScreen> {
                           Infomation.sound ? _audio.play('button3.mp3') : null;
                           count < Infomation.dataList.length -1 ? count += 1 : null;
                           await getAnswer();
-
-
-                          
                         },
                         child: Icon(
                           LineIcons.arrowRight,

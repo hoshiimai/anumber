@@ -126,7 +126,7 @@ class HelpHome extends StatelessWidget {
               ),
             ),
           ],
-          onDone: () async => Navigator.push(context,MaterialPageRoute(builder: (context) => MyApp())),
+          onDone: () async => Navigator.push(context,MaterialPageRoute(builder: (context) => const MyApp())),
           showBackButton: true,
           next: Icon(Icons.arrow_forward_ios, color: Colors.blue[900]),
           back: Icon(Icons.arrow_back_ios, color: Colors.blue[900]),

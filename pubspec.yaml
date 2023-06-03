@@ -29,14 +29,16 @@ dependencies:
   sqflite: ^2.2.4+1
   path_provider: ^2.0.12
   shared_preferences: any
-  audioplayers: ^0.19.1
   animated_text_kit: ^4.2.2
   excel: ^2.0.1
   file_picker: ^5.2.5
+  audioplayers: ^0.19.1
   line_icons: ^2.0.1
   introduction_screen: any
-  flutter_native_splash: any
-  # flutter_launcher_icons: any
+  flutter_native_splash: ^2.1.3+1
+  flutter_launcher_icons: ^0.13.1
+#  just_audio: any
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -45,24 +47,30 @@ dependencies:
   collection: any
   loading_animation_widget: ^1.2.0+4
   skeleton_text: ^3.0.0
-  # google_mobile_ads: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
   path_animator: ^0.0.1
-
+  flutter_native_splash: ^2.1.3+1
 
 flutter_native_splash:
-  color: 'FAFAFA'
+  color: '#ffffff'
   image: 'assets/images/splash.png'
+#  color_dark: '#262626'
+#  image_dark: 'assets/images/splash.png'
   fullscreen: true
+  android_12:
+    icon_background_color: '#add8e6'
+    image: 'assets/images/splash.png'
+    icon_background_color_dark: '#262626'
+    image_dark: 'assets/images/splash.png'
 
-# flutter_icons:
-#   android: true 
-#   ios: true
-#   image_path: "assets/images/mian.jpg"
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon.png"
 
 
 # For information on the generic Dart part of this file, see the
