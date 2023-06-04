@@ -53,19 +53,19 @@ class _SudokuState extends State<Home> {
       backgroundColor: const Color(0xFFFAFAFA),
       body: Container(
         decoration: BoxDecoration(
-          image: DateTime.now().hour >= 5 && DateTime.now().hour < 16
+          image: DateTime.now().hour >= 5 && DateTime.now().hour < 17
               ? const DecorationImage(
-                  image: AssetImage('assets/images/home11.jpg'),
-                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/home3.jpg'),
+                  fit: BoxFit.fill,
                 )
-              : DateTime.now().hour >= 16 && DateTime.now().hour < 19
+              : DateTime.now().hour >= 17 && DateTime.now().hour < 19
               ? const DecorationImage(
-                  image: AssetImage('assets/images/home11.jpg'),
-                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/home2.jpg'),
+                  fit: BoxFit.fill,
                 )
               : const DecorationImage(
-                  image: AssetImage('assets/images/home11.jpg'),
-                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/home3.jpg'),
+                  fit: BoxFit.fill,
                 )
         ),
         child: Center(
@@ -117,7 +117,7 @@ class _SudokuState extends State<Home> {
               ),
               //余白
               SizedBox(
-                height: (screenSize.width) / 20,
+                height: (screenSize.width) / 18,
               ),
 
               SizedBox(
@@ -208,7 +208,7 @@ class _SudokuState extends State<Home> {
                 ),
               ),
               SizedBox(
-                height: (screenSize.height) / 20,
+                height: (screenSize.height) / 6,
               ),
             ],
           ),

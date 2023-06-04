@@ -32,7 +32,6 @@ import '../initprocess/grid_init.dart';
 import '../initprocess/initProcess.dart';
 import '../database/database_connection.dart';
 
-
 class Sudoku extends StatefulWidget {
   final bool initFlag;
   final bool isResume;
