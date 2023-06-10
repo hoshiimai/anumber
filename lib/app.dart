@@ -45,10 +45,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        // backgroundColor: Colors.grey[200],
-        // // elevation: 0,        
+        // backgroundColor: Colors.transparent,
+        backgroundColor: Colors.grey[200],
+        elevation: 0,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: <BottomNavigationBarItem>[

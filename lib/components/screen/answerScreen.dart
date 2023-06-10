@@ -52,7 +52,6 @@ class _SudokuState extends State<AnswerScreen> {
     setState(() {
       Infomation.data = Infomation.init;
       Infomation.answer = List.generate(9, (_) => List.filled(9, 0));
-      Infomation.tmp = List.generate(27, (_) => List.filled(27, 0));
       Infomation.answerCandidate = List.generate(27, (_) => List.filled(27, 0));
       Infomation.animation_candidate = List.generate(27, (_) => List.filled(27, 0));
       Infomation.paintCandidate1 = List.generate(27, (_) => List.filled(27, 0));
@@ -83,7 +82,7 @@ class _SudokuState extends State<AnswerScreen> {
     Answer.makeAnswerList(setState);
   }
 
-  Future<void> getAnswer() async{
+  getAnswer() async{
     setState(() {
       Infomation.data = Infomation.dataList[count];
       Infomation.answer = Infomation.answerList[count];

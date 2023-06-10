@@ -43,9 +43,6 @@ class _SudokuState extends State<Home> {
   }
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -53,9 +50,9 @@ class _SudokuState extends State<Home> {
       backgroundColor: const Color(0xFFFAFAFA),
       body: Container(
         decoration: BoxDecoration(
-          image: DateTime.now().hour >= 5 && DateTime.now().hour < 17
+          image: DateTime.now().hour >= 6 && DateTime.now().hour < 17
               ? const DecorationImage(
-                  image: AssetImage('assets/images/home3.jpg'),
+                  image: AssetImage('assets/images/home1.jpg'),
                   fit: BoxFit.fill,
                 )
               : DateTime.now().hour >= 17 && DateTime.now().hour < 19
@@ -98,7 +95,7 @@ class _SudokuState extends State<Home> {
                         Text(
                           '続ける',
                           style: TextStyle(
-                            fontSize: screenSize.width *0.05,
+                            fontSize: screenSize.width *0.06,
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
@@ -117,7 +114,7 @@ class _SudokuState extends State<Home> {
               ),
               //余白
               SizedBox(
-                height: (screenSize.width) / 18,
+                height: (screenSize.width) / 20,
               ),
 
               SizedBox(
@@ -208,7 +205,7 @@ class _SudokuState extends State<Home> {
                 ),
               ),
               SizedBox(
-                height: (screenSize.height) / 6,
+                height: (screenSize.height) / 7,
               ),
             ],
           ),

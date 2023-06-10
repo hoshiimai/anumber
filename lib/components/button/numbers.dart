@@ -60,7 +60,7 @@ class ControlButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(LineIcons.pen, size: iconsize, color: AppColors.isText),
-              Text(onEdit ? 'メモ OFF' : 'メモ ON', style: TextStyle(fontSize: iconsize *0.4, color: AppColors.isText)),
+              Text(onEdit ? 'メモ ON' : 'メモ OFF', style: TextStyle(fontSize: iconsize *0.4, color: AppColors.isText)),
             ],
           ),
         ),
