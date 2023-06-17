@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,8 +45,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        // backgroundColor: Colors.transparent,
+        backgroundColor: Colors.grey[200],
+        elevation: 0,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: <BottomNavigationBarItem>[

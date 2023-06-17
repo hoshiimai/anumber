@@ -226,6 +226,7 @@ class Answer {
 
           () {            
             Infomation.data[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(1)] = Infomation.kotae;
+            Infomation.answer[Infomation.lineList.indexOf(6)][Infomation.columnList.indexOf(1)] = 999;
             Infomation.borderListY.add(Infomation.lineList.indexOf(6));
             addAnswerList();
           },

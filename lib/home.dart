@@ -39,33 +39,30 @@ class _SudokuState extends State<Home> {
     super.initState();
     // _database.deleteDB();
     selectTime();
-    countCorrect();
+    // countCorrect();
   }
-
-
-
 
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFA),
+      backgroundColor: Colors.transparent,
       body: Container(
         decoration: BoxDecoration(
-          image: DateTime.now().hour >= 5 && DateTime.now().hour < 16
+          image: DateTime.now().hour >= 6 && DateTime.now().hour < 17
               ? const DecorationImage(
                   image: AssetImage('assets/images/home1.jpg'),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 )
-              : DateTime.now().hour >= 16 && DateTime.now().hour < 19
+              : DateTime.now().hour >= 17 && DateTime.now().hour < 19
               ? const DecorationImage(
-                  image: AssetImage('assets/images/home1.jpg'),
-                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/home2.jpg'),
+                  fit: BoxFit.fill,
                 )
               : const DecorationImage(
-                  image: AssetImage('assets/images/home1.jpg'),
-                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/home3.jpg'),
+                  fit: BoxFit.fill,
                 )
         ),
         child: Center(
@@ -98,7 +95,7 @@ class _SudokuState extends State<Home> {
                         Text(
                           '続ける',
                           style: TextStyle(
-                            fontSize: screenSize.width *0.05,
+                            fontSize: screenSize.width *0.06,
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
@@ -208,7 +205,7 @@ class _SudokuState extends State<Home> {
                 ),
               ),
               SizedBox(
-                height: (screenSize.height) / 20,
+                height: (screenSize.height) / 7,
               ),
             ],
           ),
@@ -216,6 +213,18 @@ class _SudokuState extends State<Home> {
       ),
     );
   }
+
+
+    void printCountData() async {
+      final countData = await _database.getCountData();
+      if (countData != null) {
+        final count = countData['count'];
+        print('Count: $count');
+      } else {
+        print('No count data found.');
+      }
+    }
+
 
   Future<void> selectTime() async {
     final result = await _database.selectDB();

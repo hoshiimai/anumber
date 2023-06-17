@@ -26,8 +26,6 @@ import '../../style/theme_controller.dart';
 import '../answer/answer.dart';
 import '../answer/grid_answer.dart';
 import 'package:audioplayers/audioplayers.dart';
-// import 'package:just_audio/just_audio.dart';
-
 
 
 class AnswerScreen extends StatefulWidget {
@@ -45,7 +43,7 @@ class _SudokuState extends State<AnswerScreen> {
   bool _isTappable = true;
   int count = 0;
   bool autoFlag = true;
-  final _audio = AudioPlayer();
+  // final _audio = AudioCache();
 
 
   @override
@@ -54,7 +52,6 @@ class _SudokuState extends State<AnswerScreen> {
     setState(() {
       Infomation.data = Infomation.init;
       Infomation.answer = List.generate(9, (_) => List.filled(9, 0));
-      Infomation.tmp = List.generate(27, (_) => List.filled(27, 0));
       Infomation.answerCandidate = List.generate(27, (_) => List.filled(27, 0));
       Infomation.animation_candidate = List.generate(27, (_) => List.filled(27, 0));
       Infomation.paintCandidate1 = List.generate(27, (_) => List.filled(27, 0));
@@ -85,7 +82,7 @@ class _SudokuState extends State<AnswerScreen> {
     Answer.makeAnswerList(setState);
   }
 
-  Future<void> getAnswer() async{
+  getAnswer() async{
     setState(() {
       Infomation.data = Infomation.dataList[count];
       Infomation.answer = Infomation.answerList[count];
@@ -288,34 +285,34 @@ class _SudokuState extends State<AnswerScreen> {
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        Infomation.sound = !Infomation.sound;
-                      });
-                      print(Infomation.sound);
-                    },
-                    child: ListTile(
-                      title: Row(
-                        children: [
-                          SizedBox(
-                            height: appbarSize,
-                            child: Row(
-                              children:[ 
-                                Infomation.sound ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
-                                // Infomation.sound ? Icons.volume_up : Icons.volume_off,
-                                //余白
-                                SizedBox(
-                                  width: (screenSize.width) / 20,
-                                ),
-                                Infomation.sound ? const Text('音 ON') : const Text('音 OFF'),
-                              ]
-                            ),
-                          ),
-                        ]
-                      ),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     setState(() {
+                  //       Infomation.sound = !Infomation.sound;
+                  //     });
+                  //     print(Infomation.sound);
+                  //   },
+                  //   child: ListTile(
+                  //     title: Row(
+                  //       children: [
+                  //         SizedBox(
+                  //           height: appbarSize,
+                  //           child: Row(
+                  //             children:[ 
+                  //               Infomation.sound ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
+                  //               // Infomation.sound ? Icons.volume_up : Icons.volume_off,
+                  //               //余白
+                  //               SizedBox(
+                  //                 width: (screenSize.width) / 20,
+                  //               ),
+                  //               Infomation.sound ? const Text('音 ON') : const Text('音 OFF'),
+                  //             ]
+                  //           ),
+                  //         ),
+                  //       ]
+                  //     ),
+                  //   ),
+                  // ),
                   InkWell(
                       onTap: () {
                         setState(() {
@@ -449,7 +446,7 @@ class _SudokuState extends State<AnswerScreen> {
                     children: [
                       InkWell(
                         onTap: () async {
-                          Infomation.sound ? _audio.play('button3.mp3') : null;
+                          // Infomation.sound ? _audio.play('button3.mp3') : null;
                           if (count > 0) {
                             count -= 1;
                             await getAnswer();
@@ -474,9 +471,12 @@ class _SudokuState extends State<AnswerScreen> {
 
                       InkWell(
                         onTap: () async{
-                          Infomation.sound ? _audio.play('button3.mp3') : null;
+                          // Infomation.sound ? _audio.play('button3.mp3') : null;
                           count < Infomation.dataList.length -1 ? count += 1 : null;
                           await getAnswer();
+
+
+                          
                         },
                         child: Icon(
                           LineIcons.arrowRight,

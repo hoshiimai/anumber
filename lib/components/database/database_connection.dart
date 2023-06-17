@@ -8,10 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class Database {
+  static const _methodChannel = MethodChannel('work.hondakenya.flutterWidgetkit/sample');
 
   Future<void> insertDB(
-    id,
-    timer,
+    id, 
+    timer, 
     List<List<int>> value,
     List<List<int>> zero,
     List<List<int>> candidate,
@@ -21,7 +22,7 @@ class Database {
     String level,
     bool sound
     ) async {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final prefs = await SharedPreferences.getInstance();
       final Map<String, dynamic> data = {
         'id': id.toString(),
         'time': timer.toString(),
@@ -38,27 +39,77 @@ class Database {
       await prefs.setString('data', jsonEncode(data)); // 新規でデータを挿入する
       print('insert 成功');
     }
-  static const _methodChannel = MethodChannel('nkgw817-icloud.com.anumberProduction');
-  var _count = 0;
 
-  Future<void> inseretCorrectCount(id, int count) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    Future<void> insertCorrectCount(int count) async {
+      final database = await openDatabase(
+        'correctCount.db',
+        version: 1,
+        onCreate: (db, version) async {
+          await db.execute('CREATE TABLE IF NOT EXISTS counts (id INTEGER PRIMARY KEY, count INTEGER)');
+        },
+      );
+
+      final countData = {
+        'count': count,
+      };
+
+      await database.insert('counts', countData,
+          conflictAlgorithm: ConflictAlgorithm.replace);
+      print('カウント　insert 成功');
+
+      await database.close();
+    }
+
+
+    Future<Map<String, dynamic>?> getCountData() async {
+      final database = await openDatabase(
+        'your_database.db',
+        version: 1,
+        onCreate: (db, version) async {
+          await db.execute('CREATE TABLE IF NOT EXISTS counts (id INTEGER PRIMARY KEY, count INTEGER)');
+        },
+      );
+
+      final List<Map<String, dynamic>> results = await database.query('counts');
+
+      if (results.isNotEmpty) {
+        final countData = results.first;
+        return {
+          'id': countData['id'],
+          'count': countData['count'],
+        };
+      }
+
+      return null;
+    }
+
+    
+  Future<void> insertCorrectCount1(id, int count) async {
+    final prefs = await SharedPreferences.getInstance();
     final Map<String, dynamic> countData = {
       'id': id.toString(),
       'count': count.toString(),
     };
-    await prefs.setInt("count", 1);
       await prefs.setString('countData', jsonEncode(countData)); // 新規でデータを挿入する
       print('カウント　insert 成功');
 
+      try {
+        final result = await _methodChannel.invokeMethod('setCounterForWidgetKit');
+        print(result);
+      } on PlatformException catch (e) {
+        print('${e.message}');
+      }
   }
+
+
 
   Future<List<String>> selectDB() async {
     final prefs = await SharedPreferences.getInstance();
     final dataJson = prefs.getString('data');
     if (dataJson != null) {
       final data = jsonDecode(dataJson);
-      return [
+      return [      
         data['id'].toString(),
         data['time'].toString(),
         data['value'],
@@ -75,11 +126,11 @@ class Database {
   }
 
   Future<List<String>> selectCorrectCount() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     final dataJson = prefs.getString('countData');
     if (dataJson != null) {
       final countData = jsonDecode(dataJson);
-      return [
+      return [      
         countData['id'].toString(),
         countData['count'].toString(),
       ];
