@@ -22,10 +22,14 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   // MobileAds.instance.initialize();
   WidgetsFlutterBinding.ensureInitialized();
-  //向き指定
+  // 向き指定
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,//縦固定
   ]);
+  // ステータスバーを透過
+  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //   statusBarColor: Colors.transparent,
+  // ));
   runApp(
     MaterialApp(
       theme: ThemeData(

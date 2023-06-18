@@ -47,7 +47,7 @@ class _SudokuState extends State<Home> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFA),
+      backgroundColor: Colors.transparent,
       body: Container(
         decoration: BoxDecoration(
           image: DateTime.now().hour >= 6 && DateTime.now().hour < 17
