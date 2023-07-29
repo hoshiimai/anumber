@@ -26,6 +26,9 @@ import 'package:flutter/services.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:path_provider/path_provider.dart';
+// import 'package:screenshot/screenshot.dart';
+// import 'package:share_plus/share_plus.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import '../button/controlNumber.dart';
 import '../initprocess/grid_init.dart';
@@ -54,6 +57,7 @@ class _SudokuState extends State<Sudoku> {
   // 候補入力判断用フラグ
   bool isEdit = false;
   final _audio = AudioCache();
+  // final _screenShotController = ScreenshotController();
   // final BannerAd myBanner = BannerAd(
   //   //TEST ANDROID : ca-app-pub-3940256099942544/6300978111
   //   //TEST IOS : ca-app-pub-3940256099942544/2934735716
@@ -354,6 +358,40 @@ class _SudokuState extends State<Sudoku> {
                         ),
                       ),
                     ),
+                    // InkWell(
+                    //   onTap: () async {
+                    //     final screenshot = await _screenShotController.capture(delay: const Duration(milliseconds: 10));
+
+                    //     if (screenshot != null) {
+                    //       // スクリーンショットをドキュメントディレクトリに保存
+                    //       final documentDirectoryPath = await getApplicationDocumentsDirectory();
+                    //       final imagePath = await File('${documentDirectoryPath.path}/screenshot.png').create();
+                    //       await imagePath.writeAsBytes(screenshot);
+                    //       // スクリーンショットとテキストをシェア
+                    //       // ignore: deprecated_member_use
+                    //       await Share.shareFiles([imagePath.path]);
+                    //     }
+                    //   },
+                    //   child: ListTile(
+                    //     title: Row(
+                    //       children: [
+                    //         SizedBox(
+                    //           height: appbarSize,
+                    //           child: Row(
+                    //             children:[
+                    //               const Icon(Icons.share),
+                    //               //余白
+                    //               SizedBox(
+                    //                 width: (screenSize.width) / 20,
+                    //               ),
+                    //               const Text('共有')
+                    //             ]
+                    //           ),
+                    //         ),
+                    //       ]
+                    //     ),
+                    //   ),
+                    // ),                    
                   ],
                 ),
               ),
@@ -417,57 +455,61 @@ class _SudokuState extends State<Sudoku> {
 
   //----------------------------------------------------------------------------------------------------------------------------------------
                     // 問題の盤面の上に候補の盤面を重ねて表示
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        _isTappable
-                          //メインの盤面
-                          ? SudokuGrid(
-                                init: Infomation.init,  //問題用リスト(入力マスかどうか判定用)
-                                data: Infomation.zero,  //盤面全体の数字リスト
-                                all : Infomation.allAnswers, //全解答のリスト 
-                                selectedX: Infomation.selectedX,   //選択マスx座標
-                                selectedY: Infomation.selectedY,   //選択マスy座標
-                                specifiedX: Infomation.specifiedX, //問題マスx座標
-                                specifiedY: Infomation.specifiedY, //問題マスy座標
-                                onTap: (int x, int y) {
-                                  setState(() {
-                                    Infomation.selectedX = x;
-                                    Infomation.selectedY = y;
-                                  });
-                                },
-                            )
-                          //最初のアニメーション
-                          : skeletonFlag
-                            ? SkeletonAnimation(
-                                child: InitGrid(
+                    // Screenshot(
+                      // controller: _screenShotController,
+                      // child: Stack(
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          _isTappable
+                            //メインの盤面
+                            ? SudokuGrid(
+                                  init: Infomation.init,  //問題用リスト(入力マスかどうか判定用)
                                   data: Infomation.zero,  //盤面全体の数字リスト
-                                  anim: Infomation.animation,   //最初のアニメーション用リスト
+                                  all : Infomation.allAnswers, //全解答のリスト 
+                                  selectedX: Infomation.selectedX,   //選択マスx座標
+                                  selectedY: Infomation.selectedY,   //選択マスy座標
                                   specifiedX: Infomation.specifiedX, //問題マスx座標
                                   specifiedY: Infomation.specifiedY, //問題マスy座標
-                                  initX: initX,   //アニメーション移動マスx座標
-                                  initY: initY,   //アニメーション移動マスy座標
-                                  animCell: cell, //問題の領域塗りつぶし判定
-                                  showSkeleton: skeletonFlag,
-                                ),
+                                  onTap: (int x, int y) {
+                                    setState(() {
+                                      Infomation.selectedX = x;
+                                      Infomation.selectedY = y;
+                                    });
+                                  },
                               )
-                            : InitGrid(
-                                  data: Infomation.zero,  //盤面全体の数字リスト
-                                  anim: Infomation.animation,   //最初のアニメーション用リスト
-                                  specifiedX: Infomation.specifiedX, //問題マスx座標
-                                  specifiedY: Infomation.specifiedY, //問題マスy座標
-                                  initX: initX,   //アニメーション移動マスx座標
-                                  initY: initY,   //アニメーション移動マスy座標
-                                  animCell: cell, //問題の領域塗りつぶし判定
-                                  showSkeleton: skeletonFlag,
-                              ),
+                            //最初のアニメーション
+                            : skeletonFlag
+                              ? SkeletonAnimation(
+                                  child: InitGrid(
+                                    data: Infomation.zero,  //盤面全体の数字リスト
+                                    anim: Infomation.animation,   //最初のアニメーション用リスト
+                                    specifiedX: Infomation.specifiedX, //問題マスx座標
+                                    specifiedY: Infomation.specifiedY, //問題マスy座標
+                                    initX: initX,   //アニメーション移動マスx座標
+                                    initY: initY,   //アニメーション移動マスy座標
+                                    animCell: cell, //問題の領域塗りつぶし判定
+                                    showSkeleton: skeletonFlag,
+                                  ),
+                                )
+                              : InitGrid(
+                                    data: Infomation.zero,  //盤面全体の数字リスト
+                                    anim: Infomation.animation,   //最初のアニメーション用リスト
+                                    specifiedX: Infomation.specifiedX, //問題マスx座標
+                                    specifiedY: Infomation.specifiedY, //問題マスy座標
+                                    initX: initX,   //アニメーション移動マスx座標
+                                    initY: initY,   //アニメーション移動マスy座標
+                                    animCell: cell, //問題の領域塗りつぶし判定
+                                    showSkeleton: skeletonFlag,
+                                ),
 
-                          // 候補の盤面
-                          CandidateGrid(
-                            candidate: Infomation.tmp,
-                          ),
-                      ],
-                    ),
+                            // 候補の盤面
+                            CandidateGrid(
+                              candidate: Infomation.tmp,
+                            ),
+                        ],
+                      ),
+                    // ),
 
   //----------------------------------------------------------------------------------------------------------------------------------------
                     // 余白
