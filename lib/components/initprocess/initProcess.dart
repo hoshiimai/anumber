@@ -19,7 +19,7 @@ class InitProcess {
 
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
-        await Future.delayed(const Duration(milliseconds: 10));
+        await Future.delayed(const Duration(milliseconds: 30));
         if (Infomation.animation[i][j] == 1) {
           setState(() {
             initX = j;
@@ -42,14 +42,14 @@ class InitProcess {
         }
 
         if (Infomation.init[i][j] != 0) {
-          await Future.delayed(const Duration(milliseconds: 10));
+          await Future.delayed(const Duration(milliseconds: 30));
           setState(() {
             Infomation.zero[i][j] = Infomation.init[i][j];
           });
         }
       }
     }
-    await Future.delayed(const Duration(milliseconds: 10));
+    await Future.delayed(const Duration(milliseconds: 30));
     setState(() {
       initX = -1;
       initY = -1;
