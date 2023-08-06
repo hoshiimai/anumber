@@ -66,19 +66,19 @@ class Init extends StatelessWidget {
             border: Border(
               left: BorderSide(
                 color: isLeft ? Colors.red : AppColors.isLine,
-                width: (x % 3 == 0 || isLeft) ? 2 : 0,
+                width: (x % 3 == 0 || isLeft) ? 2 : 0.1,
               ),
               right: BorderSide(
                 color: isRight ? Colors.red : AppColors.isLine,
-                width: (x == 8 || isRight) ? 2 : 0,
+                width: (x == 8 || isRight) ? 2 : 0.1,
               ),
               top: BorderSide(
                 color: isTop ? Colors.red : AppColors.isLine,
-                width: (y % 3 == 0 || isTop) ? 2 : 0,
+                width: (y % 3 == 0 || isTop) ? 2 : 0.1,
               ),
               bottom: BorderSide(
                 color: isBottom ? Colors.red : AppColors.isLine,
-                width: (y == 8 || isBottom) ? 2 : 0,
+                width: (y == 8 || isBottom) ? 2 : 0.1,
               ),
             ),
             // border: Border(

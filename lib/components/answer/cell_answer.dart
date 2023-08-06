@@ -84,7 +84,7 @@ class Answer extends StatelessWidget {
                                    : AppColors.isLine,
                 width: (x % 3 == 0 || isLeft)
                                    ? 2 
-                                   : 0,
+                                   : 0.1,
               ),
               right: BorderSide(
                 color: isFrameRight ? Colors.transparent
@@ -93,7 +93,7 @@ class Answer extends StatelessWidget {
                                     : AppColors.isLine,
                 width: (x == 8 || isRight)
                                     ? 2
-                                    : 0,
+                                    : 0.1,
               ),
               top: BorderSide(
                 color: isFrameTop ? Colors.transparent
@@ -102,7 +102,7 @@ class Answer extends StatelessWidget {
                                   : AppColors.isLine,
                 width: (y % 3 == 0 || isTop)
                                   ? 2
-                                  : 0,
+                                  : 0.1,
               ),
               bottom: BorderSide(
                 color: isFrameBottom ? Colors.transparent
@@ -111,7 +111,7 @@ class Answer extends StatelessWidget {
                                      : AppColors.isLine,
                 width: (y == 8 || isBottom)
                                      ? 2 
-                                     : 0,
+                                     : 0.1,
               ),
             ),
             // 盤面の色設定

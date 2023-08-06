@@ -10,11 +10,13 @@ OUT：playGame.dartに遷移
 
 import 'dart:convert';
 
+import 'package:anumber/admobHelper.dart';
 import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/infomation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'components/database/database_connection.dart';
 import 'makeQuestion.dart';
 
@@ -207,7 +209,7 @@ class _SudokuState extends State<Home> {
               SizedBox(
                 height: (screenSize.height) / 7,
               ),
-            ],
+            ],    
           ),
         ),
       ),

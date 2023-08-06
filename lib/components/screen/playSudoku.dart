@@ -74,7 +74,7 @@ class _PlaySudokuState extends State<PlaySudoku> {
                       color: AppColors.isText,
                     ),
                   leading: IconButton(
-                    icon: const Icon(LineIcons.angleLeft),
+                    icon: Icon(LineIcons.angleLeft, size: fontsize *0.7),
                     onPressed: () {
                       Navigator.of(context).pop();
                     }
@@ -100,7 +100,7 @@ class _PlaySudokuState extends State<PlaySudoku> {
             child: ListView(
               children: <Widget>[
                 SizedBox(
-                  height: appbarSize * 0.83,
+                  height: appbarSize * 0.7,
                   child: DrawerHeader(
                     decoration: const BoxDecoration(),
                     padding: const EdgeInsets.all(0),

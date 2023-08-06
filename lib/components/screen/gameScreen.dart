@@ -9,13 +9,13 @@ OUT：ゲーム画面
 */
 import 'dart:async';
 import 'dart:io';
+import 'package:anumber/admobHelper.dart';
 import 'package:anumber/app.dart';
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
 import 'package:anumber/components/history/history.dart';
 import 'package:anumber/components/stopwatch/stop_watch.dart';
 import 'package:anumber/help_game.dart';
-import 'package:anumber/help_home.dart';
 import 'package:anumber/infomation.dart';
 import 'package:anumber/style/theme_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -23,12 +23,12 @@ import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
 import 'package:flutter/services.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:path_provider/path_provider.dart';
-// import 'package:screenshot/screenshot.dart';
-// import 'package:share_plus/share_plus.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import '../button/controlNumber.dart';
 import '../initprocess/grid_init.dart';
@@ -57,31 +57,9 @@ class _SudokuState extends State<Sudoku> {
   // 候補入力判断用フラグ
   bool isEdit = false;
   final _audio = AudioCache();
-  // final _screenShotController = ScreenshotController();
-  // final BannerAd myBanner = BannerAd(
-  //   //TEST ANDROID : ca-app-pub-3940256099942544/6300978111
-  //   //TEST IOS : ca-app-pub-3940256099942544/2934735716
-  //   adUnitId: Platform.isAndroid
-  //       ? 'ca-app-pub-3940256099942544/6300978111'
-  //       : 'ca-app-pub-3940256099942544/2934735716',
-  //   size: AdSize.banner,
-  //   request: AdRequest(),
-  //   listener: BannerAdListener(
-  //     onAdLoaded: (Ad ad) => print('バナー広告がロードされました'),
-  //     // Called when an ad request failed.
-  //     onAdFailedToLoad: (Ad ad, LoadAdError error) {
-  //       // Dispose the ad here to free resources.
-  //       ad.dispose();
-  //       print('バナー広告の読み込みが次の理由で失敗しました: $error');
-  //     },
-  //     // Called when an ad opens an overlay that covers the screen.
-  //     onAdOpened: (Ad ad) => print('バナー広告が開かれました'),
-  //     // Called when an ad removes an overlay that covers the screen.
-  //     onAdClosed: (Ad ad) => print('バナー広告が閉じられました'),
-  //     // Called when an impression occurs on the ad.
-  //     onAdImpression: (Ad ad) => print('Ad impression.'),
-  //   ),
-  // );
+  final _screenShotController = ScreenshotController();
+  late BannerAd _bannerAd;
+
 
 
   @override
@@ -110,6 +88,7 @@ class _SudokuState extends State<Sudoku> {
         _isTappable = true;
       });
     }
+    _bannerAd = AdmobHelper.getBannerAd()..load();
   }
 
 
@@ -147,7 +126,7 @@ class _SudokuState extends State<Sudoku> {
                           color: AppColors.isText,
                         ),
                       leading: IconButton(
-                        icon: const Icon(LineIcons.angleLeft),
+                        icon: Icon(LineIcons.angleLeft, size: fontsize *0.7),
                         onPressed: () async {
                           _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, Infomation.level, Infomation.sound);
                           setState(() {
@@ -193,7 +172,7 @@ class _SudokuState extends State<Sudoku> {
                 child: ListView(
                   children: <Widget>[
                     SizedBox(
-                      height: appbarSize * 0.83,
+                      height: appbarSize * 0.7,
                       child: DrawerHeader(
                         decoration: const BoxDecoration(),
                         padding: const EdgeInsets.all(0),
@@ -269,7 +248,6 @@ class _SudokuState extends State<Sudoku> {
                             height: appbarSize * 0.8,
                             child: ClipOval(
                               child: ElevatedButton(
-
                                 onPressed: () {
                                   setState(() {
                                     AppColors.colorState = 3;
@@ -358,40 +336,40 @@ class _SudokuState extends State<Sudoku> {
                         ),
                       ),
                     ),
-                    // InkWell(
-                    //   onTap: () async {
-                    //     final screenshot = await _screenShotController.capture(delay: const Duration(milliseconds: 10));
+                    InkWell(
+                      onTap: () async {
+                        final screenshot = await _screenShotController.capture(delay: const Duration(milliseconds: 10));
 
-                    //     if (screenshot != null) {
-                    //       // スクリーンショットをドキュメントディレクトリに保存
-                    //       final documentDirectoryPath = await getApplicationDocumentsDirectory();
-                    //       final imagePath = await File('${documentDirectoryPath.path}/screenshot.png').create();
-                    //       await imagePath.writeAsBytes(screenshot);
-                    //       // スクリーンショットとテキストをシェア
-                    //       // ignore: deprecated_member_use
-                    //       await Share.shareFiles([imagePath.path]);
-                    //     }
-                    //   },
-                    //   child: ListTile(
-                    //     title: Row(
-                    //       children: [
-                    //         SizedBox(
-                    //           height: appbarSize,
-                    //           child: Row(
-                    //             children:[
-                    //               const Icon(Icons.share),
-                    //               //余白
-                    //               SizedBox(
-                    //                 width: (screenSize.width) / 20,
-                    //               ),
-                    //               const Text('共有')
-                    //             ]
-                    //           ),
-                    //         ),
-                    //       ]
-                    //     ),
-                    //   ),
-                    // ),                    
+                        if (screenshot != null) {
+                          // スクリーンショットをドキュメントディレクトリに保存
+                          final documentDirectoryPath = await getApplicationDocumentsDirectory();
+                          final imagePath = await File('${documentDirectoryPath.path}/screenshot.png').create();
+                          await imagePath.writeAsBytes(screenshot);
+                          // スクリーンショットとテキストをシェア
+                          // ignore: deprecated_member_use
+                          await Share.shareFiles([imagePath.path]);
+                        }
+                      },
+                      child: ListTile(
+                        title: Row(
+                          children: [
+                            SizedBox(
+                              height: appbarSize,
+                              child: Row(
+                                children:[
+                                  const Icon(Icons.share),
+                                  //余白
+                                  SizedBox(
+                                    width: (screenSize.width) / 20,
+                                  ),
+                                  const Text('共有')
+                                ]
+                              ),
+                            ),
+                          ]
+                        ),
+                      ),
+                    ),                    
                   ],
                 ),
               ),
@@ -455,10 +433,10 @@ class _SudokuState extends State<Sudoku> {
 
   //----------------------------------------------------------------------------------------------------------------------------------------
                     // 問題の盤面の上に候補の盤面を重ねて表示
-                    // Screenshot(
-                      // controller: _screenShotController,
-                      // child: Stack(
-                      Stack(
+                    Screenshot(
+                      controller: _screenShotController,
+                      child: Stack(
+                      // Stack(
                         alignment: Alignment.center,
                         children: [
                           _isTappable
@@ -509,7 +487,7 @@ class _SudokuState extends State<Sudoku> {
                             ),
                         ],
                       ),
-                    // ),
+                    ),
 
   //----------------------------------------------------------------------------------------------------------------------------------------
                     // 余白
@@ -570,14 +548,20 @@ class _SudokuState extends State<Sudoku> {
                         }
                       },
                     ),
-
+                    // 余白
+                    SizedBox(
+                      height: (screenSize.width) / 15,
+                    ),
   //----------------------------------------------------------------------------------------------------------------------------------------
-                    // const SizedBox(
-                    //   height: 50.0, //バナー広告のサイズ 320×50 なので
-                    //   width: double.infinity,
-                    //   // child: AdWidget(ad: myBanner),
+                    // AdWidget(
+                    //   ad: AdmobHelper.getLargeBannerAd()..load(),
                     // ),
-                    // adContainer
+                    // AdWidget(ad: _bannerAd),
+                    Expanded(
+                      child: AdWidget(
+                        ad: _bannerAd,
+                      ),
+                    ),
                   ],
                 ),
               ),
