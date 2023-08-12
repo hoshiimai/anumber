@@ -25,7 +25,7 @@ class HelpGame extends StatelessWidget {
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/help1.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -37,7 +37,7 @@ class HelpGame extends StatelessWidget {
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/help2.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -49,7 +49,7 @@ class HelpGame extends StatelessWidget {
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/help3.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -61,7 +61,7 @@ class HelpGame extends StatelessWidget {
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/help4.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -73,7 +73,7 @@ class HelpGame extends StatelessWidget {
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/help5.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -85,7 +85,7 @@ class HelpGame extends StatelessWidget {
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/help6.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -97,7 +97,7 @@ class HelpGame extends StatelessWidget {
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/help7.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -109,7 +109,7 @@ class HelpGame extends StatelessWidget {
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/help8.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -121,7 +121,7 @@ class HelpGame extends StatelessWidget {
                 boxDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/help9.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
