@@ -34,7 +34,7 @@ class ConfirmButton extends StatelessWidget {
   });
   final int answer;
   final Function(bool isCorrect) onAnswered;
-  // final _audio = AudioCache();
+  final _audio = AudioCache();
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +148,7 @@ class ConfirmButton extends StatelessWidget {
                   btnCancelColor: Colors.blue[900],
                 ).show();
                 await Future.delayed(const Duration(milliseconds: 600));
-                // Infomation.sound ? _audio.play('correct.mp3') : null;
+                Infomation.sound ? _audio.play('correct.mp3') : null;
               } else {
                 AwesomeDialog(
                   context: context,
@@ -181,7 +181,7 @@ class ConfirmButton extends StatelessWidget {
                   buttonsTextStyle: const TextStyle(fontFamily: "Noto Sans JP")
                 ).show();
                 await Future.delayed(const Duration(milliseconds: 700));
-                // Infomation.sound ? _audio.play('incorrect.mp3') : null;
+                Infomation.sound ? _audio.play('incorrect.mp3') : null;
               }
             },
             child: Text(
