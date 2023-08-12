@@ -198,34 +198,34 @@ class _PlaySudokuState extends State<PlaySudoku> {
                     ],
                   ),
                 ),
-                // InkWell(
-                //   onTap: () {
-                //     setState(() {
-                //       Infomation.sound = !Infomation.sound;
-                //     });
-                //     print(Infomation.sound);
-                //   },
-                //   child: ListTile(
-                //     title: Row(
-                //       children: [
-                //         SizedBox(
-                //           height: appbarSize,
-                //           child: Row(
-                //             children:[
-                //               Infomation.sound ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
-                //               // Infomation.sound ? Icons.volume_up : Icons.volume_off,
-                //               //余白
-                //               SizedBox(
-                //                 width: (screenSize.width) / 20,
-                //               ),
-                //               Infomation.sound ? const Text('音 ON') : const Text('音 OFF'),
-                //             ]
-                //           ),
-                //         ),
-                //       ]
-                //     ),
-                //   ),
-                // ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      Infomation.sound = !Infomation.sound;
+                    });
+                    print(Infomation.sound);
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SizedBox(
+                          height: appbarSize,
+                          child: Row(
+                            children:[
+                              Infomation.sound ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
+                              // Infomation.sound ? Icons.volume_up : Icons.volume_off,
+                              //余白
+                              SizedBox(
+                                width: (screenSize.width) / 20,
+                              ),
+                              Infomation.sound ? const Text('音 ON') : const Text('音 OFF'),
+                            ]
+                          ),
+                        ),
+                      ]
+                    ),
+                  ),
+                ),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -357,20 +357,20 @@ class _PlaySudokuState extends State<PlaySudoku> {
                 // アイコンボタン
                 ControlButton(
                   onBack: () {
-                    // Infomation.sound ? _audio.play('button3.mp3') : null;
+                    Infomation.sound ? _audio.play('button3.mp3') : null;
                     getHistory(setState);
                   },
                   
                   // 数字消すボタン
                   onTap: (int number) {
-                    // Infomation.sound ? _audio.play('button3.mp3') : null;
+                    Infomation.sound ? _audio.play('button3.mp3') : null;
                     deleteNumber(setState, number);
                   },
 
                   // メモボタン
                   onEdit: isEdit,
                   onPress: () {
-                    // Infomation.sound ? _audio.play('button3.mp3') : null;
+                    Infomation.sound ? _audio.play('button3.mp3') : null;
                     setState(() {
                       isEdit = !isEdit;
                     });
@@ -386,7 +386,7 @@ class _PlaySudokuState extends State<PlaySudoku> {
                 Numbers(
                   isPress: isEdit,
                   onTap: (int number) {
-                    // Infomation.sound ? _audio.play('button.mp3') : null;
+                    Infomation.sound ? _audio.play('button.mp3') : null;
                     controlNumber(setState, isEdit, number);
                   },
                 ),
