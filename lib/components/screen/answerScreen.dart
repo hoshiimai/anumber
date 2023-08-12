@@ -285,34 +285,34 @@ class _SudokuState extends State<AnswerScreen> {
                       ],
                     ),
                   ),
-                  // InkWell(
-                  //   onTap: () {
-                  //     setState(() {
-                  //       Infomation.sound = !Infomation.sound;
-                  //     });
-                  //     print(Infomation.sound);
-                  //   },
-                  //   child: ListTile(
-                  //     title: Row(
-                  //       children: [
-                  //         SizedBox(
-                  //           height: appbarSize,
-                  //           child: Row(
-                  //             children:[ 
-                  //               Infomation.sound ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
-                  //               // Infomation.sound ? Icons.volume_up : Icons.volume_off,
-                  //               //余白
-                  //               SizedBox(
-                  //                 width: (screenSize.width) / 20,
-                  //               ),
-                  //               Infomation.sound ? const Text('音 ON') : const Text('音 OFF'),
-                  //             ]
-                  //           ),
-                  //         ),
-                  //       ]
-                  //     ),
-                  //   ),
-                  // ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        Infomation.sound = !Infomation.sound;
+                      });
+                      print(Infomation.sound);
+                    },
+                    child: ListTile(
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            height: appbarSize,
+                            child: Row(
+                              children:[ 
+                                Infomation.sound ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
+                                // Infomation.sound ? Icons.volume_up : Icons.volume_off,
+                                //余白
+                                SizedBox(
+                                  width: (screenSize.width) / 20,
+                                ),
+                                Infomation.sound ? const Text('音 ON') : const Text('音 OFF'),
+                              ]
+                            ),
+                          ),
+                        ]
+                      ),
+                    ),
+                  ),
                   InkWell(
                       onTap: () {
                         setState(() {
@@ -446,7 +446,7 @@ class _SudokuState extends State<AnswerScreen> {
                     children: [
                       InkWell(
                         onTap: () async {
-                          // Infomation.sound ? _audio.play('button3.mp3') : null;
+                          Infomation.sound ? _audio.play('button3.mp3') : null;
                           if (count > 0) {
                             count -= 1;
                             await getAnswer();
@@ -471,7 +471,7 @@ class _SudokuState extends State<AnswerScreen> {
 
                       InkWell(
                         onTap: () async{
-                          // Infomation.sound ? _audio.play('button3.mp3') : null;
+                          Infomation.sound ? _audio.play('button3.mp3') : null;
                           count < Infomation.dataList.length -1 ? count += 1 : null;
                           await getAnswer();
 
