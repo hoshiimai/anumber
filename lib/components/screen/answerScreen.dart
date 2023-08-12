@@ -157,7 +157,7 @@ class _SudokuState extends State<AnswerScreen> {
                         color: AppColors.isText,
                       ),
                     leading: IconButton(
-                      icon: const Icon(LineIcons.angleLeft),
+                      icon: Icon(LineIcons.angleLeft, size: fontsize *0.7),
                       onPressed: () async {
                         Navigator.push(
                           context,
@@ -187,7 +187,7 @@ class _SudokuState extends State<AnswerScreen> {
               child: ListView(
                 children: <Widget>[
                   SizedBox(
-                    height: appbarSize * 0.83,
+                    height: appbarSize * 0.7,
                     child: DrawerHeader(
                       decoration: const BoxDecoration(),
                       padding: const EdgeInsets.all(0),
