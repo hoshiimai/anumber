@@ -143,7 +143,7 @@ class _SudokuState extends State<Sudoku> {
                           color: AppColors.isText,
                         ),
                       leading: IconButton(
-                        icon: const Icon(LineIcons.angleLeft),
+                        icon: Icon(LineIcons.angleLeft, size: fontsize *0.7),
                         onPressed: () async {
                           _database.insertDB(Infomation.id, DateFormat.ms().format(Stopwatch.time), Infomation.init, Infomation.zero, Infomation.tmp, Infomation.specifiedX, Infomation.specifiedY, Infomation.kotae, Infomation.level, Infomation.sound);
                           setState(() {
@@ -189,7 +189,7 @@ class _SudokuState extends State<Sudoku> {
                 child: ListView(
                   children: <Widget>[
                     SizedBox(
-                      height: appbarSize * 0.83,
+                      height: appbarSize * 0.7,
                       child: DrawerHeader(
                         decoration: const BoxDecoration(),
                         padding: const EdgeInsets.all(0),
