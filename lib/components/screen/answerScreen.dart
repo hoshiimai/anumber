@@ -9,6 +9,7 @@ OUT：ゲーム画面
 */
 import 'dart:async';
 
+import 'package:anumber/admobHelper.dart';
 import 'package:anumber/components/answer/grid_answer_CLB.dart';
 import 'package:anumber/components/answer/grid_answer_candidate.dart';
 import 'package:anumber/components/answer/grid_answer_candidate_paint.dart';
@@ -21,6 +22,7 @@ import 'package:anumber/infomation.dart';
 import 'package:anumber/makeQuestion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:line_icons/line_icons.dart';
 import '../../style/theme_controller.dart';
 import '../answer/answer.dart';
@@ -44,6 +46,7 @@ class _SudokuState extends State<AnswerScreen> {
   int count = 0;
   bool autoFlag = true;
   final _audio = AudioCache();
+  late BannerAd _bannerAd;
 
 
   @override
@@ -80,6 +83,7 @@ class _SudokuState extends State<AnswerScreen> {
       Infomation.paintList = [];
     });
     Answer.makeAnswerList(setState);
+    _bannerAd = AdmobHelper.getBannerAd()..load();
   }
 
   getAnswer() async{
@@ -601,10 +605,15 @@ class _SudokuState extends State<AnswerScreen> {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: 50.0, //バナー広告のサイズ 320×50 なので
-                    width: double.infinity,
-                    // child: AdWidget(ad: myBanner),
+                  // 余白
+                  SizedBox(
+                    height: (screenSize.width) / 15,
+                  ),
+
+                  Expanded(
+                    child: AdWidget(
+                      ad: _bannerAd,
+                    ),
                   ),
                 ],
               ),

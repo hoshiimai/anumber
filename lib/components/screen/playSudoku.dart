@@ -8,6 +8,7 @@ OUT：ゲーム画面
 ****************************************
 */
 import 'dart:async';
+import 'package:anumber/admobHelper.dart';
 import 'package:anumber/app.dart';
 import 'package:anumber/components/button/confirmButton.dart';
 import 'package:anumber/components/board/grid_candidate.dart';
@@ -22,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:anumber/components/board/grid.dart';
 import 'package:anumber/components/button/numbers.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 import '../button/controlNumber.dart';
@@ -45,10 +47,12 @@ class _PlaySudokuState extends State<PlaySudoku> {
   // 候補入力判断用フラグ
   bool isEdit = false;
   final _audio = AudioCache();
+  late BannerAd _bannerAd;
 
   @override
   void initState() {
     super.initState();
+    _bannerAd = AdmobHelper.getBannerAd()..load();
   }
 
 
@@ -400,10 +404,15 @@ class _PlaySudokuState extends State<PlaySudoku> {
                 // ConfirmButton(answer: Infomation.zero[Infomation.selectedY][Infomation.selectedX]),
 
 //----------------------------------------------------------------------------------------------------------------------------------------
-                const SizedBox(
-                  height: 50.0, //バナー広告のサイズ 320×50 なので
-                  width: double.infinity,
-                  // child: AdWidget(ad: myBanner),
+                                  // 余白
+                SizedBox(
+                  height: (screenSize.width) / 15,
+                ),
+
+                Expanded(
+                  child: AdWidget(
+                    ad: _bannerAd,
+                  ),
                 ),
               ],
             ),
@@ -434,7 +443,7 @@ class _PlaySudokuState extends State<PlaySudoku> {
                     });
                   },
               ) : null,
-            ),
+          ),
         ),
       ],
     );
