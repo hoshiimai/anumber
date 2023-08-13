@@ -14,6 +14,7 @@ import 'package:anumber/admobHelper.dart';
 import 'package:anumber/components/screen/answerScreen.dart';
 import 'package:anumber/components/screen/gameScreen.dart';
 import 'package:anumber/infomation.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -34,7 +35,7 @@ class _SudokuState extends State<Home> {
   bool isResume = false;
   String time = "00:00";
   String level = "";
-
+final _audio = AudioCache();
 
   @override
   void initState(){
@@ -140,6 +141,7 @@ class _SudokuState extends State<Home> {
                               style: TextStyle(color: Colors.blue[900], fontFamily: "Noto Sans JP")
                             ),
                             onPressed: () async{
+                               _audio.play('correct.mp3');
                               setState(() {
                                 Infomation.level = "初級";
                               });
